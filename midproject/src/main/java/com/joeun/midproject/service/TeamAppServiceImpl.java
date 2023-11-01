@@ -102,6 +102,18 @@ public class TeamAppServiceImpl implements TeamAppService{
 
     if(team.getRecStatus()==team.getCapacity()){
 
+      //공연성사테이블에 추가하는 로직을 구상해야합니다.
+      //Team객체에 필요한 속성을 2개 추가로 구성했습니다.
+      //crew의 경우, 해당 참여자들의 밴드명을 모두 찍어야합니다.
+
+      List<TeamApp> confirmedTeamAppList = teamAppMapper.listByConfirmed(tempTeam.getTeamNo());
+      String members = "";
+      for (TeamApp teamApp2 : confirmedTeamAppList) {
+        
+      }
+      
+
+
       deniedAllResult = teamAppMapper.deniedAll(teamApp);
 
     }
