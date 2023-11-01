@@ -5,6 +5,7 @@ import java.util.List;
 import com.joeun.midproject.dto.FacilityRental;
 
 // 대관서비스입니다.
+// 테스트
 public interface FacilityRentalService {
     // 게시글 목록
     public List<FacilityRental> list() throws Exception;
