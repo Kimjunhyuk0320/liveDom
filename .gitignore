@@ -37,6 +37,6 @@ replay_pid*
 build/
 ./build/
 
-# bean
-bean/
-./bean/
+# bin
+bin/
+./bin/
