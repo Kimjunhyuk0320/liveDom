@@ -19,12 +19,12 @@
         </div>
     </div>
     
-    <img th:each="facilityRental : ${facilityRentalList}">
-        <img src="" class="card-img-top" alt=""><a th:href="|/facilityRental/read?frNo=${facilityRental.frNo}|"></a></img>
-        <h5 class="card-title" th:text="${facilityRental.title}"></h5>
+    <div th:each="facilityRental : ${facilityList}" class="card" style="width: 18rem;">
+        <!-- <img src="" class="card-img-top" alt=""><a th:href="|/facilityRental/read?frNo=${facilityRental.frNo}|"></a></div> -->
+        <a href="|/facilityRental/read?frNo=${facilityRental.frNo}|"><h5 class="card-title" th:text="${facilityRental.title}"></h5></a>
         <p class="card-text" th:text="${facilityRental.updDate}"></p>
         <p class="card-text" th:text="${facilityRental.price}"></p>
-        <p class="card-text" th:text="${facilityRental.local}"></p>
+        <p class="card-text" th:text="${facilityRental.location}"></p>
     </div>
 </body>
 </html>
