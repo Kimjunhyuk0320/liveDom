@@ -15,12 +15,12 @@
     <img src="#" alt="">
 
     <form action="/facilityRental/대관(서브밋하면 가게될 대관서비스)" method="POST" id="form">
-        <input type="hidden" name="frNo" th:value="${facilityRental.frNo}">
+        <!-- <input type="hidden" name="frNo" th:value="${facilityRental.frNo}"> -->
         <table>
             <tr>
                 <td>글번호</td>
                 <td>
-                    <input type="text" name="frNo" th:value="${facilityRental.frNo}">
+                    <input type="text" name="frNo" id="frNo" th:value="${facilityRental.frNo}">
                 </td>
             </tr>
             <tr>
@@ -86,7 +86,7 @@
     </div> -->
 
     <script>
-
+        const frNo = $('#frNo').val()
         
         // 목록으로 이동
         function moveList() {
@@ -100,6 +100,7 @@
 
         // 수정으로 이동
         function actionUpdate() {
+            
             location.href = "/facilityRental/update?frNo=" + frNo    // form 태그의 action 속성을 변경
         }
 

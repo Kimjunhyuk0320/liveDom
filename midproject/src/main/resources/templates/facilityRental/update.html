@@ -10,8 +10,10 @@
 </head>
 <body layout:fragment="content">
     <h1>대관 게시글 수정</h1>
-    <form action="" method="POST" id="form">
-        <input type="hidden" name="frNo" th:value="${facilityRental.frNo}">
+    <form action="/facilityRental/update" method="POST" id="form">
+        <!-- csrf -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="hidden" name="frNo" th:value="${facilityRental.frNo}" id="frNo">
 
         <table>
             <tr>
@@ -83,25 +85,28 @@
                 </td>
             </tr>
         </table>
-
+        
+        <div>
+            <button type="button" onclick="moveList()">목록</button>
+            <button type="button" onclick="actionUpdate()">수정</button>
+        </div>
     </form>
     
-    <div>
-        <button>목록</button>
-        <button>수정</button>
-    </div>
 
     <script>
+        let form = document.getElementById('form')
+
+        let frNo = $('#frNo').val()
 
         
         // 목록으로 이동
         function moveList() {
-            location.href = ㅇ
+            location.href = "/facilityRental/list"
         }
 
         // 수정하기
         function actionUpdate() {
-            location.href = ㅇ
+            form.submit()
         }
 
  

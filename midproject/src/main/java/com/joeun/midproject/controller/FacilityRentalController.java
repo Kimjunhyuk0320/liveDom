@@ -16,6 +16,8 @@ import com.joeun.midproject.service.FacilityRentalService;
 import com.joeun.midproject.service.FileService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Slf4j
 @Controller
@@ -54,7 +56,7 @@ public class FacilityRentalController {
      * /facilityRental/read
      * - model : facilityRental, fileList
      * @param model
-     * @param facilityRentalNo
+     * @param frNo
      * @param files
      * @return
      * @throws Exception
@@ -115,6 +117,27 @@ public class FacilityRentalController {
     }
 
 
+     /**
+     * 게시글 수정
+     * [GET]
+     * /facilityRental/update
+     * model : facilityRental
+     * @param frNo
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @GetMapping(value="/update")
+    public String update(Model model, int frNo) throws Exception {
+        // 데이터 요청
+        FacilityRental facilityRental = facilityRentalService.select(frNo);
+        // 모델 등록
+        model.addAttribute("facilityRental", facilityRental);
+        // 뷰 페이지 지정
+        return "facilityRental/update";
+    }
+
+
     /**
      * 게시글 수정 처리
      * [POST]
@@ -124,14 +147,14 @@ public class FacilityRentalController {
      * @return
      * @throws Exception
      */
-    @GetMapping(value="/update")
+    @PostMapping(value="/update")
     public String updatePro(FacilityRental facilityRental) throws Exception {
         // 데이터 처리
         int result = facilityRentalService.update(facilityRental);
-        int facilityRentalNo = facilityRental.getFrNo();
+        int frNo = facilityRental.getFrNo();
 
         // 게시글 수정 실패 ➡ 게시글 수정 화면
-        if(result == 0) return "redirect:/facilityRental/update?facilityRentalNo=" + facilityRentalNo;
+        if(result == 0) return "redirect:/facilityRental/update?frNo=" + frNo;
 
         // 뷰 페이지 지정
         return "redirect:/facilityRental/list";
@@ -139,12 +162,12 @@ public class FacilityRentalController {
 
 
     @PostMapping
-    public String deletePro(int facilityRentalNo) throws Exception {
+    public String deletePro(int frNo) throws Exception {
         // 데이터 처리
-        int result = facilityRentalService.delete(facilityRentalNo);
+        int result = facilityRentalService.delete(frNo);
 
         // 게시글 삭제 실패 ➡ 게시글 수정 화면
-        if(result == 0) return "redirect:/facilityRental/update?facilityRentalNo=" + facilityRentalNo;
+        if(result == 0) return "redirect:/facilityRental/update?frNo=" + frNo;
 
         // 뷰 페이지 지정
         return "redirect:/facilityRental/list";
