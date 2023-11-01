@@ -36,3 +36,7 @@ replay_pid*
 # build
 build/
 ./build/
+
+# bin
+bin/
+./bin/
