@@ -7,16 +7,18 @@
 </head>
 <body>
     <h1>공연 게시글 목록</h1>
-
-    <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
+    
+    <div class="card" style="width: 18rem;" th:each="liveBoard : ${liveBoardList}">
+        <a th:href="|/liveBoard/read?boardNo=${liveBoard.boardNo}|">
+            <img src="..." class="card-img-top" alt="...">
+        </a>
         <div class="card-body">
-          <h5 class="card-title">공연 제목</h5>
-          <p class="card-text">공연진</p>
-          <p class="card-text">공연 장소</p>
-          <p class="card-text">공연 날짜</p>
-          <p class="card-text" style="background-color: red;">매진</p>                             <!-- 매진은 매진일 경우에만 나오도록 -->
-          <a href="#" class="btn btn-primary">자세히 보기</a>        <!-- 사진을 클릭했을 때 나오게 할 것인지 버튼으로 처리할 것인지 생각하기 -->
+          <h5 class="card-title"><a th:href="|/liveBoard/read?boardNo=${liveBoard.boardNo}|" th:text="${liveBoard.title}"></a></h5>
+          <p class="card-text" th:text="${liveBoard.crew}"></p>
+          <p class="card-text" th:text="${liveBoard.address}"></p>
+          <p class="card-text" th:text="${liveBoard.liveDate}"></p>
+
+          <p class="card-text" style="background-color: red;" th:if="${liveBoard.soldOut == '1'}">매진</p>                             <!-- 매진은 매진일 경우에만 나오도록 -->
         </div>
     </div>
     
