@@ -7,4 +7,106 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.joeun.midproject.mapper.TeamMapper">
 
 
+  <SELECT id="list" resultType="Team">
+    SELECT t.*
+    , COUNT(a.team_no) AS recStatus
+    FROM `team_recruitments` AS t
+    JOIN `team_applications`AS a
+    ON (t.team_no = a.team_no)
+    <!-- <if test="keyword!=null">
+    WHERE 
+    </if> -->
+    GROUP BY a.team_no
+  </SELECT>
+
+
+
+  <UPDATE id="addView">
+    UPDATE `team_recruitments` SET views = (views + 1) WHERE #{teamNo}
+  </UPDATE>
+
+  <SELECT id="read" resultType="Team">
+  
+    SELECT t.*
+    , COUNT(a.team_no) AS recStatus
+    FROM `team_recruitments` AS t
+    JOIN `team_applications`AS a
+    ON (t.team_no = a.team_no)
+    <!-- <if test="keyword!=null">
+    WHERE 
+    </if> -->
+    GROUP BY a.team_no
+    WHERE team_no = #{teamNo}
+
+  </SELECT>
+
+  <INSERT id="insert">
+    INSERT INTO `team_recruitments`
+    (title,
+    writer,
+    username,
+    content,
+    location,
+    address,
+    live_date,
+    live_st_time,
+    live_end_time,
+      price,
+      capacity,
+      account,
+      views,
+      confirmed,
+      upd_date)
+     VALUES
+      (#{title},
+      #{writer},
+      #{username},
+      #{content},
+      #{location},
+      #{address},
+      #{liveDate},
+      #{liveStTime},
+      #{liveEndTime},
+      #{price},
+      #{capacity},
+      #{account},
+      0,
+      #{0},
+      now())
+
+  </INSERT>
+
+  <UPDATE id="update">
+
+    UPDATE `team_recruitments`
+     SET
+     title = #{title},
+      writer = #{writer},
+       content = #{content},
+        location = #{location},
+        address = #{address},
+         live_date = #{liveDate},
+          live_st_time = #{liveStTime},
+          live_end_time = #{liveEndTime},
+           price = #{price},
+            capacity = #{capacity},
+             account = #{account},
+              upd_date = now()
+              WHERE
+              team_no =#{teamNo}
+
+  </UPDATE>
+
+  <DELETE id = "delete">
+
+    DELETE FROM `team_recruitments`
+    <if test="recStatus == 0 || recStatus ==null">
+    WHERE team_no = #{teamNo}
+    </if>
+    <if test="recStatus != 0">
+    WHERE 1<>1
+    </if>
+
+  </DELETE>
+
 </mapper>

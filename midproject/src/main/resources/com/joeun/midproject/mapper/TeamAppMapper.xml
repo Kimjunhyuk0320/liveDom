@@ -7,5 +7,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.joeun.midproject.mapper.TeamAppMapper">
 
 
+  <SELECT id="listByLider" resultType="TeamApp">
+
+    SELECT a.* FROM `team_applications` AS a JOIN `team_recruitments` AS t ON(a.team_no = t.team_no) WHERE t.username = #{username}
+
+  </SELECT>
+
+  <SELECT id="listByMember" resultType="TeamApp">
+    
+    SELECT * FROM `team_applications` WHERE username = #{username}
+
+  </SELECT>
+
+  <SELECT id="read" resultType="TeamApp">
+  
+    SELECT * FROM `team_applications` WHERE app_no = #{appNo}
+
+  </SELECT>
+
+  <INSERT id="insert">
+    INSERT INTO `team_applications` 
+    (team_no,
+    title,
+    phone,
+    username,
+    band_name,
+    content,
+    upd_date,
+    approval_status,
+    deposit_status) VALUES (#{teamNo},#{title},#{phone},#{username},#{bandName},#{content},now(),0,0)
+
+  </INSERT>
+
+  <UPDATE id="accept">
+
+  UPDATE `team_applications` SET approval_status = 1 WHERE app_no = #{appNo}
+
+  </UPDATE>
+
+  <UPDATE id="denied">
+  
+  UPDATE `team_applications` SET approval_status = 2 WHERE app_no = #{appNo}
+  
+  
+  </UPDATE>
+
+  <UPDATE id="confirmed">
+  
+  UPDATE `team_applications` SET deposit_status = 1 WHERE app_no = #{appNo}
+  
+  </UPDATE>
+  
+  <UPDATE id="deniedAll">
+
+  UPDATE `team_applications` SET approval_status = 2 WHERE deposit_status <> 1 AND team_no = #{teamNo}
+  
+  
+  </UPDATE>
+
 
 </mapper>

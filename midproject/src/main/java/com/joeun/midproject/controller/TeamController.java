@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.joeun.midproject.dto.Team;
 import com.joeun.midproject.dto.TeamApp;
 import com.joeun.midproject.mapper.TeamMapper;
+import com.joeun.midproject.service.TeamAppService;
 import com.joeun.midproject.service.TeamService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,9 @@ public class TeamController {
 
   @Autowired
   private TeamService teamService;
+
+  @Autowired
+  private TeamAppService teamAppService;
 
   @Autowired
   private TeamMapper teamMapper;
@@ -140,6 +144,27 @@ public class TeamController {
   }
   
   
+  @PostMapping(value="/app/denied")
+  public void deniedPro(TeamApp teamApp) {
+   
+      int result = teamAppService.denied(teamApp);
+
+      //페이지 갱신이 필요합니다.
+      //갱신된 리스트를 다시 조회하여 반환해야합니다.
+      //추후 비동기 방식으로 수정 예정입니다.
+
+  }
+
+  @PostMapping(value="/app/confirmed")
+  public void confirmedPro(TeamApp teamApp) {
+   
+      int result = teamAppService.confirmed(teamApp);
+
+      //페이지 갱신이 필요합니다.
+      //갱신된 리스트를 다시 조회하여 반환해야합니다.
+      //추후 비동기 방식으로 수정 예정입니다.
+
+  }
   
   
   
