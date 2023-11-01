@@ -24,7 +24,12 @@ public class Team {
   private int confirmed;
   private Date updDate;
 
+
   //현재모집인원
   private int recStatus;
+
+  //성사공연속성
+  private String crew;
+  private Date confirmedDate;
   
 }

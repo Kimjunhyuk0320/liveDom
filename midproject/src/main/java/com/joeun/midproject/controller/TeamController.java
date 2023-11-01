@@ -190,6 +190,17 @@ public class TeamController {
       return "myPage/myPageForBand/my_registration_list";
 
   }
+
+  @GetMapping(value="/user/listByConfirmedLive")
+  public String listByConfirmedLive(Principal principal,Model model) {
+
+    String username = principal.getName();
+
+    model.addAttribute("confirmedTeamList", teamService.listByConfirmedLive(username));
+
+      return "myPage/myPageForBand/completed_performances_list";
+  }
+  
   
   
   

@@ -7,25 +7,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.joeun.midproject.mapper.TeamAppMapper">
 
 
-  <SELECT id="listByLeader" resultType="TeamApp">
+  <select id="listByLeader" resultType="TeamApp">
 
     SELECT a.* FROM `team_applications` AS a JOIN `team_recruitments` AS t ON(a.team_no = t.team_no) WHERE t.username = #{username}
 
-  </SELECT>
+  </select>
 
-  <SELECT id="listByMember" resultType="TeamApp">
+  <select id="listByMember" resultType="TeamApp">
     
     SELECT * FROM `team_applications` WHERE username = #{username}
 
-  </SELECT>
+  </select>
 
-  <SELECT id="read" resultType="TeamApp">
+  <select id="read" resultType="TeamApp">
   
     SELECT * FROM `team_applications` WHERE app_no = #{appNo}
 
-  </SELECT>
+  </select>
 
-  <INSERT id="insert">
+  <insert id="insert">
     INSERT INTO `team_applications` 
     (team_no,
     title,
@@ -37,33 +37,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     approval_status,
     deposit_status) VALUES (#{teamNo},#{title},#{phone},#{username},#{bandName},#{content},now(),0,0)
 
-  </INSERT>
+  </insert>
 
-  <UPDATE id="accept">
+  <update id="accept">
 
   UPDATE `team_applications` SET approval_status = 1 WHERE app_no = #{appNo}
 
-  </UPDATE>
+  </update>
 
-  <UPDATE id="denied">
+  <update id="denied">
   
   UPDATE `team_applications` SET approval_status = 2 WHERE app_no = #{appNo}
   
   
-  </UPDATE>
+  </update>
 
-  <UPDATE id="confirmed">
+  <update id="confirmed">
   
   UPDATE `team_applications` SET deposit_status = 1 WHERE app_no = #{appNo}
   
-  </UPDATE>
+  </update>
   
-  <UPDATE id="deniedAll">
+  <update id="deniedAll">
 
-  UPDATE `team_applications` SET approval_status = 2 WHERE deposit_status <> 1 AND team_no = #{teamNo}
+  UPDATE `team_applications` SET approval_status = 2 WHERE deposit_status
+   <![CDATA[ < ]]> <![CDATA[ > ]]> 1 AND team_no = #{teamNo}
   
   
-  </UPDATE>
+  </update>
 
 
 </mapper>

@@ -20,4 +20,6 @@ public interface TeamMapper {
   public Team read(Team team);  
 
   public int addView(Team team);
+
+  public List<Team> listByConfirmedLive(String username);
 }

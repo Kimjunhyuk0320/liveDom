@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/user/layout/main_layout}"
+      >
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공연팀 모집</title>
+    <title>공연팀 모집 조회</title>
 </head>
-<body>
+<body layout:fragment="content">
     <h1>공연팀 모집</h1>
-        <input type="hidden" name="boardNo" th:value="${board.boardNo}">
 
-    <h2>공연 제목에 대한 부분이 나옵니다.</h2>
+    <h2 th:text="${team.title}"></h2>
 
     <table>
         <tr>

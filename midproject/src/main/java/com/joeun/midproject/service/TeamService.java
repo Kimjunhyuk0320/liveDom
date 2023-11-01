@@ -18,4 +18,6 @@ public interface TeamService {
   public int delete(Team team);
 
   public Team read(Team team);  
+
+  public List<Team> listByConfirmedLive(String username);
 }

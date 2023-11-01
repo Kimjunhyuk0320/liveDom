@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
+<!DOCTYPE mapper 
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
@@ -7,40 +7,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.joeun.midproject.mapper.TeamMapper">
 
 
-  <SELECT id="list" resultType="Team">
-    SELECT t.*
-    , COUNT(a.team_no) AS recStatus
+  <select id="list" resultType="Team">
+      SELECT t.*
+    , COUNT(a.team_no) AS rec_status
     FROM `team_recruitments` AS t
     JOIN `team_applications`AS a
     ON (t.team_no = a.team_no)
-    <!-- <if test="keyword!=null">
-    WHERE 
-    </if> -->
     GROUP BY a.team_no
-  </SELECT>
+  </select>
 
 
 
-  <UPDATE id="addView">
+  <update id="addView">
     UPDATE `team_recruitments` SET views = (views + 1) WHERE #{teamNo}
-  </UPDATE>
+  </update>
 
-  <SELECT id="read" resultType="Team">
+  <select id="read" resultType="Team">
   
     SELECT t.*
     , COUNT(a.team_no) AS recStatus
     FROM `team_recruitments` AS t
     JOIN `team_applications`AS a
     ON (t.team_no = a.team_no)
-    <!-- <if test="keyword!=null">
-    WHERE 
-    </if> -->
     GROUP BY a.team_no
     WHERE team_no = #{teamNo}
 
-  </SELECT>
+  </select>
 
-  <INSERT id="insert">
+  <insert id="insert">
     INSERT INTO `team_recruitments`
     (title,
     writer,
@@ -74,9 +68,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       #{0},
       now())
 
-  </INSERT>
+  </insert>
 
-  <UPDATE id="update">
+  <update id="update">
 
     UPDATE `team_recruitments`
      SET
@@ -95,18 +89,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
               WHERE
               team_no =#{teamNo}
 
-  </UPDATE>
+  </update>
 
-  <DELETE id = "delete">
+  <delete id = "delete">
 
     DELETE FROM `team_recruitments`
     <if test="recStatus == 0 || recStatus ==null">
     WHERE team_no = #{teamNo}
     </if>
     <if test="recStatus != 0">
-    WHERE 1<>1
+    WHERE 1<![CDATA[ <> ]]>1
     </if>
 
-  </DELETE>
+    </delete>
+
+  <select id="listByConfirmedLive" resultType="Team">
+  
+  SELECT t.*, c.crew AS crew, c.upd_date AS upd_date
+   FROM `team_recruitments` AS t
+   JOIN `confirmed_live` AS c
+   ON (t.team_no = c.team_no)
+   WHERE t.username = #{username}
+
+  </select>
 
 </mapper>

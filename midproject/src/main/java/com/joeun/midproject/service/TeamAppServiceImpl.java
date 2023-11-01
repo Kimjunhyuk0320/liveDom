@@ -3,12 +3,14 @@ package com.joeun.midproject.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.joeun.midproject.dto.Team;
 import com.joeun.midproject.dto.TeamApp;
 import com.joeun.midproject.mapper.TeamAppMapper;
 import com.joeun.midproject.mapper.TeamMapper;
 
+@Service
 public class TeamAppServiceImpl implements TeamAppService{
 
   
