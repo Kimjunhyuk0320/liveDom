@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>성사된 공연 내역</title>
+</head>
+<body>
+    <h2>My Page</h2>
+    <h1>성사된 공연 내역</h1>
+
+    <!--  
+    <a href="/board/insert">글쓰기</a>
+    -->
+
+    <table border="1">
+        <tr>
+            <th width="50">번호</th>        <!-- 여기에 있는 번호는 순서를 나타냅니다. -->
+            <th width="300">제목</th>
+            <th width="100">작성자</th>
+            <th width="150">회원 아이디</th>
+            <th width="150">공연진</th>
+            <th width="100">지역</th>
+            <th width="100">공연일자</th>
+            <th width="100">성사 일자</th>
+        </tr>
+
+        <tr th:each="a : ${ x }">
+            <td align="center" th:text="${a.x}"></td>
+            <td>
+                <!-- th:???="|문자열+${표현식}|" -->
+                <a th:href="|/a/read?aNo=${a.x}|" th:text="${a.x}"></a>
+            </td>
+            <td align="center" th:text="${a.x}"></td>
+            </td>
+            <td align="center" th:text="${a.x}"></td>
+            </td>
+            <td align="center" th:text="${a.x}"></td>
+
+            <td align="center">
+                <span th:text="${ #dates.format( a.regDate, 'yyyy-MM-dd HH:mm:ss') }"></span>
+            </td>
+            <td align="center">
+                <span th:text="${ #dates.format( a.updDate, 'yyyy-MM-dd HH:mm:ss') }"></span>
+            </td>
+            <td align="center" th:text="${a.x}"></td>
+        </tr>
+    </table>
+
+</body>
+</html>
