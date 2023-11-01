@@ -37,7 +37,7 @@ public class FacilityRentalController {
      */
     @GetMapping(value="/list")
     public String list(Model model) throws Exception {
-        log.info("[GET] - /board/list");
+        log.info("[GET] - /facilityRental/list");
 
         // 데이터 요청
         List<FacilityRental> facilityList = facilityRentalService.list();
@@ -60,14 +60,14 @@ public class FacilityRentalController {
      * @throws Exception
      */
     @GetMapping(value="/read")
-    public String read(Model model, int facilityRentalNo, Files files) throws Exception {
-        log.info("[GET] - /board/read");
+    public String read(Model model, int frNo, Files files) throws Exception {
+        log.info("[GET] - /failityRental/read");
 
         // 데이터 요청
-        FacilityRental facilityRental = facilityRentalService.select(facilityRentalNo);     // 게시글 정보
+        FacilityRental facilityRental = facilityRentalService.select(frNo);     // 게시글 정보
 
         files.setParentTable("facilityRental");
-        files.setParentNo(facilityRentalNo);
+        files.setParentNo(frNo);
         List<Files> fileList = fileService.listByParent(files); // 파일 정보
 
         // 모델 등록

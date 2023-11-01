@@ -23,12 +23,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 게시글 등록 -->
     <insert id="insert">
         INSERT INTO facility_rental(title, writer, username, content, price, location, address, live_date, phone, account )
-        VALUES (#{title}, #{writer}, #{username}, #{content}, #{price}, #{location}, #{address}, #{live_date}, #{phone}, #{account})
+        VALUES (#{title}, #{writer}, #{username}, #{content}, #{price}, #{location}, #{address}, #{liveDate}, #{phone}, #{account})
     </insert>
 
     <!-- 게시글 수정 -->
     <update id="update">
-        UPDATE board
+        UPDATE facility_rental
            SET title = #{title}
               ,content = #{content}
               ,price = #{price}
@@ -41,12 +41,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 게시글 삭제 -->
     <delete id="delete">
-        DELETE FROM board
-        WHERE board_no = #{boardNo}
+        DELETE FROM facility_rental
+        WHERE fr_no = #{frNo}
     </delete>
 
     <!-- 게시글 번호 최대값 -->
-    <select id="maxPK" resultType="int">
+    <select id="maxPk" resultType="int">
         SELECT MAX(fr_no)
         FROM facility_rental
     </select>

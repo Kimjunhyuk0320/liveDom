@@ -12,15 +12,14 @@ public class FacilityRental {
     private int frNo;
     private String title;
     private String writer;
-    private String userName;
+    private String username;
     private String content;
     private int price;
     private String location;
     private String address;
-    private String laveDate;
+    private String liveDate;
     private Date updDate;
     private String phone;
-    private String thembnail;
     private String account;
     private int views;
     private String buyUsername;

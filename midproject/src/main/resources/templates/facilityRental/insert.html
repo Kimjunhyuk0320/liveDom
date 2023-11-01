@@ -1,49 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/user/layout/main_layout}"
+      >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>대관 게시글 작성</title>
 </head>
-<body>
+<body layout:fragment="content">
     <h1>대관 게시글 작성</h1>
-    <form action="" method="POST" id="form">
-        <input type="hidden" name="" th:value="${}">
-
+    <form action="/facilityRental/insert" method="POST" id="form" enctype="multipart/form-data">
+        <!-- csrf -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="hidden" name="writer" value="hoony">
+        <input type="hidden" name="username" value="jh">
         <table>
             <tr>
                 <td>제목
-                    <input type="text">
+                    <input type="text" name="title" th:value="${facilityRental.title}">
                 </td>
             </tr>
             <tr>
                 <td>가격</td>
                 <td>
-                    <input type="text">
+                    <input type="text" name="price" th:value="${facilityRental.price}">
                 </td>
             </tr>
             <tr>
                 <td>대관일자</td>
                 <td>
-                    <input type="text">
+                    <input type="text" name="liveDate" th:value="${facilityRental.liveDate}">
                 </td>
             </tr>
             <tr>
                 <td>계좌번호</td>
                 <td>
-                    <input type="text">
+                    <input type="text" name="account" th:value="${facilityRental.account}">
+                </td>
+            </tr>
+            <tr>
+                <td>연락처</td>
+                <td>
+                    <input type="text" name="phone" th:value="${facilityRental.phone}">
                 </td>
             </tr>
             <tr>
                 <td>지역</td>
                 <td>
-                    <input type="text">
+                    <select name="location" th:value="${facilityRental.location}">
+                        <option value="경기">경기</option>
+                        <option value="서울">서울</option>
+                        <option value="부산">부산</option>
+                        <option value="경남">경남</option>
+                        <option value="인천">인천</option>
+                        <option value="경북">경북</option>
+                        <option value="대구">대구</option>
+                        <option value="충남">충남</option>
+                        <option value="전남">전남</option>
+                        <option value="전북">전북</option>
+                        <option value="충북">충북</option>
+                        <option value="강원">강원</option>
+                        <option value="대전">대전</option>
+                        <option value="광주">광주</option>
+                        <option value="울산">울산</option>
+                        <option value="제주">제주</option>
+                        <option value="세종">세종</option>
+                    </select>
                 </td>
             </tr>
             <tr>
                 <td>장소</td>
                 <td>
-                    <input type="text">
+                    <input type="text" name="address" th:value="${facilityRental.address}">
                 </td>
             </tr>
 
@@ -51,14 +80,20 @@
             <tr>
                 <td>게시글 적성 에디터</td>
                 <td>
-                    <textarea type="text"></textarea>
+                    <textarea type="text" name="content" th:value="${facilityRental.content}"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>구매유저(not null이라 적으세요)</td>
+                <td>
+                    <input type="text" name="buyUsername" th:value="${facilityRental.buyUsername}">
                 </td>
             </tr>
             <!-- 이미지 추가에 대한 것 -->
             <tr>
                 <td>이미지 추가</td>
                 <td>
-                    이미지 추가하는 부분이 올 것
+                    <input type="file" name="file" multiple>
                 </td>
             </tr>
         </table>
@@ -66,8 +101,8 @@
     </form>
     
     <div>
-        <button>목록</button>
-        <button>등록</button>
+        <button type="button" onclick="moveList()">목록</button>
+        <button type="button" onclick="actionInsert()">등록</button>
     </div>
 
     <script>
@@ -75,12 +110,12 @@
         
         // 목록으로 이동
         function moveList() {
-            location.href = ㅇ
+            location.href = "/facilityRental/list"
         }
 
         // 등록하기
         function actionInsert() {
-            location.href = ㅇ
+            form.submit()
         }
 
  
