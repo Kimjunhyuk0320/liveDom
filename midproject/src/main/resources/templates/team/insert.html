@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공연 팀 모집 게시글 작성</title>
+</head>
+<body>
+    <h1>공연 팀 모집 게시글 작성</h1>
+    <form action="/board/delete" method="POST" id="form">
+        <input type="hidden" name="boardNo" th:value="${board.boardNo}">
+
+        <table>
+            <tr>
+                <td>제목
+                    <input type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>모집팀 수</td>
+                <td>
+                    <input type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>공연일자</td>
+                <td>
+                    <input type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>공연 시간</td>
+                <td>
+                    <input type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>지역</td>
+                <td>
+                    <input type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>계좌번호</td>
+                <td>
+                    <input type="text">
+                </td>
+            </tr>
+            <!-- 글 작성 에디터 -->
+            <tr>
+                <td>게시글 적성 에디터</td>
+                <td>
+                    <textarea type="text"></textarea>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+    
+    <div>
+        <button>목록</button>
+        <button>등록</button>
+    </div>
+
+    <script>
+
+        
+        // 목록으로 이동
+        function moveList() {
+            location.href = ㅇ
+        }
+
+        // 등록하기
+        function actionInsert() {
+            location.href = ㅇ
+        }
+
+ 
+    </script>
+</body>
+</html>

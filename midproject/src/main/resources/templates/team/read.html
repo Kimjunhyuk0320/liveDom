@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공연팀 모집</title>
+</head>
+<body>
+    <h1>공연팀 모집</h1>
+        <input type="hidden" name="boardNo" th:value="${board.boardNo}">
+
+    <h2>공연 제목에 대한 부분이 나옵니다.</h2>
+
+    <table>
+        <tr>
+            <td>모집 팀 수</td>
+            <td>
+                4팀
+            </td>
+        </tr>
+        <tr>
+            <td>공연일자</td>
+            <td>
+                2023-11-23
+            </td>
+        </tr>
+        <tr>
+            <td>공연시간</td>
+            <td>
+                PM 18:00 ~ PM 22:00
+            </td>
+        </tr>
+        <tr>
+            <td>지역</td>
+            <td>
+                서울
+            </td>
+        </tr>
+        <tr>
+            <td>장소</td>
+            <td>
+                성수역 뮤직스페이스
+            </td>
+        </tr>
+        <tr>
+            <td>팀 모집 현황</td>
+            <td>
+                1 / N
+            </td>
+        </tr>
+        <tr>
+            <td>잔여티켓</td>
+            <td>
+                134장
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        <button type="button" onclick="moveList()">목록</button>
+        <button type="button" onclick="moveUpdate()">신청</button>
+    </div>
+
+    <div style="background-color: darkgrey; width: 500px; height: 800px;">
+        <p>
+            밴드를 구한다는 글과 상세정보가 들어옵니다.<br>
+            밴드를 구한다는 글과 상세정보가 들어옵니다.<br>
+            밴드를 구한다는 글과 상세정보가 들어옵니다.<br>
+            밴드를 구한다는 글과 상세정보가 들어옵니다.<br>
+            밴드를 구한다는 글과 상세정보가 들어옵니다.<br>
+            밴드를 구한다는 글과 상세정보가 들어옵니다.<br>
+            밴드를 구한다는 글과 상세정보가 들어옵니다.<br>
+            밴드를 구한다는 글과 상세정보가 들어옵니다.<br>
+            밴드를 구한다는 글과 상세정보가 들어옵니다.<br>
+            밴드를 구한다는 글과 상세정보가 들어옵니다.<br>
+            밴드를 구한다는 글과 상세정보가 들어옵니다.<br>
+            밴드를 구한다는 글과 상세정보가 들어옵니다.<br>
+        </p>
+    </div>
+    
+    <script>
+        
+        // 목록으로 이동
+        function moveList() {
+            location.href = "#"
+        }
+
+        // 신청으로 이동
+        function moveApplication() {
+            location.href = "#"
+        }
+
+    </script>
+</body>
+</html>
