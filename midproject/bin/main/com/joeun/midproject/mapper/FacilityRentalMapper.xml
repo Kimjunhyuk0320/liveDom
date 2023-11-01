@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="list" resultType="FacilityRental">
         SELECT *
         FROM facility_rental
-        ORDER BY reg_date
+        ORDER BY upd_date
     </select>
 
     <!-- 게시글 조회 -->
@@ -22,8 +22,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 게시글 등록 -->
     <insert id="insert">
-        INSERT INTO facility_rental(title, writer, username, content, price, location, address, live_date, phone, thumbnail, account )
-        VALUES (#{title}, #{writer}, #{username}, #{content}, #{price}, #{location}, #{address}, #{live_date}, #{phone}, #{thumbnail}, #{account})
+        INSERT INTO facility_rental(title, writer, username, content, price, location, address, live_date, phone, account )
+        VALUES (#{title}, #{writer}, #{username}, #{content}, #{price}, #{location}, #{address}, #{live_date}, #{phone}, #{account})
     </insert>
 
     <!-- 게시글 수정 -->
@@ -35,7 +35,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
               ,location = #{location}
               ,address = #{address}
               ,live_date = #{liveDate}
-              ,thumbnail = #{thumbnail}
               ,account = #{account}
         WHERE fr_no = #{frNo}
     </update>
