@@ -29,9 +29,9 @@ public class TeamAppServiceImpl implements TeamAppService{
   }
 
   @Override
-  public List<TeamApp> listByLider(TeamApp teamApp) {
+  public List<TeamApp> listByLeader(TeamApp teamApp) {
 
-    List<TeamApp> listByLider = teamAppMapper.listByLider(teamApp);
+    List<TeamApp> listByLider = teamAppMapper.listByLeader(teamApp);
 
     return listByLider;
 

@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.joeun.midproject.mapper.TeamAppMapper">
 
 
-  <SELECT id="listByLider" resultType="TeamApp">
+  <SELECT id="listByLeader" resultType="TeamApp">
 
     SELECT a.* FROM `team_applications` AS a JOIN `team_recruitments` AS t ON(a.team_no = t.team_no) WHERE t.username = #{username}
 

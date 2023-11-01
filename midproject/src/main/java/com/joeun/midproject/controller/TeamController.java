@@ -1,5 +1,6 @@
 package com.joeun.midproject.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,21 +132,22 @@ public class TeamController {
   @PostMapping(value="/app")
   public String applicationPro(TeamApp teamApp) {
 
-    
+    int result = teamAppService.insert(teamApp);
       
-      return "user/mypage/reqApp";
+      return "myPage/myPageForBand/my_registration_list";
   }
 
   @PostMapping(value="/app/accept")
-  public void acceptPro(TeamApp teamApp) {
+  public String acceptPro(TeamApp teamApp) {
    
+    int result = teamAppService.accept(teamApp);
       
-
+    return "myPage/myPageForBand/team_registrations_list";
   }
   
   
   @PostMapping(value="/app/denied")
-  public void deniedPro(TeamApp teamApp) {
+  public String deniedPro(TeamApp teamApp) {
    
       int result = teamAppService.denied(teamApp);
 
@@ -153,16 +155,39 @@ public class TeamController {
       //갱신된 리스트를 다시 조회하여 반환해야합니다.
       //추후 비동기 방식으로 수정 예정입니다.
 
+      return "myPage/myPageForBand/team_registrations_list";
   }
 
   @PostMapping(value="/app/confirmed")
-  public void confirmedPro(TeamApp teamApp) {
+  public String confirmedPro(TeamApp teamApp) {
    
       int result = teamAppService.confirmed(teamApp);
 
       //페이지 갱신이 필요합니다.
       //갱신된 리스트를 다시 조회하여 반환해야합니다.
       //추후 비동기 방식으로 수정 예정입니다.
+
+    return "myPage/myPageForBand/team_registrations_list";
+
+  }
+
+  @GetMapping(value="/user/listByLeader")
+  public String listByLider(Model model, TeamApp teamApp,Principal principal) {
+
+    teamApp.setUsername(principal.getName());
+    model.addAttribute("resTeamAppList", teamAppService.listByLeader(teamApp));
+
+      return "myPage/myPageForBand/team_registrations_list";
+      
+  }
+
+
+  @GetMapping(value="/user/listByMember")
+  public String listByMember(Model model, TeamApp teamApp, Principal principal) {
+    teamApp.setUsername(principal.getName());
+    model.addAttribute("resTeamAppList", teamAppService.listByMember(teamApp));
+
+      return "myPage/myPageForBand/my_registration_list";
 
   }
   

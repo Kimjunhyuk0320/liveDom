@@ -12,7 +12,7 @@ public interface TeamAppMapper {
   
   public int insert(TeamApp teamApp);
   
-  public List<TeamApp> listByLider(TeamApp teamApp);
+  public List<TeamApp> listByLeader(TeamApp teamApp);
 
   public List<TeamApp> listByMember(TeamApp teamApp);
 

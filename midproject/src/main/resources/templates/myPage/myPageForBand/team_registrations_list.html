@@ -27,18 +27,41 @@
             <th width="80">거절</th>
         </tr>
 
-        <tr>
-            <td>1</td>
-            <td>test</td>
-            <td>test</td>
-            <td>test</td>
-            <td>test</td>
-            <td>test</td>
-            <td>test</td>
-            <td>test</td>
-            <td>test</td>
-            <td>test</td>
-        </tr>
+        <th:block th:each="resTeam : ${resTeamAppList}">
+      <tr>
+
+        <td th:text="${resTeam.appNo}"></td>
+        <td th:text="${resTeam.title}"></td>
+        <td th:text="${resTeam.phone}"></td>
+        <td th:text="${resTeam.updDate}"></td>
+        <td th:text="${resTeam.username}"></td>
+        <td th:text="${resTeam.approvalStatus}"></td>
+        <td th:text="${resTeam.depositStatus}"></td>
+
+        
+        <td><form action="/team/app/confirmed" method="POST">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+          <input type="hidden" name="appNo" th:value="${resTeam.appNo}">
+          <input type="hidden" name="teamNo" th:value="${resTeam.teamNo}">
+          <input type="submit" th:if="${resTeam.approvalStatus==1&& resTeam.depositStatus==0}" value="입금확인"></input>
+        </form></td>
+        <td><form action="/team/app/accept" method="POST">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+          <input type="hidden" th:name="appNo" th:value="${resTeam.appNo}">
+          <input type="submit" th:if="${resTeam.approvalStatus==0}" valeu="참가승인"></input>
+        </form></td>
+        <td>
+          <form action="/team/app/denied" method="POST">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input type="hidden" name="appNo" th:value="resTeam.appNo">
+            <input type="submit" th:if="${resTeam.approvalStatus==0}" valeu="참가거절"></input>
+          </form></td>
+
+      </tr>
+
+
+
+    </th:block>
     </table>
 </body>
 </html>
