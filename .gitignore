@@ -33,3 +33,10 @@ replay_pid*
 ./.gradle/
   
   
+# build
+build/
+./build/
+
+# bean
+bean/
+./bean/
