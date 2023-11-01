@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <th:block th:replace="~{UI/user/fragment/link::link}"></th:block>
+</head>
+<body>
+    <!-- <th:block th:replace="~{프래그먼트경로::프로그래먼트명}"></th:block> -->
+
+    <!-- header -->
+    <th:block th:replace="~{UI/user/fragment/header::header}"></th:block>
+
+    <!-- content -->
+    <th:block layout:fragment="content"></th:block>
+    
+    <!-- footer -->
+    <th:block th:replace="~{UI/user/fragment/footer::footer}"></th:block>
+    
+    <!-- JS -->
+    <th:block th:replace="~{UI/user/fragment/script::script}"></th:block>
+
+</body>
+</html>
