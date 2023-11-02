@@ -15,6 +15,8 @@
     <img src="#" alt="">
 
     <form action="/facilityRental/대관(서브밋하면 가게될 대관서비스)" method="POST" id="form">
+        <!-- csrf -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <!-- <input type="hidden" name="frNo" th:value="${facilityRental.frNo}"> -->
         <table>
             <tr>
@@ -108,6 +110,7 @@
         function actionDelete() {
             let check = confirm('정말로 삭제하시겠습니까?')
             if(check){
+                form.action = '/facilityRental/delete'      // form 태그의 action 속성을 변경
                 form.submit()
             }
         }

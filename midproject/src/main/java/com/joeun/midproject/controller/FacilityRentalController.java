@@ -161,7 +161,16 @@ public class FacilityRentalController {
     }
 
 
-    @PostMapping
+    /**
+     * 게시글 삭제 처리
+     * [POST]
+     * /facilityRental/delete
+     * model : ❌
+     * @param frNo
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/delete")
     public String deletePro(int frNo) throws Exception {
         // 데이터 처리
         int result = facilityRentalService.delete(frNo);
