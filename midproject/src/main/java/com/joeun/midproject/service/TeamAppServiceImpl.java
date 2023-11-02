@@ -13,8 +13,6 @@ import com.joeun.midproject.mapper.TeamMapper;
 @Service
 public class TeamAppServiceImpl implements TeamAppService{
 
-  
-
   @Autowired
   private TeamAppMapper teamAppMapper;
 
@@ -106,10 +104,18 @@ public class TeamAppServiceImpl implements TeamAppService{
       //Team객체에 필요한 속성을 2개 추가로 구성했습니다.
       //crew의 경우, 해당 참여자들의 밴드명을 모두 찍어야합니다.
 
-      List<TeamApp> confirmedTeamAppList = teamAppMapper.listByConfirmed(tempTeam.getTeamNo());
+      List<TeamApp> confirmedTeamAppList = teamAppMapper.listByTeamNo(tempTeam.getTeamNo());
       String members = "";
-      for (TeamApp teamApp2 : confirmedTeamAppList) {
-        
+      for(int i = 0; i<confirmedTeamAppList.size();i++){
+        if(i<confirmedTeamAppList.size()-1){
+          members += (confirmedTeamAppList.get(i).getBand_name() + ", ");
+        }else{
+          members += confirmedTeamAppList.get(i).getBand_name();
+
+        }
+
+        teamAppMapper.insertLive(tempTeam.getTeamNo(),members);
+
       }
       
 

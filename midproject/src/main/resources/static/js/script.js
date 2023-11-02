@@ -1,1 +1,1 @@
-alert('Hello thymeleaf~!')
+// alert('Hello thymeleaf~!')

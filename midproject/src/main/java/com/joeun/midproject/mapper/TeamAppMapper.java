@@ -26,4 +26,10 @@ public interface TeamAppMapper {
 
   public int confirmed(TeamApp teamApp);
 
+  public List<TeamApp> listByTeamNo(int teamNo);
+  
+  public int insertLive(int teamNo, String members);
+
+
+
 }

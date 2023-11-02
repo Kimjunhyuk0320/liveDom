@@ -1,7 +1,10 @@
 package com.joeun.midproject.controller;
 
 import java.security.Principal;
+import java.util.Enumeration;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,15 +59,28 @@ public class TeamController {
   
 
   @PostMapping(value="/insert")
-  public String insertPro(Team team) {
+  public String insertPro(HttpServletRequest request,Team team) {
     
+// Enumeration<String> parameterNames = request.getParameterNames();
+//         while (parameterNames.hasMoreElements()) {
+//             String paramName = parameterNames.nextElement();
+//             String[] paramValues = request.getParameterValues(paramName);
+//             System.out.print(paramName + ": ");
+//             for (String paramValue : paramValues) {
+//                 System.out.print(paramValue + " ");
+//             }
+//             System.out.println();
+//         }
+
     int result = teamService.insert(team);
 
     if(result>0){
+      return "team/list";
+    }else{
       return "team/insert";
+
     }
 
-      return "team/list";
   }
 
   @GetMapping(value="/read")

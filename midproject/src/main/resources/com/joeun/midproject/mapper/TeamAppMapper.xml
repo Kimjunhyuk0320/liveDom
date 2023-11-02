@@ -66,5 +66,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   </update>
 
+  <select id="listByTeamNo" resultType="TeamApp">
+    SELECT *
+    FROM `team_applications`
+    WHERE team_no = #{teamNo}
+  </select>
+
 
 </mapper>

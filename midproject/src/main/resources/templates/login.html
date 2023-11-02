@@ -8,30 +8,29 @@
 <body>
     <h1>로그인</h1>
     
-    <form action="">
+    <form action="/loginPro" method="POST">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         <div>
-            <h2>id</h2>
-            <input type="text">
+            <input type="text" name="username" placeholder="ID">
         </div>
         <div>
-            <h2>pw</h2>
-            <input type="password">
+            <input type="password" name="password" placeholder="PW">
         </div>
         
-        <div>
+        <!-- <div>
             <div>
                 <h3>아이디 저장</h3>
-                <input type="checkbox" name="xxx" value="yyy" checked>
+                <input type="checkbox" name="remember-id" value="" checked>
             </div>
             <div>
                 <h3>자동 로그인</h3>
                 <input type="checkbox" name="xxx" value="yyy">
             </div>
-        </div>
+        </div> -->
+
+        <input type="submit" value="로그인">
 
     </form>
-    <button>로그인</button>
-    <button>회원가입</button>
 
 </body>
 </html>

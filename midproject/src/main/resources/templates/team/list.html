@@ -22,6 +22,7 @@
             <th width="100">갱신일자</th>
             <th width="50">조회수</th>
         </tr>
+        <th:block th:if="${teamList != null && teamList.size()!=0}">
         <th:block th:each="team : ${teamList}">
         <tr>
             <a th:href="|/team/read?teamNo=${team.teamNo}|">
@@ -37,6 +38,7 @@
             </a>
         </tr>
           </th:block>
+        </th:block>
     </table>
 </body>
 </html>

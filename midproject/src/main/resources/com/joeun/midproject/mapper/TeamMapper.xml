@@ -8,12 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
   <select id="list" resultType="Team">
-      SELECT t.*
-    , COUNT(a.team_no) AS rec_status
-    FROM `team_recruitments` AS t
-    JOIN `team_applications`AS a
-    ON (t.team_no = a.team_no)
-    GROUP BY a.team_no
+      SELECT * FROM `team_recruitments`
   </select>
 
 
@@ -65,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       #{capacity},
       #{account},
       0,
-      #{0},
+      0,
       now())
 
   </insert>

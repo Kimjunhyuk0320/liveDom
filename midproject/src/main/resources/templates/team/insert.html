@@ -9,13 +9,13 @@
 <body layout:fragment="content">
     <h1>공연 팀 모집 게시글 작성</h1>
     <form action="/team/insert" method="POST" id="form">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="_csrf.token">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         <input type="hidden" name="writer" th:value="${#authentication.principal.users.nickname}">
         <input type="hidden" name="username" th:value="${#authentication.principal.users.username}">
         <table>
             <tr>
                 <td>제목
-                    <input type="text" name="title" id="title">
+                    <input type="text" name="title">
                 </td>
             </tr>
             <tr>
@@ -64,20 +64,20 @@
             <tr>
                 <td>장소</td>
                 <td>
-                    <input type="text" name="address" id="address">
+                    <input type="text" name="address">
                 </td>
             </tr>
             <tr>
                 <td>계좌번호</td>
                 <td>
-                    <input type="text" name="account" id="account">
+                    <input type="text" name="account">
                 </td>
             </tr>
 
             <tr>
                 <td>가격</td>
                 <td>
-                    <input type="text" name="price" id="price"  oninput="this.value =this.value.replace(/[^0-9]/g, '')">
+                    <input type="text" name="price">
                 </td>
             </tr>
             <!-- 글 작성 에디터 -->
@@ -88,26 +88,17 @@
                 </td>
             </tr>
         </table>
+        <div>
+            <a href="/team">목록</a>
+            <input type="submit" value="등록">
+        </div>
 
     </form>
     
-    <div>
-        <a href="/team">목록</a>
-        <input type="submit" value="등록">
-    </div>
 
     <script>
 
         
-        // 목록으로 이동
-        function moveList() {
-            location.href = ㅇ
-        }
-
-        // 등록하기
-        function actionInsert() {
-            location.href = ㅇ
-        }
 
  
     </script>
