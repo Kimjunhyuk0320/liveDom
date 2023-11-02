@@ -25,7 +25,7 @@
             <td th:text="${teamApp.username}"></td>
         </tr>
         <tr>
-            <td>승인여부</td>
+            <td>승인상태</td>
             <th:block th:if="${teamApp.approvalStatus==0}">
               <td>미확인</td>
             </th:block>
@@ -47,13 +47,13 @@
         </tr>
         <tr>
           <td>신청일자</td>
-          <td th:text="${teamApp.updDate}"></td>
+          <td th:text="${#dates.format(teamApp.updDate,'yyyy-MM-dd HH:mm:ss')}"></td>
         </tr>
     </table>
 
     <div>
 
-      <a href="/myPage/myPageForBand/team_registrations_list">신청리스트로 돌아가기</a>
+      <a href="/team/user/listByLeader">신청리스트로 돌아가기</a>
 
     </div>
 

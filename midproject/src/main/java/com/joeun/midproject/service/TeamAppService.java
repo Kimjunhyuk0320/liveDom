@@ -13,6 +13,8 @@ public interface TeamAppService {
 
   public List<TeamApp> listByMember(TeamApp teamApp);
 
+  public int delete(TeamApp teamApp);
+
   public TeamApp read(TeamApp teamApp);
 
   public int accept(TeamApp teamApp);

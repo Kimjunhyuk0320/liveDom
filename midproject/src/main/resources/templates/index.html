@@ -15,6 +15,10 @@
                 <th:block sec:authorize="isAuthenticated()">
 
                     <h2 th:text="${#authentication.principal.users}"></h2>
+                    <form action="/logout" method="POST">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <input type="submit" value="로그아웃">
+                    </form>
                 </th:block>
                 <h2>좋은 소리는 우리는 만듭니다.</h2>
             </div>

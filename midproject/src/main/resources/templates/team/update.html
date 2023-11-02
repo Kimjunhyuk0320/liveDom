@@ -10,7 +10,7 @@
     <h1>공연 팀 모집 게시글 수정</h1>
     <form action="/team/update" method="POST" id="form">
         <input type="hidden" name="teamNo" th:value="${team.teamNo}">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="_csrf.token">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         <input type="hidden" name="writer" th:value="${#authentication.principal.users.nickname}">
         <input type="hidden" name="username" th:value="${#authentication.principal.users.username}">
 
@@ -36,30 +36,30 @@
             <tr>
                 <td>공연일자</td>
                 <td>
-                    <input type="date" name="liveDate" th:value="team.liveDate">
+                    <input type="date" name="liveDate" th:value="${team.liveDate}">
                 </td>
             </tr>
             <tr>
                 <td>공연 시작 시각</td>
                 <td>
-                    <input type="time" name="liveStTime" id="liveStTime" th:value="team.liveStTime">
+                    <input type="time" name="liveStTime" id="liveStTime" th:value="${team.liveStTime}">
                 </td>
             </tr>
 
             <tr>
                 <td>공연 종료 시각</td>
                 <td>
-                    <input type="time" name="liveEndTime" id="liveEndTime" th:value="team.liveEndTime">
+                    <input type="time" name="liveEndTime" id="liveEndTime" th:value="${team.liveEndTime}">
                 </td>
             </tr>
             <tr>
                 <td>지역</td>
                 <td>
                     <select name="location" id="location">
-                        <option value="서울" th:seleted="${team.location.equals('서울')}">서울</option>
-                        <option value="인천" th:seleted="${team.location.equals('인천')}">인천</option>
-                        <option value="경기도" th:seleted="${team.location.equals('경기')}">경기</option>
-                        <option value="강원도" th:seleted="${team.location.equals('강원도')}">강원도</option>
+                        <option value="서울" th:seleted="${team.location eq '서울'}">서울</option>
+                        <option value="인천" th:seleted="${team.location eq '인천'}">인천</option>
+                        <option value="경기도" th:seleted="${team.location eq '경기'}">경기</option>
+                        <option value="강원도" th:seleted="${team.location eq '강원도'}">강원도</option>
                       </select>
                 </td>
             </tr>
@@ -85,7 +85,7 @@
             <tr>
                 <td>게시글 적성 에디터</td>
                 <td>
-                    <textarea name="content" id="content" cols="30" rows="10" th:value="team.content"></textarea>
+                    <textarea name="content" id="content" cols="30" rows="10" th:text="${team.content}"></textarea>
                 </td>
             </tr>
         </table>

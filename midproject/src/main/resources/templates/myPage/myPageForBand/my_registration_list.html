@@ -26,16 +26,51 @@
             <th width="100">참가취소</th>
         </tr>
 
-        <tr>
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
-            <td>Test</td>
+        <tr th:each="reqTeam : ${reqTeamAppList}">
+            <td th:text = "${reqTeam.appNo}"></td>
+            <td th:text = "${reqTeam.teamTitle}" th:onclick="'readTeam('+${reqTeam.teamNo}+')'"></td>
+            <td th:text = "${reqTeam.username}"></td>
+            <th:block th:if="${reqTeam.approvalStatus==0}">
+                <td>미확인</td>
+              </th:block>
+            <th:block th:if="${reqTeam.approvalStatus==1}">
+                <td>승인</td>
+              </th:block>
+            <th:block th:if="${reqTeam.approvalStatus==2}">
+                <td>거절</td>
+              </th:block>
+            <td th:text = "${#dates.format(reqTeam.updDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td th:text = "${reqTeam.phone}"></td>
+            <th:block th:if="${reqTeam.depositStatus==1}">
+                <td>입금확정</td>
+              </th:block>
+            <th:block th:if="${reqTeam.depositStatus==0}">
+                <td>미입금</td>
+              </th:block>
+            <th:block th:if="${reqTeam.depositStatus==0}">
+            <td>
+                <form action="/team/app/delete" method="POST">
+
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <input type="hidden" name="appNo" th:value="${reqTeam.appNo}">
+
+                    <input type="submit" value="참가취소">
+                    
+
+                </form>
+            </td>
+        </th:block>
         </tr>
     </table>
+
+    <script>
+
+        let readTeam = function(teamNo){
+
+            location.href = `/team/read?teamNo=${teamNo}`
+
+        }
+
+    </script>
 </body>
 </html>

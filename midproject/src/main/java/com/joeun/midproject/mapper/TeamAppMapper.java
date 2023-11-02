@@ -16,6 +16,8 @@ public interface TeamAppMapper {
 
   public List<TeamApp> listByMember(TeamApp teamApp);
 
+  public int delete(TeamApp teamApp);
+
   public TeamApp read(TeamApp teamApp);
 
   public int accept(TeamApp teamApp);
@@ -28,7 +30,7 @@ public interface TeamAppMapper {
 
   public List<TeamApp> listByTeamNo(int teamNo);
   
-  public int insertLive(int teamNo, String members);
+  public int insertLive(TeamApp teamApp);
 
 
 

@@ -29,15 +29,28 @@
         </tr>
 
         <th:block th:each="resTeam : ${resTeamAppList}">
-      <tr>
+      <tr th:onclick="'readApp('+${resTeam.appNo}+')'">
 
         <td th:text="${resTeam.appNo}"></td>
         <td th:text="${resTeam.title}"></td>
         <td th:text="${resTeam.phone}"></td>
-        <td th:text="${resTeam.updDate}"></td>
+        <td th:text="${#dates.format(resTeam.updDate,'yyyy-MM-dd HH:mm:ss')}"></td>
         <td th:text="${resTeam.username}"></td>
-        <td th:text="${resTeam.approvalStatus}"></td>
-        <td th:text="${resTeam.depositStatus}"></td>
+        <th:block th:if="${resTeam.approvalStatus==0}">
+                <td>미확인</td>
+              </th:block>
+            <th:block th:if="${resTeam.approvalStatus==1}">
+                <td>승인</td>
+              </th:block>
+            <th:block th:if="${resTeam.approvalStatus==2}">
+                <td>거절</td>
+              </th:block>
+        <th:block th:if="${resTeam.depositStatus==1}">
+          <td>입금확정</td>
+        </th:block>
+      <th:block th:if="${resTeam.depositStatus==0}">
+          <td>미입금</td>
+        </th:block>
 
         
         <td><form action="/team/app/confirmed" method="POST">
@@ -64,5 +77,13 @@
 
     </th:block>
     </table>
+
+    <script>
+
+      let readApp = function(appNo){
+        location.href = `/team/user/readApp?appNo=${appNo}`
+      }
+
+    </script>
 </body>
 </html>

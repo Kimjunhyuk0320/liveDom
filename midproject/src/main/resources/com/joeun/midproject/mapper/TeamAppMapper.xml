@@ -15,9 +15,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <select id="listByMember" resultType="TeamApp">
     
-    SELECT * FROM `team_applications` WHERE username = #{username}
+    SELECT a.*,t.title AS teamTitle FROM `team_applications` AS a JOIN `team_recruitments` AS t ON (a.team_no = t.team_no) WHERE a.username = #{username}
 
   </select>
+
+  <delete id="delete">
+  
+  DELETE FROM `team_applications` WHERE app_no = #{appNo}
+
+  </delete>
 
   <select id="read" resultType="TeamApp">
   
@@ -61,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <update id="deniedAll">
 
   UPDATE `team_applications` SET approval_status = 2 WHERE deposit_status
-   <![CDATA[ < ]]> <![CDATA[ > ]]> 1 AND team_no = #{teamNo}
+   <![CDATA[ <> ]]>1 AND team_no = #{teamNo}
   
   
   </update>
@@ -71,6 +77,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     FROM `team_applications`
     WHERE team_no = #{teamNo}
   </select>
+
+  <insert id="insertLive">
+  
+    INSERT INTO `confirmed_live` (team_no,crew,upd_date) VALUES (#{teamNo},#{members},now())
+
+  </insert>
 
 
 </mapper>

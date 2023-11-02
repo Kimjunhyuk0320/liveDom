@@ -10,12 +10,15 @@ public class TeamApp {
   private int appNo;
   private int teamNo;
   private String title;
+  private String teamTitle;
   private String phone;
   private String username;
-  private String band_name;
+  private String bandName;
   private String content;
-  private Date upd_date;
+  private Date updDate;
   private int approvalStatus;
   private int depositStatus;
+
+  private String members;
   
 }

@@ -26,25 +26,25 @@
             <th width="100">성사 일자</th>
         </tr>
 
-        <tr th:each="a : ${ x }">
-            <td align="center" th:text="${a.x}"></td>
+        <tr th:each="team : ${confirmedTeamList}">
+            <td align="center" th:text="${team.teamNo}"></td>
             <td>
                 <!-- th:???="|문자열+${표현식}|" -->
-                <a th:href="|/a/read?aNo=${a.x}|" th:text="${a.x}"></a>
+                <a th:href="|/team/read?teamNo=${team.teamNo}|" th:text="${team.title}"></a>
             </td>
-            <td align="center" th:text="${a.x}"></td>
+            <td align="center" th:text="${team.writer}"></td>
             </td>
-            <td align="center" th:text="${a.x}"></td>
+            <td align="center" th:text="${team.username}"></td>
             </td>
-            <td align="center" th:text="${a.x}"></td>
+            <td align="center" th:text="${team.crew}"></td>
+            <td align="center" th:text="${team.location+team.address}"></td>
+            <td align="center">
+                <span th:text="${team.liveDate+' '+team.liveStTime}"></span>
+            </td>
 
             <td align="center">
-                <span th:text="${ #dates.format( a.regDate, 'yyyy-MM-dd HH:mm:ss') }"></span>
+                <span th:text="${#dates.format(team.confirmedDate,'yyyy-MM-dd HH:mm:ss')}"></span>
             </td>
-            <td align="center">
-                <span th:text="${ #dates.format( a.updDate, 'yyyy-MM-dd HH:mm:ss') }"></span>
-            </td>
-            <td align="center" th:text="${a.x}"></td>
         </tr>
     </table>
 

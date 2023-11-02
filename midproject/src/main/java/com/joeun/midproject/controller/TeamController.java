@@ -18,12 +18,15 @@ import com.joeun.midproject.dto.TeamApp;
 import com.joeun.midproject.mapper.TeamMapper;
 import com.joeun.midproject.service.TeamAppService;
 import com.joeun.midproject.service.TeamService;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
-
+@Slf4j
 @Controller
 @RequestMapping("/team")
 public class TeamController {
@@ -88,7 +91,12 @@ public class TeamController {
 
 
       
-      model.addAttribute("team", teamService.read(team));
+    Team readTeam = teamService.read(team);
+    
+    log.info(readTeam.toString());
+
+      model.addAttribute("team",readTeam);
+
       model.addAttribute("teamList", teamService.list());
 
       return "team/read";
@@ -112,10 +120,11 @@ public class TeamController {
 
       if(result>0){
 
-        return "team/list";
+        return "redirect:/team";
       }
       else{
-        return "team/update";
+        String returnName = "redirect:/team/read?teamNo="+team.getTeamNo();
+        return returnName;
       }
 
       
@@ -123,18 +132,22 @@ public class TeamController {
   }
   
   
-  @PostMapping(value="delete")
+  @PostMapping(value="/delete")
   public String deletePro(Team team) {
 
       
       int result = teamService.delete(team);
       if(result>0){
 
-        return "team/list";
+        return "redirect:/team";
+        
       }else{
-        return "team/list";
+
+        String returnName = "redirect:/team/read?teamNo="+team.getTeamNo();
+        return returnName;
 
       }
+
   }
 
   @GetMapping(value="/app")
@@ -142,7 +155,7 @@ public class TeamController {
 
     model.addAttribute("team",team);
 
-      return "team/teamApp";
+      return "team/registration";
   }
 
   @PostMapping(value="/app")
@@ -150,15 +163,25 @@ public class TeamController {
 
     int result = teamAppService.insert(teamApp);
       
-      return "myPage/myPageForBand/my_registration_list";
-  }
+      return "redirect:/team/user/listByMember";
+    }
+    
+    @PostMapping(value="/app/delete")
+    public String appDeletePro(TeamApp teamApp) {
+      
+      int result = teamAppService.delete(teamApp);
+
+      log.info(result+"");
+      return "redirect:/team/user/listByMember";
+ }
+ 
 
   @PostMapping(value="/app/accept")
   public String acceptPro(TeamApp teamApp) {
    
     int result = teamAppService.accept(teamApp);
       
-    return "myPage/myPageForBand/team_registrations_list";
+    return "redirect:/team/user/listByLeader";
   }
   
   
@@ -171,7 +194,7 @@ public class TeamController {
       //갱신된 리스트를 다시 조회하여 반환해야합니다.
       //추후 비동기 방식으로 수정 예정입니다.
 
-      return "myPage/myPageForBand/team_registrations_list";
+      return "redirect:/team/user/listByLeader";
   }
 
   @PostMapping(value="/app/confirmed")
@@ -183,7 +206,7 @@ public class TeamController {
       //갱신된 리스트를 다시 조회하여 반환해야합니다.
       //추후 비동기 방식으로 수정 예정입니다.
 
-    return "myPage/myPageForBand/team_registrations_list";
+    return "redirect:/team/user/listByLeader";
 
   }
 
@@ -200,8 +223,11 @@ public class TeamController {
 
   @GetMapping(value="/user/listByMember")
   public String listByMember(Model model, TeamApp teamApp, Principal principal) {
+    log.info(principal.getName());
     teamApp.setUsername(principal.getName());
-    model.addAttribute("resTeamAppList", teamAppService.listByMember(teamApp));
+    List<TeamApp> appList =  teamAppService.listByMember(teamApp);
+    log.info(appList.toString());
+    model.addAttribute("reqTeamAppList",appList);
 
       return "myPage/myPageForBand/my_registration_list";
 
@@ -215,6 +241,17 @@ public class TeamController {
     model.addAttribute("confirmedTeamList", teamService.listByConfirmedLive(username));
 
       return "myPage/myPageForBand/completed_performances_list";
+  }
+  
+
+  @GetMapping(value="/user/readApp")
+  public String readApp(Model model, TeamApp teamApp) {
+
+    TeamApp readApp = teamAppService.read(teamApp);
+
+    model.addAttribute("teamApp", readApp);
+
+      return "myPage/myPageForBand/team_registrations_read";
   }
   
   

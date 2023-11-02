@@ -22,4 +22,5 @@ public interface TeamMapper {
   public int addView(Team team);
 
   public List<Team> listByConfirmedLive(String username);
+  
 }

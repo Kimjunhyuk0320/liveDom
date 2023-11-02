@@ -49,8 +49,8 @@ public class TeamAppServiceImpl implements TeamAppService{
 
   @Override
   public TeamApp read(TeamApp teamApp) {
-     TeamApp readResult = teamAppMapper.read(teamApp);
 
+     TeamApp readResult = teamAppMapper.read(teamApp);
 
     return readResult;
   }
@@ -108,16 +108,17 @@ public class TeamAppServiceImpl implements TeamAppService{
       String members = "";
       for(int i = 0; i<confirmedTeamAppList.size();i++){
         if(i<confirmedTeamAppList.size()-1){
-          members += (confirmedTeamAppList.get(i).getBand_name() + ", ");
+          members += (confirmedTeamAppList.get(i).getBandName() + ", ");
         }else{
-          members += confirmedTeamAppList.get(i).getBand_name();
+          members += confirmedTeamAppList.get(i).getBandName();
 
         }
-
-        teamAppMapper.insertLive(tempTeam.getTeamNo(),members);
-
+        
       }
       
+      teamApp.setMembers(members);
+
+      teamAppMapper.insertLive(teamApp);
 
 
       deniedAllResult = teamAppMapper.deniedAll(teamApp);
@@ -126,6 +127,15 @@ public class TeamAppServiceImpl implements TeamAppService{
 
     return result+deniedAllResult;
     
+  }
+
+  @Override
+  public int delete(TeamApp teamApp) {
+
+    int result = teamAppMapper.delete(teamApp);
+
+
+    return result;
   }
   
 }

@@ -8,24 +8,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
   <select id="list" resultType="Team">
-      SELECT * FROM `team_recruitments`
+      SELECT t.*,count(a.team_no) AS recStatus FROM team_recruitments AS t LEFT JOIN team_applications AS a ON (t.team_no = a.team_no AND a.deposit_status = 1) GROUP BY t.team_no;
   </select>
 
 
 
   <update id="addView">
-    UPDATE `team_recruitments` SET views = (views + 1) WHERE #{teamNo}
+    UPDATE `team_recruitments` SET views = (views + 1) WHERE team_no = #{teamNo}
   </update>
 
   <select id="read" resultType="Team">
   
-    SELECT t.*
-    , COUNT(a.team_no) AS recStatus
-    FROM `team_recruitments` AS t
-    JOIN `team_applications`AS a
-    ON (t.team_no = a.team_no)
-    GROUP BY a.team_no
-    WHERE team_no = #{teamNo}
+    SELECT t.*,count(a.team_no) AS recStatus FROM team_recruitments AS t LEFT JOIN team_applications AS a ON (t.team_no = a.team_no AND a.deposit_status = 1) WHERE t.team_no = #{teamNo} GROUP BY t.team_no;
 
   </select>
 
@@ -89,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <delete id = "delete">
 
     DELETE FROM `team_recruitments`
-    <if test="recStatus == 0 || recStatus ==null">
+    <if test="recStatus == 0">
     WHERE team_no = #{teamNo}
     </if>
     <if test="recStatus != 0">
@@ -100,7 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <select id="listByConfirmedLive" resultType="Team">
   
-  SELECT t.*, c.crew AS crew, c.upd_date AS upd_date
+  SELECT t.*, c.crew AS crew, c.upd_date AS confirmedDate
    FROM `team_recruitments` AS t
    JOIN `confirmed_live` AS c
    ON (t.team_no = c.team_no)

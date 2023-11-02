@@ -24,8 +24,7 @@
         </tr>
         <th:block th:if="${teamList != null && teamList.size()!=0}">
         <th:block th:each="team : ${teamList}">
-        <tr>
-            <a th:href="|/team/read?teamNo=${team.teamNo}|">
+        <tr th:onclick="'readEvent('+${team.teamNo}+')'">
                 <td th:text="${team.confirmed !=0 ?'마감':'모집중'}"></td>
                 <td th:text="${team.title}"></td>
                 <td th:text="${team.recStatus}+'/'+${team.capacity}"></td>
@@ -33,12 +32,22 @@
                 <td th:text="${team.price}"></td>
                 <td th:text="${team.location}"></td>
                 <td th:text="${team.liveDate}"></td>
-                <td th:text="${team.updDate}"></td>
+                <td th:text="${#dates.format(team.updDate,'yyyy-MM-dd HH:mm:ss')}"></td>
                 <td th:text="${team.views}"></td>
-            </a>
         </tr>
+        
           </th:block>
         </th:block>
     </table>
+
+    <script>
+
+        let readEvent = function(teamNo){
+
+            location.href = `/team/read?teamNo=${teamNo}`
+
+        }
+        
+    </script>
 </body>
 </html>

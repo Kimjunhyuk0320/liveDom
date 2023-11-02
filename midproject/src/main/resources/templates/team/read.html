@@ -17,6 +17,10 @@
             <td th:text="${team.views}"></td>
           </tr>
         <tr>
+            <td>갱신일자</td>
+            <td th:text="${#dates.format(team.updDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+          </tr>
+        <tr>
             <td>모집 팀 수</td>
             <td th:text="${team.capacity}+'팀'"></td>
         </tr>
@@ -26,7 +30,7 @@
         </tr>
         <tr>
             <td>공연시간</td>
-            <td th:text="${team.liveStDate}+' ~ '+${team.liveEndDate}"></td>
+            <td th:text="${team.liveStTime}+' ~ '+${team.liveEndTime}"></td>
         </tr>
         <tr>
             <td>지역</td>
@@ -44,13 +48,15 @@
 
     <div>
         <button type="button" onclick="moveList()">목록</button>
-        <button type="button" onclick="moveApplication()">신청</button>
+        <button type="button" th:onclick=" 'moveApplication('+${team.teamNo}+')' ">신청</button>
 
-        <th:block th:if="team.username.equals(#authentication.principal.users.getUsername)">
+        <th:block sec:authorize="isAuthenticated()" th:if="${team.username eq #authentication.principal.username}">
 
-        <a th:href="|/team/update?teamNo=${team.teamNo}|">수정</a 
+        <a th:href="|/team/update?teamNo=${team.teamNo}|">수정</a>
 
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="_csrf.token">
+
+            <form action="/team/delete" method="POST">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <input type="hidden" name="teamNo" th:value="${team.teamNo}">
             <input type="hidden" name="recStatus" th:value="${team.recStatus}">
             <input type="submit" value="삭제">
@@ -67,14 +73,13 @@
     </div>
     
     <script>
-        let teamNo = "[[${team.teamNo}]]"
         // 목록으로 이동
         function moveList() {
             location.href = "/team"
         }
 
         // 신청으로 이동
-        function moveApplication() {
+        function moveApplication(teamNo) {
             location.href = `/team/app?teamNo=${teamNo}`
         }
 

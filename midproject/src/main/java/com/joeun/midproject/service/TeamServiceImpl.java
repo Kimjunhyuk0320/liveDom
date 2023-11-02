@@ -17,9 +17,9 @@ public class TeamServiceImpl implements TeamService{
   @Override
   public List<Team> list() {
 
-    
+    List<Team> teamList = teamMapper.list();
 
-    return teamMapper.list();
+    return teamList;
 
   }
 
@@ -51,10 +51,10 @@ public class TeamServiceImpl implements TeamService{
   @Override
   public Team read(Team team) {
 
-    int result = teamMapper.addView(team);
-    Team resultTeam = null;
+    int resultView = teamMapper.addView(team);
+    Team resultTeam = new Team();
 
-    if(result>0){
+    if(resultView>0){
 
       resultTeam = teamMapper.read(team);
       return resultTeam;
