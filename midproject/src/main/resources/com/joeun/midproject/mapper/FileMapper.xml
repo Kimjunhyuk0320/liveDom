@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="list" resultType="Files">
         SELECT *
         FROM file
-        ORDER BY reg_date DESC
+        ORDER BY upd_date DESC
     </select>
 
     <!-- 파일 목록 - 부모 테이블 기준 -->
@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM file
         WHERE parent_table = #{parentTable}
           AND parent_no = #{parentNo}
-        ORDER BY reg_date DESC
+        ORDER BY upd_date DESC
     </select>
 
     <!-- 파일 조회 -->
@@ -37,8 +37,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 파일 등록 -->
     <insert id="insert">
-        INSERT INTO file(parent_table, parent_no, file_name, origin_name, file_path, file_size, file_code)
-        VALUES (#{parentTable}, #{parentNo}, #{fileName}, #{originName}, #{filePath}, #{fileSize}, #{fileCode})
+        INSERT INTO file(parent_table, parent_no, file_name, origin_name, path, file_size, file_code)
+        VALUES (#{parentTable}, #{parentNo}, #{fileName}, #{originName}, #{path}, #{fileSize}, #{fileCode})
     </insert>
 
     <!-- 파일 수정 -->

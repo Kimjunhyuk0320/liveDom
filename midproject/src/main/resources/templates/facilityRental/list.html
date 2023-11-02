@@ -1,23 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/user/layout/main_layout}"
+      >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>클럽 대관</title>
 </head>
-<body>
+<body layout:fragment="content">
     <h1>클럽 대관</h1>
 
-    <div class="card" style="width: 18rem;">
+    <!-- <div class="card" style="width: 18rem;">
         <img src="..." class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">제목</h5>
           <p class="card-text">날짜</p>
           <p class="card-text">가격</p>
           <p class="card-text">지역</p>        
-          <a href="#" class="btn btn-primary">자세히 보기</a>        <!-- 사진을 클릭했을 때 나오게 할 것인지 버튼으로 처리할 것인지 생각하기 -->
+          <a href="#" class="btn btn-primary">자세히 보기</a>         사진을 클릭했을 때 나오게 할 것인지 버튼으로 처리할 것인지 생각하기
         </div>
-    </div>
+    </div> -->
+
+    <a href="/facilityRental/insert">글쓰기</a>
     
+    <div th:each="facilityRental : ${facilityList}" class="card" style="width: 18rem;">
+        <!-- <th:block th:each="file : ${fileList}" class="card-img-top"> -->
+            <!-- <a th:href="|/facilityRental/read?frNo=${facilityRental.frNo}|"><img th:src="${file.fileNo}" class="card-img-top" alt=""></a> -->
+            <a th:href="|/facilityRental/read?frNo=${facilityRental.frNo}|"><h5 class="card-title" th:text="${facilityRental.title}"></h5></a>
+            <p class="card-text" th:text="${#dates.format(facilityRental.updDate, 'yyyy-MM-dd HH:mm:ss')}"></p>
+            <p class="card-text" th:text="${facilityRental.price}"></p>
+            <p class="card-text" th:text="${facilityRental.location}"></p>
+        </th:block>
+    </div>
 </body>
 </html>

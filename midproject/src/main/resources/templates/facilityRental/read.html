@@ -1,64 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/user/layout/main_layout}"
+      >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>대관 게시글 읽기</title>
 </head>
-<body>
+<body layout:fragment="content">
     <h1>대관 게시글 읽기</h1>
 
-    <h2>대관 게시글 제목</h2>
+    <h2><input type="text" name="title" th:value="${facilityRental.title}"></h2>
     <img src="#" alt="">
 
-    <table>
-        <tr>
-            <td>대관일자</td>
-            <td>
-                2023-10-30
-            </td>
-        </tr>
-        <tr>
-            <td>대관가격</td>
-            <td>
-                1,000,000
-            </td>
-        </tr>
-        <tr>
-            <td>지역</td>
-            <td>
-                서울
-            </td>
-        </tr>
-        <tr>
-            <td>장소</td>
-            <td>
-                홍대 몽향 클럽
-            </td>
-        </tr>
-    </table>
-    
-    <div>
-        <button type="button" onclick="moveList()">목록</button>
-        <button type="button" onclick="actionRental()">대관하기</button>
-    </div>
+    <form action="/facilityRental/대관(서브밋하면 가게될 대관서비스)" method="POST" id="form">
+        <!-- csrf -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <!-- <input type="hidden" name="frNo" th:value="${facilityRental.frNo}"> -->
+        <table>
+            <tr>
+                <td>글번호</td>
+                <td>
+                    <input type="text" name="frNo" id="frNo" th:value="${facilityRental.frNo}">
+                </td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td>
+                    <input type="text" name="writer" th:value="${facilityRental.writer}">
+                </td>
+            </tr>
+            <tr>
+                <td>조회수</td>
+                <td>
+                    <input type="text" name="views" th:value="${facilityRental.views}">
+                </td>
+            </tr>
+            <tr>
+                <td>작성일자</td>
+                <td>
+                    <input type="text" name="updDate" th:value="${#dates.format(facilityRental.updDate, 'yyyy-MM-dd HH:mm:ss')}">
+                </td>
+            </tr>
+            <tr>
+                <td>대관일자</td>
+                <td>
+                    <input type="text" name="liveDate" th:value="${facilityRental.liveDate}">
+                </td>
+            </tr>
+            <tr>
+                <td>대관가격</td>
+                <td>
+                    <input type="text" name="title" th:value="${facilityRental.price}">
+                </td>
+            </tr>
+            <tr>
+                <td>지역</td>
+                <td>
+                    <input type="text" name="location" th:value="${facilityRental.location}">
+                </td>
+            </tr>
+            <tr>
+                <td>장소</td>
+                <td>
+                    <input type="text" name="address" th:value="${facilityRental.address}">
+                </td>
+            </tr>
+            <tr>
+                <textarea name="content" cols="40" rows="5" th:text="${facilityRental.content}"></textarea>
+            </tr>
+            
+        </table>
+        
+        <div>
+            <button type="button" onclick="moveList()">목록</button>
+            <button type="button" onclick="actionRental()">대관하기</button>
+            <button type="button" onclick="actionUpdate()">수정</button>
+            <button type="button" onclick="actionDelete()">삭제</button>
+        </div>
+
+    </form>
 
 
-    <div style="background-color: darkgrey; width: 500px; height: 800px;">
+    <!-- <div style="background-color: darkgrey; width: 500px; height: 800px;">
         <h2>이 부분에 클럽에 대한 내용 부분이 나옵니다.</h2>
-    </div>
+    </div> -->
 
     <script>
-
+        const frNo = $('#frNo').val()
         
         // 목록으로 이동
         function moveList() {
-            location.href = "#"
+            location.href = "/facilityRental/list"      // form 태그의 action 속성을 변경
+        }
+
+        // 대관하기
+        function actionRental() {
+            form.submit()
         }
 
         // 수정으로 이동
-        function actionRental() {
-            location.href = "#"
+        function actionUpdate() {
+            
+            location.href = "/facilityRental/update?frNo=" + frNo    // form 태그의 action 속성을 변경
+        }
+
+        // 삭제 요청
+        function actionDelete() {
+            let check = confirm('정말로 삭제하시겠습니까?')
+            if(check){
+                form.action = '/facilityRental/delete'      // form 태그의 action 속성을 변경
+                form.submit()
+            }
         }
 
     </script>
