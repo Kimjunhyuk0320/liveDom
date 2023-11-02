@@ -54,7 +54,11 @@ public class LiveBoardController {
 
         // 데이터 요청
         LiveBoard liveBoard = liveBoardService.select(boardNo);     // 게시글 정보
-
+        int totalTicketCount = liveBoard.getMaxTickets();
+        List<Ticket> ticketList = liveBoardService.listByBoardNo(boardNo);
+        int soldTicketCount = ticketList.size();
+        int nowTicketCount = totalTicketCount - soldTicketCount;
+        liveBoard.setTicketLeft(nowTicketCount);
         // 모델 등록
         model.addAttribute("liveBoard", liveBoard);
 

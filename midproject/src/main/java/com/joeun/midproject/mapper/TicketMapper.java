@@ -20,6 +20,6 @@ public interface TicketMapper {
     public List<Ticket> listByUserName(Users users) throws Exception;
     
     // 게시글 번호로 판매한 티켓 목록 조회하기
-    public List<Ticket> listByBoardNo(Users users) throws Exception;
+    public List<Ticket> listByBoardNo(int boardNo) throws Exception;
 
 }

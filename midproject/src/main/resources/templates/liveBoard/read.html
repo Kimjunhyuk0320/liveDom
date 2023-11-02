@@ -54,13 +54,12 @@
             <tr>
                 <td>잔여티켓</td>
                 <td>
-                    <span th:text="${liveBoard.ticketLeft}"></span>
+                    <span th:text="${liveBoard.ticketLeft}" id="ticketLeft"></span>
                 </td>
             </tr>
             <tr>
                 <td>매진여부</td>
                 <td>
-                    정상판매 / 매진
                     <p th:if="${liveBoard.soldOut == 1}">매진</p> 
                     <p th:if="${liveBoard.soldOut == 0}">판매 중</p> 
                 </td>
@@ -116,8 +115,17 @@
         }
         // 티켓 구매
         function purchase() {
-            const purchase = $("#purchase")
-            purchase.submit()
+            // liveBoard.ticketLeft의 값이 0 이상이고, 입력된 count 값이 0 이상일 때만 submit을 실행
+            const ticketLeft = parseInt($('#ticketLeft').text());
+            const count = parseInt($('#count').val());
+            
+            if (ticketLeft == 0 || ticketLeft - count < 0) {
+                // 조건을 만족하지 않을 때 사용자에게 알림 또는 처리할 내용을 여기에 추가할 수 있습니다.
+                alert("티켓 구매가 불가능합니다.");
+            } else {
+                const purchaseForm = $("#purchase");
+                purchaseForm.submit();
+            }
         }
 
 

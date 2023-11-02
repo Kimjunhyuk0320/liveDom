@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.joeun.midproject.dto.LiveBoard;
 import com.joeun.midproject.dto.Ticket;
+import com.joeun.midproject.dto.Users;
 import com.joeun.midproject.mapper.LiveBoardMapper;
 import com.joeun.midproject.mapper.TicketMapper;
 
@@ -61,5 +62,13 @@ public class LiveBoardServiceImpl implements LiveBoardService{
         int result = ticketMapper.insert(ticket);
         return result;
     }
+
+    @Override
+    public List<Ticket> listByBoardNo(int boardNo) throws Exception {
+       List<Ticket> ticketList = ticketMapper.listByBoardNo(boardNo);
+       return ticketList;
+    }
+
+    
     
 }
