@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" -->
+<mapper namespace="com.joeun.midproject.mapper.TicketMapper">
+
+    <!-- 유저 전화번호로 구매한 티켓 목록 조회하기 -->
+    <select id="listByPhone" resultType="Ticket">
+        SELECT *
+        FROM ticket_purchases
+        WHERE phone = #{phone}
+        ORDER BY upd_date DESC, board_no DESC
+    </select>
+
+    <!-- 게시글 작성자아이디로 구매한 티켓 목록 조회하기 -->
+    <select id="listByUserName" resultType="Ticket">
+        SELECT 
+                t.ticket_no,
+                t.board_no,
+                t.reservation_no,
+                t.name,
+                t.phone,
+                t.upd_date,
+                t.refund
+        FROM live_board l LEFT JOIN ticket_purchases t
+        ON l.board_no = t.board_no
+        WHERE l.username = #{username}
+        ORDER BY t.upd_date DESC, t.ticket_no DESC
+    </select>
+    <!-- 게시글 번호로 구매한 티켓 목록 조회하기 -->
+    <select id="listByBoardNo" resultType="Ticket">
+        SELECT *
+        FROM ticket_purchases
+        WHERE board_no = #{boardNo}
+        ORDER BY upd_date DESC, ticket_no DESC
+    </select>
+
+    <!-- 티켓 구매시 티켓 테이블에 등록 -->
+    <insert id="insert">
+        INSERT INTO ticket_purchases( ticket_no, board_no, reservation_no, name,  phone, refund )
+        VALUES ( #{ticketNo}, #{boardNo}, #{reservationNo}, #{name}, #{phone}, 0 )
+    </insert>
+
+</mapper>

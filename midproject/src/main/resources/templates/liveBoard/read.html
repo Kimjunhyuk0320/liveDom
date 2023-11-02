@@ -79,7 +79,19 @@
 
         </table>
     </form>
+    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+        <form action="/liveBoard/purchase" method="POST" id="purchase">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input type="text" name="boardNo" th:value="${liveBoard.boardNo}">
+            <input type="text" name="name" th:value="${#authentication.principal.users.name}" >
+            <input type="text" name="phone" th:value="${#authentication.principal.users.phone}" >
+            <input type="text" name="count" value="0" id="count">
+            
     
+            <button type="button" onclick="purchase()">티켓 구매</button>
+        </form>
+    </th:block>
+
     <div>
         <button type="button" onclick="moveList()">목록</button>
         <button type="button" onclick="moveUpdate()">수정</button>
@@ -102,6 +114,11 @@
             const boardNo = $('#boardNo').val()
             location.href = "/liveBoard/update?boardNo=" + boardNo;
         }
+        // 티켓 구매
+        function purchase() {
+            const purchase = $("#purchase")
+            purchase.submit()
+        }
 
 
         // 매수 카운트 1 증가
@@ -109,6 +126,7 @@
         function increase(){
             count=count+1;
             document.querySelector("#countNum").innerText=count;
+            $("#count").val(count)
         }
 
         // 매수 카운트 1 감소
@@ -116,6 +134,7 @@
             if ( document.querySelector("#countNum").innerText > 0 ) {
                 count=count-1;
                 document.querySelector("#countNum").innerText=count;
+                $("#count").val(count)
             }
         }
 

@@ -14,12 +14,12 @@
         <table class="board">
             <tr>
                 <td>아이디
-                    <input type="text" name="username">
+                    <input type="text" name="username" th:value="${#authentication.principal.users.username}">
                 </td>
             </tr>
             <tr>
                 <td>닉네임
-                    <input type="text"  name="writer">
+                    <input type="text"  name="writer" th:value="${#authentication.principal.users.nickname}">
                 </td>
             </tr>
             <tr>

@@ -1,12 +1,15 @@
 package com.joeun.midproject.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.joeun.midproject.dto.LiveBoard;
+import com.joeun.midproject.dto.Ticket;
 import com.joeun.midproject.mapper.LiveBoardMapper;
+import com.joeun.midproject.mapper.TicketMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,6 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 public class LiveBoardServiceImpl implements LiveBoardService{
     @Autowired
     LiveBoardMapper liveBoardMapper;
+
+    @Autowired
+    TicketMapper ticketMapper;
 
     @Override
     public int insert(LiveBoard liveBoard) throws Exception {
@@ -42,8 +48,17 @@ public class LiveBoardServiceImpl implements LiveBoardService{
     }
 
     @Override
-    public int soldOut(int boardNo) {
+    public int soldOut(int boardNo) throws Exception{
         int result = liveBoardMapper.soldOut(boardNo);
+        return result;
+    }
+
+    @Override
+    public int purchase(Ticket ticket) throws Exception {
+        String reservationUuid = UUID.randomUUID().toString();
+        String reservationNo = "T" + reservationUuid;
+        ticket.setReservationNo(reservationNo);
+        int result = ticketMapper.insert(ticket);
         return result;
     }
     

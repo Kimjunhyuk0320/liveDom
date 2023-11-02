@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import com.joeun.midproject.dto.LiveBoard;
+import com.joeun.midproject.dto.Ticket;
 
 
 public interface LiveBoardService {
@@ -20,6 +21,8 @@ public interface LiveBoardService {
     public List<LiveBoard> list() throws Exception;
     
     // 매진으로 변경
-    public int soldOut(int boardNo);
- 
+    public int soldOut(int boardNo) throws Exception;
+    
+    // 티켓 구매
+    public int purchase(Ticket ticket) throws Exception;
 }
