@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.joeun.midproject.dto.BookingRequests;
 import com.joeun.midproject.dto.FacilityRental;
 import com.joeun.midproject.dto.Files;
 import com.joeun.midproject.service.FacilityRentalService;
 import com.joeun.midproject.service.FileService;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Slf4j
@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class FacilityRentalController {
     @Autowired
     private FacilityRentalService facilityRentalService;
+    
 
     @Autowired
     private FileService fileService;
@@ -63,7 +64,7 @@ public class FacilityRentalController {
      */
     @GetMapping(value="/read")
     public String read(Model model, int frNo, Files files) throws Exception {
-        log.info("[GET] - /failityRental/read");
+        log.info("[GET] - /facilityRental/read");
 
         // 데이터 요청
         FacilityRental facilityRental = facilityRentalService.select(frNo);     // 게시글 정보
@@ -180,5 +181,31 @@ public class FacilityRentalController {
 
         // 뷰 페이지 지정
         return "redirect:/facilityRental/list";
+    }
+
+
+    /**
+     * 대관 예약 신청
+     * [POST]
+     * /facilityRental/read
+     * @param bookingRequests
+     * @param count
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/reservation")
+    public String reservation(@ModelAttribute BookingRequests bookingRequests) throws Exception {
+        log.info("메시지");
+        // 데이터 처리
+        int result = facilityRentalService.reservation(bookingRequests);
+        // 게시글 쓰기 실패 ➡ 게시글 쓰기 화면
+        if(result == 0) return "facilityRental/list";
+        // 뷰 페이지 지정
+        return "redirect:/facilityRental/list";
+    }
+
+    @GetMapping(value = "/complete")
+    public String complete() throws Exception {
+        return "/";
     }
 }
