@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import com.joeun.midproject.dto.CustomUser;
 import com.joeun.midproject.dto.Users;
 import com.joeun.midproject.mapper.UserMapper;
-import com.joeun.midproject.mapper.UserTempMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CustomUserDetailsService implements UserDetailsService {
     
     @Autowired
-    private UserTempMapper userTempMapper;
+    private UserMapper userMapper;
 
     /**
      *  사용자 정의 사용자 인증 메소드
@@ -36,7 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("userId : " + username);
 
-        Users users = userTempMapper.read(username);
+        Users users = userMapper.read(username);
         log.info("users : " + users);
         
         CustomUser customUser = null;

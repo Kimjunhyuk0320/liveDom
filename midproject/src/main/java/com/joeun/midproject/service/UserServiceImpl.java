@@ -5,23 +5,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.joeun.midproject.dto.Users;
-import com.joeun.midproject.mapper.UserTempMapper;
+import com.joeun.midproject.mapper.UserMapper;
 
 @Service
-public class UserTempServiceImpl implements UserTempService{
+public class UserServiceImpl implements UserService{
 
   @Autowired
   private PasswordEncoder passwordEncoder;
 
   @Autowired
-  private UserTempMapper userTempMapper;
+  private UserMapper userMapper;
 
   @Override
   public int insert(Users users) {
 
     users.setPassword(passwordEncoder.encode(users.getPassword()));
 
-    int result = userTempMapper.insert(users);
+    int result = userMapper.insert(users);
 
     return result;
   }
