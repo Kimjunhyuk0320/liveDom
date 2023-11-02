@@ -70,6 +70,52 @@
             <tr>
                 <textarea name="content" cols="40" rows="5" th:text="${facilityRental.content}"></textarea>
             </tr>
+
+            <!-- 글 작성 에디터 -->
+            <tr>
+                <td>게시글 적성 에디터</td>
+                <td class="data">
+                    <textarea name="content" id="content" cols="30" rows="10" 
+                              class="input-textarea"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>티켓 가격</td>
+                <td>
+                    <input type="text" name="price">
+                </td>
+            </tr>
+            <tr>
+                <td>수용인원</td>
+                <td>
+                    <input type="text" name="maxTickets">
+                </td>
+            </tr>
+
+            <!-- 이미지 추가에 대한 것 -->
+            <tr>
+                <td class="label">썸네일</td>
+                <td class="data">
+                    <input type="file" name="file" id="file" multiple>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">썸네일</td>
+                <td class="data">
+                    <!-- 썸네일 업로드 -->
+                    <div class="dropzone">
+                        <input type="file" id="thumbnail" accept="image/*">
+                        <a href="javascript:;" class="btn btn-sm btn-thumb-remove hide">삭제</a>
+                        <div class="drop-img flex col main-center sub-center">
+                            <div class="upload-box">
+                                <h3 class="mb-20">이미지를 드래그 하세요.</h3>
+                                <label for="thumbnail" class="btn">업로드</label>
+                            </div>
+                            <div class="img-box hide"></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
             
         </table>
         
