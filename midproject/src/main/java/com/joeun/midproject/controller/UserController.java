@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.joeun.midproject.dto.Users;
-import com.joeun.midproject.service.UserTempService;
+import com.joeun.midproject.service.UserService;
 
 import groovy.util.logging.Slf4j;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
-public class UserTempController {
+public class UserController {
 
   @Autowired
-  private UserTempService userTempService;
+  private UserService userTempService;
 
   @GetMapping(value="/login")
   public String login() {
@@ -42,8 +42,13 @@ public class UserTempController {
 
     int result = userTempService.insert(users);
 
-      
-      return "redirect:/team";
+      if(result>0){
+        return "redirect:/";
+
+      }  else{
+        return "redirect:/join";
+      }
+
   }
   
 }

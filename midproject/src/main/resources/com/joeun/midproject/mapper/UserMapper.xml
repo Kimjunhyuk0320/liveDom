@@ -9,38 +9,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 회원 등록 -->
     <insert id="insert">
-        INSERT INTO user( user_id, user_pw, name, email )
-        VALUES ( #{userId}, #{userPw}, #{name} ,#{email} )
+        INSERT INTO `user`( username, password, name, nickname,auth,email,phone,enabled,upd_date )
+        VALUES ( #{username}, #{password}, #{name} ,#{nickname},#{auth},#{email}, #{phone}, 0, now() )
     </insert>
 
     <!-- 회원 조회 -->
-    <select id="select" resultType="Users">
-        SELECT *
-        FROM user
-        WHERE user_no = #{userNo}
-    </select>
-
-    <!-- 회원 조회 - id -->
-    <select id="selectById" resultType="Users">
-        SELECT *
-        FROM user
-        WHERE user_id = #{userId}
+    <select id="read">
+        SELECT * FROM `user` WHERE username = #{username}
     </select>
 
 
-    <!-- 회원 조회 - id -->
-    <select id="login" resultMap="userMap">
-        SELECT * 
-        FROM `user` 
-        WHERE username = #{username}
-    </select>
 
 
-    <!-- 회원 권한 등록 -->
-    <insert id="insertAuth">
-        INSERT INTO user_auth( user_id, auth ) 
-        VALUES ( #{userId}, #{auth} )
-    </insert>
+
 
 	<update id="update">
         UPDATE user
