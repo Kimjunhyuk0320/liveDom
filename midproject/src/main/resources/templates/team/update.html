@@ -1,78 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/user/layout/main_layout}"
+      >
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공연 팀 모집 게시글 수정</title>
+    <title>공연 팀 모집 수정</title>
 </head>
-<body>
+<body layout:fragment="content">
     <h1>공연 팀 모집 게시글 수정</h1>
-    <form action="/board/delete" method="POST" id="form">
-        <input type="hidden" name="boardNo" th:value="${board.boardNo}">
+    <form action="/team/update" method="POST" id="form">
+        <input type="hidden" name="teamNo" th:value="${team.teamNo}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="_csrf.token">
+        <input type="hidden" name="writer" th:value="${#authentication.principal.users.nickname}">
+        <input type="hidden" name="username" th:value="${#authentication.principal.users.username}">
 
         <table>
             <tr>
                 <td>제목
-                    <input type="text">
+                    <input type="text" name="title" id="title" th:value="${team.title}">
                 </td>
             </tr>
             <tr>
                 <td>모집팀 수</td>
                 <td>
-                    <input type="text">
+                    <select name="capacity">
+                        <option value="1" th:selected="${team.capacity==1}">1명</option>
+                        <option value="2" th:selected="${team.capacity==2}">2명</option>
+                        <option value="3" th:selected="${team.capacity==3}">3명</option>
+                        <option value="4" th:selected="${team.capacity==4}">4명</option>
+                        <option value="5" th:selected="${team.capacity==5}">5명</option>
+                        <option value="6" th:selected="${team.capacity==6}">6명</option>
+                      </select>
                 </td>
             </tr>
             <tr>
                 <td>공연일자</td>
                 <td>
-                    <input type="text">
+                    <input type="date" name="liveDate" th:value="team.liveDate">
                 </td>
             </tr>
             <tr>
-                <td>공연 시간</td>
+                <td>공연 시작 시각</td>
                 <td>
-                    <input type="text">
+                    <input type="time" name="liveStTime" id="liveStTime" th:value="team.liveStTime">
+                </td>
+            </tr>
+
+            <tr>
+                <td>공연 종료 시각</td>
+                <td>
+                    <input type="time" name="liveEndTime" id="liveEndTime" th:value="team.liveEndTime">
                 </td>
             </tr>
             <tr>
                 <td>지역</td>
                 <td>
-                    <input type="text">
+                    <select name="location" id="location">
+                        <option value="서울" th:seleted="${team.location.equals('서울')}">서울</option>
+                        <option value="인천" th:seleted="${team.location.equals('인천')}">인천</option>
+                        <option value="경기도" th:seleted="${team.location.equals('경기')}">경기</option>
+                        <option value="강원도" th:seleted="${team.location.equals('강원도')}">강원도</option>
+                      </select>
+                </td>
+            </tr>
+            <tr>
+                <td>장소</td>
+                <td>
+                    <input type="text" name="address" id="address" th:value="${team.address}">
                 </td>
             </tr>
             <tr>
                 <td>계좌번호</td>
                 <td>
-                    <input type="text">
+                    <input type="text" name="account" id="account" th:value="${team.account}">
+                </td>
+            </tr>
+            <tr>
+                <td>가격</td>
+                <td>
+                    <input type="text" name="price" id="price" oninput="this.value =this.value.replace(/[^0-9]/g, '');" th:value="${team.price}">
                 </td>
             </tr>
             <!-- 글 작성 에디터 -->
             <tr>
                 <td>게시글 적성 에디터</td>
                 <td>
-                    <textarea type="text"></textarea>
+                    <textarea name="content" id="content" cols="30" rows="10" th:value="team.content"></textarea>
                 </td>
             </tr>
         </table>
 
+        <div>
+            <a href="/team">목록</a>
+            <input type="submit" value="수정">
+        </div>
     </form>
+
     
-    <div>
-        <button>목록</button>
-        <button>수정</button>
-    </div>
 
     <script>
 
         
         // 목록으로 이동
         function moveList() {
-            location.href = ㅇ
+            location.href = ``
         }
 
         // 수정하기
         function actionUpdate() {
-            location.href = ㅇ
+            location.href = ``
         }
 
  

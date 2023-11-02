@@ -12,7 +12,7 @@ public interface TeamAppMapper {
   
   public int insert(TeamApp teamApp);
   
-  public List<TeamApp> listByLider(TeamApp teamApp);
+  public List<TeamApp> listByLeader(TeamApp teamApp);
 
   public List<TeamApp> listByMember(TeamApp teamApp);
 
@@ -25,5 +25,11 @@ public interface TeamAppMapper {
   public int deniedAll(TeamApp teamApp);
 
   public int confirmed(TeamApp teamApp);
+
+  public List<TeamApp> listByTeamNo(int teamNo);
+  
+  public int insertLive(int teamNo, String members);
+
+
 
 }

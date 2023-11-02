@@ -8,7 +8,8 @@
 <body>
     <h1>회원가입</h1>
 
-    <form>
+    <form action="/join" method="POST">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         <table>
             <tr>
                 <td>이름</td>
@@ -19,53 +20,60 @@
             <tr>
                 <td>아이디</td>
                 <td>
-                    <input type="text">
+                    <input type="text" name="username">
                 </td>
             </tr>
             <tr>
                 <td>비밀번호</td>
                 <td>
-                    <input type="text">
+                    <input type="text" name="password">
                 </td>
             </tr>
             <tr>
                 <td>비밀번호 확인</td>
                 <td>
-                    <input type="text">
+                    <input type="text" name="userPwCheck">
                 </td>
             </tr>
             <tr>
                 <td>닉네임</td>
                 <td>
-                    <input type="text">
+                    <input type="text" name="nickname">
                 </td>
             </tr>
             <tr>
                 <td>연락처</td>
                 <td>
-                    <input type="text">
+                    <input type="text" name="phone">
                 </td>
             </tr>
             <tr>
                 <td>소속</td>
                 <td>
-                    <select name="group" id="group">
-                        <option value="user">일반 사용자</option>
-                        <option value="club">클럽</option>
-                        <option value="band">밴드</option>
+                    <select name="auth" id="group">
+                        <option value="ROLE_USER">일반 사용자</option>
+                        <option value="ROLE_CLUB">클럽</option>
+                        <option value="ROLE_BAND">밴드</option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td>이메일</td>
                 <td>
-                    <input type="text">
+                    <input type="text" name="email">
                 </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="submit" value="회원가입">
+
+                </td>
+
             </tr>
         </form>
     </table>
     
-    <button>회원가입</button>
 </body>
 </html>
 

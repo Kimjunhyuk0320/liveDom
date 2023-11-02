@@ -69,6 +69,15 @@ public class TeamServiceImpl implements TeamService{
   
   }
 
+  @Override
+  public List<Team> listByConfirmedLive(String username) {
+
+    List<Team> listByConfirmedList = teamMapper.listByConfirmedLive(username);
+
+    return listByConfirmedList;
+    
+  }
+
 
   
 }

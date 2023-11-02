@@ -81,8 +81,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 .defaultSuccessUrl("/")         // 로그인 성공 시, URL : "/"(기본값)
                                 .loginPage("/login")                    // 커스텀 로그인 페이지 지정 (default:/login)
                                 .loginProcessingUrl("/loginPro")// 커스텀 로그인 요청 처리 경로 지정 (default:/login)
-                                .usernameParameter("id")        // 아이디 요청 파라미터 이름 설정  (default:username)
-                                .passwordParameter("pw")        // 비밀번호 요청 파라미터 이름 설정 (default:password)
+                                .usernameParameter("username")        // 아이디 요청 파라미터 이름 설정  (default:username)
+                                .passwordParameter("password")        // 비밀번호 요청 파라미터 이름 설정 (default:password)
                                 .successHandler( authenticationSuccessHandler() ) // 로그인 성공 처리자 빈을 지정
                                 .permitAll()                                      // 로그인 폼은 모든 사용자에게 허용
         );

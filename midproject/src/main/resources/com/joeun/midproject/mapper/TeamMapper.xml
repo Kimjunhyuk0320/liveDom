@@ -1,10 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
+<!DOCTYPE mapper 
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- namespace="매퍼 인터페이스 경로" -->
 <mapper namespace="com.joeun.midproject.mapper.TeamMapper">
 
+
+  <select id="list" resultType="Team">
+      SELECT * FROM `team_recruitments`
+  </select>
+
+
+
+  <update id="addView">
+    UPDATE `team_recruitments` SET views = (views + 1) WHERE #{teamNo}
+  </update>
+
+  <select id="read" resultType="Team">
+  
+    SELECT t.*
+    , COUNT(a.team_no) AS recStatus
+    FROM `team_recruitments` AS t
+    JOIN `team_applications`AS a
+    ON (t.team_no = a.team_no)
+    GROUP BY a.team_no
+    WHERE team_no = #{teamNo}
+
+  </select>
+
+  <insert id="insert">
+    INSERT INTO `team_recruitments`
+    (title,
+    writer,
+    username,
+    content,
+    location,
+    address,
+    live_date,
+    live_st_time,
+    live_end_time,
+      price,
+      capacity,
+      account,
+      views,
+      confirmed,
+      upd_date)
+     VALUES
+      (#{title},
+      #{writer},
+      #{username},
+      #{content},
+      #{location},
+      #{address},
+      #{liveDate},
+      #{liveStTime},
+      #{liveEndTime},
+      #{price},
+      #{capacity},
+      #{account},
+      0,
+      0,
+      now())
+
+  </insert>
+
+  <update id="update">
+
+    UPDATE `team_recruitments`
+     SET
+     title = #{title},
+      writer = #{writer},
+       content = #{content},
+        location = #{location},
+        address = #{address},
+         live_date = #{liveDate},
+          live_st_time = #{liveStTime},
+          live_end_time = #{liveEndTime},
+           price = #{price},
+            capacity = #{capacity},
+             account = #{account},
+              upd_date = now()
+              WHERE
+              team_no =#{teamNo}
+
+  </update>
+
+  <delete id = "delete">
+
+    DELETE FROM `team_recruitments`
+    <if test="recStatus == 0 || recStatus ==null">
+    WHERE team_no = #{teamNo}
+    </if>
+    <if test="recStatus != 0">
+    WHERE 1<![CDATA[ <> ]]>1
+    </if>
+
+    </delete>
+
+  <select id="listByConfirmedLive" resultType="Team">
+  
+  SELECT t.*, c.crew AS crew, c.upd_date AS upd_date
+   FROM `team_recruitments` AS t
+   JOIN `confirmed_live` AS c
+   ON (t.team_no = c.team_no)
+   WHERE t.username = #{username}
+
+  </select>
 
 </mapper>

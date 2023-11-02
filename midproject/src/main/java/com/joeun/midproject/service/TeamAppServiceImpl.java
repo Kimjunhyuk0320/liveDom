@@ -3,15 +3,15 @@ package com.joeun.midproject.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.joeun.midproject.dto.Team;
 import com.joeun.midproject.dto.TeamApp;
 import com.joeun.midproject.mapper.TeamAppMapper;
 import com.joeun.midproject.mapper.TeamMapper;
 
+@Service
 public class TeamAppServiceImpl implements TeamAppService{
-
-  
 
   @Autowired
   private TeamAppMapper teamAppMapper;
@@ -29,9 +29,9 @@ public class TeamAppServiceImpl implements TeamAppService{
   }
 
   @Override
-  public List<TeamApp> listByLider(TeamApp teamApp) {
+  public List<TeamApp> listByLeader(TeamApp teamApp) {
 
-    List<TeamApp> listByLider = teamAppMapper.listByLider(teamApp);
+    List<TeamApp> listByLider = teamAppMapper.listByLeader(teamApp);
 
     return listByLider;
 
@@ -99,6 +99,26 @@ public class TeamAppServiceImpl implements TeamAppService{
     Team team = teamMapper.read(tempTeam);
 
     if(team.getRecStatus()==team.getCapacity()){
+
+      //공연성사테이블에 추가하는 로직을 구상해야합니다.
+      //Team객체에 필요한 속성을 2개 추가로 구성했습니다.
+      //crew의 경우, 해당 참여자들의 밴드명을 모두 찍어야합니다.
+
+      List<TeamApp> confirmedTeamAppList = teamAppMapper.listByTeamNo(tempTeam.getTeamNo());
+      String members = "";
+      for(int i = 0; i<confirmedTeamAppList.size();i++){
+        if(i<confirmedTeamAppList.size()-1){
+          members += (confirmedTeamAppList.get(i).getBand_name() + ", ");
+        }else{
+          members += confirmedTeamAppList.get(i).getBand_name();
+
+        }
+
+        teamAppMapper.insertLive(tempTeam.getTeamNo(),members);
+
+      }
+      
+
 
       deniedAllResult = teamAppMapper.deniedAll(teamApp);
 

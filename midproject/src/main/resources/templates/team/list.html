@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/user/layout/main_layout}"
+      >
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공연 팀 모집</title>
+    <title>공연 팀 모집 목록</title>
 </head>
-<body>
+<body layout:fragment="content">
     <h1>공연 팀 모집</h1>
 
 
@@ -18,20 +19,26 @@
             <th width="80">가격</th>
             <th width="100">지역</th>
             <th width="100">공연일자</th>
-            <th width="100">등록일자</th>
+            <th width="100">갱신일자</th>
+            <th width="50">조회수</th>
         </tr>
-
+        <th:block th:if="${teamList != null && teamList.size()!=0}">
+        <th:block th:each="team : ${teamList}">
         <tr>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
+            <a th:href="|/team/read?teamNo=${team.teamNo}|">
+                <td th:text="${team.confirmed !=0 ?'마감':'모집중'}"></td>
+                <td th:text="${team.title}"></td>
+                <td th:text="${team.recStatus}+'/'+${team.capacity}"></td>
+                <td th:text="${team.writer}"></td>
+                <td th:text="${team.price}"></td>
+                <td th:text="${team.location}"></td>
+                <td th:text="${team.liveDate}"></td>
+                <td th:text="${team.updDate}"></td>
+                <td th:text="${team.views}"></td>
+            </a>
         </tr>
-          
+          </th:block>
+        </th:block>
     </table>
 </body>
 </html>
