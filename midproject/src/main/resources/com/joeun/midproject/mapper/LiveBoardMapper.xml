@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="list" resultType="LiveBoard">
         SELECT *
         FROM live_board
-        ORDER BY upd_date DESC
+        ORDER BY upd_date DESC, board_no DESC
     </select>
 
     <!-- 게시글 등록 -->
@@ -29,6 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM live_board
         WHERE board_no = #{boardNo}
     </select>
+    
     <!-- 게시글 수정 -->
 	<update id="update">
         UPDATE live_board
@@ -43,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            live_time = #{liveTime},
            location = #{location},
            max_tickets = #{maxTickets},
-           upd_date = now(),
+           upd_date = now()
         WHERE board_no = #{boardNo}
     </update>
     <!-- 게시글 매진으로 변경 -->

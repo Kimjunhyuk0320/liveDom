@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.joeun.midproject.dto.LiveBoard;
 import com.joeun.midproject.mapper.LiveBoardMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class LiveBoardServiceImpl implements LiveBoardService{
     @Autowired
     LiveBoardMapper liveBoardMapper;
@@ -22,6 +25,7 @@ public class LiveBoardServiceImpl implements LiveBoardService{
     @Override
     public int update(LiveBoard liveBoard) throws Exception {
         int result = liveBoardMapper.update(liveBoard);
+        log.info(result + "");
         return result;
     }
 

@@ -1,49 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/user/layout/main_layout}"
+      >
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공연 게시글 수정</title>
+    <title>타이틀</title>
 </head>
-<body>
+<body layout:fragment="content">
     <h1>공연 게시글 수정</h1>
-    <form action="#" method="POST" id="form">
-        <input type="hidden" name="#" th:value="${#.#}">
-
+    <form action="/liveBoard/update" method="POST" id="form" enctype="multipart/form-data">
+        <input type="hidden" name="boardNo" th:value="${liveBoard.boardNo}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <table>
             <tr>
+                <td>아이디
+                    <input type="text" th:value="${liveBoard.username}" name="username">
+                </td>
+            </tr>
+            <tr>
+                <td>닉네임
+                    <input type="text" th:value="${liveBoard.writer}" name="writer">
+                </td>
+            </tr>
+            <tr>
                 <td>제목
-                    <input type="text">
+                    <input type="text" th:value="${liveBoard.title}" name="title">
                 </td>
             </tr>
             <tr>
                 <td>공연진</td>
                 <td>
-                    <input type="text">
+                    <input type="text" th:value="${liveBoard.crew}" name="crew">
                 </td>
             </tr>
             <tr>
                 <td>공연일자</td>
                 <td>
-                    <input type="text">
+                    <input type="text" th:value="${liveBoard.liveDate}" name="liveDate">
                 </td>
             </tr>
             <tr>
                 <td>공연 시간</td>
                 <td>
-                    <input type="text">
+                    <input type="text" th:value="${liveBoard.liveTime}" name="liveTime">
                 </td>
             </tr>
             <tr>
                 <td>지역</td>
                 <td>
-                    <input type="text">
+                    <input type="text" th:value="${liveBoard.location}" name="location">
                 </td>
             </tr>
             <tr>
-                <td>장소</td>
+                <td>주소</td>
                 <td>
-                    <input type="text">
+                    <input type="text" th:value="${liveBoard.address}" name="address">
                 </td>
             </tr>
 
@@ -51,27 +62,27 @@
             <tr>
                 <td>게시글 적성 에디터</td>
                 <td>
-                    <textarea type="text"></textarea>
+                    <textarea type="text" th:text="${liveBoard.content}" name="content"></textarea>
                 </td>
             </tr>
             <tr>
                 <td>티켓 가격</td>
                 <td>
-                    <input type="text">
+                    <input type="text" th:value="${liveBoard.price}" name="price">
                 </td>
             </tr>
             <tr>
                 <td>수용인원</td>
                 <td>
-                    <input type="text">
+                    <input type="text" th:value="${liveBoard.maxTickets}" name="maxTickets">
                 </td>
             </tr>
 
             <!-- 이미지 추가에 대한 것 -->
             <tr>
-                <td>이미지 추가</td>
+                <td>썸네일</td>
                 <td>
-                    이미지 추가하는 부분이 올 것
+                    <input type="file" name="file">
                 </td>
             </tr>
         </table>
@@ -79,21 +90,22 @@
     </form>
     
     <div>
-        <button>목록</button>
-        <button>수정</button>
+        <button type="button" onclick="moveList()">목록</button>
+        <button type="button" onclick="actionUpdate()">수정</button>
     </div>
 
     <script>
 
-        
+        let form = document.getElementById('form')
+
         // 목록으로 이동
         function moveList() {
-            location.href = ㅇ
+            location.href = "/liveBoard/list"
         }
 
         // 수정하기
         function actionUpdate() {
-            location.href = ㅇ
+           form.submit()
         }
 
  

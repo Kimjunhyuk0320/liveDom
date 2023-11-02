@@ -1,65 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/user/layout/main_layout}"
+      >
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공연 게시글 읽기</title>
 </head>
-<body>
-    <h1>공연 게시글 읽기</h1>
-    <form action="/board/delete" method="POST" id="form">
-        <input type="hidden" name="boardNo" th:value="${board.boardNo}">
+<body layout:fragment="content">
+  <h1>공연 게시글 읽기</h1>
+    <form action="/liveBoard/delete" method="POST" id="form">
+        <input type="hidden" name="boardNo" th:value="${liveBoard.boardNo}" id="boardNo">
 
-        <h2>공연 제목</h2>
-        <img src="/Ticketing/img/밴드01.jfif" alt="" style="width: 200px;">
+        <h2 th:text="${liveBoard.title}"></h2>
+        <img src="" alt="" style="width: 200px;">
 
         <table>
             <tr>
                 <td>공연일자</td>
                 <td>
-                    2023-10-30
+                    <span th:text="${liveBoard.liveDate}"></span>
                 </td>
             </tr>
             <tr>
                 <td>공연시간</td>
                 <td>
-                    PM - 6:00 ~ PM - 10:00
+                    <span th:text="${liveBoard.liveTime}"></span>
                 </td>
             </tr>
             <tr>
                 <td>공연진</td>
                 <td>
-                    소란, 소란2, 소란3, 소란4
+                    <span th:text="${liveBoard.crew}"></span>
                 </td>
             </tr>
             <tr>
                 <td>수용인원</td>
                 <td>
-                    300명
+                    <span th:text="${liveBoard.maxTickets}"></span>
                 </td>
             </tr>
             <tr>
                 <td>티켓가격</td>
                 <td>
-                    300,000
+                    <span th:text="${liveBoard.price}"></span>
                 </td>
             </tr>
             <tr>
                 <td>지역</td>
                 <td>
-                    서울 성수동
+                    <span th:text="${liveBoard.location}"></span>
                 </td>
             </tr>
             <tr>
                 <td>잔여티켓</td>
                 <td>
-                    134장
+                    <span th:text="${liveBoard.ticketLeft}"></span>
                 </td>
             </tr>
             <tr>
                 <td>매진여부</td>
                 <td>
                     정상판매 / 매진
+                    <p th:if="${liveBoard.soldOut == 1}">매진</p> 
+                    <p th:if="${liveBoard.soldOut == 0}">판매 중</p> 
                 </td>
             </tr>
             <tr>
@@ -83,7 +86,7 @@
     </div>
 
     <div style="background-color: darkgrey; width: 500px; height: 800px;">
-        <h2>이 부분에 공연에 대한 세부 내용이 나옵니다.</h2>
+        <p th:text="${liveBoard.content}"></p>
     </div>
 
     <script>
@@ -91,12 +94,13 @@
         
         // 목록으로 이동
         function moveList() {
-            location.href = "#"
+            location.href = "/liveBoard/list"
         }
 
         // 수정으로 이동
         function moveUpdate() {
-            location.href = "#"
+            const boardNo = $('#boardNo').val()
+            location.href = "/liveBoard/update?boardNo=" + boardNo;
         }
 
 

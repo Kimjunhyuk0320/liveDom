@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/user/layout/main_layout}"
+      >
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공연 게시글 목록</title>
 </head>
-<body>
+<body layout:fragment="content">
     <h1>공연 게시글 목록</h1>
     
     <div class="card" style="width: 18rem;" th:each="liveBoard : ${liveBoardList}">
@@ -17,10 +18,22 @@
           <p class="card-text" th:text="${liveBoard.crew}"></p>
           <p class="card-text" th:text="${liveBoard.address}"></p>
           <p class="card-text" th:text="${liveBoard.liveDate}"></p>
-
-          <p class="card-text" style="background-color: red;" th:if="${liveBoard.soldOut == '1'}">매진</p>                             <!-- 매진은 매진일 경우에만 나오도록 -->
+          <!-- 매진은 매진일 경우에만 나오도록 -->
+          <p class="card-text" style="background-color: red;" th:if="${liveBoard.soldOut == 1}">매진</p>                             
         </div>
     </div>
-    
+    <div>
+        <button type="button" class="btn btn-secondary" onclick="moveinsert()">게시글 쓰기</button>
+    </div>
+
+    <script>
+
+        
+        // 목록으로 이동
+        function moveinsert() {
+            location.href = "/liveBoard/insert"
+        }
+
+    </script>
 </body>
 </html>

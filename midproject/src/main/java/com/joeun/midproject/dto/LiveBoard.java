@@ -22,6 +22,7 @@ public class LiveBoard {
     private int maxTickets;
     private String updDate;
     private int soldOut;
+    private int ticketLeft;
 
     private List<MultipartFile> file;
 }

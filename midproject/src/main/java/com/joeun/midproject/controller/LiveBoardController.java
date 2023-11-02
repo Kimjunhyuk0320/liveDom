@@ -58,7 +58,7 @@ public class LiveBoardController {
         model.addAttribute("liveBoard", liveBoard);
 
         // 뷰 페이지 지정
-        return "board/read";
+        return "liveBoard/read";
     }
 
 
@@ -82,10 +82,10 @@ public class LiveBoardController {
         int result = liveBoardService.insert(liveBoard);
 
         // 게시글 쓰기 실패 ➡ 게시글 쓰기 화면
-        if( result == 0 ) return "board/insert";
+        if( result == 0 ) return "liveBoard/insert";
 
         // 뷰 페이지 지정
-        return "redirect:/board/list";
+        return "redirect:/liveBoard/list";
     }
 
 
@@ -100,7 +100,7 @@ public class LiveBoardController {
         // 모델 등록
         model.addAttribute("liveBoard", liveBoard);
         // 뷰 페이지 지정
-        return "board/update";
+        return "liveBoard/update";
     }
 
 
