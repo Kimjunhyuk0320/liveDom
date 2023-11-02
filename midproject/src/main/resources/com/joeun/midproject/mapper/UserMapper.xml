@@ -6,27 +6,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace="매퍼 인터페이스 경로" -->
 <mapper namespace="com.joeun.midproject.mapper.UserMapper">
 
-    <!-- Users 매핑-->
-    <resultMap type="Users" id="userMap">
-        <id property="userNo" column="user_no" />
-        
-        <result property="userNo" column="user_no" />
-        <result property="userId" column="user_id" />
-        <result property="userPw" column="user_pw" />
-        <result property="name" column="name" />
-        <result property="email" column="email" />
-        <result property="enabled" column="enabled" />
-        <result property="regDate" column="reg_date" />
-        <result property="updDate" column="upd_date" />
-        
-        <collection property="authList" resultMap="authMap"></collection>
-    </resultMap>
-        
-    <!-- UserAuth 매핑 -->
-    <resultMap type="UserAuth" id="authMap">
-        <result property="userId" column="user_id" />
-        <result property="auth" column="auth" />
-    </resultMap>
 
     <!-- 회원 등록 -->
     <insert id="insert">
@@ -48,20 +27,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE user_id = #{userId}
     </select>
 
+
     <!-- 회원 조회 - id -->
     <select id="login" resultMap="userMap">
-        SELECT u.user_no
-              ,u.user_id
-              ,user_pw
-              ,name
-              ,email
-              ,enabled
-              ,reg_date
-              ,upd_date
-              ,auth
-        FROM user u LEFT OUTER JOIN user_auth auth 
-                    ON u.user_id = auth.user_id
-        WHERE u.user_id = #{userId}
+        SELECT * 
+        FROM `user` 
+        WHERE username = #{username}
     </select>
 
 
