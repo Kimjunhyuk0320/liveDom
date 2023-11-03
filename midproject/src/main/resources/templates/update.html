@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원정보 수정</title>
+</head>
+<body>
+    <h1>회원정보 수정</h1>
+
+    <form action="/update" method="POST">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">        
+        <table>
+            <tr>
+                <td>이름</td>
+                <td>
+                    <input type="text" name="name" th:value="${#authentication.principal.users.name}">
+                </td>
+            </tr>
+            <tr>
+                <td>아이디</td>
+                <td>
+                    <input type="text" name="username" readonly  th:value="${#authentication.principal.users.username}">
+                </td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td>
+                    <input type="text" name="password" >
+                </td>
+            </tr>
+            <tr>
+                <td>비밀번호 확인</td>
+                <td>
+                    <input type="text" name="userPwCheck">
+                </td>
+            </tr>
+            <tr>
+                <td>닉네임</td>
+                <td>
+                    <input type="text" name="nickname" th:value="${#authentication.principal.users.nickname}">
+                </td>
+            </tr>
+            <tr>
+                <td>연락처</td>
+                <td>
+                    <input type="text" name="phone"  th:value="${#authentication.principal.users.phone}">
+                </td>
+            </tr>
+            <tr>
+                <td>소속</td>
+                <td>
+                    <!-- 자바스크립트로 셀렉트 문 선택 후, 이를 db의 값과 동일하게 만들 수 있는 코드가 있다. 이를 사용해라. -->
+                    <select name="auth" id="group">
+                        <option value="ROLE_USER">일반 사용자</option>
+                        <option value="ROLE_CLUB">클럽</option>
+                        <option value="ROLE_BAND">밴드</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td>
+                    <input type="text" name="email"  th:value="${#authentication.principal.users.email}">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="submit" value="수정">
+                </td>
+            </tr>
+        </table>
+    </form>
+    
+</body>
+</html>
+
+<!-- 회원가입 / 로그인 / 로그인이 잘 되는지에 대해서 살펴보기 -->
