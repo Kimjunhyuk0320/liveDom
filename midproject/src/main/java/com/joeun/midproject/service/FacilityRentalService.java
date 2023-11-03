@@ -2,6 +2,7 @@ package com.joeun.midproject.service;
 
 import java.util.List;
 
+import com.joeun.midproject.dto.BookingRequests;
 import com.joeun.midproject.dto.FacilityRental;
 
 
@@ -16,4 +17,7 @@ public interface FacilityRentalService {
     public int update(FacilityRental facilityRental) throws Exception;
     // 게시글 삭제
     public int delete(int facilityRental) throws Exception;
+
+    // 대관 예약 신청
+    public int reservation(BookingRequests bookingRequests) throws Exception;
 }

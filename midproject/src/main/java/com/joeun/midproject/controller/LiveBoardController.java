@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.joeun.midproject.dto.LiveBoard;
+import com.joeun.midproject.dto.Ticket;
 import com.joeun.midproject.service.LiveBoardService;
 
 
@@ -53,7 +54,11 @@ public class LiveBoardController {
 
         // 데이터 요청
         LiveBoard liveBoard = liveBoardService.select(boardNo);     // 게시글 정보
-
+        int totalTicketCount = liveBoard.getMaxTickets();
+        List<Ticket> ticketList = liveBoardService.listByBoardNo(boardNo);
+        int soldTicketCount = ticketList.size();
+        int nowTicketCount = totalTicketCount - soldTicketCount;
+        liveBoard.setTicketLeft(nowTicketCount);
         // 모델 등록
         model.addAttribute("liveBoard", liveBoard);
 
@@ -120,8 +125,34 @@ public class LiveBoardController {
         // 뷰 페이지 지정
         return "redirect:/liveBoard/list";
     }
+     /**
+     * 티켓 구매 처리
+     * [POST]
+     */
+    @PostMapping(value="/purchase")
+    public String ticket(Ticket ticket, int count) throws Exception {
+        // 데이터 처리
+        int result = 0;
+        for(int i = 0 ; i < count ; i++){
+            result += liveBoardService.purchase(ticket);
+        }
+        int boardNo = ticket.getBoardNo();
+        // 티켓 구매 실패 ➡ 게시글 수정 화면
+        if( result == 0 ) return "redirect:/liveBoard/read?boardNo=" + boardNo;
+        
+        // 뷰 페이지 지정
+        return "redirect:/liveBoard/complete";
+    }
 
-
+    /**
+     * 티켓 구매 완료 페이지
+     * [GET]
+     */
+    @GetMapping(value="/complete")
+    public String complete() throws Exception {
+       
+        return "liveBoard/complete";
+    }
 
 
 }

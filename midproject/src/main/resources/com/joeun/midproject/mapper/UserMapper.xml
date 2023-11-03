@@ -18,18 +18,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM `user` WHERE username = #{username}
     </select>
 
-
-
-
-
-
+    <!-- 회원 정보 수정 -->
 	<update id="update">
         UPDATE user
         SET 
-            user_pw = #{userPw}
-            ,name = #{name}
+            name = #{name}
+            ,password = #{password}
+            ,nickname = #{nickname}
+            ,phone = #{phone}
+            ,auth = #{auth}
             ,email = #{email}
-        WHERE user_id = #{userId}
+        WHERE username = #{username}
     </update>
 
 </mapper>

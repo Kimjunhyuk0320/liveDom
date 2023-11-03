@@ -6,4 +6,6 @@ public interface UserService {
 
   public int insert(Users users);
 
+  public int update(Users users);
+
 }

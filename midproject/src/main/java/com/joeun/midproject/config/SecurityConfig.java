@@ -101,7 +101,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 자동로그인 설정
         http.rememberMe( (remember) -> remember
-                                    .key("joeun")
+                                    .key("midproject")
                                     .tokenRepository( tokenRepository() )
                                     .tokenValiditySeconds( 60 * 60 * 24 * 7 )
                        );
@@ -138,7 +138,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PersistentTokenRepository tokenRepository() {
         // JdbcTokenRepositoryImpl : 토큰 저장 데이터 베이스를 등록하는 객체
-        JdbcTokenRepositoryImpl repositoryImpl = new JdbcTokenRepositoryImpl(); 
+        JdbcTokenRepositoryImpl repositoryImpl = new JdbcTokenRepositoryImpl();
         repositoryImpl.setDataSource(dataSource);   // 토큰 저장소를 사용하는 데이터 소스 지정
         return repositoryImpl;
     }

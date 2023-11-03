@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.joeun.midproject.dto.BookingRequests;
 import com.joeun.midproject.dto.FacilityRental;
 import com.joeun.midproject.dto.Files;
+import com.joeun.midproject.mapper.BookingRequestsMapper;
 import com.joeun.midproject.mapper.FacilityRentalMapper;
 import com.joeun.midproject.mapper.FileMapper;
 
@@ -19,6 +21,9 @@ import com.joeun.midproject.mapper.FileMapper;
 public class FacilityRentalServiceImpl implements FacilityRentalService {
     @Autowired
     private FacilityRentalMapper facilityRentalMapper;
+
+    @Autowired
+    private BookingRequestsMapper bookingRequestsMapper;
 
     @Autowired
     private FileMapper fileMapper;
@@ -112,4 +117,10 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
         return result;
     }
 
+    // 대관 예약 신청
+    @Override
+    public int reservation(BookingRequests bookingRequests) throws Exception {
+        int result = bookingRequestsMapper.reservation(bookingRequests);
+        return result;
+    }
 }
