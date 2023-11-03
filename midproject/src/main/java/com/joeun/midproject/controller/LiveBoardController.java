@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.joeun.midproject.dto.LiveBoard;
 import com.joeun.midproject.dto.Ticket;
@@ -129,19 +130,41 @@ public class LiveBoardController {
      * 티켓 구매 처리
      * [POST]
      */
+    @ResponseBody
     @PostMapping(value="/purchase")
     public String ticket(Ticket ticket, int count) throws Exception {
+        log.info("ajax 티켓 구매 처리 테스트");
+        int boardNo = ticket.getBoardNo();
+        int totalTicketCount = liveBoardService.select(boardNo).getMaxTickets();
+        List<Ticket> ticketList = liveBoardService.listByBoardNo(boardNo);
+        int purchaseTicketCount = ticketList.size();
+        int ticketLeft = totalTicketCount - purchaseTicketCount;
+        // 잔여티켓보다 구매티켓이 많은경우의 응답
+        if( ticketLeft < count) return "OVERCOUNT";
+
+        // 잔여티켓의 수가 0 일때 매진 응답
+        if( (Integer)ticketLeft == 0 ) return "ZERO";
+
+
         // 데이터 처리
         int result = 0;
         for(int i = 0 ; i < count ; i++){
             result += liveBoardService.purchase(ticket);
         }
-        int boardNo = ticket.getBoardNo();
-        // 티켓 구매 실패 ➡ 게시글 수정 화면
-        if( result == 0 ) return "redirect:/liveBoard/read?boardNo=" + boardNo;
-        
-        // 뷰 페이지 지정
-        return "redirect:/liveBoard/complete";
+
+        // 티켓 구매 실패 응답
+        if( result == 0 ) return "FAIL";
+
+        //잔여티켓수 0 일시 매진으로 변환
+        ticketList = liveBoardService.listByBoardNo(boardNo);
+        int afterTicketCount = ticketList.size();
+        int afterCount = totalTicketCount - afterTicketCount;
+        if((Integer)afterCount == 0 ){
+            int update = liveBoardService.soldOut(boardNo);
+            log.info( "잔여 티켓수 0 일시 매진으로 전환 : " + update);
+        }
+        // 성공응답
+        return "SUCCESS";
     }
 
     /**
