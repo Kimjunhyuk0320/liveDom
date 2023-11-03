@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,26 +14,35 @@
     <form action="/loginPro" method="POST">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         <div>
-            <input type="text" name="username" placeholder="ID">
+            <input type="text" name="username" placeholder="ID" th:value="${username}">
         </div>
         <div>
             <input type="password" name="password" placeholder="PW">
         </div>
-        
-        <!-- <div>
-            <div>
-                <h3>아이디 저장</h3>
-                <input type="checkbox" name="remember-id" value="" checked>
-            </div>
-            <div>
-                <h3>자동 로그인</h3>
-                <input type="checkbox" name="xxx" value="yyy">
-            </div>
-        </div> -->
+
+        <!-- 아이디 저장(remember-id) 기능 -->
+        <div>
+            <th:block th:if="${rememberId}">
+                <input type="checkbox" name="rememberId" id="remember-id" checked>
+            </th:block>
+            <th:block th:if="${!rememberId}">
+                <input type="checkbox" name="rememberId" id="remember-id">
+            </th:block>
+            <label for="remember-id">아이디 저장</label>
+        </div>
+
+        <!-- 자동로그인(Remember-Md) 기능 -->
+        <!-- remember-me 요청 파라미터로 자동 로그인 여부를 전달 -->
+        <div>
+            <input type="checkbox" name="remember-me" id="remember-me">
+            <label for="remember-me">자동 로그인</label> <br>
+        </div>
 
         <input type="submit" value="로그인">
 
     </form>
+
+    <!-- 회원수정 ( v ) / 아이디 저장 ( v ) / 자동 로그인 ( v ) -->    
 
 </body>
 </html>

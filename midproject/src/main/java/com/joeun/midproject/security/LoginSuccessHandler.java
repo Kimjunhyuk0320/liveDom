@@ -22,8 +22,8 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
       Authentication authentication) throws ServletException, IOException {
         log.info("로그인 인증 성공.....");
       // 아이디 저장 체크 O
-      String rememberId = request.getParameter("remember-id");   //아이디 저장 여부
-      String username = request.getParameter("id");             //아이디
+      String rememberId = request.getParameter("rememberId");   //아이디 저장 여부
+      String username = request.getParameter("username");             //아이디
       log.info("id : "+ username);
       log.info("remember-id : "+ rememberId);
       if( rememberId!=null && rememberId.equals("on")){

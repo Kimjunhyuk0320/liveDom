@@ -16,6 +16,7 @@ public class UserServiceImpl implements UserService{
   @Autowired
   private UserMapper userMapper;
 
+  // 회원가입
   @Override
   public int insert(Users users) {
 
@@ -24,6 +25,18 @@ public class UserServiceImpl implements UserService{
     int result = userMapper.insert(users);
 
     return result;
+  }
+
+  // 회원 정보 수정
+  @Override
+  public int update(Users users) {
+
+    users.setPassword(passwordEncoder.encode(users.getPassword()));
+
+    int result = userMapper.update(users);
+
+    return result;
+
   }
 
 
