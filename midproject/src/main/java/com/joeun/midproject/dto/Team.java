@@ -31,5 +31,15 @@ public class Team {
   //성사공연속성
   private String crew;
   private Date confirmedDate;
+
+  //페이지네이션데이터
+  private int PageNo;
+  private String keyword;
+  private int startPage;
+  private int rows;
+  private int order;
+  private int pageCount;
+  private int totalCount;
+  private int searchType;
   
 }

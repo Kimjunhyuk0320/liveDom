@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.joeun.midproject.dto.PageInfo;
 import com.joeun.midproject.dto.Team;
 import com.joeun.midproject.mapper.TeamMapper;
 
@@ -76,6 +77,25 @@ public class TeamServiceImpl implements TeamService{
 
     return listByConfirmedList;
     
+  }
+
+  @Override
+  public PageInfo pageInfo(PageInfo pageInfo) {
+
+    PageInfo pageInfoResult = teamMapper.pageInfo(pageInfo);
+
+    return pageInfoResult;
+  }
+
+  @Override
+  public List<Team> pageList(Team team) {
+
+    team.setPageNo((team.getPageNo()-1)*team.getRows());
+
+    List<Team> teamList = teamMapper.pageList(team);
+
+    return teamList;
+
   }
 
 
