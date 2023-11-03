@@ -20,31 +20,37 @@
             <tr>
                 <td>아이디</td>
                 <td>
-                    <input type="text" name="username">
+                    <input type="text" name="username" id="username">
+                    <input type="hidden" id="checkUserName" value="0">
+                    <button onclick="joinFrom_checkedLoginIdDup(this);" name="btnLoginIdDupCheck" type="button">아이디 중복 검사</button>
                 </td>
             </tr>
             <tr>
                 <td>비밀번호</td>
                 <td>
-                    <input type="text" name="password">
+                    <input type="text" name="password" id="password">
                 </td>
             </tr>
             <tr>
                 <td>비밀번호 확인</td>
                 <td>
-                    <input type="text" name="userPwCheck">
+                    <input type="text" name="userPwCheck" id="passwordCheck">
                 </td>
             </tr>
             <tr>
                 <td>닉네임</td>
                 <td>
                     <input type="text" name="nickname">
+                    <input type="hidden" id="checkUserNickname" value="0">
+                    <button onclick="joinFrom_checkedNicknameDup(this);" name="btnNicknameDupCheck" type="button">닉네임 중복 검사</button>
                 </td>
             </tr>
             <tr>
                 <td>연락처</td>
                 <td>
                     <input type="text" name="phone">
+                    <input type="text" id="checkUserPhone" value="0">
+                    <button onclick="joinFrom_checkedPhoneDup(this);" name="btnPhoneDupCheck" type="button">연락처 중복 검사</button>
                 </td>
             </tr>
             <tr>
@@ -71,10 +77,169 @@
                 </td>
 
             </tr>
-        </form>
-    </table>
+        </table>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let joinFrom_checkedLoginId = "";
+        let form = document.querySelector("form");
+
+        let checkUserName = $('#checkUserName');
+        let checkUserNameVal = checkUserName.val();
+
+        let checkUserNickname = $('#checkUserNickname');
+        let checkUserNicknameVal = checkUserNickname.val();
+
+        let checkUserPhone = $('#checkUserPhone');
+        let checkUserPhoneVal = checkUserPhone.val();
+
+
+
+        // 로그인 아이디 중복 체크
+        function joinFrom_checkedLoginIdDup(el) {
+            const form = $(el).closest('form').get(0);
+            const username = form.username.value;
+
+            let data = {
+                'username' : username
+            }
+
+            // alert(form.username.value);
+            let url = 'http://localhost:8080/getLoginIdDup'
+            $.ajax({
+                url             :   url,
+                type            :   'GET',
+                data            :   data,
+                success         : function(response) {
+                    if( response == 'Y' ){
+                        alert('이용 가능한 이이디입니다.')
+                        checkUserName.val('1');
+                        $("#username").prop("readonly", true);
+                    }
+                    if( response == 'N' ){
+                        alert('아이디가 중복되었습니다.')
+                        
+                    }
+                },
+                error           : function(request, status, error){
+                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                }
+
+            })
+
+        }
+
+        // 닉네임 중복 검사
+        function joinFrom_checkedNicknameDup(el) {
+            const form = $(el).closest('form').get(0);
+            const nickname = form.nickname.value;
+
+            let data = {
+                'nickname' : nickname
+            }
+
+            // alert(form.nickname.value);
+            let url = 'http://localhost:8080/getNicknameDup'
+            $.ajax({
+                url             :   url,
+                type            :   'GET',
+                data            :   data,
+                success         : function(response) {
+                    if( response == 'Y' ){
+                        alert('이용 가능한 닉네임입니다.')
+                        checkUserNickname.val('1');
+                        $("#nickname").prop("readonly", true);
+                    }
+                    if( response == 'N' ){
+                        alert('닉네임이 중복되었습니다.')
+                        
+                    }
+                },
+                error           : function(request, status, error){
+                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                }
+
+            })
+
+        }
+
+        // 연락처 중복 검사
+        function joinFrom_checkedPhoneDup(el) {
+            const form = $(el).closest('form').get(0);
+            const phone = form.phone.value;
+
+            let data = {
+                'phone' : phone
+            }
+
+            alert(form.phone.value);
+            let url = 'http://localhost:8080/getPhoneDup'
+            $.ajax({
+                url             :   url,
+                type            :   'GET',
+                data            :   data,
+                success         : function(response) {
+                    if( response == 'Y' ){
+                        alert('이용 가능한 연락처입니다.')
+                        checkUserPhone.val('1');
+                        $("#phone").prop("readonly", true);
+                    }
+                    if( response == 'N' ){
+                        alert('연락처가 중복되었습니다.')
+                        
+                    }
+                },
+                error           : function(request, status, error){
+                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                }
+
+            })
+
+        }
+    
+        form.addEventListener("submit", function(event) {
+            checkUserNameVal = checkUserName.val();
+            checkUserNicknameVal = checkUserNickname.val();
+            checkUserPhoneVal = checkUserPhone.val();
+
+            // 비밀번호 확인 체크 관련 변수
+            let password = $('#password').val();
+            let passwordCheck = $('#passwordCheck').val();
+
+            
+            if (form.username.value.length == 0) {
+                alert('로그인 아이디를 입력해주세요.');
+                form.username.focus();
+                event.preventDefault(); // 폼 제출을 중지합니다.
+            }
+    
+            if ( checkUserNameVal == 0 ) {
+                alert('로그인 아이디 중복검사를 실시해주세요.');
+                form.btnLoginIdDupCheck.focus();
+                event.preventDefault(); // 폼 제출을 중지합니다.
+            }
+
+            if ( password != passwordCheck ) {
+                alert('비밀번호가 일치하지 않습니다.')
+                event.preventDefault(); // 폼 제출을 중지합니다.
+            }
+        
+            if ( checkUserNicknameVal == 0 ) {
+                alert('닉네임 중복검사를 실시해주세요.');
+                form.btnNicknameDupCheck.focus();
+                event.preventDefault(); // 폼 제출을 중지합니다.
+            }
+
+            if ( checkUserPhoneVal == 0 ) {
+                alert('연락처 중복검사를 실시해주세요.');
+                form.btnPhoneDupCheck.focus();
+                event.preventDefault(); // 폼 제출을 중지합니다.
+            }
+
+
+        });
+    </script>
     
 </body>
 </html>
-
-<!-- 회원가입 / 로그인 / 로그인이 잘 되는지에 대해서 살펴보기 -->
