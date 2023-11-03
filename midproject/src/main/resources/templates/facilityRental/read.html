@@ -14,7 +14,7 @@
     <h2><input type="text" name="title" th:value="${facilityRental.title}"></h2>
     <img src="#" alt="">
 
-    <form action="/facilityRental/대관(서브밋하면 가게될 대관서비스)" method="POST" id="form">
+    <form action="/facilityRental/delete" method="POST" id="form">
         <!-- csrf -->
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <!-- <input type="hidden" name="frNo" th:value="${facilityRental.frNo}"> -->
@@ -70,18 +70,77 @@
             <tr>
                 <textarea name="content" cols="40" rows="5" th:text="${facilityRental.content}"></textarea>
             </tr>
+
+            <!-- 글 작성 에디터 -->
+            <tr>
+                <td>게시글 적성 에디터</td>
+                <td class="data">
+                    <textarea name="content" id="content" cols="30" rows="10" 
+                              class="input-textarea"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>티켓 가격</td>
+                <td>
+                    <input type="text" name="price">
+                </td>
+            </tr>
+            <tr>
+                <td>수용인원</td>
+                <td>
+                    <input type="text" name="maxTickets">
+                </td>
+            </tr>
+
+            <!-- 이미지 추가에 대한 것 -->
+            <tr>
+                <td class="label">썸네일</td>
+                <td class="data">
+                    <input type="file" name="file" id="file" multiple>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">썸네일</td>
+                <td class="data">
+                    <!-- 썸네일 업로드 -->
+                    <div class="dropzone">
+                        <input type="file" id="thumbnail" accept="image/*">
+                        <a href="javascript:;" class="btn btn-sm btn-thumb-remove hide">삭제</a>
+                        <div class="drop-img flex col main-center sub-center">
+                            <div class="upload-box">
+                                <h3 class="mb-20">이미지를 드래그 하세요.</h3>
+                                <label for="thumbnail" class="btn">업로드</label>
+                            </div>
+                            <div class="img-box hide"></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
             
         </table>
         
-        <div>
-            <button type="button" onclick="moveList()">목록</button>
-            <button type="button" onclick="actionRental()">대관하기</button>
-            <button type="button" onclick="actionUpdate()">수정</button>
-            <button type="button" onclick="actionDelete()">삭제</button>
-        </div>
-
+        
     </form>
+    <br>
+    <br>
+    <br>
 
+    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+        <form action="/facilityRental/reservation" method="POST" id="reservation">
+            <!-- csrf -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <!-- <input type="text" name="username" th:value="${authentication.principal.users.name}"> -->
+            <input type="text" name="frNo" id="frNo" th:value="${facilityRental.frNo}">
+            <input type="text" name="username" value="jh">
+            <input type="text" name="phone" id="phone" th:value="${facilityRental.phone}">
+            <button type="button" onclick="actionRental()">대관하기</button>
+        </form>
+    </th:block>
+    <div>
+        <button type="button" onclick="moveList()">목록</button>
+        <button type="button" onclick="actionUpdate()">수정</button>
+        <button type="button" onclick="actionDelete()">삭제</button>
+    </div>
 
     <!-- <div style="background-color: darkgrey; width: 500px; height: 800px;">
         <h2>이 부분에 클럽에 대한 내용 부분이 나옵니다.</h2>
@@ -89,6 +148,7 @@
 
     <script>
         const frNo = $('#frNo').val()
+        const form = document.getElementById('fomr')
         
         // 목록으로 이동
         function moveList() {
@@ -97,7 +157,8 @@
 
         // 대관하기
         function actionRental() {
-            form.submit()
+            const bt = $('#reservation')
+            bt.submit()
         }
 
         // 수정으로 이동

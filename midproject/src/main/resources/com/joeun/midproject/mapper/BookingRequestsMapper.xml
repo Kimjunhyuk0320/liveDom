@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" -->
+<mapper namespace="com.joeun.midproject.mapper.BookingRequestsMapper">
+
+    <!-- 유저 예약 목록 -->
+    <select id="reservationList" resultType="BookingRequests">
+        SELECT fr_no
+              ,phone
+              ,upd_date
+              ,approval_status
+              ,deposit_status
+              ,writer
+        FROM booking_requests
+
+    </select>
+
+
+
+    <!-- 클럽 대관 목록 -->
+    <select id="rentalList" resultType="BookingRequests">
+        SELECT fr_no
+              ,username
+              ,upd_date
+              ,approval_status
+              ,deposit_status
+        FROM
+    </select>
+
+
+    <!-- 예약신청 -->
+    <insert id="reservation">
+        INSERT INTO booking_requests(fr_no, username, phone)
+        VALUES (#{frNo}, #{username}, #{phone})
+    </insert>
+</mapper>
