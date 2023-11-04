@@ -23,6 +23,9 @@ public interface LiveBoardMapper {
     
     // 매진으로 변경
     public int soldOut(int boardNo);
+    
+    // 게시글 번호(기본키) 최댓값
+    public int maxPk();
  
 
 }

@@ -11,7 +11,7 @@
     
     <div class="card" style="width: 18rem;" th:each="liveBoard : ${liveBoardList}">
         <a th:href="|/liveBoard/read?boardNo=${liveBoard.boardNo}|">
-            <img src="..." class="card-img-top" alt="...">
+            <img th:src="|/file/img/${liveBoard.thumbnail.fileNo}|" style="width: 200px;" th:if="${liveBoard.thumbnail != null}">
         </a>
         <div class="card-body">
           <h5 class="card-title"><a th:href="|/liveBoard/read?boardNo=${liveBoard.boardNo}|" th:text="${liveBoard.title}"></a></h5>

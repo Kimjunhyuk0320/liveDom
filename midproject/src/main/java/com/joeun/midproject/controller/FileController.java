@@ -41,6 +41,18 @@ public class FileController {
         }
     }
 
+    @GetMapping(value="/img/{fileNo}")
+    public void thumbnail(@PathVariable("fileNo") int fileNo, 
+                                HttpServletResponse response ) throws Exception{
+        log.info("#######################썸네일 보여주기 테스트 ################");
+        int result = fileService.thumbnail(fileNo, response);
+        if( result == 0 ){
+            response.setStatus(response.SC_BAD_REQUEST);
+        }                                
+    }
+
+
+
 
     /**
      * 파일 삭제

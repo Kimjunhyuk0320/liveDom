@@ -18,7 +18,8 @@ public interface FileService {
     public int update(Files facilityRental) throws Exception;
     // 파일 삭제
     public int delete(int frNo) throws Exception;
-
+    // 썸네일 불러오기
+    public int thumbnail(int fileNo, HttpServletResponse response) throws Exception;
     // 파일 목록 - 부모 기준
     public List<Files> listByParent(Files file) throws Exception;
     // 파일 삭제 - 부모 기준

@@ -1,6 +1,5 @@
 package com.joeun.midproject.controller;
 
-import java.nio.file.Files;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.joeun.midproject.dto.Files;
 import com.joeun.midproject.dto.LiveBoard;
 import com.joeun.midproject.dto.Ticket;
+import com.joeun.midproject.mapper.FileMapper;
 import com.joeun.midproject.service.LiveBoardService;
 
 
@@ -27,6 +28,8 @@ public class LiveBoardController {
 
     @Autowired
     LiveBoardService liveBoardService;
+    @Autowired
+    FileMapper fileMapper;
 
     /**
      * 공연 게시글 목록 조회
@@ -60,6 +63,7 @@ public class LiveBoardController {
         int soldTicketCount = ticketList.size();
         int nowTicketCount = totalTicketCount - soldTicketCount;
         liveBoard.setTicketLeft(nowTicketCount);
+ 
         // 모델 등록
         model.addAttribute("liveBoard", liveBoard);
 

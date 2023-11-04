@@ -12,7 +12,8 @@
         <input type="hidden" name="boardNo" th:value="${liveBoard.boardNo}" id="boardNo">
 
         <h2 th:text="${liveBoard.title}"></h2>
-        <img src="" alt="" style="width: 200px;">
+        
+        <img th:src="|/file/img/${liveBoard.thumbnail.fileNo}|" style="width: 200px;" th:if="${liveBoard.thumbnail != null}">
 
         <table>
             <tr>
@@ -60,8 +61,8 @@
             <tr>
                 <td>매진여부</td>
                 <td>
-                    <p th:if="${liveBoard.soldOut == 1}">매진</p> 
-                    <p th:if="${liveBoard.soldOut == 0}">판매 중</p> 
+                    <span th:if="${liveBoard.soldOut == 0}">판매 중</span> 
+                    <span th:if="${liveBoard.soldOut == 1}">매진</span> 
                 </td>
             </tr>
             <tr>
@@ -97,7 +98,7 @@
     </div>
 
     <div style="background-color: darkgrey; width: 500px; height: 800px;">
-        <p th:text="${liveBoard.content}"></p>
+        <p th:utext="${liveBoard.content}"></p>
     </div>
 
     <script>

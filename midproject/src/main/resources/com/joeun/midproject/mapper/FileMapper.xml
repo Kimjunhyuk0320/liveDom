@@ -29,11 +29,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <!-- 파일 조회 -->
-    <insert id="select">
+    <select id="select" resultType="Files">
         SELECT *
         FROM file
         WHERE file_no = #{fileNo}
-    </insert>
+    </select>
+
+    <!-- 파일 조회 -->
+    <select id="selectThumbnail" resultType="Files">
+        SELECT *
+        FROM file
+        WHERE parent_table = #{parentTable}
+        AND parent_no = #{parentNo}
+        AND file_code = 1
+    </select>
 
     <!-- 파일 등록 -->
     <insert id="insert">

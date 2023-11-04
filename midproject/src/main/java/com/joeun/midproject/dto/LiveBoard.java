@@ -23,6 +23,10 @@ public class LiveBoard {
     private String updDate;
     private int soldOut;
     private int ticketLeft;
-
+    private Integer fileNo;
+    private Files thumbnail;
     private List<MultipartFile> file;
+
+
+
 }
