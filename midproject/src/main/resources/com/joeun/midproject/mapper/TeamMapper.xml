@@ -102,4 +102,64 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   </select>
 
+<select id="totalCount">
+
+SELECT
+COUNT(*)
+FROM team_recruitments;
+
+</select>
+
+
+<!-- Get page information and paged items -->
+<select id="pageInfo" resultType="PageInfo">
+<![CDATA[
+  SELECT
+
+            IF(CEIL(#{pageNo} / #{pageCount}) = 1, 1, (CEIL(#{pageNo} / #{pageCount}) - 1) * #{pageCount} + 1) AS startPage,
+            
+            IF(CEIL(#{pageNo} / #{pageCount}) * #{pageCount} > CEIL(#{totalCount} / #{rows}), CEIL(#{totalCount} / #{rows}), CEIL(#{pageNo} / #{pageCount}) * #{pageCount}) AS endPage,
+            
+            1 AS firstPage,
+            
+            CEIL(#{totalCount} / #{rows}) AS lastPage,
+            
+            IF(#{pageNo} > 1, #{pageNo} - 1, 1) AS prev,
+            
+            IF(#{pageNo} < CEIL(#{totalCount} / #{rows}), #{pageNo} + 1, CEIL(#{totalCount} / #{rows})) AS next,
+
+            #{totalCount} AS totalCount
+  
+  ]]>
+</select>
+
+<parameterMap type="Team" id="teamMap">
+    <parameter property="pageNo" jdbcType="INTEGER" javaType="java.lang.Integer" mode="IN"/>
+    <parameter property="rows" jdbcType="INTEGER" javaType="java.lang.Integer" mode="IN"/>
+</parameterMap>
+
+
+  <select id="pageList" resultType="Team" parameterMap="teamMap">
+  
+  SELECT t.*,count(a.team_no) AS recStatus
+   FROM team_recruitments AS t LEFT JOIN team_applications AS a
+    ON (t.team_no = a.team_no AND a.deposit_status = 1)
+   WHERE
+        <choose>
+            <when test="searchType == 0">(t.title LIKE "%${keyword}%" OR t.content LIKE "%${keyword}%" OR t.writer LIKE "%${keyword}%") </when>
+            <when test="searchType == 1">t.title LIKE "%${keyword}%"</when>
+            <when test="searchType == 2">t.content LIKE "%${keyword}%"</when>
+            <when test="searchType == 3">(t.title LIKE "%${keyword}%" OR t.content LIKE "%${keyword}%")</when>
+            <when test="searchType == 4">t.writer LIKE "%${keyword}%"</when>
+        </choose>
+         GROUP BY t.team_no
+    ORDER BY 
+        <choose>
+            <when test="order == 0">t.upd_date DESC</when>
+            <when test="order == 1">t.title DESC</when>
+            <when test="order == 2">t.views DESC</when>
+        </choose>
+    LIMIT #{pageNo}, #{rows};
+  </select>
+
 </mapper>

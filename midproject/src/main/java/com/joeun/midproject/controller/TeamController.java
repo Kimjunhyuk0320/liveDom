@@ -7,12 +7,17 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.joeun.midproject.dto.PageInfo;
 import com.joeun.midproject.dto.Team;
 import com.joeun.midproject.dto.TeamApp;
 import com.joeun.midproject.mapper.TeamMapper;
@@ -50,6 +55,67 @@ public class TeamController {
 
       return "team/list";
   }
+
+
+
+
+  @CrossOrigin(origins = "*")
+  @ResponseBody
+  @GetMapping(value = "/pageInfo", produces = "application/json")
+  public PageInfo pageInfo(@RequestParam("pageNo") int pageNo,
+  @RequestParam("rows") int rows,
+  @RequestParam("pageCount") int pageCount,
+  @RequestParam("totalCount") int totalCount,
+  @RequestParam("searchType") int searchType,
+  @RequestParam("keyword") String keyword,
+  PageInfo pageInfo){
+
+    pageInfo.setPageNo(pageNo);
+    pageInfo.setRows(rows);
+    pageInfo.setPageCount(pageCount);
+    pageInfo.setTotalCount(teamMapper.totalCount());
+    pageInfo.setSearchType(searchType);
+    pageInfo.setKeyword(keyword);
+
+    log.info(pageInfo.toString());
+
+    PageInfo pageInfoResult = teamService.pageInfo(pageInfo);
+
+    log.info(pageInfoResult.toString());
+    return pageInfoResult;
+    
+  }
+
+
+  @CrossOrigin(origins = "*")
+  @ResponseBody
+  @GetMapping(value="/pageList", produces = "application/json")
+  public List<Team> pageList(@RequestParam("pageNo") int pageNo,
+  @RequestParam("rows") int rows,
+  @RequestParam("searchType") int searchType,
+  @RequestParam("keyword") String keyword,
+  @RequestParam("order") int order,
+  Team team) {
+
+    team.setPageNo(pageNo);
+    team.setRows(rows);
+    team.setStartPage(pageNo);
+    team.setSearchType(searchType);
+    team.setKeyword(keyword);
+    team.setOrder(order);
+
+    log.info(team.toString());
+
+    List<Team> pageListResult = teamService.pageList(team);
+
+    for (Team team2 : pageListResult) {
+      log.info(team2.toString());
+    }
+
+    return pageListResult;
+  }
+  
+
 
 
 

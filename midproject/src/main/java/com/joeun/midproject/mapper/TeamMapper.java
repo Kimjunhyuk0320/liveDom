@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.joeun.midproject.dto.PageInfo;
 import com.joeun.midproject.dto.Team;
 
 @Mapper
@@ -22,5 +23,11 @@ public interface TeamMapper {
   public int addView(Team team);
 
   public List<Team> listByConfirmedLive(String username);
+
+  public PageInfo pageInfo(PageInfo pageInfo);
+
+  public List<Team> pageList(Team team);
+
+  public int totalCount();
   
 }
