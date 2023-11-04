@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class Users {
-    private String username;
+    public String username;
     private String password;
     private String userPwCheck;     // 비밀번호 확인
     private String name;

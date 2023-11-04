@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.joeun.midproject.dto.Users;
 import com.joeun.midproject.service.UserService;
@@ -82,5 +83,55 @@ public class UserController {
         return "redirect:/update";
       }
 
+  }
+
+  // 로그인 중복 검사
+  @ResponseBody 
+  @GetMapping(value = "/getLoginIdDup")
+  public String getLoginIdDup(String username) {
+
+    log.info("test1 : " + username);
+    Users user = userService.read(username);
+    log.info("test2 : " + user);
+
+    if( user != null ) {
+      return "N";
+    } 
+    else {
+      return "Y";
+    }
+ 
+  }
+
+  // 닉네임 중복 검사 getPhoneDup
+  @ResponseBody 
+  @GetMapping(value = "/getNicknameDup")
+  public String getNicknameDup(String nickname) {
+
+    Users user = userService.readOnlyNickname(nickname);
+
+    if( user != null ) {
+      return "N";
+    } 
+    else {
+      return "Y";
+    }
+ 
+  }
+
+  // 연락처 중복 검사
+  @ResponseBody 
+  @GetMapping(value = "/getPhoneDup")
+  public String getPhoneDup(String phone) {
+
+    Users user = userService.readOnlyPhone(phone);
+
+    if( user != null ) {
+      return "N";
+    } 
+    else {
+      return "Y";
+    }
+ 
   }
 }

@@ -18,6 +18,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM `user` WHERE username = #{username}
     </select>
 
+    <!-- 회원 닉네임 조회 -->
+    <select id="readOnlyNickname">
+        SELECT * FROM `user` WHERE nickname = #{nickname}
+    </select>
+
+    <!-- 회원 연락처 조회 -->
+    <select id="readOnlyPhone">
+        SELECT * FROM `user` WHERE phone = #{phone}
+    </select>
+
     <!-- 회원 정보 수정 -->
 	<update id="update">
         UPDATE user
