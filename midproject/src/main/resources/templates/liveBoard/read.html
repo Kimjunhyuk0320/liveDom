@@ -80,14 +80,14 @@
     </form>
     <th:block th:if="${#authorization.expression('isAuthenticated()')}">
         <form action="/liveBoard/purchase" method="POST" id="purchase">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-            <input type="text" name="boardNo" th:value="${liveBoard.boardNo}">
-            <input type="text" name="name" th:value="${#authentication.principal.users.name}" >
-            <input type="text" name="phone" th:value="${#authentication.principal.users.phone}" >
-            <input type="text" name="count" value="0" id="count">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="_csrf"/>
+            <input type="text" id="boardNo"    name="boardNo" th:value="${liveBoard.boardNo}">
+            <input type="text" id="name"     name="name" th:value="${#authentication.principal.users.name}" >
+            <input type="text" id="phone"  name="phone" th:value="${#authentication.principal.users.phone}" >
+            <input type="text" id="count"   name="count" value="0">
             
     
-            <button type="button" onclick="purchase()">티켓 구매</button>
+            <button type="button" id="btn-purchase">티켓 구매</button>
         </form>
     </th:block>
 
@@ -113,21 +113,59 @@
             const boardNo = $('#boardNo').val()
             location.href = "/liveBoard/update?boardNo=" + boardNo;
         }
-        // 티켓 구매
-        function purchase() {
-            // liveBoard.ticketLeft의 값이 0 이상이고, 입력된 count 값이 0 이상일 때만 submit을 실행
-            const ticketLeft = parseInt($('#ticketLeft').text());
-            const count = parseInt($('#count').val());
-            
-            if (ticketLeft == 0 || ticketLeft - count < 0) {
-                // 조건을 만족하지 않을 때 사용자에게 알림 또는 처리할 내용을 여기에 추가할 수 있습니다.
-                alert("티켓 구매가 불가능합니다.");
-            } else {
-                const purchaseForm = $("#purchase");
-                purchaseForm.submit();
-            }
-        }
+       
 
+         // 등록 버튼 - 클릭 이벤트
+        $('#btn-purchase').on('click', function() {
+            // 등록 요청
+            let formData = new FormData()       // 폼 데이터 객체
+            let _csrf_name = $('#_csrf').attr('name')
+            let _csrf_value = $('#_csrf').val()
+            let boardNo = $('#boardNo').val()
+            let name = $('#name').val()
+            let phone = $('#phone').val()
+            let count = $('#count').val()
+            formData.append(_csrf_name, _csrf_value )
+            formData.append('boardNo', boardNo)
+            formData.append('name', name)
+            formData.append('phone', phone)
+            formData.append('count', count)
+            
+
+            let url = 'http://localhost:8080/liveBoard/purchase'
+            $.ajax({
+                url             :   url,
+                type            :   'POST',
+                data            :   formData,
+                contentType     :   false,
+                processData     :   false,      // 데이터 컨텐츠 타입 자동 변환 여부
+                                                // 기본값(true) 
+                                                // true  -> contentType  : application/x-www-form-urlencoded
+                                                // false -> contentType  : 데이터를 자동으로 처리하지 않고 직접 지정
+                success         : function(response) {
+                    if( response == 'SUCCESS' ){
+                        alert('티켓 구매가 완료되었습니다.')
+                        location.reload();
+                    }
+                    if( response == 'OVERCOUNT' ){
+                        alert('잔여티켓보다 구매티켓 수가 많습니다.')
+                    }
+                    if( response == 'FAIL' ){
+                        alert('티켓 구매에 실패했습니다.')
+                    }
+                    if( response == 'ZERO' ){
+                        alert('매진되었습니다.')
+                    }
+
+                },
+                error           : function(request, status, error){
+                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                }
+
+            })
+
+
+        })
 
         // 매수 카운트 1 증가
         var count=0;
