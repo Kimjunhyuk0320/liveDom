@@ -24,10 +24,12 @@ public interface TeamMapper {
 
   public List<Team> listByConfirmedLive(String username);
 
+  public List<Team> listByConfirmedLive2(Team team);
+
   public PageInfo pageInfo(PageInfo pageInfo);
 
   public List<Team> pageList(Team team);
 
-  public int totalCount();
+  public int totalCount(String table);
   
 }

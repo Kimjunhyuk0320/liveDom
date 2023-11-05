@@ -83,8 +83,9 @@
             <!-- 글 작성 에디터 -->
             <tr>
                 <td>게시글 적성 에디터</td>
-                <td>
-                    <textarea name="content" id="content" cols="30" rows="10"></textarea>
+                <td class="data">
+                    <textarea name="content" id="content" cols="30" rows="10" 
+                              class="input-textarea"></textarea>
                 </td>
             </tr>
         </table>
@@ -98,7 +99,75 @@
 
     <script>
 
-        
+        var toolbar = [
+        // 글꼴 설정
+        ['fontname', ['fontname']],
+        // 글자 크기 설정
+        ['fontsize', ['fontsize']],
+        // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+        ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+        // 글자색
+        ['color', ['forecolor','color']],
+        // 표만들기
+        ['table', ['table']],
+        // 글머리 기호, 번호매기기, 문단정렬
+        ['para', ['ul', 'ol', 'paragraph']],
+        // 줄간격
+        ['height', ['height']],
+        // 그림첨부, 링크만들기, 동영상첨부
+        ['insert',['picture','link','video']],
+        // 코드보기, 확대해서보기, 도움말
+        ['view', ['codeview','fullscreen', 'help']]
+    ];
+
+    var setting = {
+        height : 300,
+        minHeight : null,
+        maxHeight : null,
+        focus : true,
+        lang : 'ko-KR',
+        toolbar : toolbar,
+        callbacks : { 
+
+            onImageUpload : function(files, editor, welEditable) {
+                for (var i = files.length - 1; i >= 0; i--) {
+                    uploadImage(files[i], this);
+                }
+            }
+        }
+    };
+
+
+
+    $('#content').summernote(setting)
+
+    // 에디터 파일 업로드
+    function uploadImage(file, element) {
+        const fileUrl = 'http://192.168.30.119:8080/api/file'
+        const url = 'http://192.168.30.119:8080/api/file'
+
+        let formData = new FormData()
+        formData.append("file", file)
+
+        $.ajax({
+            url : url,
+            type : "post",
+            data : formData,
+            contentType : false,
+            processData : false,
+            success : function(response) {
+                let fileNo = response
+                // let img = `<img src="${fileUrl}/img/${fileNo}">`
+                let imgUrl = `${fileUrl}/img?fileNo=${fileNo}`
+                // 업로드된 이미지url 를 에디터에 추가
+                $(element).summernote('editor.insertImage', imgUrl)
+            },
+            error : function(error) {
+
+            }
+            
+        })
+    }
 
  
     </script>

@@ -106,7 +106,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 SELECT
 COUNT(*)
-FROM team_recruitments;
+FROM ${table};
 
 </select>
 
@@ -153,6 +153,30 @@ FROM team_recruitments;
             <when test="searchType == 4">t.writer LIKE "%${keyword}%"</when>
         </choose>
          GROUP BY t.team_no
+    ORDER BY 
+        <choose>
+            <when test="order == 0">t.upd_date DESC</when>
+            <when test="order == 1">t.title DESC</when>
+            <when test="order == 2">t.views DESC</when>
+        </choose>
+    LIMIT #{pageNo}, #{rows};
+  </select>
+
+   <select id="listByConfirmedLive2" resultType="Team" parameterMap="teamMap">
+  
+  SELECT t.*, c.crew AS crew, c.upd_date AS confirmedDate
+   FROM `team_recruitments` AS t
+   JOIN `confirmed_live` AS c
+   ON (t.team_no = c.team_no)
+   WHERE t.username = #{username}
+   AND
+        <choose>
+            <when test="searchType == 0">(t.title LIKE "%${keyword}%" OR t.content LIKE "%${keyword}%" OR t.writer LIKE "%${keyword}%") </when>
+            <when test="searchType == 1">t.title LIKE "%${keyword}%"</when>
+            <when test="searchType == 2">t.content LIKE "%${keyword}%"</when>
+            <when test="searchType == 3">(t.title LIKE "%${keyword}%" OR t.content LIKE "%${keyword}%")</when>
+            <when test="searchType == 4">t.writer LIKE "%${keyword}%"</when>
+        </choose>
     ORDER BY 
         <choose>
             <when test="order == 0">t.upd_date DESC</when>

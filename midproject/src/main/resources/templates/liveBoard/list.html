@@ -8,8 +8,52 @@
 </head>
 <body layout:fragment="content">
     <h1>공연 게시글 목록</h1>
-    
-    <div class="card" style="width: 18rem;" th:each="liveBoard : ${liveBoardList}">
+    <table>
+        <tr>
+            <td>전체 게시글 수</td>
+        </tr>
+        <tr>
+            <td id="totalCount"></td>
+        </tr>
+    </table>
+      <!-- 검색/필터 -->
+      <div class="btn-box">
+        <!-- 검색 -->
+        <div class="item">
+            <select name="search-type" id="search-type" class="input-search">
+                <option value="0">전체</option>
+                <option value="1">제목</option>
+                <option value="2">내용</option>
+                <option value="3">제목+내용</option>
+                <option value="4">작성자</option>
+            </select>
+            <input type="text" name="keyword" id="keyword" class="input-search">
+            <a href="javascript:;" class="btn" id="btn-search">검색</a>
+        </div>
+        <!-- 필터 -->
+        <div class="item">
+            <select name="rows" id="rows" class="input-search">
+                <option value="5">5개씩 보기</option>
+                <option value="10" selected>10개씩 보기</option>
+                <option value="30">30개씩 보기</option>
+                <option value="50">50개씩 보기</option>
+            </select>
+        </div>
+        <div class="item">
+            <select name="order" id="order" class="input-search">
+                <option value="0">최근 순</option>
+                <option value="1">오래된 순</option>
+                <option value="2">가격 순</option>
+            </select>
+        </div>
+    </div>
+
+
+
+
+    <!--기존 타임리프 리스트-->
+
+    <!-- <div class="card" style="width: 18rem;" th:each="liveBoard : ${liveBoardList}">
         <a th:href="|/liveBoard/read?boardNo=${liveBoard.boardNo}|">
             <img th:src="|/file/img/${liveBoard.thumbnail.fileNo}|" style="width: 200px;" th:if="${liveBoard.thumbnail != null}">
         </a>
@@ -18,16 +62,336 @@
           <p class="card-text" th:text="${liveBoard.crew}"></p>
           <p class="card-text" th:text="${liveBoard.address}"></p>
           <p class="card-text" th:text="${liveBoard.liveDate}"></p>
-          <!-- 매진은 매진일 경우에만 나오도록 -->
           <p class="card-text" style="background-color: red;" th:if="${liveBoard.soldOut == 1}">매진</p>                             
         </div>
+    </div> -->
+
+    <!--페이지네이션 리스트-->
+
+    <div class="card" style="width: 18rem;" th:each="liveBoard : ${liveBoardList}" id="team-data">
+        
     </div>
+
+
+
+    <!-- 페이지네이션 -->
+    <div class="pagination">
+        <a href="javascript:;" class="page-arrow" id="first">&laquo;</a>
+        <a href="javascript:;" class="page-arrow" id="prev">&lsaquo;</a>
+    
+        <!-- 페이지 번호 목록 -->
+        <div class="page-list">
+            <a href="javascript:;" class="page-no">1</a>
+            <a href="javascript:;" class="page-no">2</a>
+            <a href="javascript:;" class="page-no">3</a>
+            <a href="javascript:;" class="page-no">4</a>
+            <a href="javascript:;" class="page-no">5</a>
+            <a href="javascript:;" class="page-no">6</a>
+            <a href="javascript:;" class="page-no">7</a>
+            <a href="javascript:;" class="page-no">8</a>
+            <a href="javascript:;" class="page-no">9</a>
+            <a href="javascript:;" class="page-no">10</a>
+        </div>
+    
+        <a href="javascript:;" class="page-arrow" id="next">&rsaquo;</a>
+        <a href="javascript:;" class="page-arrow" id="last">&raquo;</a>
+    </div>
+
     <div>
         <button type="button" class="btn btn-secondary" onclick="moveinsert()">게시글 쓰기</button>
     </div>
 
     <script>
 
+         // 페이지 관련 변수
+         let page = 1            // 현재 페이지 번호
+         let rows = 10           // 페이지당 게시글 수
+         let pageCount = 10      // 노출 페이지 개수
+         let totalCount = 0      // 전체 게시글 수
+         // 검색 관련 변수
+         let searchType = 0      // 검색 조건
+         let keyword = ''        // 검색어
+         // 순서 변수
+         let order = 0           // 기본값 : 최근 순
+ 
+         // 게시글 목록 요청
+         getPageList()
+         initPage()
+         initRows()
+ 
+         
+         // 페이지 번호
+         function initPage() {
+ 
+             // 페이지 번호 정보
+             let data = {
+                 'pageNo'         : page,
+                 'rows'           : rows,
+                 'pageCount'      : pageCount,
+                 'totalCount'     : totalCount,
+                 'searchType'     : searchType,
+                 'keyword'        : keyword,
+             }
+ 
+             const url = 'http://127.0.0.1:8080/liveBoard/pageInfoLiveBoard'
+ 
+             $.ajax({
+                 url     :   url,
+                 type    :   'GET',
+                 data    :   data,
+                 success :   function(response) {
+                     let pageInfo = response
+                     console.log(response);
+ 
+                     let start = pageInfo.startPage
+                     let end = pageInfo.endPage
+                     let first = pageInfo.firstPage
+                     let last = pageInfo.lastPage
+                     let prev = pageInfo.prev
+                     let next = pageInfo.next
+ 
+                     // 게시글 건 수
+                     let totalCount = pageInfo.totalCount
+                     $('#totalCount').text(totalCount)
+ 
+                     let pagination = ''
+                     for (let i = start; i <= end ; i++) {
+                         let a = `<a href='javascript:;' class='page-no' data='${i}'>${i}</a>`
+                         pagination += a
+                     }                  
+                     
+                     // 페이지 출력
+                     $('.page-list').html(pagination)
+                     // 화살표 페이지 번호
+                     $('#first').attr('data', first)
+                     $('#last').attr('data', last)
+                     $('#prev').attr('data', prev)
+                     $('#next').attr('data', next)
+ 
+                     $('.page-no').removeClass('on')
+                     // 현재 페이지 지정
+                     $('.page-no[data=' + page +']').addClass('on')
+ 
+                     // 화살표 버튼 유효성 처리
+                     $('.page-arrow').show()
+                     if( page == 1 ) {
+                         $('#prev').hide()
+                     }
+                     
+                     if( page == last ) {
+                         $('#next').hide()
+                     }
+ 
+ 
+                     // 페이지 번호 클릭 이벤트
+                     $('.page-no, .page-arrow').on('click', function() {
+ 
+                         // 이벤트 제거 - 이벤트 정의가 쌓이는 것을 방지
+                         $('.page-no, .page-arrow').off()
+                         
+                         // 페이지 번호
+                         let clickedPage = $(this).attr('data')
+                         page = clickedPage
+                         initPage()          // 페이지 번호 갱신
+                         getPageList()       // 페이지 목록 갱신
+                     })
+ 
+ 
+ 
+                 },
+                 error           : function(request, status, error){
+                     console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
+                     alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                 }
+             })
+ 
+         }        
+ 
+         // 게시글 목록 - 페이징
+         function getPageList() {
+             const url = 'http://127.0.0.1:8080/liveBoard/liveBoardPageList'
+ 
+             let data = {
+                 'pageNo'      : page,
+                 'rows'        : rows,
+                 'searchType'  : searchType,
+                 'keyword'     : keyword,
+                 'order'       : order,
+             }
+ 
+             $.ajax({
+                 url     :   url,
+                 type    :   'GET',
+                 data    :   data,
+                 success : function(response) {
+                     let teamList = response
+                     
+                     displayList(teamList)
+                 },
+                 error           : function(request, status, error){
+                     console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
+                     alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                 }
+             })
+         } 
+ 
+         // 게시글 목록 출력
+         function displayList(teamList) {
+             console.log(teamList)
+             // 게시글 목록 존재여부
+             if( teamList.length == 0 ) {
+                 let msg = '조회된 데이터가 없습니다.'
+                 console.log(msg);
+ 
+                 let tr = `
+                 <div class="card-body">
+                    <h5 class="card-text">${msg}</h5>
+                 </div>
+                             `
+                 $('#team-data').html(tr)
+                 return
+             }
+ 
+             // 게시글 목록 출력
+             let teamData = ''
+             for(let i = 0 ; i < teamList.length ; i++ ){
+ 
+                 let tr = `
+             <a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">
+                `
+                if(teamList[i].thumbnail!=null){
+                tr+=`
+                <img src="/file/img/${teamList[i].thumbnail.fileNo}" style="width: 200px;">
+                `
+                }
+                tr+=`
+            </a>
+            <div class="card-body">
+              <h5 class="card-title"><a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">${teamList[i].title}"</a></h5>
+              <p class="card-text">${teamList[i].crew}</p>
+              <p class="card-text">${teamList[i].address}</p>
+              <p class="card-text">${teamList[i].liveDate}</p>
+              `
+              if(teamList[i].soldOut==1){
+                tr+=`
+                  <p class="card-text" style="background-color: red;">매진</p>                             
+                  `
+
+              }
+              tr+=`
+            </div>
+             `
+                 teamData += tr
+             }
+             $('#team-data').html(teamData)
+         }
+ 
+ 
+         // 검색 클릭 이벤트
+         $('#btn-search').on('click', function() {
+             search()
+         })
+ 
+         // 페이지당 게시글 수 - 변경 이벤트
+         $('#rows').on('change', function() {
+             rows = $(this).val()
+             page = 1
+             getPageList()
+             initPage()
+         })
+ 
+         // 보여줄 게시글 수 갱신
+         function initRows() {
+             $('#rows').val(rows)
+         }
+ 
+ 
+         // 검색 - 키 입력 이벤트
+         $('#keyword').on('keyup', function(event) {
+             console.log( event.keyCode );
+ 
+             // 엔터
+             if( event.keyCode == 13 ) {
+                 search()
+             }
+         })
+ 
+ 
+         // 검색
+         function search() {
+             // 검색 조건 (serach-type)
+             // 검색어    (keyword)
+             searchType = $('#search-type').val()
+             keyword = $('#keyword').val()
+ 
+             let data = {
+                 'searchType'  : searchType,
+                 'keyword'     : keyword,
+                 'rows'        : rows,
+                 'pageNo'        : page,
+                 'pageCount'   : pageCount,
+                 'order'   :order,
+             }
+ 
+             const url = 'http://127.0.0.1:8080/liveBoard/liveBoardPageList'
+ 
+             $.ajax({
+                 url     :   url,
+                 type    :   'GET',
+                 data    :   data,
+                 success :   function(response) {
+                     let teamList = response
+ 
+                     displayList(teamList)
+ 
+                     page = 1
+                     initPage()
+ 
+                 },
+                 error   : function(request, status, error){
+                     console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                     alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                 }
+             })
+         }
+ 
+ 
+         // 순서 필터 - 변경 이벤트
+         $('#order').on('change', function() {
+ 
+             order = $(this).val()
+ 
+             let data = {
+                 searchType  : searchType,
+                 keyword     : keyword,
+                 rows        : rows,
+                 pageNo        : page,
+                 pageCount   : pageCount,
+                 order       : order,
+             }
+ 
+             const url = 'http://127.0.0.1:8080/liveBoard/liveBoardPageList'
+ 
+             $.ajax({
+                 url     :   url,
+                 type    :   'GET',
+                 data    :   data,
+                 success :   function(response) {
+                     let teamList = response
+ 
+                     displayList(teamList)
+ 
+                     page = 1
+                     initPage()
+ 
+                 },
+                 error   : function(request, status, error){
+                     alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                 }
+             })
+ 
+ 
+         })
         
         // 목록으로 이동
         function moveinsert() {

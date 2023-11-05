@@ -98,6 +98,18 @@ public class TeamServiceImpl implements TeamService{
 
   }
 
+  @Override
+  public List<Team> listByConfirmedLive2(Team team) {
+
+    team.setPageNo((team.getPageNo()-1)*team.getRows());
+
+    List<Team> teamList = teamMapper.listByConfirmedLive2(team);
+
+    return teamList;
+
+
+  }
+
 
   
 }

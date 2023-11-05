@@ -13,6 +13,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ORDER BY upd_date DESC, board_no DESC
     </select>
 
+     <!-- 게시글 목록(페이징) -->
+    <select id="liveBoardPageList" resultType="LiveBoard">
+        SELECT *
+        FROM live_board
+        WHERE
+        <choose>
+            <when test="searchType == 0">(title LIKE "%${keyword}%" OR content LIKE "%${keyword}%" OR writer LIKE "%${keyword}%") </when>
+            <when test="searchType == 1">title LIKE "%${keyword}%"</when>
+            <when test="searchType == 2">content LIKE "%${keyword}%"</when>
+            <when test="searchType == 3">(title LIKE "%${keyword}%" OR content LIKE "%${keyword}%")</when>
+            <when test="searchType == 4">writer LIKE "%${keyword}%"</when>
+        </choose>
+    ORDER BY 
+        <choose>
+            <when test="order == 0">upd_date DESC</when>
+            <when test="order == 1">upd_date ASC</when>
+            <when test="order == 2">price DESC</when>
+        </choose>
+    LIMIT #{pageNo}, #{rows};
+    </select>
+
     <!-- 게시글 등록 -->
     <insert id="insert">
         INSERT INTO live_board( title, writer, username, content, crew, price, live_date, 

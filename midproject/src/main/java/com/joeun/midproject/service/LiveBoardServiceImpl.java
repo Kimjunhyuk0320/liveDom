@@ -12,10 +12,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.joeun.midproject.dto.Files;
 import com.joeun.midproject.dto.LiveBoard;
+import com.joeun.midproject.dto.PageInfo;
+import com.joeun.midproject.dto.Team;
 import com.joeun.midproject.dto.Ticket;
 import com.joeun.midproject.dto.Users;
 import com.joeun.midproject.mapper.FileMapper;
 import com.joeun.midproject.mapper.LiveBoardMapper;
+import com.joeun.midproject.mapper.TeamMapper;
 import com.joeun.midproject.mapper.TicketMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +34,9 @@ public class LiveBoardServiceImpl implements LiveBoardService{
 
     @Autowired
     private FileMapper fileMapper;
+
+    @Autowired
+    private TeamMapper teamMapper;
 
     @Value("${upload.path}")            // application.properties 에 설정한 업로드 경로 속성명
     private String uploadPath;          // 업로드 경로
@@ -150,6 +156,25 @@ public class LiveBoardServiceImpl implements LiveBoardService{
        List<Ticket> ticketList = ticketMapper.listByBoardNo(boardNo);
        return ticketList;
     }
+
+    @Override
+    public List<LiveBoard> liveBoardPageList(Team team) throws Exception {
+
+        team.setPageNo((team.getPageNo()-1)*team.getRows());
+
+        List<LiveBoard> liveBoardsPageList = liveBoardMapper.liveBoardPageList(team);
+        for(int i = 0; i <liveBoardsPageList.size() ; i++){
+            LiveBoard liveBoard = liveBoardsPageList.get(i);
+             Files file = new Files();
+            file.setParentTable("live_board");
+            file.setParentNo(liveBoard.getBoardNo());
+            file = fileMapper.selectThumbnail(file);
+            liveBoard.setThumbnail(file);
+        }
+        return liveBoardsPageList;
+
+    }
+
 
     
     

@@ -4,6 +4,8 @@ import java.util.List;
 
 
 import com.joeun.midproject.dto.LiveBoard;
+import com.joeun.midproject.dto.PageInfo;
+import com.joeun.midproject.dto.Team;
 import com.joeun.midproject.dto.Ticket;
 import com.joeun.midproject.dto.Users;
 
@@ -20,6 +22,8 @@ public interface LiveBoardService {
 
     // 게시글 목록 조회
     public List<LiveBoard> list() throws Exception;
+
+    public List<LiveBoard> liveBoardPageList(Team team) throws Exception;
     
     // 매진으로 변경
     public int soldOut(int boardNo) throws Exception;
@@ -29,5 +33,6 @@ public interface LiveBoardService {
 
     // 게시글 번호로 판매한 티켓 목록 조회하기
     public List<Ticket> listByBoardNo(int boardNo) throws Exception;
+
 
 }

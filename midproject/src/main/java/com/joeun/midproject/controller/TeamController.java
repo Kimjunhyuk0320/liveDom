@@ -73,7 +73,7 @@ public class TeamController {
     pageInfo.setPageNo(pageNo);
     pageInfo.setRows(rows);
     pageInfo.setPageCount(pageCount);
-    pageInfo.setTotalCount(teamMapper.totalCount());
+    pageInfo.setTotalCount(teamMapper.totalCount("team_recruitments"));
     pageInfo.setSearchType(searchType);
     pageInfo.setKeyword(keyword);
 
@@ -281,11 +281,13 @@ public class TeamController {
 
     teamApp.setUsername(principal.getName());
     model.addAttribute("resTeamAppList", teamAppService.listByLeader(teamApp));
-
-      return "myPage/myPageForBand/team_registrations_list";
-      
+    
+    return "myPage/myPageForBand/team_registrations_list";
+    
   }
-
+  
+  
+  
 
   @GetMapping(value="/user/listByMember")
   public String listByMember(Model model, TeamApp teamApp, Principal principal) {
@@ -300,15 +302,53 @@ public class TeamController {
   }
 
   @GetMapping(value="/user/listByConfirmedLive")
-  public String listByConfirmedLive(Principal principal,Model model) {
-
-    String username = principal.getName();
-
-    model.addAttribute("confirmedTeamList", teamService.listByConfirmedLive(username));
-
-      return "myPage/myPageForBand/completed_performances_list";
+  public String listByConfirmedLive() {
+    
+    return "myPage/myPageForBand/completed_performances_list";
   }
   
+  @CrossOrigin(origins = "*")
+  @ResponseBody
+  @GetMapping(value = "/pageInfoConfirmedLive", produces = "application/json")
+  public PageInfo pageInfoConfirmedLIve(@RequestParam("pageNo") int pageNo,
+  @RequestParam("rows") int rows,
+  @RequestParam("pageCount") int pageCount,
+  @RequestParam("totalCount") int totalCount,
+  @RequestParam("searchType") int searchType,
+  @RequestParam("keyword") String keyword,
+  PageInfo pageInfo){
+
+    pageInfo.setPageNo(pageNo);
+    pageInfo.setRows(rows);
+    pageInfo.setPageCount(pageCount);
+    pageInfo.setTotalCount(teamMapper.totalCount("confirmed_live"));
+    pageInfo.setSearchType(searchType);
+    pageInfo.setKeyword(keyword);
+
+    log.info(pageInfo.toString());
+
+    PageInfo pageInfoResult = teamService.pageInfo(pageInfo);
+
+    log.info(pageInfoResult.toString());
+    return pageInfoResult;
+    
+  }
+
+  @CrossOrigin(origins = "*")
+  @ResponseBody
+  @GetMapping(value="/confirmedLiveList", produces = "application/json")
+  public List<Team> confirmedLiveList(Team team, Principal principal) {
+    
+    log.info("공연성사 요청값"+(team.toString()));
+    
+    List<Team> pageListResult = teamService.listByConfirmedLive2(team);
+    
+    for (Team team2 : pageListResult) {
+      log.info("공연성사 리스트 : "+team2.toString());
+    }
+    
+    return pageListResult;
+  }
 
   @GetMapping(value="/user/readApp")
   public String readApp(Model model, TeamApp teamApp) {

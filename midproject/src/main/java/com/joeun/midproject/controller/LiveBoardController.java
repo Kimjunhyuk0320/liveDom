@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.joeun.midproject.dto.Files;
 import com.joeun.midproject.dto.LiveBoard;
+import com.joeun.midproject.dto.PageInfo;
+import com.joeun.midproject.dto.Team;
 import com.joeun.midproject.dto.Ticket;
 import com.joeun.midproject.mapper.FileMapper;
+import com.joeun.midproject.mapper.TeamMapper;
 import com.joeun.midproject.service.LiveBoardService;
 
 
@@ -30,6 +35,8 @@ public class LiveBoardController {
     LiveBoardService liveBoardService;
     @Autowired
     FileMapper fileMapper;
+    @Autowired
+    private TeamMapper teamMapper;
 
     /**
      * 공연 게시글 목록 조회
@@ -46,6 +53,38 @@ public class LiveBoardController {
         // // 뷰 페이지 지정
         return "liveBoard/list";
     }
+
+@CrossOrigin(origins = "*")
+  @ResponseBody
+  @GetMapping(value = "/pageInfoLiveBoard", produces = "application/json")
+  public PageInfo pageInfoLiveBoard(PageInfo pageInfo){
+
+    pageInfo.setTotalCount(teamMapper.totalCount("live_board"));
+
+    log.info(pageInfo.toString());
+
+    PageInfo pageInfoResult = teamMapper.pageInfo(pageInfo);
+
+    log.info(pageInfoResult.toString());
+    return pageInfoResult;
+    
+  }
+
+  @CrossOrigin(origins = "*")
+  @ResponseBody
+  @GetMapping(value="/liveBoardPageList", produces = "application/json")
+  public List<LiveBoard> liveBoardPageList(Team team) throws Exception{
+    
+    log.info("공연성사 요청값"+(team.toString()));
+    
+    List<LiveBoard> pageListResult = liveBoardService.liveBoardPageList(team);
+    
+    for (LiveBoard team2 : pageListResult) {
+      log.info("공연성사 리스트 : "+team2.toString());
+    }
+    
+    return pageListResult;
+  }
     
 
     /**
