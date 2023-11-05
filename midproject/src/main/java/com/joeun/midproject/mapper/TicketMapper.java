@@ -17,7 +17,7 @@ public interface TicketMapper {
     public List<Ticket> listByPhone(String phone) throws Exception;
     
     // 유저 아이디로 작성한 게시글에 대한 티켓 판매 목록 조회하기
-    public List<Ticket> listByUserName(Users users) throws Exception;
+    public List<Ticket> listByUserName(String username) throws Exception;
     
     // 게시글 번호로 판매한 티켓 목록 조회하기
     public List<Ticket> listByBoardNo(int boardNo) throws Exception;

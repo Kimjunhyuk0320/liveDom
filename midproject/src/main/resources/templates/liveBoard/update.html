@@ -14,16 +14,17 @@
         <table>
             <tr>
                 <td>아이디
-                    <input type="text" th:value="${liveBoard.username}" name="username">
+                    <input type="hidden" th:value="${liveBoard.username}" name="username">
                 </td>
             </tr>
             <tr>
                 <td>닉네임
-                    <input type="text" th:value="${liveBoard.writer}" name="writer">
+                    <input type="hidden" th:value="${liveBoard.writer}" name="writer">
                 </td>
             </tr>
             <tr>
-                <td>제목
+                <td>제목</td>
+                <td>
                     <input type="text" th:value="${liveBoard.title}" name="title">
                 </td>
             </tr>
@@ -58,11 +59,12 @@
                 </td>
             </tr>
 
-            <!-- 글 작성 에디터 -->
+           <!-- 글 작성 에디터 -->
             <tr>
                 <td>게시글 적성 에디터</td>
-                <td>
-                    <textarea type="text" th:text="${liveBoard.content}" name="content"></textarea>
+                <td class="data">
+                    <textarea name="content" id="content" cols="30" rows="10" 
+                            class="input-textarea" th:text="${liveBoard.content}"></textarea>
                 </td>
             </tr>
             <tr>
@@ -117,6 +119,165 @@
         function actionUpdate() {
            form.submit()
         }
+
+        var toolbar = [
+            // 글꼴 설정
+            ['fontname', ['fontname']],
+            // 글자 크기 설정
+            ['fontsize', ['fontsize']],
+            // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+            // 글자색
+            ['color', ['forecolor','color']],
+            // 표만들기
+            ['table', ['table']],
+            // 글머리 기호, 번호매기기, 문단정렬
+            ['para', ['ul', 'ol', 'paragraph']],
+            // 줄간격
+            ['height', ['height']],
+            // 그림첨부, 링크만들기, 동영상첨부
+            ['insert',['picture','link','video']],
+            // 코드보기, 확대해서보기, 도움말
+            ['view', ['codeview','fullscreen', 'help']]
+        ];
+
+        var setting = {
+            height : 300,
+            minHeight : null,
+            maxHeight : null,
+            focus : true,
+            lang : 'ko-KR',
+            toolbar : toolbar,
+            callbacks : { 
+
+                onImageUpload : function(files, editor, welEditable) {
+                    for (var i = files.length - 1; i >= 0; i--) {
+                        uploadImage(files[i], this);
+                    }
+                }
+            }
+        };
+
+
+        $('#content').summernote(setting)
+
+        // 에디터 파일 업로드
+        function uploadImage(file, element) {
+            const fileUrl = 'http://localhost:8080/file'
+            const url = 'http://localhost:8080/file'
+
+            let formData = new FormData()
+            formData.append("file", file)
+
+            $.ajax({
+                url : url,
+                type : "post",
+                data : formData,
+                contentType : false,
+                processData : false,
+                success : function(response) {
+                    let fileNo = response
+                    // let img = `<img src="${fileUrl}/img/${fileNo}">`
+                    let imgUrl = `${fileUrl}/img?fileNo=${fileNo}`
+                    // 업로드된 이미지url 를 에디터에 추가
+                    $(element).summernote('editor.insertImage', imgUrl)
+                },
+                error : function(error) {
+
+                }
+                
+            })
+        }
+
+
+
+
+        let fileList = null
+
+        // 드랍존에 이미지를 올렸을 때
+        $('.dropzone').on('dragover', function(e) {
+            e.preventDefault() // 이벤트의 기본 액션 방지
+
+            $(this).addClass('over')
+        })
+
+        // 드랍존에 이미지를 벗어날 때
+        $('.dropzone').on('dragleave', function(e) {
+            e.preventDefault() // 이벤트의 기본 액션 방지
+
+            $(this).removeClass('over')
+        })
+
+        // 드랍존에 이미지를 놓았을 때
+        $('.dropzone').on('drop', function(e) {
+            e.preventDefault() // 이벤트의 기본 액션 방지
+            $(this).removeClass('over')
+            
+            console.log(e);
+
+            fileList = e.originalEvent.dataTransfer.files
+
+            for (let i = 0; i < fileList.length; i++) {
+                const file = fileList[i];
+
+                let reader = new FileReader()
+
+                // 파일 로드 시
+                reader.onload = function(event) {
+                    let source =  event.target.result   // 파일 데이터
+                    let img = `<img src="${source}" >`
+                    $('.btn-thumb-remove').show()               // 삭제 버튼 보여주기
+                    $('.drop-img .img-box').show().html(img)    // 이미지 보여주기
+                    $('.drop-img .upload-box').hide()           // 업로드 영역 숨김
+                    // 파일 데이터를 변수에 저장
+                    let fileData = event.target.result;
+
+                    // 파일 데이터를 직접 설정 (주의: 보안 정책에 따라 허용되지 않을 수 있음)
+                    try {
+                        $('#thumbnail').val(fileData);
+                    } catch (error) {
+                        console.error(error);
+                        alert("파일 데이터를 설정할 수 없습니다. 브라우저 보안 정책을 확인하세요.");
+                    }
+                }
+                reader.readAsDataURL(file)
+            }
+
+        })
+
+        // 썸네일 삭제 - 클릭 이벤트
+        $('.btn-thumb-remove').on('click', function() {
+            $('#thumbnail').val(null)       // 등록 파일정보 제거
+            $('.upload-box').show()         // 업로드 영역 보여주기
+            $('.img-box').empty().hide()    // 썸네일 숨김
+            $('.btn-thumb-remove').hide()   // 삭제 버튼 숨김
+        })
+
+
+
+
+
+        // 파일 변경 이벤트
+        $('#thumbnail').on('change', function(e) {
+            fileList = e.target.files       // 변경된 파일 목록
+
+            for (let i = 0; i < fileList.length; i++) {
+                const file = fileList[i];
+
+                let reader = new FileReader() 
+
+                // 파일 로드 시
+                reader.onload = function(event) {
+                    let source =  event.target.result   // 파일 데이터
+                    let img = `<img src="${source}" >`
+                    $('.btn-thumb-remove').show()
+                    $('.drop-img .img-box').show().html(img)
+                    $('.drop-img .upload-box').hide()
+                }
+                
+                reader.readAsDataURL(file)
+            }
+        })
 
  
     </script>

@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM file
         WHERE parent_table = #{parentTable}
         AND parent_no = #{parentNo}
-        AND file_code = 1
+        AND file_code = 0
     </select>
 
     <!-- 파일 등록 -->
@@ -57,9 +57,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
               ,parent_no = #{parentNo}
               ,file_name = #{fileName}
               ,origin_name = #{originName}
-              ,file_path = #{filePath}
+              ,path = #{path}
               ,file_size = #{fileSize}
               ,file_code = #{fileCode}
+              ,upd_date = now()
         WHERE file_no = #{fileNo}
     </update>
 

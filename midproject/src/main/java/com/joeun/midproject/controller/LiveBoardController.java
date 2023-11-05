@@ -85,6 +85,7 @@ public class LiveBoardController {
      * 공연 게시글 쓰기 처리
      * [POST]
      */
+    
     @PostMapping(value="/insert")
     public String insertPro(@ModelAttribute LiveBoard liveBoard) throws Exception {
         // @ModelAttribute : 모델에 자동으로 등록해주는 어노테이션
