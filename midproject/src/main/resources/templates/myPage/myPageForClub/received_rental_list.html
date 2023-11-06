@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>티켓 판매 내역</title>
+    <title>대관 요청 내역</title>
 </head>
 <body>
     <h2>My Page</h2>
-    <h1>티켓 판매 내역</h1>
+    <h1>대관 요청 내역</h1>
 
     <!-- 
     <a href="/a/insert">글쓰기</a>
@@ -15,24 +15,84 @@
     
     <table border="1">
         <tr>
-            <th width="100">티켓 번호</th>
-            <th width="300">공연명</th>
-            <th width="100">성명</th>
-            <th width="100">연락처</th>
-            <th width="80">공연일자</th>
-            <th width="100">구매일자</th>
-            <th width="100">예매상태</th>
+            <th width="50">번호</th>
+            <th width="300">대관글 제목</th>
+            <th width="100">이름</th>
+            <th width="150">연락처</th>
+            <th width="150">대관일자</th>
+            <th width="100">입금여부</th>
+            <th width="100">승인여부</th>
+            <th width="150">신청일자</th>
+            <th width="150">입금확정</th>
+            <th width="150">승인</th>
+            <th width="150">거부</th>
         </tr>
 
-        <tr>
-            <td>티켓번호</td>
-            <td>티켓번호</td>
-            <td>티켓번호</td>
-            <td>티켓번호</td>
-            <td>티켓번호</td>
-            <td>티켓번호</td>
-            <td>티켓번호</td>
-        </tr>
+        <th:block th:if="${rrList}!=null" th:each="rr : ${rrList}">
+
+            <tr>
+                <td th:text="${rr.brNo}"></td>
+                <td th:text="${rr.frTitle}"></td>
+                <td th:text="${rr.name}"></td>
+                <td th:text="${rr.phone}"></td>
+                <td th:text="${rr.frDate}"></td>
+                <th:block th:if="${rr.depositStatus==0}">
+                    <td>미입금</td>
+                </th:block>
+                <th:block th:if="${rr.depositStatus==1}">
+                    <td>입금확인</td>
+                </th:block>
+                <th:block th:if="${rr.approvalStatus==0}">
+                    <td>미확인</td>
+                </th:block>
+                <th:block th:if="${rr.approvalStatus==1}">
+                    <td>승인</td>
+                </th:block>
+                <th:block th:if="${rr.approvalStatus==2}">
+                    <td>거절</td>
+                </th:block>
+                <td th:text="${#dates.format(rr.updDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+
+                <td>
+                        <th:block th:if="${rr.depositStatus==0&&rr.approvalStatus==1}">
+                        <form action="/facilityRental/reqConfirm" method="POST">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                            <input type="hidden" name="brNo" th:value="${rr.brNo}">
+
+                            <input type="submit" value="입금확정">
+                        </form>
+                    </th:block>
+                    </td>
+
+                    <td>
+                        <th:block th:if="${rr.depositStatus==0&&rr.approvalStatus==0}">
+                        <form action="/facilityRental/reqAccept" method="POST">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                            <input type="hidden" name="brNo" th:value="${rr.brNo}">
+
+                            <input type="submit" value="승인">
+                        </form>
+                    </th:block>
+                    </td>
+
+                    <td>
+                        <th:block th:if="${rr.depositStatus==0&&rr.approvalStatus==0}">
+                        <form action="/facilityRental/reqDenied" method="POST">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                            <input type="hidden" name="brNo" th:value="${rr.brNo}">
+
+                            <input type="submit" value="거절">
+                        </form>
+                    </th:block>
+                    </td>
+
+            </tr>
+        </th:block>
+        <th:block th:if="${rrList==null}">
+            <th>
+                <td colspan="8">조회된 데이터가 없습니다!</td>
+            </th>
+        </th:block>
     </table>
 </body>
 </html>

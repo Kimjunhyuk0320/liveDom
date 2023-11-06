@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.joeun.midproject.dto.BookingRequests;
 import com.joeun.midproject.dto.FacilityRental;
 import com.joeun.midproject.dto.Files;
+import com.joeun.midproject.dto.Team;
 import com.joeun.midproject.mapper.BookingRequestsMapper;
 import com.joeun.midproject.mapper.FacilityRentalMapper;
 import com.joeun.midproject.mapper.FileMapper;
@@ -35,6 +36,12 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
     @Override
     public List<FacilityRental> list() throws Exception {
         List<FacilityRental> facilityList = facilityRentalMapper.list();
+        for (FacilityRental facilityRental : facilityList) {
+            Files files = new Files();
+            files.setParentNo(facilityRental.getFrNo());
+            files.setParentTable("facility_rental");
+            facilityRental.setThumbnail(fileMapper.selectThumbnail(files));
+        }
         return facilityList;
     }
 
@@ -42,6 +49,9 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
     @Override
     public FacilityRental select(int frNo) throws Exception {
         FacilityRental facilityRental = facilityRentalMapper.select(frNo);
+        if(facilityRental!=null){
+            facilityRentalMapper.viewsUp(frNo);
+        }
         // 조회수 증가... (어케 해야할까요?)
 
         return facilityRental;
@@ -51,13 +61,13 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
     @Override
     public int insert(FacilityRental facilityRental) throws Exception {
         int result = facilityRentalMapper.insert(facilityRental);
-        String parentTable = "facilityRental";
+        String parentTable = "facility_rental";
         int parentNo = facilityRentalMapper.maxPk();
 
         // 파일 업로드
         List<MultipartFile> fileList = facilityRental.getFile();
 
-        if( !fileList.isEmpty() )
+        if(fileList!=null&&!fileList.isEmpty())
         for(MultipartFile file : fileList) {
             if(file.isEmpty()) continue;
 
@@ -122,5 +132,77 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
     public int reservation(BookingRequests bookingRequests) throws Exception {
         int result = bookingRequestsMapper.reservation(bookingRequests);
         return result;
+    }
+
+    @Override
+    public List<BookingRequests> rrList(String username) throws Exception {
+
+        List<BookingRequests> rrList = bookingRequestsMapper.rentalList(username);
+
+        return rrList;
+
+    }
+
+    @Override
+    public int delReq(BookingRequests bookingRequests) throws Exception {
+
+
+        int result = bookingRequestsMapper.delReq(bookingRequests);
+
+        return result;
+    }
+
+    @Override
+    public List<BookingRequests> rreqList(String username) throws Exception {
+
+        List<BookingRequests> rreqList = bookingRequestsMapper.rreqList(username);
+
+        return rreqList;
+    }
+
+    @Override
+    public int reqDenied(BookingRequests bookingRequests) throws Exception {
+
+        int result = bookingRequestsMapper.reqDenied(bookingRequests);
+
+        return result;
+
+    }
+
+    @Override
+    public int reqAccept(BookingRequests bookingRequests) throws Exception {
+
+        int result = bookingRequestsMapper.reqAccept(bookingRequests);
+
+        return result;
+    }
+
+    @Override
+    public int reqConfirm(BookingRequests bookingRequests) throws Exception {
+
+        int result = bookingRequestsMapper.reqConfirm(bookingRequests);
+
+        if(result>0){
+            result += bookingRequestsMapper.reqDeniedAll();
+            result += bookingRequestsMapper.confirmUsername(bookingRequests);
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<FacilityRental> pageFrList(Team team) throws Exception {
+        team.setPageNo((team.getPageNo()-1)*team.getRows());
+        List<FacilityRental> pageFrList = facilityRentalMapper.pageFrList
+        (team);
+
+        for (FacilityRental facilityRental : pageFrList) {
+            Files files = new Files();
+            files.setParentNo(facilityRental.getFrNo());
+            files.setParentTable("facility_rental");
+            facilityRental.setThumbnail(fileMapper.selectThumbnail(files));
+        }
+
+        return pageFrList;
     }
 }

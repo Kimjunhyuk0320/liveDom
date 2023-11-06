@@ -125,14 +125,12 @@
     <br>
     <br>
 
-    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+    <th:block th:if="${#authorization.expression('isAuthenticated()')&& facilityRental.buyUsername==null}">
         <form action="/facilityRental/reservation" method="POST" id="reservation">
-            <!-- csrf -->
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-            <!-- <input type="text" name="username" th:value="${authentication.principal.users.name}"> -->
-            <input type="text" name="frNo" id="frNo" th:value="${facilityRental.frNo}">
-            <input type="text" name="username" value="jh">
-            <input type="text" name="phone" id="phone" th:value="${facilityRental.phone}">
+            <input type="hidden" name="frNo" id="frNo" th:value="${facilityRental.frNo}">
+            <input type="hidden" name="username" id="username" th:value="${#authentication.principal.users.username}">
+            <input type="hidden" name="phone" id="phone" th:value="${#authentication.principal.users.phone}">
             <button type="button" onclick="actionRental()">대관하기</button>
         </form>
     </th:block>

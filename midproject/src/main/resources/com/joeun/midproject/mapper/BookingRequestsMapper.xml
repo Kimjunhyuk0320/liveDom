@@ -6,34 +6,87 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace="매퍼 인터페이스 경로" -->
 <mapper namespace="com.joeun.midproject.mapper.BookingRequestsMapper">
 
-    <!-- 유저 예약 목록 -->
-    <select id="reservationList" resultType="BookingRequests">
-        SELECT fr_no
-              ,phone
-              ,upd_date
-              ,approval_status
-              ,deposit_status
-              ,writer
-        FROM booking_requests
-
-    </select>
-
-
-
     <!-- 클럽 대관 목록 -->
+    
     <select id="rentalList" resultType="BookingRequests">
-        SELECT fr_no
-              ,username
-              ,upd_date
-              ,approval_status
-              ,deposit_status
-        FROM
+        SELECT b.br_no AS brNo,
+        b.phone AS phone,
+        u.name AS name,
+        b.deposit_status AS depositStatus,
+        b.approval_status AS approvalStatus,
+        b.upd_date AS updDate,
+        f.title AS frTitle,
+        f.live_date AS frDate
+        FROM booking_requests AS b
+        JOIN facility_rental AS f ON(b.fr_no = f.fr_no)
+        JOIN `user` AS u ON(b.username = u.username)
+        WHERE f.username = #{username}
+        ORDER BY b.upd_date DESC
     </select>
 
+
+
+    <!-- 유저 예약 목록 -->
+    <select id="rreqList" resultType="BookingRequests">
+        SELECT
+        b.br_no AS brNo,
+        f.title AS frTitle,
+        f.phone AS frPhone,
+        u.name AS name,
+        f.location AS frLocation,
+        f.account AS frAccount,
+        b.deposit_status AS depositStatus,
+        b.approval_status AS approvalStatus
+        FROM booking_requests AS b
+        JOIN facility_rental AS f ON (b.fr_no = f.fr_no)
+        JOIN user AS u ON (f.username = u.username)
+        WHERE b.username = #{username}
+        ORDER BY b.upd_date DESC
+        
+    </select>
 
     <!-- 예약신청 -->
     <insert id="reservation">
-        INSERT INTO booking_requests(fr_no, username, phone)
-        VALUES (#{frNo}, #{username}, #{phone})
+        INSERT INTO booking_requests(fr_no, username, phone,approval_status,deposit_status,upd_date)
+        VALUES (#{frNo}, #{username}, #{phone},0,0,now())
     </insert>
+
+    <delete id="delReq">
+    
+    DELETE FROM booking_requests
+    WHERE br_no = #{brNo}
+    AND deposit_status = 0
+
+    </delete>
+
+    <update id="reqDenied">
+        UPDATE booking_requests SET approval_status = 2
+        WHERE br_no = #{brNo}
+    </update>
+    <update id="reqDeniedAll">
+        UPDATE booking_requests SET approval_status = 2
+        WHERE deposit_status = 0
+    </update>
+    <update id="reqAccept">
+     UPDATE booking_requests SET approval_status = 1
+        WHERE br_no = #{brNo}
+        </update>
+    <update id="reqConfirm">
+    UPDATE booking_requests SET deposit_status = 1
+        WHERE br_no = #{brNo}
+    </update>
+
+    <update id="confirmUsername">
+        UPDATE facility_rental
+        SET buy_username = (
+            SELECT username
+            FROM booking_requests
+            WHERE br_no = #{brNo}
+        ), confirmed = 1
+        WHERE fr_no = (
+            SELECT fr_no
+            FROM booking_requests
+            WHERE br_no = #{brNo}
+        )
+    </update>
 </mapper>

@@ -10,8 +10,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="list" resultType="FacilityRental">
         SELECT *
         FROM facility_rental
-        ORDER BY upd_date
+        ORDER BY upd_date DESC
     </select>
+
+<parameterMap type="Team" id="teamMap">
+    <parameter property="pageNo" jdbcType="INTEGER" javaType="java.lang.Integer" mode="IN"/>
+    <parameter property="rows" jdbcType="INTEGER" javaType="java.lang.Integer" mode="IN"/>
+</parameterMap>
+
+
+    <select id="pageFrList" resultType="FacilityRental" parameterMap="teamMap">
+  
+  SELECT *
+  FROM facility_rental
+   WHERE
+        <choose>
+            <when test="searchType == 0">(title LIKE "%${keyword}%" OR content LIKE "%${keyword}%" OR writer LIKE "%${keyword}%") </when>
+            <when test="searchType == 1">title LIKE "%${keyword}%"</when>
+            <when test="searchType == 2">content LIKE "%${keyword}%"</when>
+            <when test="searchType == 3">(title LIKE "%${keyword}%" OR content LIKE "%${keyword}%")</when>
+            <when test="searchType == 4">writer LIKE "%${keyword}%"</when>
+        </choose>
+    ORDER BY 
+        <choose>
+            <when test="order == 0">upd_date DESC</when>
+            <when test="order == 1">title DESC</when>
+            <when test="order == 2">views DESC</when>
+        </choose>
+    LIMIT #{pageNo}, #{rows};
+  </select>
 
     <!-- 게시글 조회 -->
     <select id="select" resultType="FacilityRental">
@@ -20,10 +47,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE fr_no = #{frNo}
     </select>
 
+    <update id="viewsUp">
+        UPDATE facility_rental SET views = (views+1)
+        WHERE fr_no = #{frNo}
+    </update>
+
     <!-- 게시글 등록 -->
     <insert id="insert">
-        INSERT INTO facility_rental(title, writer, username, content, price, location, address, live_date, phone, account )
-        VALUES (#{title}, #{writer}, #{username}, #{content}, #{price}, #{location}, #{address}, #{liveDate}, #{phone}, #{account})
+        INSERT INTO facility_rental(title, writer, username, content, price, location, address, live_date, phone, account,views,upd_date,confirmed)
+        VALUES (#{title}, #{writer}, #{username}, #{content}, #{price}, #{location}, #{address}, #{liveDate}, #{phone}, #{account},0,now(),0)
     </insert>
 
     <!-- 게시글 수정 -->
