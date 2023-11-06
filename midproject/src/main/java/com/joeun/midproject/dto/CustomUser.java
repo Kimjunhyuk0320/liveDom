@@ -1,6 +1,7 @@
 package com.joeun.midproject.dto;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -26,9 +27,7 @@ public class CustomUser extends User {
 
     public CustomUser(Users users) {
         // this(), super() - 는 생성자 안에서 항상 첫번째 문장
-        super(users.getUsername(), users.getPassword(), new ArrayList<SimpleGrantedAuthority>().stream()
-                                                                       .map( (auth) -> new SimpleGrantedAuthority(users.getAuth()))
-                                                                       .collect(Collectors.toList()));
+        super(users.getUsername(), users.getPassword(), Arrays.asList(new SimpleGrantedAuthority(users.getAuth())));
         
         this.users = users;
     }

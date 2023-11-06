@@ -13,7 +13,7 @@
 </head>
 <body layout:fragment="content">
     <h1>공연 팀 모집</h1>
-
+    <h2 sec:authorize="hasRole('ROLE_BAND')">안녕하세요?</h2>
 <table>
     <tr>
         <td>전체 게시글 수</td>
