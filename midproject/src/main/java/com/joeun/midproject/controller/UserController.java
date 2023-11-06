@@ -1,19 +1,27 @@
 package com.joeun.midproject.controller;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.joeun.midproject.dto.Ticket;
 import com.joeun.midproject.dto.Users;
 import com.joeun.midproject.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -24,6 +32,7 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+ 
   /**
    * 로그인 화면
    * @return
@@ -134,4 +143,40 @@ public class UserController {
     }
  
   }
+
+
+
+  //  유저 전화번호로 구매한 티켓 리스트 조회하기
+	@RequestMapping(value = "/listByPhone")
+	public ResponseEntity<List<Ticket>> listByPhone(Users users) throws Exception {
+			List<Ticket> ticketList = userService.listByPhone(users);
+	    return new ResponseEntity<List<Ticket>>(ticketList, HttpStatus.OK);
+	}
+
+  //  유저 전화번호로 구매한 티켓 리스트 조회하기
+	@RequestMapping(value = "/listByUserName")
+	public ResponseEntity<List<Ticket>> listByUserName(Users users) throws Exception {
+			List<Ticket> ticketList = userService.listByUserName(users);
+	    return new ResponseEntity<List<Ticket>>(ticketList, HttpStatus.OK);
+	}
+
+
+
+  @GetMapping(value="/myPage/myPageForUser/ticket_purchase_list")
+  public String ticketPurchase() {
+      return "/myPage/myPageForUser/ticket_purchase_list";
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
 }
