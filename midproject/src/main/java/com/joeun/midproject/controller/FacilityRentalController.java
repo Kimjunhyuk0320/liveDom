@@ -1,10 +1,12 @@
 package com.joeun.midproject.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,10 +15,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.joeun.midproject.dto.BookingRequests;
 import com.joeun.midproject.dto.FacilityRental;
 import com.joeun.midproject.dto.Files;
+import com.joeun.midproject.dto.PageInfo;
+import com.joeun.midproject.dto.Team;
+import com.joeun.midproject.mapper.TeamMapper;
 import com.joeun.midproject.service.FacilityRentalService;
 import com.joeun.midproject.service.FileService;
+import com.joeun.midproject.service.TeamService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
 
 
 @Slf4j
@@ -26,6 +37,11 @@ public class FacilityRentalController {
     @Autowired
     private FacilityRentalService facilityRentalService;
     
+    @Autowired
+    private TeamMapper teamMapper;
+
+    @Autowired
+    private TeamService teamService;
 
     @Autowired
     private FileService fileService;
@@ -208,4 +224,95 @@ public class FacilityRentalController {
     public String complete() throws Exception {
         return "/";
     }
+
+    @GetMapping(value="/user/receivedList")
+    public String receivedList(Model model,Principal principal) throws Exception{
+
+        List<BookingRequests> rrList = facilityRentalService.rrList(principal.getName());
+        log.info(rrList.toString());
+        model.addAttribute("rrList", rrList);
+
+        return "myPage/myPageForClub/received_rental_list";
+    }
+
+    @GetMapping(value="/user/reqList")
+    public String reqList(Model model,Principal principal) throws Exception{
+
+        List<BookingRequests> rreqList = facilityRentalService.rreqList(principal.getName());
+
+        model.addAttribute("rreqList", rreqList);
+
+        return "/myPage/myPageForBand/rental_requests_list";
+    }
+    
+
+    @PostMapping(value="/reqDel")
+    public String reqDelPro(BookingRequests bookingRequests) throws Exception{
+
+        int result = facilityRentalService.delReq(bookingRequests);
+        
+        return "redirect:/facilityRental/user/reqList";
+    }
+    
+    @PostMapping(value="/reqDenied")
+    public String reqDenied(BookingRequests bookingRequests) throws Exception{
+
+        int result = facilityRentalService.reqDenied(bookingRequests);
+        
+        return "redirect:/user/receivedList";
+    }
+    
+    @PostMapping(value="/reqAccept")
+    public String reqAccept(BookingRequests bookingRequests) throws Exception{
+
+        int result = facilityRentalService.reqAccept(bookingRequests);
+
+        return "redirect:/facilityRental/user/receivedList";
+    }
+    
+    @PostMapping(value="/reqConfirm")
+    public String reqConfirm(BookingRequests bookingRequests) throws Exception {
+        
+        int result = facilityRentalService.reqConfirm(bookingRequests);
+
+        return "redirect:/facilityRental/user/receivedList";
+    }
+
+
+
+  @CrossOrigin(origins = "*")
+  @ResponseBody
+  @GetMapping(value = "/pageInfoFr", produces = "application/json")
+  public PageInfo pageInfoFr(PageInfo pageInfo){
+
+    pageInfo.setTotalCount(teamMapper.totalCount("facility_rental"));
+
+    log.info(pageInfo.toString());
+
+    PageInfo pageInfoResult = teamService.pageInfo(pageInfo);
+
+    log.info(pageInfoResult.toString());
+    return pageInfoResult;
+    
+  }
+
+  @CrossOrigin(origins = "*")
+  @ResponseBody
+  @GetMapping(value="/pageFrList", produces = "application/json")
+  public List<FacilityRental> confirmedLiveList(Team team, Principal principal)throws Exception{
+    
+    
+    List<FacilityRental> pageListResult = facilityRentalService.pageFrList(team);
+    
+    for (FacilityRental team2 : pageListResult) {
+      log.info("대관글 리스트 : "+team2.toString());
+    }
+    
+    return pageListResult;
+  }
+    
+    
+    
+    
+    
 }

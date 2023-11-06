@@ -26,4 +26,5 @@ public class FacilityRental {
     private int confirmed;
 
     private List<MultipartFile> file;
+    private Files thumbnail;
 }

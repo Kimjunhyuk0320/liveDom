@@ -47,8 +47,6 @@ public class TeamController {
   @Autowired
   private TeamMapper teamMapper;
 
-
-
   @GetMapping(value={"/",""})
   public String index(Model model) {
 
