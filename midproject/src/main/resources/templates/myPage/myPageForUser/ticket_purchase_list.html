@@ -9,7 +9,7 @@
 <body layout:fragment="content">
     <h2>My Page</h2>
     <h1>티켓 구매 내역</h1>
-    <input type="text" id="phone"  name="phone" th:value="${#authentication.principal.users.phone}" >
+    <input type="hidden" id="phone"  name="phone" th:value="${#authentication.principal.users.phone}" >
 
     <table border="1">
         <thead>
@@ -88,13 +88,16 @@
                         // currentDate와 updDate를 필요한 형식으로 변환 (예: YYYY-MM-DD)
                         currentDate = currentDate.toISOString().split("T")[0];
                         updDate = updDate.toISOString().split("T")[0];
-
+                        let refund = ticketList[i].refund
+                        if (refund == 0){
+                            refund = '결제완료'
+                        }
                         let tr = `<tr>
                                     <td>${reservationNo}</td>
                                     <td>${title}</td>
                                     <td>${liveDate}</td>
                                     <td>${ticketList[i].name}</td>
-                                    <td>${ticketList[i].refund}</td>
+                                    <td>${refund}</td>
                                     <td>${updDate}</td>
                                     </tr>
                                     `

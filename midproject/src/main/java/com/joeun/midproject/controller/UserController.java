@@ -7,6 +7,7 @@ import javax.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -31,7 +32,12 @@ public class UserController {
 
   @Autowired
   private UserService userService;
-
+    
+  @GetMapping(value="/exception")
+  public String exception() {
+      return "exception";
+  }
+  
  
   /**
    * 로그인 화면
@@ -75,6 +81,7 @@ public class UserController {
   }
   
   // 회원 정보 수정
+  @Secured({"ROLE_USER", "ROLE_BAND", "ROLE_CLUB"})
   @GetMapping(value="/update")
   public String update() {
       return "update";
@@ -147,24 +154,32 @@ public class UserController {
 
 
   //  유저 전화번호로 구매한 티켓 리스트 조회하기
+
 	@RequestMapping(value = "/listByPhone")
 	public ResponseEntity<List<Ticket>> listByPhone(Users users) throws Exception {
 			List<Ticket> ticketList = userService.listByPhone(users);
 	    return new ResponseEntity<List<Ticket>>(ticketList, HttpStatus.OK);
 	}
 
-  //  유저 전화번호로 구매한 티켓 리스트 조회하기
-	@RequestMapping(value = "/listByUserName")
+  //  유저 아이디로 판매한 티켓 리스트 조회하기
+
+
 	public ResponseEntity<List<Ticket>> listByUserName(Users users) throws Exception {
 			List<Ticket> ticketList = userService.listByUserName(users);
 	    return new ResponseEntity<List<Ticket>>(ticketList, HttpStatus.OK);
 	}
 
 
-
+  @Secured({"ROLE_USER", "ROLE_BAND", "ROLE_CLUB"})
   @GetMapping(value="/myPage/myPageForUser/ticket_purchase_list")
   public String ticketPurchase() {
       return "/myPage/myPageForUser/ticket_purchase_list";
+  }
+
+  @Secured({"ROLE_USER", "ROLE_BAND", "ROLE_CLUB"})
+  @GetMapping(value="/myPage/myPageForClub/ticket_sales_list")
+  public String ticketSales() {
+      return "/myPage/myPageForClub/ticket_sales_list";
   }
   
 

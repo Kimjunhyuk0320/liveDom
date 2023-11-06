@@ -19,12 +19,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT 
                 t.ticket_no,
                 t.board_no,
+                l.title,
+                l.live_date,
                 t.reservation_no,
                 t.name,
                 t.phone,
                 t.upd_date,
                 t.refund
-        FROM live_board l LEFT JOIN ticket_purchases t
+        FROM live_board l JOIN ticket_purchases t
         ON l.board_no = t.board_no
         WHERE l.username = #{username}
         ORDER BY t.upd_date DESC, t.ticket_no DESC
@@ -43,4 +45,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         VALUES ( #{ticketNo}, #{boardNo}, #{reservationNo}, #{name}, #{phone}, 0 )
     </insert>
 
+    
 </mapper>

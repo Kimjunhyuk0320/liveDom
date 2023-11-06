@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -126,7 +127,7 @@ public class TeamController {
   }
   
   
-
+  @Secured("ROLE_BAND")
   @PostMapping(value="/insert")
   public String insertPro(HttpServletRequest request,Team team) {
     
@@ -169,7 +170,7 @@ public class TeamController {
   }
 
 
-
+  @Secured("ROLE_BAND")
   @GetMapping(value="/update")
   public String update(Model model, Team team) {
 

@@ -3,6 +3,7 @@ package com.joeun.midproject.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,7 @@ public class LiveBoardController {
      * 공연 게시글 목록 조회
      * 
      */
-    @GetMapping(value="/list")
+    @GetMapping(value={"/list",""})
     public String list(Model model) throws Exception{
         log.info("[GET] - /liveBoard/list");
 
@@ -114,6 +115,7 @@ public class LiveBoardController {
      /**
      * 공연 게시글 쓰기
      */
+    @Secured({"ROLE_BAND", "ROLE_CLUB"})
     @GetMapping(value="/insert")
     public String insert() {
         return "liveBoard/insert";
@@ -129,6 +131,11 @@ public class LiveBoardController {
     public String insertPro(@ModelAttribute LiveBoard liveBoard) throws Exception {
         // @ModelAttribute : 모델에 자동으로 등록해주는 어노테이션
         // 데이터 처리
+        String liveStTime = liveBoard.getLiveStTime();
+        String liveEndTime = liveBoard.getLiveEndTime();
+        String liveTime = liveStTime + " ~ " + liveEndTime;
+        liveBoard.setLiveTime(liveTime);
+        log.info(liveBoard + "");
         int result = liveBoardService.insert(liveBoard);
 
         // 게시글 쓰기 실패 ➡ 게시글 쓰기 화면
@@ -143,6 +150,7 @@ public class LiveBoardController {
      * 공연 게시글 수정
      * [GET]
      */
+    @Secured({"ROLE_BAND", "ROLE_CLUB"})
     @GetMapping(value="/update")
     public String update(Model model, int boardNo) throws Exception {
         // 데이터 요청
@@ -175,6 +183,7 @@ public class LiveBoardController {
      * [POST]
      */
     @ResponseBody
+    @Secured({"ROLE_USER", "ROLE_BAND", "ROLE_CLUB"})
     @PostMapping(value="/purchase")
     public String ticket(Ticket ticket, int count) throws Exception {
         log.info("ajax 티켓 구매 처리 테스트");
