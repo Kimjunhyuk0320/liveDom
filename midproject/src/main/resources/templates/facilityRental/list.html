@@ -24,7 +24,7 @@
 
     <a href="/facilityRental/insert">글쓰기</a>
     
-    <div th:each="facilityRental : ${facilityList}" class="card" style="width: 18rem;">
+    <div th:if="${facilityList!=null}" th:each="facilityRental : ${facilityList}" class="card" style="width: 18rem;">
         <!-- <th:block th:each="file : ${fileList}" class="card-img-top"> -->
             <!-- <a th:href="|/facilityRental/read?frNo=${facilityRental.frNo}|"><img th:src="${file.fileNo}" class="card-img-top" alt=""></a> -->
             <a th:href="|/facilityRental/read?frNo=${facilityRental.frNo}|"><h5 class="card-title" th:text="${facilityRental.title}"></h5></a>
