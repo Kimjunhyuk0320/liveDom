@@ -2,20 +2,29 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
 }
 ul{list-style-type: none;}
 
-header{
+a{
+  color: black;
+  text-decoration: none;
+}
+
+section {
+  min-height: 400px;
+}
+
+section:first-of-type {
+  margin-top: 86px;
+}
+
+
+/* header{
   height: 80px;
   background-color: lightblue;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-a{
-  color: black;
-  text-decoration: none;
 }
 header ul{
   display: flex;
@@ -53,7 +62,7 @@ footer{
 }
 footer p{
   line-height: 100px;
-}
+} */
 
 
 

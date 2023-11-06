@@ -1,425 +1,421 @@
 <!-- user - header -->
 <!-- ~UI/user/fragment/header -->
 <th:block th:fragment="header">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <style>
-            /* 폰트 적용 */
-            /* 노토산스 폰트 */
-            @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
-            /* 로고 폰트 */
-            @import url('https://fonts.googleapis.com/css2?family=Anton&family=Dancing+Script:wght@400;700&family=Gowun+Batang:wght@700&family=Parisienne&family=Questrial&family=Song+Myung&display=swap');
+    <style>
+        /* 폰트 적용 */
+        /* 노토산스 폰트 */
+        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+        /* 로고 폰트 */
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Dancing+Script:wght@400;700&family=Gowun+Batang:wght@700&family=Parisienne&family=Questrial&family=Song+Myung&display=swap');
+        
+        .header {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        /* ✅[수정] 서브 메뉴 여백조정 👩‍💻aloha  @오후 4:40 2023-11-06  */
+        ol, ul {
+            padding-left: 0 !important;
+            margin-bottom: 0 !important;
+        }
+        /* 노말라이즈 */
+        /* body, ul, li {
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        body {
+            word-break:keep-all;
+        }
+        a {
+            text-decoration:none;
+            color:inherit;
+        } */
+        html {
+            overflow-x:hidden;
+            line-height:1.15;
+        }
+        /* 노말라이즈 */
+
+        /* 라이브러리 */
+        .con {
+            max-width:1300px;
+            margin:0 auto;
+        }
+        .header-row::after {
+            content:"";
+            display:block;
+            clear:both;
+        }
+        .cell {
+            float:left;
+            box-sizing:border-box;
+        }
+        .cell-right {
+            float:right;
+        }
+        .line-height-0 {
+            line-height:0;
+        }
+        .line-height-0 > * {
+            line-height:normal;
+        }
+        .visible-on {
+            display:block;
+        }
+        .visible-off {
+            display:none;
+        }
+        .img-box {
+            overflow:hidden;
+        }
+        .img-box > img {
+            width:100%;
+            display:block;
+        }
+        .relative {
+            position:relative;
+        }
+        .block {
+            display:block;
+        }
+        /* 라이브러리 끝 */
+
+        /* 커스텀 */
+        .header {
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:86px;
+            background-color:#fff;
+            z-index:100;
+        }
+
+        .header > .header-inner {
+            max-width:1220px;
+            margin:0 auto;
+            position:relative;
+        }
+
+        /* 상단 로고 */
+        .header > .header-inner > .logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* ✅[수정] translatex ➡ translateX ➡ translate 👩‍💻aloha  @오후 4:45 2023-11-06 */
+            /* width:128px; */
+        }
+
+        /* 로고 폰트 */
+        .header > .header-inner > .logo > h1.logo-title {
+            font-family: 'Anton', sans-serif;
+            font-family: 'Dancing Script', cursive;
+            font-family: 'Gowun Batang', serif;
+            font-family: 'Parisienne', cursive;
+            font-family: 'Questrial', sans-serif;
+            font-family: 'Song Myung', serif;
+        }
+
+        /* 검색 박스 */
+        .header > .header-inner > .search-box {
+            position:absolute;
+            top:50%;
+            right:30px;
+            /* ✅[수정] translatey ➡ translateY 👩‍💻aloha  @오후 4:45 2023-11-06 */
+            transform:translateY(-50%);
+        }
+
+        .header > .header-inner > .search-box > a > span {
+            font-size:15px;
+            font-weight:bold;
+            position:relative;
+            top:-2px;
+        }
+        .header > .header-inner > .search-box > a > img {
+            width:15px;
+            padding-left:5px;
+            position:relative;
+            top:-1px;
+        }
+
+        /* 상단 메뉴바 */
+
+        .header > .header-inner > .top-menu-bar > ul {
+            display:inline-block;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul:nth-child(2) {
+            margin-right:105px;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul > li > a {
+            display:block;
+            margin:0 30px;
+            font-size:15px;
+            font-weight:bold;
+            position:relative;
+            line-height:86px;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul > li > a > * {
+            line-height:normal;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul > li > a::after {
+            content:"";
+            display:block;
+            background-color:#000;
+            position:absolute;
+            bottom:0;
+            left:50%;
+            width:0%;
+            height:3px;
+            transform:translatex(-50%);
+            transition:width .3s ease-in-out;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul > li > a.active::after {
+            width:100%;
+        }
+
+        /* 2차 메뉴 배경 */
+        .header > .header-inner > .top-menu-bar > .sub-menu-bg {
+            position:fixed;
+            top:86px;
+            left:0;
+            width:100%;
+            height:0;
+            background-color:#fff;
+            border-top:1px solid #ccc;
+            z-index:-5;
+            transition:height .3s;
+        }
+
+        /* 2차 메뉴 */
+        .header > .header-inner > .top-menu-bar ul > li {
+            position:relative;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul > li > ul {
+            position:absolute;
+            top:100%;
+            left:0;
+            min-width:1000px;
+            visibility:hidden;
+            transform:translatex(-10px);
+            opacity:0;
+            padding-top:20px;
+        }
+        .header > .header-inner > .top-menu-bar > ul > li.active ul {
+            visibility:visible;
+            opacity:1;
+            transform:translatex(0);
+            transition:all .5s;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul > li > ul > li {
+            margin-left:30px;
+        }
+        .header > .header-inner > .top-menu-bar > ul > li > ul > li > a {
+            font-weight:bold;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul ul > li > a {
+            display:inline-block;
+            font-size:15px;
+            padding:7px 0;
+            position:relative;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul ul > li > a::after {
+            content:"";
+            display:block;
+            background-color:#000;
+            position:absolute;
+            bottom:0;
+            left:50%;
+            width:0%;
+            height:1px;
+            transform:translatex(-50%);
+            transition:width .3s ease-in-out;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul ul > li > a:hover::after {
+            width:100%;
+        }
+
+        /* 서브메뉴 실질적 width, height */
+        .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width {
+            width:100%;
+            height:300px;
+            position:fixed;
+            top:86px;
+            left:0;
+            z-index:-3;
+            display:none;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul > li.active > .sub-menu-width {
+            display:block;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width-1 {
+            height:164px;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width-2 {
+            height:238px;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width-3 {
+            height:164px;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width-4 {
+            height:90px;
+        }
+
+        .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width-5 {
+            height:127px;
+        }
+
+        /* 3차 메뉴 */
+        .header > .header-inner > .top-menu-bar > ul ul ul {
             
-            html {
-                font-family: 'Noto Sans KR', sans-serif;
-            }
-            /* 노말라이즈 */
-            body, ul, li {
-                margin:0;
-                padding:0;
-                list-style:none;
-            }
-            body {
-                word-break:keep-all;
-            }
-            a {
-                text-decoration:none;
-                color:inherit;
-            }
-            html {
-                overflow-x:hidden;
-                line-height:1.15;
-            }
-            /* 노말라이즈 */
-    
-            /* 라이브러리 */
-            .con {
-                max-width:1300px;
-                margin:0 auto;
-            }
-            .row::after {
-                content:"";
-                display:block;
-                clear:both;
-            }
-            .cell {
-                float:left;
-                box-sizing:border-box;
-            }
-            .cell-right {
-                float:right;
-            }
-            .line-height-0 {
-                line-height:0;
-            }
-            .line-height-0 > * {
-                line-height:normal;
-            }
-            .visible-on {
-                display:block;
-            }
-            .visible-off {
-                display:none;
-            }
-            .img-box {
-                overflow:hidden;
-            }
-            .img-box > img {
-                width:100%;
-                display:block;
-            }
-            .relative {
-                position:relative;
-            }
-            .block {
-                display:block;
-            }
-            /* 라이브러리 끝 */
-    
-            body {
-                background-color:#dfdfdf;
-                height:3000px;
-            }
-            /* 커스텀 */
-            .header {
-                position:fixed;
-                top:0;
-                left:0;
-                width:100%;
-                height:86px;
-                background-color:#fff;
-                z-index:100;
-            }
-    
-            .header > .header-inner {
-                max-width:1220px;
-                margin:0 auto;
-                position:relative;
-            }
-    
-            /* 상단 로고 */
-            .header > .header-inner > .logo {
-                position:absolute;
-                top:5%;
-                left:50%;
-                transform:translatex(-50%);
-                width:128px;
-            }
-    
-            /* 로고 폰트 */
-            .header > .header-inner > .logo > h1{
-                font-family: 'Anton', sans-serif;
-                font-family: 'Dancing Script', cursive;
-                font-family: 'Gowun Batang', serif;
-                font-family: 'Parisienne', cursive;
-                font-family: 'Questrial', sans-serif;
-                font-family: 'Song Myung', serif;
-            }
-    
-            /* 검색 박스 */
-            .header > .header-inner > .search-box {
-                position:absolute;
-                top:50%;
-                right:30px;
-                transform:translatey(-50%);
-            }
-    
-            .header > .header-inner > .search-box > a > span {
-                font-size:15px;
-                font-weight:bold;
-                position:relative;
-                top:-2px;
-            }
-            .header > .header-inner > .search-box > a > img {
-                width:15px;
-                padding-left:5px;
-                position:relative;
-                top:-1px;
-            }
-    
-            /* 상단 메뉴바 */
-    
-            .header > .header-inner > .top-menu-bar > ul {
-                display:inline-block;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul:nth-child(2) {
-                margin-right:105px;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul > li > a {
-                display:block;
-                margin:0 30px;
-                font-size:15px;
-                font-weight:bold;
-                position:relative;
-                line-height:86px;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul > li > a > * {
-                line-height:normal;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul > li > a::after {
-                content:"";
-                display:block;
-                background-color:#000;
-                position:absolute;
-                bottom:0;
-                left:50%;
-                width:0%;
-                height:3px;
-                transform:translatex(-50%);
-                transition:width .3s ease-in-out;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul > li > a.active::after {
-                width:100%;
-            }
-    
-            /* 2차 메뉴 배경 */
-            .header > .header-inner > .top-menu-bar > .sub-menu-bg {
-                position:fixed;
-                top:86px;
-                left:0;
-                width:100%;
-                height:0;
-                background-color:#fff;
-                border-top:1px solid #ccc;
-                z-index:-5;
-                transition:height .3s;
-            }
-    
-            /* 2차 메뉴 */
-            .header > .header-inner > .top-menu-bar ul > li {
-                position:relative;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul > li > ul {
-                position:absolute;
-                top:100%;
-                left:0;
-                min-width:1000px;
-                visibility:hidden;
-                transform:translatex(-10px);
-                opacity:0;
-                padding-top:20px;
-            }
-            .header > .header-inner > .top-menu-bar > ul > li.active ul {
-                visibility:visible;
-                opacity:1;
-                transform:translatex(0);
-                transition:all .5s;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul > li > ul > li {
-                margin-left:30px;
-            }
-            .header > .header-inner > .top-menu-bar > ul > li > ul > li > a {
-                font-weight:bold;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul ul > li > a {
-                display:inline-block;
-                font-size:15px;
-                padding:7px 0;
-                position:relative;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul ul > li > a::after {
-                content:"";
-                display:block;
-                background-color:#000;
-                position:absolute;
-                bottom:0;
-                left:50%;
-                width:0%;
-                height:1px;
-                transform:translatex(-50%);
-                transition:width .3s ease-in-out;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul ul > li > a:hover::after {
-                width:100%;
-            }
-    
-            /* 서브메뉴 실질적 width, height */
-            .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width {
-                width:100%;
-                height:300px;
-                position:fixed;
-                top:86px;
-                left:0;
-                z-index:-3;
-                display:none;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul > li.active > .sub-menu-width {
-                display:block;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width-1 {
-                height:164px;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width-2 {
-                height:238px;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width-3 {
-                height:164px;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width-4 {
-                height:90px;
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width-5 {
-                height:127px;
-            }
-    
-            /* 3차 메뉴 */
-            .header > .header-inner > .top-menu-bar > ul ul ul {
-                
-            }
-    
-            .header > .header-inner > .top-menu-bar > ul ul ul > li {
-                margin-right:80px;
-            }
-    
-        </style>
-    </head>
-    <body>
-        <!-- 헤더 -->
-        <div class="header">
-            <div class="header-inner">
-                <div class="logo img-box">
-                    <h1>LiveDom</h1>
-                    <!-- 
-                    <img src="../fragment/fragmentImg/LogoTestDom.jpeg" style="width: 58px; margin-top: 10px;">
-                        이 부분에 로고 이미지가 들어갈 예정입니다. 
-                    -->
-                </div>
-                <nav class="top-menu-bar row line-height-0">
-                    <ul class="row">
-                        <li class="cell menu-1">
-                            <a href="#">클럽 대관 서비스</a>
-                            <ul>
-                                <li><a href="#">전체보기</a></li>
-                                <li><a href="#">대관 게시글 작성하기</a></li>
-                                <li><a href="#">내가 쓴 게시글 확인하기</a></li>
-                            </ul>
-                            <div class="sub-menu-width sub-menu-width-1"></div>
-                        </li>
-                        <li class="cell menu-1">
-                            <a href="#">티켓팅</a>
-                            <ul class="row">
-                                <li><a href="#">전체보기</a></li>
-                                <li class="cell">
-                                    <ul>
-                                        <li><a href="#">공연 등록하기</a></li>
-                                        <li><a href="#">공연 수정하기</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="sub-menu-width sub-menu-width-2"></div>
-                        </li>
-                        <li class="cell menu-3">
-                            <a href="#">공연팀 모집</a>
-                            <ul>
-                                <li><a href="/team/list">전체보기</a></li>
-                                <li><a href="/team/insert">모집글 작성하기</a></li>
-                                <li><a href="/team/update">모집글 수정하기</a></li>
-                            </ul>
-                            <div class="sub-menu-width sub-menu-width-3"></div>
-                        </li>
-                    </ul>
-                    <ul class="row cell-right">
-                        <li class="cell menu-5">
-                            <a href="#">마이페이지</a>
-                            <ul>
-                                <li><a href="#">내 정보 보기</a></li>
-                                <li><a href="#">내 정보 수정하기</a></li>
-                            </ul>
-                            <div class="sub-menu-width sub-menu-width-4"></div>
-                        </li>
-                        <li class="cell menu-5">
-                            <a href="#">로그인</a>
-                            <ul>
-                                <li><a href="#">로그인</a></li>
-                                <li><a href="#">회원가입</a></li>
-                            </ul>
-                            <div class="sub-menu-width sub-menu-width-5"></div>
-                        </li>
-                    </ul>
-                    <div class="sub-menu-bg"></div>
-                </nav>
-                
-                <div class="search-box">
-                    <a href="#">
-                        <span>검색</span><img src="https://www.dacorkorea.com/images/icon-search.png" alt="search">
-                    </a>
-                </div>
-                <!-- 검색기능은 좀만 이따가 넣자
-                <div class="search-box-on">
-                    <input type="search" placeholder="">
-                </div>
+        }
+
+        .header > .header-inner > .top-menu-bar > ul ul ul > li {
+            margin-right:80px;
+        }
+
+    </style>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo img-box">
+                <h1 class="logo-title">LiveDom</h1>
+                <!-- 
+                <img src="../fragment/fragmentImg/LogoTestDom.jpeg" style="width: 58px; margin-top: 10px;">
+                    이 부분에 로고 이미지가 들어갈 예정입니다. 
                 -->
             </div>
+            <nav class="top-menu-bar header-row line-height-0">
+                <ul class="header-row">
+                    <li class="cell menu-1">
+                        <a href="#">클럽 대관 서비스</a>
+                        <ul>
+                            <li><a href="#">전체보기</a></li>
+                            <li><a href="#">대관 게시글 작성하기</a></li>
+                            <li><a href="#">내가 쓴 게시글 확인하기</a></li>
+                        </ul>
+                        <div class="sub-menu-width sub-menu-width-1"></div>
+                    </li>
+                    <li class="cell menu-1">
+                        <a href="#">티켓팅</a>
+                        <ul class="header-row">
+                            <li><a href="#">전체보기</a></li>
+                            <li class="cell">
+                                <ul>
+                                    <li><a href="#">공연 등록하기</a></li>
+                                    <li><a href="#">공연 수정하기</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="sub-menu-width sub-menu-width-2"></div>
+                    </li>
+                    <li class="cell menu-3">
+                        <a href="#">공연팀 모집</a>
+                        <ul>
+                            <li><a href="/team/list">전체보기</a></li>
+                            <li><a href="/team/insert">모집글 작성하기</a></li>
+                            <li><a href="/team/update">모집글 수정하기</a></li>
+                        </ul>
+                        <div class="sub-menu-width sub-menu-width-3"></div>
+                    </li>
+                </ul>
+                <ul class="header-row cell-right">
+                    <li class="cell menu-5">
+                        <a href="#">마이페이지</a>
+                        <ul>
+                            <li><a href="#">내 정보 보기</a></li>
+                            <li><a href="#">내 정보 수정하기</a></li>
+                        </ul>
+                        <div class="sub-menu-width sub-menu-width-4"></div>
+                    </li>
+                    <li class="cell menu-5">
+                        <a href="#">로그인</a>
+                        <ul>
+                            <li><a href="#">로그인</a></li>
+                            <li><a href="#">회원가입</a></li>
+                        </ul>
+                        <div class="sub-menu-width sub-menu-width-5"></div>
+                    </li>
+                </ul>
+                <div class="sub-menu-bg"></div>
+            </nav>
+            
+            <div class="search-box">
+                <a href="#">
+                    <span>검색</span><img src="https://www.dacorkorea.com/images/icon-search.png" alt="search">
+                </a>
+            </div>
+            <!-- 검색기능은 좀만 이따가 넣자
+            <div class="search-box-on">
+                <input type="search" placeholder="">
+            </div>
+            -->
         </div>
+    </header>
     
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-        <script>
-            // 상단 메뉴 관련
-            $('.header > .header-inner > .top-menu-bar > ul > li').mouseenter(function(){
-                $(this).addClass('active');
-                $(this).find('> a').addClass('active');
-            });
-    
-            $('.header > .header-inner > .top-menu-bar > ul > li').mouseleave(function(){
-                $(this).removeClass('active');
-                $(this).find('> a').removeClass('active');
-            });
-    
-            // 상단 2차 메뉴 배경
-            $('.header > .header-inner > .top-menu-bar > ul > .menu-1').mouseenter(function(){
-                $('.sub-menu-bg').css('height','164px');
-            });
-            $('.header > .header-inner > .top-menu-bar > ul > .menu-1').mouseleave(function(){
-                $('.sub-menu-bg').css('height','');
-            });
-    
-            $('.header > .header-inner > .top-menu-bar > ul > .menu-2').mouseenter(function(){
-                $('.sub-menu-bg').css('height','238px');
-            });
-            $('.header > .header-inner > .top-menu-bar > ul > .menu-2').mouseleave(function(){
-                $('.sub-menu-bg').css('height','');
-            });
-    
-            $('.header > .header-inner > .top-menu-bar > ul > .menu-3').mouseenter(function(){
-                $('.sub-menu-bg').css('height','164px');
-            });
-            $('.header > .header-inner > .top-menu-bar > ul > .menu-3').mouseleave(function(){
-                $('.sub-menu-bg').css('height','');
-            });
-    
-            $('.header > .header-inner > .top-menu-bar > ul > .menu-4').mouseenter(function(){
-                $('.sub-menu-bg').css('height','90px');
-            });
-            $('.header > .header-inner > .top-menu-bar > ul > .menu-4').mouseleave(function(){
-                $('.sub-menu-bg').css('height','');
-            });
-    
-            $('.header > .header-inner > .top-menu-bar > ul > .menu-5').mouseenter(function(){
-                $('.sub-menu-bg').css('height','127px');
-            });
-            $('.header > .header-inner > .top-menu-bar > ul > .menu-5').mouseleave(function(){
-                $('.sub-menu-bg').css('height','');
-            });
-    
-        </script>
-    </body>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+    <script>
+        // 상단 메뉴 관련
+        $('.header > .header-inner > .top-menu-bar > ul > li').mouseenter(function(){
+            $(this).addClass('active');
+            $(this).find('> a').addClass('active');
+        });
+
+        $('.header > .header-inner > .top-menu-bar > ul > li').mouseleave(function(){
+            $(this).removeClass('active');
+            $(this).find('> a').removeClass('active');
+        });
+
+        // 상단 2차 메뉴 배경
+        $('.header > .header-inner > .top-menu-bar > ul > .menu-1').mouseenter(function(){
+            $('.sub-menu-bg').css('height','164px');
+        });
+        $('.header > .header-inner > .top-menu-bar > ul > .menu-1').mouseleave(function(){
+            $('.sub-menu-bg').css('height','');
+        });
+
+        $('.header > .header-inner > .top-menu-bar > ul > .menu-2').mouseenter(function(){
+            $('.sub-menu-bg').css('height','238px');
+        });
+        $('.header > .header-inner > .top-menu-bar > ul > .menu-2').mouseleave(function(){
+            $('.sub-menu-bg').css('height','');
+        });
+
+        $('.header > .header-inner > .top-menu-bar > ul > .menu-3').mouseenter(function(){
+            $('.sub-menu-bg').css('height','164px');
+        });
+        $('.header > .header-inner > .top-menu-bar > ul > .menu-3').mouseleave(function(){
+            $('.sub-menu-bg').css('height','');
+        });
+
+        $('.header > .header-inner > .top-menu-bar > ul > .menu-4').mouseenter(function(){
+            $('.sub-menu-bg').css('height','90px');
+        });
+        $('.header > .header-inner > .top-menu-bar > ul > .menu-4').mouseleave(function(){
+            $('.sub-menu-bg').css('height','');
+        });
+
+        $('.header > .header-inner > .top-menu-bar > ul > .menu-5').mouseenter(function(){
+            $('.sub-menu-bg').css('height','127px');
+        });
+        $('.header > .header-inner > .top-menu-bar > ul > .menu-5').mouseleave(function(){
+            $('.sub-menu-bg').css('height','');
+        });
+
+    </script>
 </th:block>
