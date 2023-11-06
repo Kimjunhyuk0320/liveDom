@@ -77,7 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         // 로그인 설정
-        http.formLogin( form -> form
+        http.formLogin( (form) -> form
                                 .defaultSuccessUrl("/")         // 로그인 성공 시, URL : "/"(기본값)
                                 .loginPage("/login")                    // 커스텀 로그인 페이지 지정 (default:/login)
                                 .loginProcessingUrl("/loginPro")// 커스텀 로그인 요청 처리 경로 지정 (default:/login)

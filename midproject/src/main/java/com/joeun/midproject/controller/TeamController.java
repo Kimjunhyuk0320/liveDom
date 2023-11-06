@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.joeun.midproject.dto.Comment;
 import com.joeun.midproject.dto.PageInfo;
 import com.joeun.midproject.dto.Team;
 import com.joeun.midproject.dto.TeamApp;
 import com.joeun.midproject.mapper.TeamMapper;
+import com.joeun.midproject.service.CommentService;
 import com.joeun.midproject.service.TeamAppService;
 import com.joeun.midproject.service.TeamService;
 
@@ -46,6 +48,9 @@ public class TeamController {
 
   @Autowired
   private TeamMapper teamMapper;
+
+  @Autowired
+  private CommentService commentService;
 
   @GetMapping(value={"/",""})
   public String index(Model model) {
@@ -358,6 +363,70 @@ public class TeamController {
 
       return "myPage/myPageForBand/team_registrations_read";
   }
+
+
+  @ResponseBody
+  @CrossOrigin(origins="*")
+  @GetMapping(value="/commentList", produces = "application/json")
+  public List<Comment> commentList(Comment comment) {
+    comment.setParentTable("team_recruitments");
+    log.info(comment.toString());
+    List<Comment> commentList = commentService.commentList(comment);
+
+    for (Comment comment2 : commentList) {
+      log.info(comment2.toString());
+    }
+    return commentList;
+  }
+
+  @ResponseBody
+  @CrossOrigin(origins="*")
+  @GetMapping(value="/commentInsert")
+  public String commentInsert(Comment comment) {
+
+    comment.setParentTable("team_recruitments");
+    int result = commentService.commentInsert(comment);
+    if(result>0){
+      return "SUCCESS";
+    }
+    else{
+
+      return "FAILED";
+    }
+  }
+
+  @ResponseBody
+  @CrossOrigin(origins="*")
+  @GetMapping(value="/commentDelete")
+  public String commentDelete(Comment comment) {
+
+    comment.setParentTable("team_recruitments");
+    int result = commentService.commentDelete(comment);
+    if(result>0){
+      return "SUCCESS";
+    }
+    else{
+
+      return "FAILED";
+    }
+  }
+
+  @ResponseBody
+  @CrossOrigin(origins="*")
+  @GetMapping(value="/commentUpdate")
+  public String commentUpdate(Comment comment) {
+
+    comment.setParentTable("team_recruitments");
+    int result = commentService.commentUpdate(comment);
+    if(result>0){
+      return "SUCCESS";
+    }
+    else{
+
+      return "FAILED";
+    }
+  }
+  
   
   
   

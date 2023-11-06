@@ -14,17 +14,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
     <!-- 회원 조회 -->
-    <select id="read">
+    <select id="read" resultType="Users">
         SELECT * FROM `user` WHERE username = #{username}
     </select>
 
     <!-- 회원 닉네임 조회 -->
-    <select id="readOnlyNickname">
+    <select id="readOnlyNickname" resultType="Users">
         SELECT * FROM `user` WHERE nickname = #{nickname}
     </select>
 
     <!-- 회원 연락처 조회 -->
-    <select id="readOnlyPhone">
+    <select id="readOnlyPhone" resultType="Users">
         SELECT * FROM `user` WHERE phone = #{phone}
     </select>
 

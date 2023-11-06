@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" -->
+<mapper namespace="com.joeun.midproject.mapper.CommentMapper">
+
+<select id="commentList" resultType="Comment">
+
+  SELECT *
+  FROM `comment`
+  WHERE parent_table = #{parentTable}
+  AND parent_no = #{parentNo}
+  ORDER BY reg_date DESC
+
+</select>
+
+<insert id="commentInsert">
+
+  INSERT INTO `comment` (parent_table,parent_no,writer,username,content,reg_date,upd_date) VALUES (#{parentTable},#{parentNo},#{writer},#{username},#{content},now(),now())
+
+</insert>
+
+<update id="commentUpdate">
+
+  UPDATE `comment`
+  SET writer = #{writer},
+  content = #{content},
+  upd_date = now()
+  WHERE comment_no = #{commentNo}
+  
+
+</update>
+
+<delete id="commentDelete">
+
+  DELETE FROM `comment`
+  WHERE comment_no = #{commentNo}
+
+</delete>
+
+</mapper>
