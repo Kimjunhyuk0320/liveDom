@@ -1,6 +1,9 @@
-<!-- user - header -->
-<!-- ~UI/user/fragment/header -->
-<th:block th:fragment="header">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
     <style>
         /* 폰트 적용 */
         /* 노토산스 폰트 */
@@ -8,16 +11,11 @@
         /* 로고 폰트 */
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Dancing+Script:wght@400;700&family=Gowun+Batang:wght@700&family=Parisienne&family=Questrial&family=Song+Myung&display=swap');
         
-        .header {
+        html {
             font-family: 'Noto Sans KR', sans-serif;
         }
-        /* ✅[수정] 서브 메뉴 여백조정 👩‍💻aloha  @오후 4:40 2023-11-06  */
-        ol, ul {
-            padding-left: 0 !important;
-            margin-bottom: 0 !important;
-        }
         /* 노말라이즈 */
-        /* body, ul, li {
+        body, ul, li {
             margin:0;
             padding:0;
             list-style:none;
@@ -28,7 +26,7 @@
         a {
             text-decoration:none;
             color:inherit;
-        } */
+        }
         html {
             overflow-x:hidden;
             line-height:1.15;
@@ -40,7 +38,7 @@
             max-width:1300px;
             margin:0 auto;
         }
-        .header-row::after {
+        .row::after {
             content:"";
             display:block;
             clear:both;
@@ -79,6 +77,10 @@
         }
         /* 라이브러리 끝 */
 
+        body {
+            background-color:#dfdfdf;
+            height:3000px;
+        }
         /* 커스텀 */
         .header {
             position:fixed;
@@ -98,16 +100,15 @@
 
         /* 상단 로고 */
         .header > .header-inner > .logo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            /* ✅[수정] translatex ➡ translateX ➡ translate 👩‍💻aloha  @오후 4:45 2023-11-06 */
-            /* width:128px; */
+            position:absolute;
+            top:5%;
+            left:50%;
+            transform:translatex(-50%);
+            width:128px;
         }
 
         /* 로고 폰트 */
-        .header > .header-inner > .logo > h1.logo-title {
+        .header > .header-inner > .logo > h1{
             font-family: 'Anton', sans-serif;
             font-family: 'Dancing Script', cursive;
             font-family: 'Gowun Batang', serif;
@@ -121,8 +122,7 @@
             position:absolute;
             top:50%;
             right:30px;
-            /* ✅[수정] translatey ➡ translateY 👩‍💻aloha  @오후 4:45 2023-11-06 */
-            transform:translateY(-50%);
+            transform:translatey(-50%);
         }
 
         .header > .header-inner > .search-box > a > span {
@@ -289,18 +289,20 @@
         }
 
     </style>
+</head>
+<body>
     <!-- 헤더 -->
-    <header class="header">
+    <div class="header">
         <div class="header-inner">
             <div class="logo img-box">
-                <h1 class="logo-title">LiveDom</h1>
+                <h1>LiveDom</h1>
                 <!-- 
                 <img src="../fragment/fragmentImg/LogoTestDom.jpeg" style="width: 58px; margin-top: 10px;">
                     이 부분에 로고 이미지가 들어갈 예정입니다. 
                 -->
             </div>
-            <nav class="top-menu-bar header-row line-height-0">
-                <ul class="header-row">
+            <nav class="top-menu-bar row line-height-0">
+                <ul class="row">
                     <li class="cell menu-1">
                         <a href="#">클럽 대관 서비스</a>
                         <ul>
@@ -312,7 +314,7 @@
                     </li>
                     <li class="cell menu-1">
                         <a href="#">티켓팅</a>
-                        <ul class="header-row">
+                        <ul class="row">
                             <li><a href="#">전체보기</a></li>
                             <li class="cell">
                                 <ul>
@@ -333,7 +335,7 @@
                         <div class="sub-menu-width sub-menu-width-3"></div>
                     </li>
                 </ul>
-                <ul class="header-row cell-right">
+                <ul class="row cell-right">
                     <li class="cell menu-5">
                         <a href="#">마이페이지</a>
                         <ul>
@@ -365,9 +367,9 @@
             </div>
             -->
         </div>
-    </header>
-    
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         // 상단 메뉴 관련
@@ -418,4 +420,5 @@
         });
 
     </script>
-</th:block>
+</body>
+</html>

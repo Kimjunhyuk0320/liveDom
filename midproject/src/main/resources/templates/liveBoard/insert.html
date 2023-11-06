@@ -10,7 +10,7 @@
 <body layout:fragment="content">
     <h1>공연 게시글 작성</h1>
     <form action="/liveBoard/insert" method="POST" id="form" enctype="multipart/form-data">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="_csrf"/>
         <table class="board">
             <tr>
                 <td>
@@ -37,20 +37,33 @@
             <tr>
                 <td>공연일자</td>
                 <td>
-                    <input type="text"  name="liveDate">
+                    <input type="date"  name="liveDate">
                 </td>
             </tr>
             <tr>
-                <td>공연 시간</td>
+                <td>공연 시작 시각</td>
                 <td>
-                    <input type="text" name="liveTime">
+                    <input type="time" name="liveStTime">
+                </td>
+            </tr>
+
+            <tr>
+                <td>공연 종료 시각</td>
+                <td>
+                    <input type="time" name="liveEndTime">
                 </td>
             </tr>
             <tr>
-                <td>지역</td>
+                 <td>지역</td>
                 <td>
-                    <input type="text" name="location">
+                    <select name="location" id="location">
+                        <option value="서울">서울</option>
+                        <option value="인천">인천</option>
+                        <option value="경기도">경기</option>
+                        <option value="강원도">강원도</option>
+                      </select>
                 </td>
+            </tr>
             </tr>
             <tr>
                 <td>주소</td>
@@ -108,7 +121,11 @@
     
     
     <script>
+  
+        
+        
         // 정규표현식 유효성 검사 함수
+        
         function check(regExp, element, msg) {
             if( regExp.test(element.value)) {			
                 return true
@@ -190,13 +207,16 @@
 
 
         $('#content').summernote(setting)
-
+        let _csrf_name = $('#_csrf').attr('name')
+        let _csrf_value = $('#_csrf').val()  
+        
         // 에디터 파일 업로드
         function uploadImage(file, element) {
             const fileUrl = 'http://localhost:8080/file'
             const url = 'http://localhost:8080/file'
 
             let formData = new FormData()
+            formData.append(_csrf_name, _csrf_value )
             formData.append("file", file)
 
             $.ajax({
@@ -208,7 +228,7 @@
                 success : function(response) {
                     let fileNo = response
                     // let img = `<img src="${fileUrl}/img/${fileNo}">`
-                    let imgUrl = `${fileUrl}/img?fileNo=${fileNo}`
+                    let imgUrl = `${fileUrl}/img/${fileNo}`
                     // 업로드된 이미지url 를 에디터에 추가
                     $(element).summernote('editor.insertImage', imgUrl)
                 },

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .footerBox {
+            position: sticky;
+            height: 65px;
+            width: 1200px;
+            border-radius: 40px;
+            background-color: #282d32;
+            margin: auto;
+            box-shadow: 5px 5px 10px gray;
+        }
+        .footerBox > ul {
+            display: flex;
+            justify-content: center;
+        }
+        .footerBoxText > h2 > a{
+            color: white;
+            text-decoration: none;
+            padding: 0px 30px;
+        }
+        .footerBoxText > h3 > a{
+            color: #A9A9A9;
+            text-decoration: none;
+            padding: 0px 25px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex; /* 이 부분이 중요함 */
+        }
+
+        li {
+            display: inline; /* 가로로 배치하려면 inline 또는 inline-block으로 설정 */
+            margin-right: 10px; /* 각 항목 사이의 간격을 조절하려면 마진을 추가 */
+        }
+
+        /* 맨 마지막 li 요소의 마진을 0으로 설정하려면 다음과 같이 사용 */
+        li:last-child {
+            margin-right: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="footerBox">
+        <ul>
+            <li>
+                <div class="footerBoxText">
+                    <h2><a href="">LiveDom</a></h2>
+                </div>
+            </li>
+            <li>
+                <div class="footerBoxText">
+                    <h2><a>l</a></h2>
+                </div>
+            </li>
+            <li>
+                <div class="footerBoxText">
+                    <h3><a href="">클럽 대관</a></h3>
+                </div>
+            </li>
+            <li>
+                <div class="footerBoxText">
+                    <h3><a href="">티켓팅</a></h3>
+                </div>
+            </li>
+            <li>
+                <div class="footerBoxText">
+                    <h3><a href="">공연팀 모집</a></h3>
+                </div>
+            </li>
+            <li>
+                <div class="footerBoxText">
+                    <h3><a href="">공지사항</a></h3>
+                </div>
+            </li>
+            <li>
+                <div class="footerBoxText">
+                    <h3><a href="">Q/A</a></h3>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

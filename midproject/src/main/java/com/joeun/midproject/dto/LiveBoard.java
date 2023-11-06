@@ -17,6 +17,8 @@ public class LiveBoard {
     private int price;
     private String liveDate;
     private String liveTime;
+    private String liveStTime;
+    private String liveEndTime;
     private String location;
     private String address;
     private int maxTickets;

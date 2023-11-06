@@ -9,7 +9,7 @@
 <body layout:fragment="content">
     <h1>공연 팀 모집 게시글 작성</h1>
     <form action="/team/insert" method="POST" id="form">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="_csrf">
         <input type="hidden" name="writer" th:value="${#authentication.principal.users.nickname}">
         <input type="hidden" name="username" th:value="${#authentication.principal.users.username}">
         <table>
@@ -140,34 +140,36 @@
 
 
     $('#content').summernote(setting)
+    let _csrf_name = $('#_csrf').attr('name')
+    let _csrf_value = $('#_csrf').val()  
+      // 에디터 파일 업로드
+      function uploadImage(file, element) {
+            const fileUrl = 'http://localhost:8080/file'
+            const url = 'http://localhost:8080/file'
 
-    // 에디터 파일 업로드
-    function uploadImage(file, element) {
-        const fileUrl = 'http://192.168.30.119:8080/api/file'
-        const url = 'http://192.168.30.119:8080/api/file'
+            let formData = new FormData()
+            formData.append(_csrf_name, _csrf_value )
+            formData.append("file", file)
 
-        let formData = new FormData()
-        formData.append("file", file)
+            $.ajax({
+                url : url,
+                type : "post",
+                data : formData,
+                contentType : false,
+                processData : false,
+                success : function(response) {
+                    let fileNo = response
+                    // let img = `<img src="${fileUrl}/img/${fileNo}">`
+                    let imgUrl = `${fileUrl}/img/${fileNo}`
+                    // 업로드된 이미지url 를 에디터에 추가
+                    $(element).summernote('editor.insertImage', imgUrl)
+                },
+                error : function(error) {
 
-        $.ajax({
-            url : url,
-            type : "post",
-            data : formData,
-            contentType : false,
-            processData : false,
-            success : function(response) {
-                let fileNo = response
-                // let img = `<img src="${fileUrl}/img/${fileNo}">`
-                let imgUrl = `${fileUrl}/img?fileNo=${fileNo}`
-                // 업로드된 이미지url 를 에디터에 추가
-                $(element).summernote('editor.insertImage', imgUrl)
-            },
-            error : function(error) {
-
-            }
-            
-        })
-    }
+                }
+                
+            })
+        }
 
  
     </script>

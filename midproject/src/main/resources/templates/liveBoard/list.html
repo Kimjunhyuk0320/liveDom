@@ -34,7 +34,7 @@
         <div class="item">
             <select name="rows" id="rows" class="input-search">
                 <option value="5">5개씩 보기</option>
-                <option value="10" selected>10개씩 보기</option>
+                <option value="10">10개씩 보기</option>
                 <option value="30">30개씩 보기</option>
                 <option value="50">50개씩 보기</option>
             </select>
@@ -267,7 +267,7 @@
                 tr+=`
             </a>
             <div class="card-body">
-              <h5 class="card-title"><a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">${teamList[i].title}"</a></h5>
+              <h5 class="card-title"><a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">${teamList[i].title}</a></h5>
               <p class="card-text">${teamList[i].crew}</p>
               <p class="card-text">${teamList[i].address}</p>
               <p class="card-text">${teamList[i].liveDate}</p>
