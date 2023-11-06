@@ -4,82 +4,233 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
+<style>
+
+    .imgClass {
+        position: absolute;
+        order: 10;
+        color: #fff;
+    }
+    .imgInText {
+        position: absolute;
+        margin: 40px;
+        margin-top: 100px;
+    }
+    .imgClass > img{
+        border-radius: 20px;
+        margin-right: 300px;
+        box-shadow: 3px 3px 10px gray;
+    }
+    
+    .container {
+        margin-left: 250px;
+        position: absolute;
+        background-color: white;
+        width: 650px;
+        padding: 30px 75px;
+        border-radius: 20px;
+        box-shadow: 3px 3px 10px gray;
+        order: 0;
+    }
+
+    form {
+        width: 500px;
+    }
+
+    .plus_flex {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /* 중복검사 버튼 사이즈 */
+    .dul_btn_size {
+        font-size: 12px;
+        width: 150px;
+        margin-left: 10px;
+    }
+
+    /* 폼 제출 버튼 */
+    .submit_button {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+    }
+    .submit_button > input {
+        width: 350px;
+        height: 50px;
+        border-radius: 10px;
+        background-color: #222222;
+        border: none;
+        color: white;
+    }
+    .submit_button > input:hover {
+        width: 350px;
+        height: 50px;
+        border-radius: 10px;
+        background-color: #9b9b9b;
+        border: none;
+        color: white;
+    }
+
+    .form__group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 100%;
+    }
+
+    .form__field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #fff;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+    }
+
+    .form__field::placeholder {
+    color: transparent;
+    }
+
+    .form__field:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+    }
+
+    .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #9b9b9b;
+    }
+
+    .form__field:focus ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #11998e;
+    font-weight: 700;
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, #11998e, #38ef7d);
+    border-image-slice: 1;
+    }
+
+    /* reset input */
+    .form__field:required, .form__field:invalid {
+    box-shadow: none;
+    }
+
+    /* demo */
+    body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.5rem;;
+    }
+
+    #group {
+    padding: 0px 10px;
+    height: 48px;
+    width: 150px;
+    border-radius: 5px;
+    font-size: 12px;
+    }
+
+    </style>
 <body>
-    <h1>회원가입</h1>
+    <div class="imgClass">
+        <h1 class="imgInText">
+            회원가입 후 <br>
+            다양한 서비스를<br>
+            이용해 보세요<br>
+        </h1>
+        <img src="../static/img/90.jpeg" alt="">
+    </div>
+    <div class="container">
+        <form action="/join" method="POST" id="joinForm">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <table>
+                <tr>
+                    <div class="form__group field plus_flex">
+                        <input type="text" class="form__field" placeholder="이름" name="name" id="name">
+                        <label for="name" class="form__label">이름</label>
+                            <select name="auth" id="group" class="dul_btn_size">
+                                <option value="ROLE_USER">일반 사용자</option>
+                                <option value="ROLE_CLUB">클럽</option>
+                                <option value="ROLE_BAND">밴드</option>
+                            </select>
 
-    <form action="/join" method="POST" id="joinForm">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-        <table>
-            <tr>
-                <td>이름</td>
-                <td>
-                    <input type="text" name="name">
-                </td>
-            </tr>
-            <tr>
-                <td>아이디</td>
-                <td>
-                    <input type="text" name="username" id="username">
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form__group field plus_flex">
+                        <input type="text" class="form__field" placeholder="아이디" name="username" id="username">
+                        <label for="username" class="form__label">아이디</label>
+                        <button onclick="joinFrom_checkedLoginIdDup(this);" name="btnLoginIdDupCheck" type="button"
+                            class="btn btn-outline-dark dul_btn_size">아이디 중복 검사</button>
+                    </div>
                     <input type="hidden" id="checkUserName" value="0">
-                    <button onclick="joinFrom_checkedLoginIdDup(this);" name="btnLoginIdDupCheck" type="button">아이디 중복 검사</button>
-                </td>
-            </tr>
-            <tr>
-                <td>비밀번호</td>
-                <td>
-                    <input type="text" name="password" id="password">
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr>
-                <td>비밀번호 확인</td>
-                <td>
-                    <input type="text" name="userPwCheck" id="passwordCheck">
-                </td>
-            </tr>
-            <tr>
-                <td>닉네임</td>
-                <td>
-                    <input type="text" name="nickname">
-                    <input type="hidden" id="checkUserNickname" value="0">
-                    <button onclick="joinFrom_checkedNicknameDup(this);" name="btnNicknameDupCheck" type="button">닉네임 중복 검사</button>
-                </td>
-            </tr>
-            <tr>
-                <td>연락처</td>
-                <td>
-                    <input type="text" name="phone" id="phone">
-                    <input type="hidden" id="checkUserPhone" value="0">
-                    <button onclick="joinFrom_checkedPhoneDup(this);" name="btnPhoneDupCheck" type="button">연락처 중복 검사</button>
-                </td>
-            </tr>
-            <tr>
-                <td>소속</td>
-                <td>
-                    <select name="auth" id="group">
-                        <option value="ROLE_USER">일반 사용자</option>
-                        <option value="ROLE_CLUB">클럽</option>
-                        <option value="ROLE_BAND">밴드</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>이메일</td>
-                <td>
-                    <input type="text" name="email" id="email">
-                </td>
-            </tr>
+                </tr>
+                <tr>
+                    <div class="form__group field">
+                        <input type="text" class="form__field" placeholder="비밀번호" name="password" id="password">
+                        <label for="password" class="form__label">비밀번호</label>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form__group field">
+                        <input type="text" class="form__field" placeholder="비밀번호 확인" name="userPwCheck" id="passwordCheck">
+                        <label for="userPwCheck" class="form__label">비밀번호 확인</label>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form__group field">
+                        <input type="text" class="form__field" placeholder="닉네임" name="nickname" id="nickname">
+                        <label for="nickname" class="form__label">닉네임</label>
+                        <input type="hidden" id="checkUserNickname" value="0">
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form__group field plus_flex">
+                        <input type="text" class="form__field" placeholder="연락처" name="phone" id="phone">
+                        <label for="phone" class="form__label">연락처</label>
+                        <input type="hidden" id="checkUserPhone" value="0">
+                        <button class="btn btn-outline-dark dul_btn_size" onclick="joinFrom_checkedPhoneDup(this);" name="btnPhoneDupCheck" type="button">연락처 중복 검사</button>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form__group field">
+                        <input type="text" class="form__field" placeholder="이메일" name="email" id="email">
+                        <label for="phone" class="form__label">이메일</label>
+                    </div>
+                </tr>
+                <tr>
 
-            <tr>
-                <td>
-                    <input type="submit" value="회원가입">
-                </td>
-            </tr>
-
-        </table>
-    </form>
+                </tr>
+            </table>
+            <div class="submit_button">
+                <input type="submit" value="회원가입">
+            </div>
+        </form>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -308,6 +459,6 @@
 
 
     </script>
-    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
