@@ -1,5 +1,8 @@
 package com.joeun.midproject.service;
 
+import java.util.List;
+
+import com.joeun.midproject.dto.Ticket;
 import com.joeun.midproject.dto.Users;
 
 public interface UserService {
@@ -16,5 +19,13 @@ public interface UserService {
   public int insert(Users users);
 
   public int update(Users users);
+
+
+  //유저 전화번호로 구매한 티켓 조회하기
+  public List<Ticket> listByPhone(Users users) throws Exception;
+
+  //게시글 작성자아이디로 판매한 티켓 목록 조회하기
+  public List<Ticket> listByUserName(Users users) throws Exception;
+
 
 }

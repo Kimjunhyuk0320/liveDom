@@ -4,21 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Dom</title>
+    <link rel="stylesheet" type="text/css" href="topLvStyles.css">
 </head>
 <body>
     <section>
         <div>
             <img src="#" alt="">
             <h1>Live Dom</h1>
+            <form action="/logout" method="POST">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <input type="submit" value="로그아웃">
+            </form>
             <div>
                 <h2>우리는 좋은 소리를 만들고</h2>
                 <th:block sec:authorize="isAuthenticated()">
 
                     <h2 th:text="${#authentication.principal.users}"></h2>
-                    <form action="/logout" method="POST">
-                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                        <input type="submit" value="로그아웃">
-                    </form>
                 </th:block>
                 <h2>좋은 소리는 우리는 만듭니다.</h2>
             </div>
@@ -56,7 +57,6 @@
             </div>
         </div>
     </section>
-
 
     <div>
         <h1>이 부분에 상세한 내용이 들어올 예정입니다.</h1>
