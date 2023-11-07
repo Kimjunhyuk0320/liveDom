@@ -5,6 +5,12 @@
       >
 <head>
     <title>LiveDom</title>
+    <style>
+        body{
+
+            background: linear-gradient(45deg, #49a09d, #5f2c82);
+        }
+    </style>
 </head>
 <body layout:fragment="content">
     <section>
@@ -17,8 +23,7 @@
             </form>
             <div>
                 <h2>우리는 좋은 소리를 만들고</h2>
-                <th:block sec:authorize="isAuthenticated()">
-
+                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
                     <h2 th:text="${#authentication.principal.users}"></h2>
                 </th:block>
                 <h2>좋은 소리는 우리는 만듭니다.</h2>

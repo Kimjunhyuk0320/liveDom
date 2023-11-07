@@ -5,7 +5,107 @@
       >
 <head>
     <title>공연 게시글 작성</title>
-    
+    <style>
+            /* 폼 제출 버튼 */
+    .submit_button {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+    }
+    .submit_button > input {
+        width: 350px;
+        height: 50px;
+        border-radius: 10px;
+        background-color: #222222;
+        border: none;
+        color: white;
+    }
+    .submit_button > input:hover {
+        width: 350px;
+        height: 50px;
+        border-radius: 10px;
+        background-color: #9b9b9b;
+        border: none;
+        color: white;
+    }
+
+    .form__group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 100%;
+    }
+
+    .form__field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 1.3rem;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+    }
+
+    .form__field::placeholder {
+    color: transparent;
+    }
+
+    .form__field:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+    }
+
+    .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #9b9b9b;
+    }
+
+    .form__field:focus ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #11998e;
+    font-weight: 700;
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, #11998e, #38ef7d);
+    border-image-slice: 1;
+    }
+
+    /* reset input */
+    .form__field:required, .form__field:invalid {
+    box-shadow: none;
+    }
+
+    /* demo */
+    body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.5rem;;
+    }
+
+    #group {
+    padding: 0px 10px;
+    height: 48px;
+    width: 150px;
+    border-radius: 5px;
+    font-size: 12px;
+    }
+    </style>
 </head>
 <body layout:fragment="content">
     <h1>공연 게시글 작성</h1>
@@ -17,44 +117,49 @@
                     <input type="hidden" name="username" th:value="${#authentication.principal.users.username}">
                 </td>
             </tr>
+
+            
             <tr>
                 <td>
                     <input type="hidden"  name="writer" th:value="${#authentication.principal.users.nickname}">
                 </td>
             </tr>
+            <div class="form__group field">
+                <input type="text" class="form__field" placeholder="제목" name="title" id="title">
+                <label for="title" class="form__label">제목</label>
+            </div>
+            <div class="form__group field">
+                <input type="text" class="form__field" placeholder="공연진" name="crew" id="crew">
+                <label for="title" class="form__label">공연진</label>
+            </div>
+            
+            
+            <!-- 글 작성 에디터 -->
             <tr>
-                <td>제목</td>
-                <td>
-                    <input type="text"  name="title">
-                </td>
-            </tr>
-            <tr>
-                <td>공연진</td>
-                <td>
-                    <input type="text"  name="crew">
-                </td>
-            </tr>
-            <tr>
-                <td>공연일자</td>
-                <td>
-                    <input type="date"  name="liveDate">
-                </td>
-            </tr>
-            <tr>
-                <td>공연 시작 시각</td>
-                <td>
-                    <input type="time" name="liveStTime">
+                <td class="data">
+                    <textarea name="content" id="content" cols="30" rows="10" 
+                    class="input-textarea"></textarea>
                 </td>
             </tr>
 
+
+            <div class="form__group field">
+                <input type="date" class="form__field" placeholder="공연일자" name="liveDate" id="liveDate">
+                <label for="liveDate" class="form__label">공연일자</label>
+            </div>
+
+            <div class="form__group field">
+                <input type="time" class="form__field" placeholder="공연 시작 시각" name="liveStTime" id="liveStTime">
+                <label for="liveStTime" class="form__label">공연 시작 시각</label>
+            </div>
+
+            <div class="form__group field">
+                <input type="time" class="form__field" placeholder="공연 종료 시각" name="liveEndTime" id="liveEndTime">
+                <label for="liveEndTime" class="form__label">공연 종료 시각</label>
+            </div>
+
             <tr>
-                <td>공연 종료 시각</td>
-                <td>
-                    <input type="time" name="liveEndTime">
-                </td>
-            </tr>
-            <tr>
-                 <td>지역</td>
+                <td>지역</td>
                 <td>
                     <select name="location" id="location">
                         <option value="서울">서울</option>
@@ -64,35 +169,21 @@
                       </select>
                 </td>
             </tr>
-            </tr>
-            <tr>
-                <td>주소</td>
-                <td>
-                    <input type="text"  name="address">
-                </td>
-            </tr>
 
-            <!-- 글 작성 에디터 -->
-            <tr>
-                <td>게시글 적성 에디터</td>
-                <td class="data">
-                    <textarea name="content" id="content" cols="30" rows="10" 
-                              class="input-textarea"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td>티켓 가격</td>
-                <td>
-                    <input type="text" name="price">
-                </td>
-            </tr>
-            <tr>
-                <td>수용인원</td>
-                <td>
-                    <input type="text" name="maxTickets">
-                </td>
-            </tr>
+            <div class="form__group field">
+                <input type="text" class="form__field" placeholder="주소" name="address" id="address">
+                <label for="address" class="form__label">주소</label>
+            </div>
 
+            <div class="form__group field">
+                <input type="text" class="form__field" placeholder="티켓 가격" name="price" id="price">
+                <label for="price" class="form__label">티켓 가격</label>
+            </div>
+
+            <div class="form__group field">
+                <input type="text" class="form__field" placeholder="수용인원" name="maxTickets" id="maxTickets">
+                <label for="maxTickets" class="form__label">수용인원</label>
+            </div>
             <tr>
                 <td class="label">썸네일</td>
                 <td class="data">
