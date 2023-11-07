@@ -20,9 +20,13 @@
         <!-- <input type="hidden" name="frNo" th:value="${facilityRental.frNo}"> -->
         <table>
             <tr>
-                <td>글번호</td>
                 <td>
-                    <input th:text="${facilityRental.frNo}">
+                    <img th:src="|/file/img/${facilityRental.thumbnail.fileNo}|" alt="썸네일">
+                </td>
+            </tr>
+            <tr>
+                <td>글번호</td>
+                <td th:text="${facilityRental.frNo}">
                 </td>
             </tr>
             <tr>
@@ -61,53 +65,7 @@
                 </td>
             </tr>
             <tr>
-                <textarea th:value="${facilityRental.content}"></textarea>
-            </tr>
-
-            <!-- 글 작성 에디터 -->
-            <tr>
-                <td>게시글 적성 에디터</td>
-                <td class="data">
-                    <textarea name="content" id="content" cols="30" rows="10" 
-                              class="input-textarea"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td>티켓 가격</td>
-                <td>
-                    <input type="text" name="price">
-                </td>
-            </tr>
-            <tr>
-                <td>수용인원</td>
-                <td>
-                    <input type="text" name="maxTickets">
-                </td>
-            </tr>
-
-            <!-- 이미지 추가에 대한 것 -->
-            <tr>
-                <td class="label">썸네일</td>
-                <td class="data">
-                    <input type="file" name="file" id="file" multiple>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">썸네일</td>
-                <td class="data">
-                    <!-- 썸네일 업로드 -->
-                    <div class="dropzone">
-                        <input type="file" id="thumbnail" accept="image/*">
-                        <a href="javascript:;" class="btn btn-sm btn-thumb-remove hide">삭제</a>
-                        <div class="drop-img flex col main-center sub-center">
-                            <div class="upload-box">
-                                <h3 class="mb-20">이미지를 드래그 하세요.</h3>
-                                <label for="thumbnail" class="btn">업로드</label>
-                            </div>
-                            <div class="img-box hide"></div>
-                        </div>
-                    </div>
-                </td>
+                <td th:text="${facilityRental.content}"></td>
             </tr>
             
         </table>
@@ -129,8 +87,10 @@
     </th:block>
     <div>
         <button type="button" onclick="moveList()">목록</button>
+        <th:block th:if="${facilityRental.username eq #authentication.principal.users.username}">
         <button type="button" onclick="actionUpdate()">수정</button>
         <button type="button" onclick="actionDelete()">삭제</button>
+    </th:block>
     </div>
 
 

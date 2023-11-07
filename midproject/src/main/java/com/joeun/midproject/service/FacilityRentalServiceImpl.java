@@ -52,7 +52,10 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
         if(facilityRental!=null){
             facilityRentalMapper.viewsUp(frNo);
         }
-        // 조회수 증가... (어케 해야할까요?)
+            Files files = new Files();
+            files.setParentNo(facilityRental.getFrNo());
+            files.setParentTable("facility_rental");
+            facilityRental.setThumbnail(fileMapper.selectThumbnail(files));
 
         return facilityRental;
     }
