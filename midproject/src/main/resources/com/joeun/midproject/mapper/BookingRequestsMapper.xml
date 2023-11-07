@@ -75,6 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="reqDeniedAll">
         UPDATE booking_requests SET approval_status = 2
         WHERE deposit_status = 0
+        AND fr_no = #{frNo}
     </update>
     <update id="reqAccept">
      UPDATE booking_requests SET approval_status = 1

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/user/layout/main_layout}"
-      >
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/UI/user/layout/main_layout}"
+  >
 <head>
     <title>LiveDom</title>
     <style>
@@ -17,15 +17,8 @@
         <div>
             <img src="#" alt="">
             <h1>Live Dom</h1>
-            <form action="/logout" method="POST">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                <input type="submit" value="로그아웃">
-            </form>
             <div>
                 <h2>우리는 좋은 소리를 만들고</h2>
-                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
-                    <h2 th:text="${#authentication.principal.users}"></h2>
-                </th:block>
                 <h2>좋은 소리는 우리는 만듭니다.</h2>
             </div>
         </div>
