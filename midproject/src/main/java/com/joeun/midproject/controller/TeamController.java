@@ -66,20 +66,11 @@ public class TeamController {
   @CrossOrigin(origins = "*")
   @ResponseBody
   @GetMapping(value = "/pageInfo", produces = "application/json")
-  public PageInfo pageInfo(@RequestParam("pageNo") int pageNo,
-  @RequestParam("rows") int rows,
-  @RequestParam("pageCount") int pageCount,
-  @RequestParam("totalCount") int totalCount,
-  @RequestParam("searchType") int searchType,
-  @RequestParam("keyword") String keyword,
+  public PageInfo pageInfo(
   PageInfo pageInfo){
-
-    pageInfo.setPageNo(pageNo);
-    pageInfo.setRows(rows);
-    pageInfo.setPageCount(pageCount);
-    pageInfo.setTotalCount(teamMapper.totalCount("team_recruitments"));
-    pageInfo.setSearchType(searchType);
-    pageInfo.setKeyword(keyword);
+    pageInfo.setTable("team_recruitments");
+    pageInfo.setTotalCount(teamMapper.totalCount(pageInfo));
+    
 
     log.info(pageInfo.toString());
 
@@ -314,20 +305,10 @@ public class TeamController {
   @CrossOrigin(origins = "*")
   @ResponseBody
   @GetMapping(value = "/pageInfoConfirmedLive", produces = "application/json")
-  public PageInfo pageInfoConfirmedLIve(@RequestParam("pageNo") int pageNo,
-  @RequestParam("rows") int rows,
-  @RequestParam("pageCount") int pageCount,
-  @RequestParam("totalCount") int totalCount,
-  @RequestParam("searchType") int searchType,
-  @RequestParam("keyword") String keyword,
-  PageInfo pageInfo){
+  public PageInfo pageInfoConfirmedLIve(PageInfo pageInfo){
 
-    pageInfo.setPageNo(pageNo);
-    pageInfo.setRows(rows);
-    pageInfo.setPageCount(pageCount);
-    pageInfo.setTotalCount(teamMapper.totalCount("confirmed_live"));
-    pageInfo.setSearchType(searchType);
-    pageInfo.setKeyword(keyword);
+    pageInfo.setTable("confirmed_live");
+    pageInfo.setTotalCount(teamMapper.totalCount(pageInfo));
 
     log.info(pageInfo.toString());
 

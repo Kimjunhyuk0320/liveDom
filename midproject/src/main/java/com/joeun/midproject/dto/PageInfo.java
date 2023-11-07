@@ -17,5 +17,6 @@ public class PageInfo {
     private int firstPage;
     private int next;
     private int prev;
+    private String table;
     
 }

@@ -101,7 +101,8 @@
         
         // 페이지 번호
         function initPage() {
-
+            searchType = $('#search-type').val()
+            keyword = $('#keyword').val()
             // 페이지 번호 정보
             let data = {
                 'pageNo'         : page,
@@ -258,6 +259,7 @@
 
         // 검색 클릭 이벤트
         $('#btn-search').on('click', function() {
+            initPage()
             search()
         })
 
@@ -265,8 +267,8 @@
         $('#rows').on('change', function() {
             rows = $(this).val()
             page = 1
-            getPageList()
             initPage()
+            getPageList()
         })
 
         // 보여줄 게시글 수 갱신
@@ -281,6 +283,7 @@
 
             // 엔터
             if( event.keyCode == 13 ) {
+                initPage()
                 search()
             }
         })

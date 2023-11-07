@@ -67,8 +67,8 @@ public class LiveBoardController {
   @ResponseBody
   @GetMapping(value = "/pageInfoLiveBoard", produces = "application/json")
   public PageInfo pageInfoLiveBoard(PageInfo pageInfo){
-
-    pageInfo.setTotalCount(teamMapper.totalCount("live_board"));
+    pageInfo.setTable("live_board");
+    pageInfo.setTotalCount(teamMapper.totalCount(pageInfo));
 
     log.info(pageInfo.toString());
 

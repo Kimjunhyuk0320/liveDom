@@ -290,7 +290,8 @@ public class FacilityRentalController {
   @GetMapping(value = "/pageInfoFr", produces = "application/json")
   public PageInfo pageInfoFr(PageInfo pageInfo){
 
-    pageInfo.setTotalCount(teamMapper.totalCount("facility_rental"));
+    pageInfo.setTable("facility_rental");
+    pageInfo.setTotalCount(teamMapper.totalCount(pageInfo));
 
     log.info(pageInfo.toString());
 

@@ -30,6 +30,6 @@ public interface TeamMapper {
 
   public List<Team> pageList(Team team);
 
-  public int totalCount(String table);
+  public int totalCount(PageInfo pageInfo);
   
 }

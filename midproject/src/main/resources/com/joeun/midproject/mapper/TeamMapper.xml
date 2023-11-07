@@ -106,8 +106,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 SELECT
 COUNT(*)
-FROM ${table};
-
+FROM ${table}
+WHERE
+        <choose>
+            <when test="searchType == 0">(title LIKE "%${keyword}%" OR content LIKE "%${keyword}%" OR writer LIKE "%${keyword}%") </when>
+            <when test="searchType == 1">title LIKE "%${keyword}%"</when>
+            <when test="searchType == 2">content LIKE "%${keyword}%"</when>
+            <when test="searchType == 3">(title LIKE "%${keyword}%" OR content LIKE "%${keyword}%")</when>
+            <when test="searchType == 4">writer LIKE "%${keyword}%"</when>
+        </choose>
 </select>
 
 
