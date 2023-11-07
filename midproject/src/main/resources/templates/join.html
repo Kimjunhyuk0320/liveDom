@@ -1,161 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/user/layout/main_layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="/css/mainJoin.css">
 </head>
-<style>
 
-    .imgClass {
-        position: absolute;
-        order: 10;
-        color: #fff;
-    }
-    .imgInText {
-        position: absolute;
-        margin: 40px;
-        margin-top: 100px;
-    }
-    .imgClass > img{
-        border-radius: 20px;
-        margin-right: 300px;
-        box-shadow: 3px 3px 10px gray;
-    }
-    
-    .container {
-        margin-left: 250px;
-        position: absolute;
-        background-color: white;
-        width: 650px;
-        padding: 30px 75px;
-        border-radius: 20px;
-        box-shadow: 3px 3px 10px gray;
-        order: 0;
-    }
-
-    form {
-        width: 500px;
-    }
-
-    .plus_flex {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    /* 중복검사 버튼 사이즈 */
-    .dul_btn_size {
-        font-size: 12px;
-        width: 150px;
-        margin-left: 10px;
-    }
-
-    /* 폼 제출 버튼 */
-    .submit_button {
-        margin-top: 30px;
-        display: flex;
-        justify-content: center;
-    }
-    .submit_button > input {
-        width: 350px;
-        height: 50px;
-        border-radius: 10px;
-        background-color: #222222;
-        border: none;
-        color: white;
-    }
-    .submit_button > input:hover {
-        width: 350px;
-        height: 50px;
-        border-radius: 10px;
-        background-color: #9b9b9b;
-        border: none;
-        color: white;
-    }
-
-    .form__group {
-    position: relative;
-    padding: 15px 0 0;
-    margin-top: 10px;
-    width: 100%;
-    }
-
-    .form__field {
-    font-family: inherit;
-    width: 100%;
-    border: 0;
-    border-bottom: 2px solid #9b9b9b;
-    outline: 0;
-    font-size: 1.3rem;
-    color: #fff;
-    padding: 7px 0;
-    background: transparent;
-    transition: border-color 0.2s;
-    }
-
-    .form__field::placeholder {
-    color: transparent;
-    }
-
-    .form__field:placeholder-shown ~ .form__label {
-    font-size: 1.3rem;
-    cursor: text;
-    top: 20px;
-    }
-
-    .form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: #9b9b9b;
-    }
-
-    .form__field:focus ~ .form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: #11998e;
-    font-weight: 700;
-    padding-bottom: 6px;
-    font-weight: 700;
-    border-width: 3px;
-    border-image: linear-gradient(to right, #11998e, #38ef7d);
-    border-image-slice: 1;
-    }
-
-    /* reset input */
-    .form__field:required, .form__field:invalid {
-    box-shadow: none;
-    }
-
-    /* demo */
-    body {
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    font-size: 1.5rem;;
-    }
-
-    #group {
-    padding: 0px 10px;
-    height: 48px;
-    width: 150px;
-    border-radius: 5px;
-    font-size: 12px;
-    }
-
-    </style>
-<body>
+<body layout:fragment="content">
     <div class="imgClass">
         <h1 class="imgInText">
             회원가입 후 <br>
@@ -172,12 +26,11 @@
                     <div class="form__group field plus_flex">
                         <input type="text" class="form__field" placeholder="이름" name="name" id="name">
                         <label for="name" class="form__label">이름</label>
-                            <select name="auth" id="group" class="dul_btn_size">
-                                <option value="ROLE_USER">일반 사용자</option>
-                                <option value="ROLE_CLUB">클럽</option>
-                                <option value="ROLE_BAND">밴드</option>
-                            </select>
-
+                        <select name="auth" id="group" class="dul_btn_size">
+                            <option value="ROLE_USER">일반 사용자</option>
+                            <option value="ROLE_CLUB">클럽</option>
+                            <option value="ROLE_BAND">밴드</option>
+                        </select>
                     </div>
                 </tr>
                 <tr>
@@ -197,7 +50,8 @@
                 </tr>
                 <tr>
                     <div class="form__group field">
-                        <input type="text" class="form__field" placeholder="비밀번호 확인" name="userPwCheck" id="passwordCheck">
+                        <input type="text" class="form__field" placeholder="비밀번호 확인" name="userPwCheck"
+                            id="passwordCheck">
                         <label for="userPwCheck" class="form__label">비밀번호 확인</label>
                     </div>
                 </tr>
@@ -213,7 +67,8 @@
                         <input type="text" class="form__field" placeholder="연락처" name="phone" id="phone">
                         <label for="phone" class="form__label">연락처</label>
                         <input type="hidden" id="checkUserPhone" value="0">
-                        <button class="btn btn-outline-dark dul_btn_size" onclick="joinFrom_checkedPhoneDup(this);" name="btnPhoneDupCheck" type="button">연락처 중복 검사</button>
+                        <button class="btn btn-outline-dark dul_btn_size" onclick="joinFrom_checkedPhoneDup(this);"
+                            name="btnPhoneDupCheck" type="button">연락처 중복 검사</button>
                     </div>
                 </tr>
                 <tr>
@@ -254,28 +109,29 @@
             const username = form.username.value;
 
             let data = {
-                'username' : username
+                'username': username
             }
 
             // alert(form.username.value);
             let url = 'http://localhost:8080/getLoginIdDup'
             $.ajax({
-                url             :   url,
-                type            :   'GET',
-                data            :   data,
-                success         : function(response) {
-                    if( response == 'Y' ){
+                url: url,
+                type: 'GET',
+                data: data,
+                success: function (response) {
+                    if (response == 'Y') {
                         alert('이용 가능한 이이디입니다.')
                         checkUserName.val('1');
                         $("#username").prop("readonly", true);
                     }
-                    if( response == 'N' ){
+                    if (response == 'N') {
                         alert('아이디가 중복되었습니다.')
-                        
+
                     }
                 },
-                error           : function(request, status, error){
-                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                error: function (request, status, error) {
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error);
                 }
 
             })
@@ -288,28 +144,29 @@
             const nickname = form.nickname.value;
 
             let data = {
-                'nickname' : nickname
+                'nickname': nickname
             }
 
             // alert(form.nickname.value);
             let url = 'http://localhost:8080/getNicknameDup'
             $.ajax({
-                url             :   url,
-                type            :   'GET',
-                data            :   data,
-                success         : function(response) {
-                    if( response == 'Y' ){
+                url: url,
+                type: 'GET',
+                data: data,
+                success: function (response) {
+                    if (response == 'Y') {
                         alert('이용 가능한 닉네임입니다.')
                         checkUserNickname.val('1');
                         $("#nickname").prop("readonly", true);
                     }
-                    if( response == 'N' ){
+                    if (response == 'N') {
                         alert('닉네임이 중복되었습니다.')
-                        
+
                     }
                 },
-                error           : function(request, status, error){
-                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                error: function (request, status, error) {
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error);
                 }
 
             })
@@ -322,28 +179,29 @@
             const phone = form.phone.value;
 
             let data = {
-                'phone' : phone
+                'phone': phone
             }
 
             // alert(form.phone.value);
             let url = 'http://localhost:8080/getPhoneDup'
             $.ajax({
-                url             :   url,
-                type            :   'GET',
-                data            :   data,
-                success         : function(response) {
-                    if( response == 'Y' ){
+                url: url,
+                type: 'GET',
+                data: data,
+                success: function (response) {
+                    if (response == 'Y') {
                         alert('이용 가능한 연락처입니다.')
                         checkUserPhone.val('1');
                         $("#phone").prop("readonly", true);
                     }
-                    if( response == 'N' ){
+                    if (response == 'N') {
                         alert('연락처가 중복되었습니다.')
-                        
+
                     }
                 },
-                error           : function(request, status, error){
-                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                error: function (request, status, error) {
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error);
                 }
 
             })
@@ -362,7 +220,7 @@
             }
 
             const complexityRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
-            if ( !complexityRegex.test(password) ) {
+            if (!complexityRegex.test(password)) {
                 alert("비밀번호는 영문 대문자, 영문 소문자, 숫자, 특수문자를 포함해야 합니다.");
                 return false;
             }
@@ -377,8 +235,8 @@
             const complexityRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             // 첫 번째 부분에는 영문자, 숫자, 밑줄("_"), 마침표(".") 및 퍼센트("%") 기호가 포함하게 하고,
             // 두 번째 부분에는 도메인 주소가 오도록 함
-            
-            if ( !complexityRegex.test(email) ) {
+
+            if (!complexityRegex.test(email)) {
                 return false;
             }
 
@@ -389,9 +247,10 @@
         function validatePhone() {
             const email = $('#phone').val();
 
-            const complexityRegex = /^(01[016789])-(\d{3,4})-(\d{4})$/;
-            
-            if ( !complexityRegex.test(phone) ) {
+            const complexityRegex = /^(01[016789])-(\d{3,4})-(\d{4})$/;     
+                    // 유효성 검사 "-" 빼기  
+
+            if (!complexityRegex.test(phone)) {
                 return false;
             }
 
@@ -399,8 +258,8 @@
         }
 
 
-    
-        form.addEventListener("submit", function(event) {
+
+        form.addEventListener("submit", function (event) {
             checkUserNameVal = checkUserName.val();
             checkUserNicknameVal = checkUserNickname.val();
             checkUserPhoneVal = checkUserPhone.val();
@@ -409,56 +268,54 @@
             let password = $('#password').val();
             let passwordCheck = $('#passwordCheck').val();
 
-            
+
             if (form.username.value.length == 0) {
                 alert('로그인 아이디를 입력해주세요.');
                 form.username.focus();
-                event.preventDefault();  // 폼 제출을 중지합니다.
+                event.preventDefault(); // 폼 제출을 중지합니다.
             }
-    
-            if ( checkUserNameVal == 0 ) {
+
+            if (checkUserNameVal == 0) {
                 alert('로그인 아이디 중복검사를 실시해주세요.');
                 form.btnLoginIdDupCheck.focus();
-                event.preventDefault();  
+                event.preventDefault();
             }
 
-            if ( password != passwordCheck ) {
+            if (password != passwordCheck) {
                 alert('비밀번호가 일치하지 않습니다.')
-                event.preventDefault();  
+                event.preventDefault();
             }
-        
-            if ( checkUserNicknameVal == 0 ) {
+
+            if (checkUserNicknameVal == 0) {
                 alert('닉네임 중복검사를 실시해주세요.');
                 form.btnNicknameDupCheck.focus();
-                event.preventDefault();  
+                event.preventDefault();
             }
 
-            if ( checkUserPhoneVal == 0 ) {
+            if (checkUserPhoneVal == 0) {
                 alert('연락처 중복검사를 실시해주세요.');
                 form.btnPhoneDupCheck.focus();
-                event.preventDefault();  
+                event.preventDefault();
             }
-            
+
             // 유효성 검사 부분
             // 1. 비밀번호에 대한 유효성 검사
-            if ( validatePassword() === false) {
-                event.preventDefault();  
+            if (validatePassword() === false) {
+                event.preventDefault();
             }
             // 2. 이메일에 대한 유효성 검사 실시
-            if ( validateEmail() === false ) {
-                event.preventDefault();  
+            if (validateEmail() === false) {
+                event.preventDefault();
             }
             // 3. 연락처에 대한 유효성 검사 실시
-            if ( validatePhone() === false ) {
+            if (validatePhone() === false) {
                 alert('이메일 유요성 검사를 통화하지 못했습니다.')
-                event.preventDefault();  
+                event.preventDefault();
             }
 
         });
-
-
-
     </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 </body>
+
 </html>

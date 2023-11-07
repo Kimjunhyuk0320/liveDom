@@ -1,5 +1,136 @@
 <!-- user - footer -->
 <!-- ~UI/user/fragment/footer -->
 <th:block th:fragment="footer">
- 
+    <!-- 푸터 아이콘입니다 -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+
+    <style>
+        .footer-dark {
+        padding:50px 170px;
+        color:#f0f9ff;
+        background-color:#282d32;
+        }
+
+        .footer-dark h3 {
+        margin-top:0;
+        margin-bottom:12px;
+        font-weight:bold;
+        font-size:16px;
+        }
+
+        .footer-dark ul {
+        padding:0;
+        list-style:none;
+        line-height:1.6;
+        font-size:14px;
+        margin-bottom:0;
+        }
+
+        .footer-dark ul a {
+        color:inherit;
+        text-decoration:none;
+        opacity:0.6;
+        }
+
+        .footer-dark ul a:hover {
+        opacity:0.8;
+        }
+
+        @media (max-width:767px) {
+        .footer-dark .item:not(.social) {
+            text-align:center;
+            padding-bottom:20px;
+        }
+        }
+
+        .footer-dark .item.text {
+        margin-bottom:36px;
+        }
+
+        @media (max-width:767px) {
+        .footer-dark .item.text {
+            margin-bottom:0;
+        }
+        }
+
+        .footer-dark .item.text p {
+        opacity:0.6;
+        margin-bottom:0;
+        }
+
+        .footer-dark .item.social {
+        text-align:center;
+        }
+
+        @media (max-width:991px) {
+        .footer-dark .item.social {
+            text-align:center;
+            margin-top:20px;
+        }
+        }
+
+        .footer-dark .item.social > a {
+        font-size:20px;
+        width:36px;
+        height:36px;
+        line-height:36px;
+        display:inline-block;
+        text-align:center;
+        border-radius:50%;
+        box-shadow:0 0 0 1px rgba(255,255,255,0.4);
+        margin:0 8px;
+        color:#fff;
+        opacity:0.75;
+        }
+
+        .footer-dark .item.social > a:hover {
+        opacity:0.9;
+        }
+
+        .footer-dark .copyright {
+        text-align:center;
+        padding-top:24px;
+        opacity:0.3;
+        font-size:13px;
+        margin-bottom:0;
+        }
+    </style>
+
+
+    <div class="footer-dark">
+        <footer>
+            <div class="containerFooter">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="#">클럽 대관</a></li>
+                            <li><a href="#">공연 보기</a></li>
+                            <li><a href="#">공연팀 모집</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="#">마이페이지</a></li>
+                            <li><a href="#">로그인</a></li>
+                            <li><a href="#">회원가입</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 item text">
+                        <h3>LivdDom</h3>
+                        <p>
+                            LivdDom에서 제공하는 모든 컨텐츠는 저작권법에 보호받는 저작물로서, 무단으로 복제, 배포하는 경우에는 저작권법에 의하여 처벌을 받을 수 있습니다.
+                            <br>
+                            All contents provided by LvdDom are works protected by copyright law and may be punished under copyright law if copied or distributed without permission.
+                        </p>
+                    </div>
+                    <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
+                </div>
+                <p class="copyright">Copyright © LivdDom 2023 All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
 </th:block>

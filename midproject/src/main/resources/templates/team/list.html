@@ -1,148 +1,260 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/user/layout/main_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/UI/user/layout/main_layout}">
+
 <head>
     <title>공연 팀 모집 목록</title>
     <style>
-        .on {
-            color: aqua;
+        html,
+        body {
+            height: 100%;
         }
+
+        body {
+            margin: 0;
+            background: linear-gradient(45deg, #49a09d, #5f2c82);
+            font-family: sans-serif;
+            font-weight: 100;
+        }
+
+        #teamListContainer>h1 {
+            color: white;
+        }
+
+        #teamListContainer>.page-box {
+            display: flex;
+            justify-content: space-between;
+            margin: auto;
+            width: 1100px;
+            margin-bottom: 10px;
+
+        }
+
+        #teamListContainer>.page-box>.item>select,
+        input {
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-style: none;
+        }
+
+        #teamListContainer>.page-box>.search_item {
+
+        }
+
+        .tableContainer {
+            display: flex;
+            justify-content: center;
+        }
+
+        table {
+            width: 1100px;
+            border-collapse: collapse;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        thead {
+            th {
+                background-color: #55608f;
+            }
+        }
+
+        tbody {
+            tr {
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.3);
+                }
+            }
+
+            td {
+                position: relative;
+
+                &:hover {
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        top: -9999px;
+                        bottom: -9999px;
+                        background-color: rgba(255, 255, 255, 0.2);
+                        z-index: -1;
+                    }
+                }
+            }
+        }
+
+        #paginationContainer {
+            margin-top: 20px;
+        }
+
+        #paginationContainer>.pagination_count {
+            display: flex;
+            justify-content: center;
+        }
+
+        #paginationContainer>.pagination_count>a {
+            padding: 5px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 25px;
+        }
+
+
     </style>
 </head>
-<body layout:fragment="content">
-    <h1>공연 팀 모집</h1>
-    <h2 sec:authorize="hasRole('ROLE_BAND')">안녕하세요?</h2>
-<table>
-    <tr>
-        <td>전체 게시글 수</td>
-    </tr>
-    <tr>
-        <td id="totalCount"></td>
-    </tr>
-</table>
-  <!-- 검색/필터 -->
-  <div class="btn-box">
-    <!-- 검색 -->
-    <div class="item">
-        <select name="search-type" id="search-type" class="input-search">
-            <option value="0">전체</option>
-            <option value="1">제목</option>
-            <option value="2">내용</option>
-            <option value="3">제목+내용</option>
-            <option value="4">작성자</option>
-        </select>
-        <input type="text" name="keyword" id="keyword" class="input-search">
-        <a href="javascript:;" class="btn" id="btn-search">검색</a>
+
+<div layout:fragment="content">
+    <div id="teamListContainer">
+        <h1>공연 팀 모집</h1>
+        <!-- <h2 sec:authorize="hasRole('ROLE_BAND')">안녕하세요?</h2> -->
+        <!-- <table>
+            <tr>
+                <td>전체 게시글 수</td>
+            </tr>
+            <tr>
+                <td id="totalCount"></td>
+            </tr>
+        </table> -->
+        <!-- 검색/필터 -->
+        <div class="page-box">
+            <!-- 필터 -->
+            <div class="item">
+                <select name="rows" id="rows" class="input-search">
+                    <option value="5">5개씩 보기</option>
+                    <option value="10" selected>10개씩 보기</option>
+                    <option value="30">30개씩 보기</option>
+                    <option value="50">50개씩 보기</option>
+                </select>
+                <select name="order" id="order" class="input-search">
+                    <option value="0">최근 순</option>
+                    <option value="1">오래된 순</option>
+                    <option value="2">조회수 순</option>
+                </select>
+            </div>
+            <div class="item">
+                <!-- 검색 -->
+                <div class="search_item">
+                    <select name="search-type" id="search-type" class="input-search">
+                        <option value="0">전체</option>
+                        <option value="1">제목</option>
+                        <option value="2">내용</option>
+                        <option value="3">제목+내용</option>
+                        <option value="4">작성자</option>
+                    </select>
+                    <input type="text" name="keyword" id="keyword" class="input-search">
+                    <a href="javascript:;" class="btn" id="btn-search">검색</a>
+
+
+                    <span>검색</span><img src="https://www.dacorkorea.com/images/icon-search.png" alt="search">
+                </div>
+            </div>
+        </div>
+
+        <div class="tableContainer">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="100">마감</th>
+                        <th width="300">제목</th>
+                        <th width="100">팀 모집 현황</th>
+                        <th width="100">작성자</th>
+                        <th width="80">가격</th>
+                        <th width="100">지역</th>
+                        <th width="100">공연일자</th>
+                        <th width="100">갱신일자</th>
+                        <th width="50">조회수</th>
+                    </tr>
+                </thead>
+                <tbody id="team-data">
+                    <tr>
+                        <td colspan="9">조회된 데이터가 없습니다.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div id="paginationContainer">
+
+            <!-- 페이지네이션 -->
+            <div class="pagination_count">
+                <a href="javascript:;" class="page-arrow" id="first">&laquo;</a>
+                <a href="javascript:;" class="page-arrow" id="prev">&lsaquo;</a>
+
+                <a href="javascript:;" class="page-no">1</a>
+                <a href="javascript:;" class="page-no">2</a>
+                <a href="javascript:;" class="page-no">3</a>
+                <a href="javascript:;" class="page-no">4</a>
+                <a href="javascript:;" class="page-no">5</a>
+                <a href="javascript:;" class="page-no">6</a>
+                <a href="javascript:;" class="page-no">7</a>
+                <a href="javascript:;" class="page-no">8</a>
+                <a href="javascript:;" class="page-no">9</a>
+                <a href="javascript:;" class="page-no">10</a>
+
+                <a href="javascript:;" class="page-arrow" id="next">&rsaquo;</a>
+                <a href="javascript:;" class="page-arrow" id="last">&raquo;</a>
+            </div>
+
+
+
+
+
+        </div>
     </div>
-    <!-- 필터 -->
-    <div class="item">
-        <select name="rows" id="rows" class="input-search">
-            <option value="5">5개씩 보기</option>
-            <option value="10" selected>10개씩 보기</option>
-            <option value="30">30개씩 보기</option>
-            <option value="50">50개씩 보기</option>
-        </select>
-    </div>
-    <div class="item">
-        <select name="order" id="order" class="input-search">
-            <option value="0">최근 순</option>
-            <option value="1">오래된 순</option>
-            <option value="2">조회수 순</option>
-        </select>
-    </div>
-</div>
-
-
-    <table border="1">
-        <thead>
-        <tr>
-            <th width="100">마감</th>
-            <th width="300">제목</th>
-            <th width="100">팀 모집 현황</th>
-            <th width="100">작성자</th>
-            <th width="80">가격</th>
-            <th width="100">지역</th>
-            <th width="100">공연일자</th>
-            <th width="100">갱신일자</th>
-            <th width="50">조회수</th>
-        </tr>
-    </thead>
-    <tbody id="team-data">
-        <tr>
-            <td colspan="9">조회된 데이터가 없습니다.</td>
-        </tr>
-    </tbody>
-    </table>
-
-
- <!-- 페이지네이션 -->
- <div class="pagination">
-    <a href="javascript:;" class="page-arrow" id="first">&laquo;</a>
-    <a href="javascript:;" class="page-arrow" id="prev">&lsaquo;</a>
-
-    <!-- 페이지 번호 목록 -->
-    <div class="page-list">
-        <a href="javascript:;" class="page-no">1</a>
-        <a href="javascript:;" class="page-no">2</a>
-        <a href="javascript:;" class="page-no">3</a>
-        <a href="javascript:;" class="page-no">4</a>
-        <a href="javascript:;" class="page-no">5</a>
-        <a href="javascript:;" class="page-no">6</a>
-        <a href="javascript:;" class="page-no">7</a>
-        <a href="javascript:;" class="page-no">8</a>
-        <a href="javascript:;" class="page-no">9</a>
-        <a href="javascript:;" class="page-no">10</a>
-    </div>
-
-    <a href="javascript:;" class="page-arrow" id="next">&rsaquo;</a>
-    <a href="javascript:;" class="page-arrow" id="last">&raquo;</a>
-</div>
-
-
 
     <script>
-
-       
-        
         // 페이지 관련 변수
-        let page = 1            // 현재 페이지 번호
-        let rows = 10           // 페이지당 게시글 수
-        let pageCount = 10      // 노출 페이지 개수
-        let totalCount = 0      // 전체 게시글 수
+        let page = 1 // 현재 페이지 번호
+        let rows = 10 // 페이지당 게시글 수
+        let pageCount = 10 // 노출 페이지 개수
+        let totalCount = 0 // 전체 게시글 수
         // 검색 관련 변수
-        let searchType = 0      // 검색 조건
-        let keyword = ''        // 검색어
+        let searchType = 0 // 검색 조건
+        let keyword = '' // 검색어
         // 순서 변수
-        let order = 0           // 기본값 : 최근 순
+        let order = 0 // 기본값 : 최근 순
 
         // 게시글 목록 요청
         getPageList()
         initPage()
         initRows()
 
-        
+
         // 페이지 번호
         function initPage() {
 
             // 페이지 번호 정보
             let data = {
-                'pageNo'         : page,
-                'rows'           : rows,
-                'pageCount'      : pageCount,
-                'totalCount'     : totalCount,
-                'searchType'     : searchType,
-                'keyword'        : keyword,
+                'pageNo': page,
+                'rows': rows,
+                'pageCount': pageCount,
+                'totalCount': totalCount,
+                'searchType': searchType,
+                'keyword': keyword,
             }
 
             const url = 'http://127.0.0.1:8080/team/pageInfo'
 
             $.ajax({
-                url     :   url,
-                type    :   'GET',
-                data    :   data,
-                success :   function(response) {
+                url: url,
+                type: 'GET',
+                data: data,
+                success: function (response) {
                     let pageInfo = response
                     console.log(response);
 
@@ -158,11 +270,11 @@
                     $('#totalCount').text(totalCount)
 
                     let pagination = ''
-                    for (let i = start; i <= end ; i++) {
+                    for (let i = start; i <= end; i++) {
                         let a = `<a href='javascript:;' class='page-no' data='${i}'>${i}</a>`
                         pagination += a
-                    }                  
-                    
+                    }
+
                     // 페이지 출력
                     $('.page-list').html(pagination)
                     // 화살표 페이지 번호
@@ -173,76 +285,80 @@
 
                     $('.page-no').removeClass('on')
                     // 현재 페이지 지정
-                    $('.page-no[data=' + page +']').addClass('on')
+                    $('.page-no[data=' + page + ']').addClass('on')
 
                     // 화살표 버튼 유효성 처리
                     $('.page-arrow').show()
-                    if( page == 1 ) {
+                    if (page == 1) {
                         $('#prev').hide()
                     }
-                    
-                    if( page == last ) {
+
+                    if (page == last) {
                         $('#next').hide()
                     }
 
 
                     // 페이지 번호 클릭 이벤트
-                    $('.page-no, .page-arrow').on('click', function() {
+                    $('.page-no, .page-arrow').on('click', function () {
 
                         // 이벤트 제거 - 이벤트 정의가 쌓이는 것을 방지
                         $('.page-no, .page-arrow').off()
-                        
+
                         // 페이지 번호
                         let clickedPage = $(this).attr('data')
                         page = clickedPage
-                        initPage()          // 페이지 번호 갱신
-                        getPageList()       // 페이지 목록 갱신
+                        initPage() // 페이지 번호 갱신
+                        getPageList() // 페이지 목록 갱신
                     })
 
 
 
                 },
-                error           : function(request, status, error){
-                    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
-                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error)
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error);
                 }
             })
 
-        }        
+        }
 
         // 게시글 목록 - 페이징
         function getPageList() {
             const url = 'http://127.0.0.1:8080/team/pageList'
 
             let data = {
-                'pageNo'      : page,
-                'rows'        : rows,
-                'searchType'  : searchType,
-                'keyword'     : keyword,
-                'order'       : order,
+                'pageNo': page,
+                'rows': rows,
+                'searchType': searchType,
+                'keyword': keyword,
+                'order': order,
             }
 
             $.ajax({
-                url     :   url,
-                type    :   'GET',
-                data    :   data,
-                success : function(response) {
+                url: url,
+                type: 'GET',
+                data: data,
+                success: function (response) {
                     let teamList = response
-                    
+
                     displayList(teamList)
                 },
-                error           : function(request, status, error){
-                    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
-                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error)
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error);
                 }
             })
-        } 
+        }
 
         // 게시글 목록 출력
         function displayList(teamList) {
             console.log(teamList)
             // 게시글 목록 존재여부
-            if( teamList.length == 0 ) {
+            if (teamList.length == 0) {
                 let msg = '조회된 데이터가 없습니다.'
                 console.log(msg);
 
@@ -256,7 +372,7 @@
 
             // 게시글 목록 출력
             let teamData = ''
-            for(let i = 0 ; i < teamList.length ; i++ ){
+            for (let i = 0; i < teamList.length; i++) {
 
                 let tr = `
                 <tr onclick="readEvent(${teamList[i].teamNo})">
@@ -278,12 +394,12 @@
 
 
         // 검색 클릭 이벤트
-        $('#btn-search').on('click', function() {
+        $('#btn-search').on('click', function () {
             search()
         })
 
         // 페이지당 게시글 수 - 변경 이벤트
-        $('#rows').on('change', function() {
+        $('#rows').on('change', function () {
             rows = $(this).val()
             page = 1
             getPageList()
@@ -297,11 +413,11 @@
 
 
         // 검색 - 키 입력 이벤트
-        $('#keyword').on('keyup', function(event) {
-            console.log( event.keyCode );
+        $('#keyword').on('keyup', function (event) {
+            console.log(event.keyCode);
 
             // 엔터
-            if( event.keyCode == 13 ) {
+            if (event.keyCode == 13) {
                 search()
             }
         })
@@ -315,21 +431,21 @@
             keyword = $('#keyword').val()
 
             let data = {
-                'searchType'  : searchType,
-                'keyword'     : keyword,
-                'rows'        : rows,
-                'pageNo'        : page,
-                'pageCount'   : pageCount,
-                'order'   :order,
+                'searchType': searchType,
+                'keyword': keyword,
+                'rows': rows,
+                'pageNo': page,
+                'pageCount': pageCount,
+                'order': order,
             }
 
             const url = 'http://127.0.0.1:8080/team/pageList'
 
             $.ajax({
-                url     :   url,
-                type    :   'GET',
-                data    :   data,
-                success :   function(response) {
+                url: url,
+                type: 'GET',
+                data: data,
+                success: function (response) {
                     let teamList = response
 
                     displayList(teamList)
@@ -338,35 +454,37 @@
                     initPage()
 
                 },
-                error   : function(request, status, error){
-                    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error);
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error);
                 }
             })
         }
 
 
         // 순서 필터 - 변경 이벤트
-        $('#order').on('change', function() {
+        $('#order').on('change', function () {
 
             order = $(this).val()
 
             let data = {
-                searchType  : searchType,
-                keyword     : keyword,
-                rows        : rows,
-                pageNo        : page,
-                pageCount   : pageCount,
-                order       : order,
+                searchType: searchType,
+                keyword: keyword,
+                rows: rows,
+                pageNo: page,
+                pageCount: pageCount,
+                order: order,
             }
 
             const url = 'http://127.0.0.1:8080/team/pageList'
 
             $.ajax({
-                url     :   url,
-                type    :   'GET',
-                data    :   data,
-                success :   function(response) {
+                url: url,
+                type: 'GET',
+                data: data,
+                success: function (response) {
                     let teamList = response
 
                     displayList(teamList)
@@ -375,20 +493,21 @@
                     initPage()
 
                 },
-                error   : function(request, status, error){
-                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                error: function (request, status, error) {
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText +
+                        "\n" + "error:" + error);
                 }
             })
 
 
         })
-        
-        
-                let readEvent = function(teamNo){
-        
-                    location.href = `/team/read?teamNo=${teamNo}`
-        }
 
+
+        let readEvent = function (teamNo) {
+
+            location.href = `/team/read?teamNo=${teamNo}`
+        }
     </script>
-</body>
+    </body>
+
 </html>

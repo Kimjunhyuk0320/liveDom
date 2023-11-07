@@ -2,6 +2,26 @@
 <!-- ~UI/user/fragment/header -->
 <th:block th:fragment="header">
     <style>
+        *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+        ul{list-style-type: none;}
+
+        a{
+        color: black;
+        text-decoration: none;
+        }
+
+        section {
+        min-height: 400px;
+        }
+
+        section:first-of-type {
+        margin-top: 86px;
+        }
+
         /* 폰트 적용 */
         /* 노토산스 폰트 */
         @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
@@ -33,7 +53,6 @@
             overflow-x:hidden;
             line-height:1.15;
         }
-        /* 노말라이즈 */
 
         /* 라이브러리 */
         .con {
@@ -45,11 +64,11 @@
             display:block;
             clear:both;
         }
-        .cell {
+        .cells {
             float:left;
             box-sizing:border-box;
         }
-        .cell-right {
+        .cells-right {
             float:right;
         }
         .line-height-0 {
@@ -289,6 +308,7 @@
         }
 
     </style>
+    
     <!-- 헤더 -->
     <header class="header">
         <div class="header-inner">
@@ -301,7 +321,7 @@
             </div>
             <nav class="top-menu-bar header-row line-height-0">
                 <ul class="header-row">
-                    <li class="cell menu-1">
+                    <li class="cells menu-1">
                         <a href="#">클럽 대관 서비스</a>
                         <ul>
                             <li><a href="#">전체보기</a></li>
@@ -310,11 +330,11 @@
                         </ul>
                         <div class="sub-menu-width sub-menu-width-1"></div>
                     </li>
-                    <li class="cell menu-1">
+                    <li class="cells menu-1">
                         <a href="#">티켓팅</a>
                         <ul class="header-row">
                             <li><a href="#">전체보기</a></li>
-                            <li class="cell">
+                            <li class="cells">
                                 <ul>
                                     <li><a href="#">공연 등록하기</a></li>
                                     <li><a href="#">공연 수정하기</a></li>
@@ -323,7 +343,7 @@
                         </ul>
                         <div class="sub-menu-width sub-menu-width-2"></div>
                     </li>
-                    <li class="cell menu-3">
+                    <li class="cells menu-3">
                         <a href="#">공연팀 모집</a>
                         <ul>
                             <li><a href="/team/list">전체보기</a></li>
@@ -333,8 +353,8 @@
                         <div class="sub-menu-width sub-menu-width-3"></div>
                     </li>
                 </ul>
-                <ul class="header-row cell-right">
-                    <li class="cell menu-5">
+                <ul class="header-row cells-right">
+                    <li class="cells menu-5">
                         <a href="#">마이페이지</a>
                         <ul>
                             <li><a href="#">내 정보 보기</a></li>
@@ -342,7 +362,7 @@
                         </ul>
                         <div class="sub-menu-width sub-menu-width-4"></div>
                     </li>
-                    <li class="cell menu-5">
+                    <li class="cells menu-5">
                         <a href="#">로그인</a>
                         <ul>
                             <li><a href="#">로그인</a></li>
