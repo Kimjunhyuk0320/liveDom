@@ -5,98 +5,256 @@
       >
 <head>
     <title>공연 팀 모집 게시글 작성</title>
+    <style>
+        #insertContainer {
+            margin: 200px 0;
+        }
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: rgb(248, 249, 250);
+            /* background: linear-gradient(45deg, #49a09d, #5f2c82); */
+            font-family: sans-serif;
+            font-weight: 100;
+        }
+
+        #topContent {
+            height: 800px;
+            margin: 20px 0;
+            background: linear-gradient(180deg, #916ea9, rgb(248, 249, 250));
+        }
+
+        #topContent > h1 {
+            padding: 300px;
+            text-align: center;
+            color: white;
+        }
+
+        #insertContainer {
+            margin-top: 150px;
+        }
+
+        #insertContainer>h1 {
+            color: black;
+        }
+
+        #insertContainer>.page-box {
+            display: flex;
+            justify-content: space-between;
+            margin: auto;
+            width: 1100px;
+            margin-bottom: 10px;
+
+        }
+
+        #insertContainer 
+        select, input {
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: black;
+            /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); */
+            border-style: none;
+            width: 800px;
+            border-bottom: 1px solid rgb(41, 43, 50);
+        }
+
+        #insertContainer>.page-box>.search_item {
+
+        }
+
+        .tableContainer {
+            display: flex;
+            justify-content: center;
+        }
+
+        table {
+            width: 1000px;
+            border-collapse: collapse;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        
+        th,
+        td {
+            padding: 15px;
+            padding-left: 35px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: black;
+            text-align: left;
+        }
+        
+        th {
+            background-color: rgb(41, 43, 50);;
+            color: white;
+            text-align: center;
+        }
+
+        thead {
+            th {
+                background-color: #55608f;
+            }
+        }
+
+        tbody {
+            tr {
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.3);
+                }
+            }
+
+            td {
+                position: relative;
+
+                &:hover {
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        top: -9999px;
+                        bottom: -9999px;
+                        background-color: rgba(255, 255, 255, 0.2);
+                        z-index: -1;
+                    }
+                }
+            }
+        }
+
+        #textEditer {
+            width: 1000px;
+        }
+
+        .submitDiv {
+            display: flex;
+            justify-content: center;
+        }
+
+
+        .submitDiv > input{
+            margin: 30px;
+            background-color: rgb(41, 43, 50);
+            width: 450px;
+            color: white;
+        }
+
+        .submitDiv > input:hover{
+            margin: 30px;
+            scale: 103%;
+            background-color: rgb(58, 59, 63);
+            width: 450px;
+            color: white;
+        }
+    </style>
 </head>
 <body layout:fragment="content">
-    <h1>공연 팀 모집 게시글 작성</h1>
-    <form action="/team/insert" method="POST" id="form">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="_csrf">
-        <input type="hidden" name="writer" th:value="${#authentication.principal.users.nickname}">
-        <input type="hidden" name="username" th:value="${#authentication.principal.users.username}">
-        <table>
-            <tr>
-                <td>제목
-                    <input type="text" name="title">
-                </td>
-            </tr>
-            <tr>
-                <td>모집팀 수</td>
-                <td>
-                    <select name="capacity">
-                        <option value="1">1명</option>
-                        <option value="2">2명</option>
-                        <option value="3">3명</option>
-                        <option value="4">4명</option>
-                        <option value="5">5명</option>
-                        <option value="6">6명</option>
-                      </select>
-                </td>
-            </tr>
-            <tr>
-                <td>공연일자</td>
-                <td>
-                    <input type="date" name="liveDate">
-                </td>
-            </tr>
-            <tr>
-                <td>공연 시작 시각</td>
-                <td>
-                    <input type="time" name="liveStTime">
-                </td>
-            </tr>
 
-            <tr>
-                <td>공연 종료 시각</td>
-                <td>
-                    <input type="time" name="liveEndTime">
-                </td>
-            </tr>
-            <tr>
-                <td>지역</td>
-                <td>
-                    <select name="location" id="location">
-                        <option value="서울">서울</option>
-                        <option value="인천">인천</option>
-                        <option value="경기도">경기</option>
-                        <option value="강원도">강원도</option>
-                      </select>
-                </td>
-            </tr>
-            <tr>
-                <td>장소</td>
-                <td>
-                    <input type="text" name="address">
-                </td>
-            </tr>
-            <tr>
-                <td>계좌번호</td>
-                <td>
-                    <input type="text" name="account">
-                </td>
-            </tr>
-
-            <tr>
-                <td>가격</td>
-                <td>
-                    <input type="text" name="price">
-                </td>
-            </tr>
-            <!-- 글 작성 에디터 -->
-            <tr>
-                <td>게시글 적성 에디터</td>
-                <td class="data">
-                    <textarea name="content" id="content" cols="30" rows="10" 
-                              class="input-textarea"></textarea>
-                </td>
-            </tr>
-        </table>
-        <div>
-            <a href="/team">목록</a>
-            <input type="submit" value="등록">
-        </div>
-
-    </form>
+    <div id="topContent">
+        <h1>공연 팀 모집 게시글 작성</h1><br>        
+        <img src="../../static/img/90.jpeg" alt="">
+    </div>
     
+        
+    <div id="insertContainer">
+        <form action="/team/insert" method="POST" id="form">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="_csrf">
+            <input type="hidden" name="writer" th:value="${#authentication.principal.users.nickname}">
+            <input type="hidden" name="username" th:value="${#authentication.principal.users.username}">
 
+            <div class="tableContainer">
+                <table>
+                    <tr>
+                        <td>제목</td>
+                        <td>
+                            <input type="text" name="title">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>모집팀 수</td>
+                        <td>
+                            <select name="capacity">
+                                <option value="1">1명</option>
+                                <option value="2">2명</option>
+                                <option value="3">3명</option>
+                                <option value="4">4명</option>
+                                <option value="5">5명</option>
+                                <option value="6">6명</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>공연일자</td>
+                        <td>
+                            <input type="date" name="liveDate">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>공연 시작 시각</td>
+                        <td>
+                            <input type="time" name="liveStTime">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>공연 종료 시각</td>
+                        <td>
+                            <input type="time" name="liveEndTime">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>지역</td>
+                        <td>
+                            <select name="location" id="location">
+                                <option value="서울">서울</option>
+                                <option value="인천">인천</option>
+                                <option value="경기도">경기</option>
+                                <option value="강원도">강원도</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>장소</td>
+                        <td>
+                            <input type="text" name="address">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>계좌번호</td>
+                        <td>
+                            <input type="text" name="account">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>가격</td>
+                        <td>
+                            <input type="text" name="price">
+                        </td>
+                    </tr>
+                    <!-- 글 작성 에디터 -->
+                    <tr>
+                        <td colspan="2" id="textEditer" class="data">
+                            <textarea name="content" id="content" cols="30" rows="10" 
+                                    class="input-textarea"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="submitDiv" id="submitId">
+                                <input type="submit" value="등록">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </form>
+        
+    </div>
     <script>
 
         var toolbar = [
@@ -121,7 +279,7 @@
     ];
 
     var setting = {
-        height : 300,
+        height : 600,
         minHeight : null,
         maxHeight : null,
         focus : true,

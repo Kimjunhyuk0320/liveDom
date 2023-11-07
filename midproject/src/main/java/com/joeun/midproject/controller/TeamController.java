@@ -148,7 +148,7 @@ public class TeamController {
     int result = teamService.insert(team);
 
     if(result>0){
-      return "team/list";
+      return "redirect:/team";
     }else{
       return "team/insert";
 
