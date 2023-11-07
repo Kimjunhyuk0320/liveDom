@@ -281,7 +281,7 @@ public class TeamController {
     teamApp.setUsername(principal.getName());
     model.addAttribute("resTeamAppList", teamAppService.listByLeader(teamApp));
     
-    return "myPage/myPageForBand/team_registrations_list";
+    return "myPage/team_registrations_list";
     
   }
   
@@ -296,14 +296,14 @@ public class TeamController {
     log.info(appList.toString());
     model.addAttribute("reqTeamAppList",appList);
 
-      return "myPage/myPageForBand/my_registration_list";
+      return "myPage/my_registration_list";
 
   }
 
   @GetMapping(value="/user/listByConfirmedLive")
   public String listByConfirmedLive() {
     
-    return "myPage/myPageForBand/completed_performances_list";
+    return "myPage/completed_performances_list";
   }
   
   @CrossOrigin(origins = "*")
@@ -356,7 +356,7 @@ public class TeamController {
 
     model.addAttribute("teamApp", readApp);
 
-      return "myPage/myPageForBand/team_registrations_read";
+      return "myPage/team_registrations_read";
   }
   
   

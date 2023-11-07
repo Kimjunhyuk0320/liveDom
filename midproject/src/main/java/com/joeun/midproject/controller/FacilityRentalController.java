@@ -232,7 +232,7 @@ public class FacilityRentalController {
         log.info(rrList.toString());
         model.addAttribute("rrList", rrList);
 
-        return "myPage/myPageForClub/received_rental_list";
+        return "myPage/received_rental_list";
     }
 
     @GetMapping(value="/user/reqList")
@@ -242,7 +242,7 @@ public class FacilityRentalController {
 
         model.addAttribute("rreqList", rreqList);
 
-        return "/myPage/myPageForBand/rental_requests_list";
+        return "myPage/rental_requests_list";
     }
     
 

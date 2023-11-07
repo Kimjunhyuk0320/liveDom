@@ -79,7 +79,15 @@ public class UserController {
       }
 
   }
+  @GetMapping(value="/myPage")
+  public String myPage() {
+      return "myPage/myPage";
+  }
   
+
+
+
+
   // 회원 정보 수정
   @Secured({"ROLE_USER", "ROLE_BAND", "ROLE_CLUB"})
   @GetMapping(value="/update")
@@ -171,15 +179,15 @@ public class UserController {
 
 
   @Secured({"ROLE_USER", "ROLE_BAND", "ROLE_CLUB"})
-  @GetMapping(value="/myPage/myPageForUser/ticket_purchase_list")
+  @GetMapping(value="/myPage/ticket_purchase_list")
   public String ticketPurchase() {
-      return "/myPage/myPageForUser/ticket_purchase_list";
+      return "/myPage/ticket_purchase_list";
   }
 
   @Secured({"ROLE_USER", "ROLE_BAND", "ROLE_CLUB"})
-  @GetMapping(value="/myPage/myPageForClub/ticket_sales_list")
+  @GetMapping(value="/myPage/ticket_sales_list")
   public String ticketSales() {
-      return "/myPage/myPageForClub/ticket_sales_list";
+      return "/myPage/ticket_sales_list";
   }
   
 
