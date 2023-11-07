@@ -100,8 +100,9 @@
 
         /* 커스텀 */
         .header {
+
             position:sticky;
-            /* position:fixed; 마지막에 이렇게 설정할 것*/
+            /* position:fixed; */
             top:0;
             left:0;
             width:100%;
@@ -200,13 +201,13 @@
 
         /* 2차 메뉴 배경 */
         .header > .header-inner > .top-menu-bar > .sub-menu-bg {
-            position:sticky;
+            position:fixed;
             top:86px;
             left:0;
             width:100%;
             height:0;
             background-color:#fff;
-            border-top:1px solid #ccc;
+            /* border-top:1px solid #ccc; */
             z-index:-5;
             transition:height .3s;
         }
@@ -315,7 +316,7 @@
         <div class="header-inner">
             <div class="logo img-box">
                 <a href="/">
-                    <img src="/img/logo_header.png" style="width: 250px; margin-bottom: 5px;">
+                    <img src="/img/logo_header.png" style="width: 350px; margin-bottom: 5px;">
                 </a>     
             
          </div>
