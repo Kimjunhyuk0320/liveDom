@@ -176,6 +176,7 @@
 <script>
 
 let boardNo = "[[${facilityRental.frNo}]]"
+let username = "[[${#authentication.principal.users.username}]]"
 
 if( boardNo != null ) {
 getCommentList()
@@ -295,6 +296,7 @@ let data = {
     'parentTable' : 'facility_rental',
     'writer'    : writer,
     'content'   : content,
+    'username' : username,
 }
 
 $.ajax({
@@ -315,7 +317,6 @@ $.ajax({
             getCommentList()
 
             // 작성한 댓글 입력내용 초기화
-            $('#comment-writer').val('')
             $('#comment-content').val('')
 
         }

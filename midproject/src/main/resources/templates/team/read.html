@@ -686,6 +686,8 @@ img { width: 100%; }
 
 let boardNo = "[[${team.teamNo}]]"
 
+let username = "[[${#authentication.principal.users.username}]]"
+
 if( boardNo != null ) {
     getCommentList()
 }
@@ -804,6 +806,7 @@ function insertComment( writer, content ) {
         'parentTable' : 'team_recruitments',
         'writer'    : writer,
         'content'   : content,
+        'username' : username
     }
 
     $.ajax({
@@ -824,7 +827,6 @@ function insertComment( writer, content ) {
                 getCommentList()
 
                 // 작성한 댓글 입력내용 초기화
-                $('#comment-writer').val('')
                 $('#comment-content').val('')
 
             }

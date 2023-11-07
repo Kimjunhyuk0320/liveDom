@@ -144,6 +144,7 @@
 <script>
 
 let boardNo = "[[${liveBoard.boardNo}]]"
+let username = "[[${#authentication.principal.users.username}]]"
 
 if( boardNo != null ) {
 getCommentList()
@@ -263,6 +264,7 @@ let data = {
     'parentTable' : 'live_board',
     'writer'    : writer,
     'content'   : content,
+    'username' : username,
 }
 
 $.ajax({
@@ -283,7 +285,6 @@ $.ajax({
             getCommentList()
 
             // 작성한 댓글 입력내용 초기화
-            $('#comment-writer').val('')
             $('#comment-content').val('')
 
         }
