@@ -1,16 +1,25 @@
 package com.joeun.midproject.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import com.joeun.midproject.dto.Team;
 import com.joeun.midproject.dto.TeamApp;
+import com.joeun.midproject.dto.Users;
 import com.joeun.midproject.mapper.TeamAppMapper;
 import com.joeun.midproject.mapper.TeamMapper;
+import com.joeun.midproject.mapper.UserMapper;
+
+import lombok.extern.slf4j.Slf4j;
+
 
 @Service
+@Slf4j
 public class TeamAppServiceImpl implements TeamAppService{
 
   @Autowired
@@ -19,11 +28,51 @@ public class TeamAppServiceImpl implements TeamAppService{
   @Autowired
   private TeamMapper teamMapper;
 
+  @Autowired
+  private SMSService smsService;
+
+  @Autowired
+  private UserMapper userMapper;
 
   @Override
   public int insert(TeamApp teamApp) {
 
     int result = teamAppMapper.insert(teamApp);
+      int teamNo = teamApp.getTeamNo();
+      Team team1 = new Team();
+      team1.setTeamNo(teamNo);
+      Team team = teamMapper.read(team1);
+      String id = team.getUsername();
+      Users users = userMapper.read(id);
+      String phone = users.getPhone();
+     MultiValueMap<String, String> map =  new LinkedMultiValueMap<>();
+      // ✅ 필수 정보
+      // - receiver       :   1) 01012341234
+      //                      2) 01011112222,01033334444
+      // - msg            : 문자 메시지 내용
+      // - testmode_yn    : 테스트 모드 여부 (Y-테스트⭕, N-테스트❌)
+      // receiver에 문자 받는 사람의 전화번호를 넣어주세요.
+      String receiver = phone;
+      String msg = "[Web발신]\n"+"LiveDom 팀 모집 서비스\n" +"1개의 참가신청서가 도착했습니다. 웹사이트를 방문해 확인해주시기 바랍니다.";
+      String testmode_yn = "Y";
+      map.add("receiver", receiver);
+      map.add("msg", msg);
+      map.add("testmode_yn", testmode_yn);
+
+      Map<String, Object> resultMap = smsService.send(map);
+      Object resultCode = resultMap.get("result_code");
+      Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
+      String message = (String) resultMap.get("message");
+
+      if( result_code == 1 )
+          log.info("문자 발송 성공");
+      if( result_code == -1 )
+          log.info("문자 발송 실패");
+
+
+
+
+
 
     return result;
   }
@@ -59,6 +108,43 @@ public class TeamAppServiceImpl implements TeamAppService{
   public int accept(TeamApp teamApp) {
 
      int result = teamAppMapper.accept(teamApp);
+     TeamApp teamApps = teamAppMapper.read(teamApp);
+     int teamNo = teamApps.getTeamNo();
+     String phone = teamApps.getPhone();
+     Team teams = new Team();
+     teams.setTeamNo(teamNo);
+     Team team = teamMapper.read(teams);
+     String account = team.getAccount();
+      MultiValueMap<String, String> map =  new LinkedMultiValueMap<>();
+      // ✅ 필수 정보
+      // - receiver       :   1) 01012341234
+      //                      2) 01011112222,01033334444
+      // - msg            : 문자 메시지 내용
+      // - testmode_yn    : 테스트 모드 여부 (Y-테스트⭕, N-테스트❌)
+      // receiver에 문자 받는 사람의 전화번호를 넣어주세요.
+      // bank에 입금 받아야하는 계좌번호를 넣어주세요.
+      // price 에 입금 금액을 입력해주세요.
+      String receiver = phone;
+      String bank = account;
+      Integer price = team.getPrice();
+      String msg = "[Web발신]\n"+"LiveDom 팀 모집 서비스\n" +"참가 신청이 승인되었습니다." + bank + "로" + price + "원을 입금해주시기 바랍니다.";
+      String testmode_yn = "Y";
+      map.add("receiver", receiver);
+      map.add("msg", msg);
+      map.add("testmode_yn", testmode_yn);
+
+      Map<String, Object> resultMap = smsService.send(map);
+      Object resultCode = resultMap.get("result_code");
+      Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
+      String message = (String) resultMap.get("message");
+
+      if( result_code == 1 )
+          log.info("문자 발송 성공");
+      if( result_code == -1 )
+          log.info("문자 발송 실패");
+
+
+
 
     return result;
   }
@@ -119,6 +205,41 @@ public class TeamAppServiceImpl implements TeamAppService{
       teamApp.setMembers(members);
 
       teamAppMapper.insertLive(teamApp);
+
+      MultiValueMap<String, String> map =  new LinkedMultiValueMap<>();
+      // ✅ 필수 정보
+      // - receiver       :   1) 01012341234
+      //                      2) 01011112222,01033334444
+      // - msg            : 문자 메시지 내용
+      // - testmode_yn    : 테스트 모드 여부 (Y-테스트⭕, N-테스트❌)
+      // receiver에 문자 받는 사람들의 전화번호를 "," 로 연결해서 넣어주세요.
+      // Title에 게시글의 제목을 입력해주세요
+      // liveDate에 공연일자를 입력해주세요.
+      // address에 공연장의 위치를 입력해주세요.
+      String receiver = "";
+      String title = "";
+      String liveDate = "";
+      String address = "";
+      
+      String msg = "[Web발신]\n"+"LiveDom 팀 모집 서비스\n" + title + "의 공연이 성사되었습니다. \n" +
+                                 "공연장 : " + address + "공연일자 : " + liveDate;
+      String testmode_yn = "Y";
+      map.add("receiver", receiver);
+      map.add("msg", msg);
+      map.add("testmode_yn", testmode_yn);
+
+      Map<String, Object> resultMap = smsService.send(map);
+      Object resultCode = resultMap.get("result_code");
+      Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
+      String message = (String) resultMap.get("message");
+
+      if( result_code == 1 )
+          log.info("문자 발송 성공");
+      if( result_code == -1 )
+          log.info("문자 발송 실패");
+
+
+
 
 
       deniedAllResult = teamAppMapper.deniedAll(teamApp);
