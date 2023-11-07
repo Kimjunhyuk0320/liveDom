@@ -313,42 +313,43 @@
     <header class="header">
         <div class="header-inner">
             <div class="logo img-box">
-                <h1 class="logo-title">LiveDom</h1>
-                <!-- 
-                <img src="../fragment/fragmentImg/LogoTestDom.jpeg" style="width: 58px; margin-top: 10px;">
-                    이 부분에 로고 이미지가 들어갈 예정입니다. 
-                -->
-            </div>
+                <a href="/">
+                    <img src="/img/logo_header.png" style="width: 350px; margin-bottom: 5px;">
+                </a>     
+            
+         </div>
             <nav class="top-menu-bar header-row line-height-0">
                 <ul class="header-row">
                     <li class="cells menu-1">
-                        <a href="#">클럽 대관 서비스</a>
+                        <a href="/facilityRental/list">클럽 대관 서비스</a>
                         <ul>
-                            <li><a href="#">전체보기</a></li>
-                            <li><a href="#">대관 게시글 작성하기</a></li>
-                            <li><a href="#">내가 쓴 게시글 확인하기</a></li>
+                            <li><a href="/facilityRental/list">전체보기</a></li>
+                            <li><a href="/facilityRental/insert">대관 게시글 작성하기</a></li>
+                            <li><a href="/facilityRental/user/receivedList">받은 대관 신청</a></li>
                         </ul>
                         <div class="sub-menu-width sub-menu-width-1"></div>
                     </li>
                     <li class="cells menu-1">
-                        <a href="#">티켓팅</a>
+                        <a href="/liveBoard">공연</a>
                         <ul class="header-row">
-                            <li><a href="#">전체보기</a></li>
-                            <li class="cells">
+                            <li><a href="/liveBoard/list">전체보기</a></li>
+                            <li class="cell">
                                 <ul>
-                                    <li><a href="#">공연 등록하기</a></li>
-                                    <li><a href="#">공연 수정하기</a></li>
+                                    <li><a href="/liveBoard/insert">공연 등록하기</a></li>
+                                    <li><a href="/myPage/ticket_purchase_list">예매한 티켓 내역</a></li>
+                                    <li><a href="/myPage/ticket_sales_list">판매한 티켓 내역</a></li>
                                 </ul>
                             </li>
                         </ul>
                         <div class="sub-menu-width sub-menu-width-2"></div>
                     </li>
                     <li class="cells menu-3">
-                        <a href="#">공연팀 모집</a>
+                        <a href="/team">공연팀 모집</a>
                         <ul>
-                            <li><a href="/team/list">전체보기</a></li>
+                            <li><a href="/team">전체보기</a></li>
                             <li><a href="/team/insert">모집글 작성하기</a></li>
-                            <li><a href="/team/update">모집글 수정하기</a></li>
+                            <li><a href="/team/user/listByMember">참가신청 내역</a></li>
+                            <li><a href="/team/user/listByLeader">받은 참가신청</a></li>
                         </ul>
                         <div class="sub-menu-width sub-menu-width-3"></div>
                     </li>
@@ -357,16 +358,16 @@
                     <li class="cells menu-5">
                         <a href="#">마이페이지</a>
                         <ul>
-                            <li><a href="#">내 정보 보기</a></li>
-                            <li><a href="#">내 정보 수정하기</a></li>
+                            <li><a href="/myPage">내 정보 보기</a></li>
+                            <li><a href="/update">내 정보 수정하기</a></li>
                         </ul>
                         <div class="sub-menu-width sub-menu-width-4"></div>
                     </li>
                     <li class="cells menu-5">
-                        <a href="#">로그인</a>
+                        <a href="/login">로그인</a>
                         <ul>
-                            <li><a href="#">로그인</a></li>
-                            <li><a href="#">회원가입</a></li>
+                            <li><a href="/login">로그인</a></li>
+                            <li><a href="/join">회원가입</a></li>
                         </ul>
                         <div class="sub-menu-width sub-menu-width-5"></div>
                     </li>
@@ -439,3 +440,10 @@
 
     </script>
 </th:block>
+
+
+
+
+
+
+

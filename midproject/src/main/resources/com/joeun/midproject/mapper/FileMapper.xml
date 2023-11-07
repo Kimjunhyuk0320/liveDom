@@ -46,8 +46,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 파일 등록 -->
     <insert id="insert">
-        INSERT INTO file(parent_table, parent_no, file_name, origin_name, path, file_size, file_code)
-        VALUES (#{parentTable}, #{parentNo}, #{fileName}, #{originName}, #{path}, #{fileSize}, #{fileCode})
+        INSERT INTO file(parent_table, parent_no, file_name, origin_name, path, file_size, file_code,upd_date)
+        VALUES (#{parentTable}, #{parentNo}, #{fileName}, #{originName}, #{path}, #{fileSize}, #{fileCode},0)
     </insert>
 
     <!-- 파일 수정 -->

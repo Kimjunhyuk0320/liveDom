@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.joeun.midproject.dto.Comment;
 import com.joeun.midproject.dto.Files;
 import com.joeun.midproject.dto.LiveBoard;
 import com.joeun.midproject.dto.PageInfo;
@@ -24,6 +25,7 @@ import com.joeun.midproject.dto.Team;
 import com.joeun.midproject.dto.Ticket;
 import com.joeun.midproject.mapper.FileMapper;
 import com.joeun.midproject.mapper.TeamMapper;
+import com.joeun.midproject.service.CommentService;
 import com.joeun.midproject.service.LiveBoardService;
 
 
@@ -36,8 +38,14 @@ public class LiveBoardController {
     LiveBoardService liveBoardService;
     @Autowired
     FileMapper fileMapper;
+
     @Autowired
     private TeamMapper teamMapper;
+
+    @Autowired
+    private CommentService commentService;
+
+    
 
     /**
      * 공연 게시글 목록 조회
@@ -229,6 +237,74 @@ public class LiveBoardController {
        
         return "liveBoard/complete";
     }
+
+
+
+
+
+
+    
+  @ResponseBody
+  @CrossOrigin(origins="*")
+  @GetMapping(value="/commentList", produces = "application/json")
+  public List<Comment> commentList(Comment comment) {
+    comment.setParentTable("live_board");
+    log.info(comment.toString());
+    List<Comment> commentList = commentService.commentList(comment);
+
+    for (Comment comment2 : commentList) {
+      log.info(comment2.toString());
+    }
+    return commentList;
+  }
+
+  @ResponseBody
+  @CrossOrigin(origins="*")
+  @GetMapping(value="/commentInsert")
+  public String commentInsert(Comment comment) {
+
+    comment.setParentTable("live_board");
+    int result = commentService.commentInsert(comment);
+    if(result>0){
+      return "SUCCESS";
+    }
+    else{
+
+      return "FAILED";
+    }
+  }
+
+  @ResponseBody
+  @CrossOrigin(origins="*")
+  @GetMapping(value="/commentDelete")
+  public String commentDelete(Comment comment) {
+
+    comment.setParentTable("live_board");
+    int result = commentService.commentDelete(comment);
+    if(result>0){
+      return "SUCCESS";
+    }
+    else{
+
+      return "FAILED";
+    }
+  }
+
+  @ResponseBody
+  @CrossOrigin(origins="*")
+  @GetMapping(value="/commentUpdate")
+  public String commentUpdate(Comment comment) {
+
+    comment.setParentTable("live_board");
+    int result = commentService.commentUpdate(comment);
+    if(result>0){
+      return "SUCCESS";
+    }
+    else{
+
+      return "FAILED";
+    }
+  }
 
 
 }
