@@ -12,6 +12,7 @@ public class Comment {
   private int parentNo;
   private int sequence;
   private String writer;
+  private String username;
   private String content;
   private Date regDate;
   private Date updDate;

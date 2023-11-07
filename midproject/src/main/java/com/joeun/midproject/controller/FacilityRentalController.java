@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.joeun.midproject.dto.BookingRequests;
+import com.joeun.midproject.dto.Comment;
 import com.joeun.midproject.dto.FacilityRental;
 import com.joeun.midproject.dto.Files;
 import com.joeun.midproject.dto.PageInfo;
 import com.joeun.midproject.dto.Team;
 import com.joeun.midproject.mapper.TeamMapper;
+import com.joeun.midproject.service.CommentService;
 import com.joeun.midproject.service.FacilityRentalService;
 import com.joeun.midproject.service.FileService;
 import com.joeun.midproject.service.TeamService;
@@ -45,6 +47,9 @@ public class FacilityRentalController {
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private CommentService commentService;
 
     /**
      * 게시글 목록
@@ -311,6 +316,72 @@ public class FacilityRentalController {
     return pageListResult;
   }
     
+
+
+
+
+  
+  @ResponseBody
+  @CrossOrigin(origins="*")
+  @GetMapping(value="/commentList", produces = "application/json")
+  public List<Comment> commentList(Comment comment) {
+    comment.setParentTable("facility_rental");
+    log.info(comment.toString());
+    List<Comment> commentList = commentService.commentList(comment);
+
+    for (Comment comment2 : commentList) {
+      log.info(comment2.toString());
+    }
+    return commentList;
+  }
+
+  @ResponseBody
+  @CrossOrigin(origins="*")
+  @GetMapping(value="/commentInsert")
+  public String commentInsert(Comment comment) {
+
+    comment.setParentTable("facility_rental");
+    int result = commentService.commentInsert(comment);
+    if(result>0){
+      return "SUCCESS";
+    }
+    else{
+
+      return "FAILED";
+    }
+  }
+
+  @ResponseBody
+  @CrossOrigin(origins="*")
+  @GetMapping(value="/commentDelete")
+  public String commentDelete(Comment comment) {
+
+    comment.setParentTable("facility_rental");
+    int result = commentService.commentDelete(comment);
+    if(result>0){
+      return "SUCCESS";
+    }
+    else{
+
+      return "FAILED";
+    }
+  }
+
+  @ResponseBody
+  @CrossOrigin(origins="*")
+  @GetMapping(value="/commentUpdate")
+  public String commentUpdate(Comment comment) {
+
+    comment.setParentTable("facility_rental");
+    int result = commentService.commentUpdate(comment);
+    if(result>0){
+      return "SUCCESS";
+    }
+    else{
+
+      return "FAILED";
+    }
+  }
     
     
     

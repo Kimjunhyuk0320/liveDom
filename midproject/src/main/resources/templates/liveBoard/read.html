@@ -109,8 +109,369 @@
     <div style="background-color: darkgrey; width: 500px; height: 800px;">
         <p th:utext="${liveBoard.content}"></p>
     </div>
+<!-- 댓글 목록 -->
+<div id="comment-list">
 
-    <script>
+
+</div>
+
+<!-- 댓글 입력 -->
+<div class="input-box">
+    <div class="top">
+        <h3>댓글 입력</h3>
+    </div>
+    <div class="comment-input">
+        <input type="text" name="writer" id="comment-writer" placeholder="작성자" th:value="${#authentication.principal.users.nickname}" readonly>
+        <br>
+        <textarea name="content" id="comment-content" 
+                  cols="60" rows="5" placeholder="댓글을 작성해주세요"></textarea>
+        <div class="btn-box">
+            <a href="javascript:;" id="btn-comment-insert" class="btn btn-sm">등록</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+</div>
+</section>
+
+
+<!-- sweetalert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+let boardNo = "[[${liveBoard.boardNo}]]"
+
+if( boardNo != null ) {
+getCommentList()
+}
+
+
+
+// Swal.fire({
+//     title: '정말로 삭제하시겠습니까?',
+//     text: "삭제하면 되돌릴 수 없습니다!",
+//     icon: 'warning',
+//     showCancelButton: true,
+//     confirmButtonColor: '#3085d6',
+//     cancelButtonColor: '#d33',
+//     confirmButtonText: '예',
+//     cancelButtonText: '아니오',
+// }).then((result) => {
+//     // result.isConfirmed : true  [예]
+//     // result.isConfirmed : false  [아니오]
+//     if (result.isConfirmed) {
+//         deleteData()
+        
+//     }
+// })
+
+
+
+
+
+// 댓글 목록 조회
+function getCommentList() {
+
+const url = 'http://127.0.0.1:8080/liveBoard/commentList'
+
+let data = {
+    'parentNo' : boardNo
+}
+
+$.ajax({
+    url : url,
+    type : 'get',
+    data : data,
+    success : function(response) {
+        let commentList = response
+
+        console.log(commentList)
+
+        let commentData = ''
+        for (let i = 0; i < commentList.length; i++) {
+            let comment = commentList[i]
+
+            let date = new Date(comment.regDate);
+            let regDate = date.toISOString().split("T")[0];
+            let regTime = date.toISOString().split("T")[1];
+            regTime = regTime.split(".")[0]
+
+            // 계층번호
+            let depthNo = comment.depthNo
+
+            let commentBox 
+            = `<div class="comment-box">
+                    <div class="data-box">
+                        <div class="top">
+                            <div class="item">
+                                <span class="comment-writer">${comment.writer}</span>
+                                <span class="comment-date">${regDate} ${regTime}</span>
+                            </div>
+                            `
+                            if(commentList[i].username=="[[${#authentication.principal.users.username}]]"){
+                                commentBox +=`
+                                <div class="item">
+                                    <a href="javascript:;" class="btn btn-sm btn-comment-update" data="${comment.commentNo}">수정</a>
+                                    <a href="javascript:;" class="btn btn-sm btn-comment-delete" data="${comment.commentNo}">삭제</a>
+                                </div>
+                                `
+                            }
+                            commentBox +=`
+                        </div>
+                        <div class="bottom">
+                            <p class="comment-content">${comment.content}</p>
+                        </div>
+                    </div>
+                    <div class="edit-box"></div>
+                </div>
+                `
+            commentData += commentBox
+        }
+
+        $('#comment-list').html(commentData)
+
+        // 이벤트 추가
+        initCommentEvent()
+        
+    },
+    error : function(error) {
+
+    }
+})
+}
+
+// 댓글 등록 버튼 - 클릭 이벤트
+$('#btn-comment-insert').on('click', function() {
+let writer = $('#comment-writer').val()
+let content = $('#comment-content').val()
+
+insertComment( writer, content )
+})
+
+
+// 댓글 등록
+function insertComment( writer, content ) {
+
+const url = 'http://127.0.0.1:8080/liveBoard/commentInsert'
+
+let data = {
+    'parentNo'   : boardNo,
+    'parentTable' : 'live_board',
+    'writer'    : writer,
+    'content'   : content,
+}
+
+$.ajax({
+    url : url,
+    type : 'GET',
+    data : data,
+    success : function(response) {
+        let result = response
+        console.log(result)
+        if( result == 'SUCCESS' ) {
+            // alert('댓글 등록이 완료되었습니다.')
+            Swal.fire(
+                '완료!',
+                '댓글 등록이 완료되었습니다.',
+                'success'
+            )
+            // 댓글 목록 갱신
+            getCommentList()
+
+            // 작성한 댓글 입력내용 초기화
+            $('#comment-writer').val('')
+            $('#comment-content').val('')
+
+        }
+    },
+    error           : function(request, status, error){
+        // alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        Swal.fire(
+            '에러!',
+            'code:' + request.status,
+            'error'
+        )
+    }
+})
+}
+
+
+// 댓글 [수정][삭제][답글] - 이벤트 등록
+function initCommentEvent() {
+
+// 댓글 [수정]
+$('.btn-comment-update').on('click', function() {
+    // 작성자, 내용 가져오기
+    let btn = $(this)
+    let commentNo = btn.attr('data')
+    let commentBox = btn.parents('.comment-box')
+    let commentWriter = commentBox.find('.comment-writer')
+    let commentContent = commentBox.find('.comment-content')
+
+    let writer = commentWriter.text()
+    let content = commentContent.text()
+
+    console.log( btn.parents() )                        // 부모요소
+    console.log( btn.parents('.comment-box') )          // 특정 상위요소
+    console.log( commentBox.children() )                // 자식요소
+    console.log( commentBox.find('.comment-writer') )   // 특정 하위요소
+    console.log( writer );
+    console.log( content );
+
+    // 수정 중인 다른 댓글 UI 초기화
+    $('.data-box').show()
+    $('.edit-box').empty()
+    $('.reply-box').remove()
+
+    // 댓글 보기 숨김
+    commentBox.find('.data-box').hide()
+
+    // 댓글 수정 UI 추가
+    let editBox 
+    = `<div class="top">
+            <div class="item">
+                <input type="text" id="input-update-writer" value="${writer}" />
+            </div>
+            <div class="item">
+                
+            </div>
+        </div>
+        <div class="bottom">
+            <textarea id="input-update-content" cols="40" rows="5">${content}</textarea>
+            <div class="etc-box">
+                <a href="javascript:;" class="btn btn-sm" id="btn-comment-update" data="${commentNo}">수정</a>
+                <a href="javascript:;" class="btn btn-sm" id="btn-comment-cancel">취소</a>
+            </div>
+        </div>
+        `
+    commentBox.find('.edit-box').html(editBox)    
+
+    // 댓글 [수정] 취소 버튼 클릭
+    $('#btn-comment-cancel').on('click', function() {
+
+        commentBox.find('.data-box').show()
+        commentBox.find('.edit-box').empty()
+        // $('.comment-box .data-box').show()
+        // $('.comment-box .edit-box').empty()
+    })
+
+    // 댓글 [수정] 수정 버튼 클릭
+    $('#btn-comment-update').on('click', function() {
+
+        let url = 'http://127.0.0.1:8080/liveBoard/commentUpdate'
+
+        let data = {
+            commentNo   : commentNo,
+            writer      : $('#input-update-writer').val(),
+            content     : $('#input-update-content').val(),
+        }
+
+        $.ajax({
+            url     : url,
+            type    : 'GET',
+            data    : data,
+            success : function(response) {
+                let result = response
+                if( result == 'SUCCESS' ) {
+                    // alert('댓글 수정이 완료되었습니다.')
+
+                    Swal.fire(
+                        '완료!',
+                        '댓글 수정이 완료되었습니다.',
+                        'success'
+                    )
+
+                    // 댓글 목록 갱신
+                    getCommentList()
+                }
+
+            },
+            error           : function(request, status, error){
+                // alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                Swal.fire(
+                    '에러!',
+                    'code:' + request.status,
+                    'error'
+                )
+            }
+        })
+
+
+    })
+
+    
+})
+
+// 댓글 [삭제]
+$('.btn-comment-delete').on('click', function() {
+    let commentNo = $(this).attr('data')
+
+    // let check = confirm('정말로 삭제하시겠습니까?')
+    // if( !check )
+    //     return
+
+    // sweetalert - confirm
+    Swal.fire({
+        title: '정말로 삭제하시겠습니까?',
+        text: "삭제하면 되돌릴 수 없습니다!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '예',
+        cancelButtonText: '아니오',
+    }).then((result) => {
+        // result.isConfirmed : true  [예]
+        // result.isConfirmed : false  [아니오]
+        if (result.isConfirmed) {
+            deleteCommentData(commentNo)
+        }
+    })
+})
+
+// 댓글 삭제
+function deleteCommentData(commentNo) {
+
+    
+    let url = 'http://127.0.0.1:8080/liveBoard/commentDelete'
+    let data = {
+        commentNo   : commentNo,
+    }
+
+    $.ajax({
+        url     : url,
+        type    : 'GET',
+        data    : data,
+        success : function(response) {
+            let result = response
+            if( result == 'SUCCESS' ) {
+                // alert('댓글 삭제가 완료되었습니다.')
+                Swal.fire(
+                    '완료!',
+                    '댓글 삭제가 완료되었습니다.',
+                    'success'
+                )
+                // 댓글 목록 갱신
+                getCommentList()
+            }
+
+        },
+        error           : function(request, status, error){
+            // alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            Swal.fire(
+                '에러!',
+                'code:' + request.status,
+                'error'
+            )
+        }
+    })
+}
+
+}
 
         
         // 목록으로 이동
