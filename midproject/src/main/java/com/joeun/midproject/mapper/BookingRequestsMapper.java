@@ -11,6 +11,9 @@ public interface BookingRequestsMapper {
     // 유저 예약 목록
     public List<BookingRequests> rreqList(String username) throws Exception;
 
+    // 대관 신청 목록 
+    public BookingRequests listBybrNo(int brNo) throws Exception;
+
     // 클럽 대관 목록
     public List<BookingRequests> rentalList(String username) throws Exception;
 

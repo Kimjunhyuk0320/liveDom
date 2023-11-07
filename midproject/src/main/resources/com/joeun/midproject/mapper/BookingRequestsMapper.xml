@@ -6,6 +6,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace="매퍼 인터페이스 경로" -->
 <mapper namespace="com.joeun.midproject.mapper.BookingRequestsMapper">
 
+
+    <!-- 대관신청 목록 -->
+    <select id="listBybrNo" resultType="BookingRequests">
+        SELECT *
+        FROM booking_requests
+        WHERE br_no = #{brNo}
+    </select>
+
+
     <!-- 클럽 대관 목록 -->
     
     <select id="rentalList" resultType="BookingRequests">

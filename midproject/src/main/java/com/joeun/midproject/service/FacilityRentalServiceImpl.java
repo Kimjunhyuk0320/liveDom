@@ -2,12 +2,15 @@ package com.joeun.midproject.service;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.joeun.midproject.dto.BookingRequests;
@@ -18,13 +21,19 @@ import com.joeun.midproject.mapper.BookingRequestsMapper;
 import com.joeun.midproject.mapper.FacilityRentalMapper;
 import com.joeun.midproject.mapper.FileMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class FacilityRentalServiceImpl implements FacilityRentalService {
     @Autowired
     private FacilityRentalMapper facilityRentalMapper;
 
     @Autowired
     private BookingRequestsMapper bookingRequestsMapper;
+
+    @Autowired
+    private SMSService smsService;
 
     @Autowired
     private FileMapper fileMapper;
@@ -134,6 +143,42 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
     @Override
     public int reservation(BookingRequests bookingRequests) throws Exception {
         int result = bookingRequestsMapper.reservation(bookingRequests);
+        // 받은 신청 들어왔다고 문자 알려주기
+        int frNo = bookingRequests.getFrNo();
+        FacilityRental facilityRental = facilityRentalMapper.select(frNo);
+        MultiValueMap<String, String> map =  new LinkedMultiValueMap<>();
+        // ✅ 필수 정보
+        // - receiver       :   1) 01012341234
+        //                      2) 01011112222,01033334444
+        // - msg            : 문자 메시지 내용
+        // - testmode_yn    : 테스트 모드 여부 (Y-테스트⭕, N-테스트❌)
+        // receiver에 문자 받는 사람의 전화번호를 넣어주세요.
+        String receiver = facilityRental.getPhone();
+        String msg = "[Web발신]\n"+"LiveDom 대관 서비스\n" +"1개의 대관신청이 도착했습니다. 웹사이트를 방문해 확인해주시기 바랍니다.";
+        String testmode_yn = "Y";
+        map.add("receiver", receiver);
+        map.add("msg", msg);
+        map.add("testmode_yn", testmode_yn);
+
+        Map<String, Object> resultMap = smsService.send(map);
+        Object resultCode = resultMap.get("result_code");
+        Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
+        String message = (String) resultMap.get("message");
+
+        if( result_code == 1 )
+            log.info("문자 발송 성공");
+        if( result_code == -1 )
+            log.info("문자 발송 실패");
+
+
+
+
+
+
+
+
+
+
         return result;
     }
 
@@ -176,6 +221,42 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
     public int reqAccept(BookingRequests bookingRequests) throws Exception {
 
         int result = bookingRequestsMapper.reqAccept(bookingRequests);
+        int br_no = bookingRequests.getBrNo();
+        BookingRequests br = bookingRequestsMapper.listBybrNo(br_no);
+        int fr_no = br.getFrNo();
+        FacilityRental facilityRental = facilityRentalMapper.select(fr_no);
+        // 대관 신청자에게 결제정보 보내기.
+        MultiValueMap<String, String> map =  new LinkedMultiValueMap<>();
+        // ✅ 필수 정보
+        // - receiver       :   1) 01012341234
+        //                      2) 01011112222,01033334444
+        // - msg            : 문자 메시지 내용
+        // - testmode_yn    : 테스트 모드 여부 (Y-테스트⭕, N-테스트❌)
+        // receiver에 문자 받는 사람의 전화번호를 넣어주세요.
+        // bank에 입금 받아야하는 계좌번호를 넣어주세요.
+        // price 에 입금 금액을 입력해주세요.
+        String receiver = facilityRental.getPhone();
+        String bank = facilityRental.getAccount();
+        Integer price = facilityRental.getPrice();
+        String msg = "[Web발신]\n"+"LiveDom 대관 서비스\n" +"대관 신청이 승인되었습니다." + bank + "로" + price + "원을 입금해주시기 바랍니다.";
+        String testmode_yn = "Y";
+        map.add("receiver", receiver);
+        map.add("msg", msg);
+        map.add("testmode_yn", testmode_yn);
+
+        Map<String, Object> resultMap = smsService.send(map);
+        Object resultCode = resultMap.get("result_code");
+        Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
+        String message = (String) resultMap.get("message");
+
+        if( result_code == 1 )
+            log.info("문자 발송 성공");
+        if( result_code == -1 )
+            log.info("문자 발송 실패");
+
+
+
+
 
         return result;
     }
@@ -184,6 +265,53 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
     public int reqConfirm(BookingRequests bookingRequests) throws Exception {
 
         int result = bookingRequestsMapper.reqConfirm(bookingRequests);
+        // 대관 신청자에게 예약완료되었다고 메세지 보내기
+        int br_no = bookingRequests.getBrNo();
+        BookingRequests br = bookingRequestsMapper.listBybrNo(br_no);
+        int fr_no = br.getFrNo();
+        FacilityRental facilityRental = facilityRentalMapper.select(fr_no);
+        MultiValueMap<String, String> map =  new LinkedMultiValueMap<>();
+         // ✅ 필수 정보
+        // - receiver       :   1) 01012341234
+        //                      2) 01011112222,01033334444
+        // - msg            : 문자 메시지 내용
+        // - testmode_yn    : 테스트 모드 여부 (Y-테스트⭕, N-테스트❌)
+        // receiver에 문자 받는 사람들의 전화번호를 "," 로 연결해서 넣어주세요.
+        // Title에 게시글의 제목을 입력해주세요
+        // liveDate에 공연일자를 입력해주세요.
+        // address에 공연장의 위치를 입력해주세요.
+        String receiver = br.getPhone();
+        String title = facilityRental.getTitle();
+        String liveDate = facilityRental.getLiveDate();
+        String address = facilityRental.getAddress();
+
+        String msg = "[Web발신]\n"+"LiveDom 대관 서비스\n" + title + "의 대관이 성사되었습니다. \n" +
+                                    "공연장 : " + address + "대관일자 : " + liveDate;
+        String testmode_yn = "Y";
+        map.add("receiver", receiver);
+        map.add("msg", msg);
+        map.add("testmode_yn", testmode_yn);
+
+        Map<String, Object> resultMap = smsService.send(map);
+        Object resultCode = resultMap.get("result_code");
+        Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
+        String message = (String) resultMap.get("message");
+
+        if( result_code == 1 )
+            log.info("문자 발송 성공");
+        if( result_code == -1 )
+            log.info("문자 발송 실패");
+
+
+
+
+
+
+
+
+
+
+
 
         if(result>0){
             result += bookingRequestsMapper.reqDeniedAll();

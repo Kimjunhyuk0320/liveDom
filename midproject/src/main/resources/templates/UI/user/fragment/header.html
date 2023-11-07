@@ -303,15 +303,18 @@
         .header > .header-inner > .top-menu-bar > ul ul ul {
             
         }
-
+        
         .header > .header-inner > .top-menu-bar > ul ul ul > li {
             margin-right:80px;
         }
-
-    </style>
+        
+        </style>
     
     <!-- 헤더 -->
     <header class="header">
+        <form action="/logout" method="POST" id="logoutForm">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        </form> 
         <div class="header-inner">
             <div class="logo img-box">
                 <a href="/">
@@ -364,15 +367,24 @@
                         </ul>
                         <div class="sub-menu-width sub-menu-width-4"></div>
                     </li>
-                    <li class="cells menu-5">
-                        <a href="/login">로그인</a>
-                        <ul>
-                            <li><a href="/login">로그인</a></li>
-                            <li><a href="/join">회원가입</a></li>
-                        </ul>
-                        <div class="sub-menu-width sub-menu-width-5"></div>
-                    </li>
-                </ul>
+                    <th:block th:if="${!#authorization.expression('isAuthenticated()')}">
+                        <li class="cells menu-5">
+                            <a href="/login">로그인</a>
+                            <ul>
+                                <li><a href="/login">로그인</a></li>
+                                <li><a href="/join">회원가입</a></li>
+                            </ul>
+                            <div class="sub-menu-width sub-menu-width-5"></div>
+                        </li>
+                    </th:block>
+                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                        <li class="cells ">
+                                <a href="#" onclick="logOut()">로그아웃</a>
+                                
+                                <div class="sub-menu-width sub-menu-width-5"></div>
+                            </li>
+                    </th:block>
+                    </ul>
                 <div class="sub-menu-bg"></div>
             </nav>
             
@@ -389,9 +401,15 @@
         </div>
     </header>
     
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
     <script>
+        function logOut(){
+            let form = $('#logoutForm')
+            form.submit()
+        }
+
+
+
         // 상단 메뉴 관련
         $('.header > .header-inner > .top-menu-bar > ul > li').mouseenter(function(){
             $(this).addClass('active');
