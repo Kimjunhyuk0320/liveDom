@@ -8,81 +8,72 @@
     <title>신청한 대관 내역</title>
     <link rel="stylesheet" href="/css/list.css">
 </head>
-
 <body layout:fragment="content">
     <!-- <div id="topContent"> -->
     <h2>My Page</h2>
     <h1>신청한 대관 내역</h1>
     <!-- </div> -->
-
     <div id="teamListContainer">
         <div class="tableContainer">
-
             <table style="margin-bottom: 100px;">
-                <tr>
-                    <th width="80">번호</th>
-                    <th width="270">대관글 제목</th>
-                    <th width="120">대관 연락처</th>
-                    <th width="100">대관인 성명</th>
-                    <th width="100">주소</th>
-                    <th width="150">계좌번호</th>
-                    <th width="100">입금여부</th>
-                    <th width="100">승인여부</th>
-                    <th width="100">신청취소</th>
-                </tr>
-                
-                
-                <th:block th:if="${rreqList != null}" th:each=" rreq : ${rreqList}">
+                <thead>
                     <tr>
-                        
-                        <td th:text="${rreq.brNo}"></td>
-                        <td th:text="${rreq.frTitle}"></td>
-                        <td th:text="${rreq.frPhone}"></td>
-                        <td th:text="${rreq.name}"></td>
-                        <td th:text="${rreq.frLocation}"></td>
-                        <td th:text="${rreq.frAccount}"></td>
-                        <th:block th:if="${rreq.depositStatus==0}">
-                            <td>미입금</td>
-                        </th:block>
-                        <th:block th:if="${rreq.depositStatus==1}">
-                            <td>입금확인</td>
-                        </th:block>
-                        <th:block th:if="${rreq.approvalStatus==0}">
-                            <td>미확인</td>
-                        </th:block>
-                        <th:block th:if="${rreq.approvalStatus==1}">
-                            <td>승인</td>
-                        </th:block>
-                        <th:block th:if="${rreq.approvalStatus==2}">
-                            <td>거절</td>
-                        </th:block>
-                        
-                        <td>
+                        <th width="80">번호</th>
+                        <th width="270">대관글 제목</th>
+                        <th width="120">대관 연락처</th>
+                        <th width="130">대관인 성명</th>
+                        <th width="100">주소</th>
+                        <th width="150">계좌번호</th>
+                        <th width="100">입금여부</th>
+                        <th width="100">승인여부</th>
+                        <th width="100">신청취소</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th:block th:if="${rreqList != null}" th:each=" rreq : ${rreqList}">
+                        <tr>
+                            <td th:text="${rreq.brNo}"></td>
+                            <td th:text="${rreq.frTitle}"></td>
+                            <td th:text="${rreq.frPhone}"></td>
+                            <td th:text="${rreq.name}"></td>
+                            <td th:text="${rreq.frLocation}"></td>
+                            <td th:text="${rreq.frAccount}"></td>
                             <th:block th:if="${rreq.depositStatus==0}">
-                                <form action="/facilityRental/reqDel" method="POST">
-                                    
-                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                                    <input type="hidden" name="brNo" th:value="${rreq.brNo}">
-                                    
-                                    <input type="submit" value="신청취소">
-                                    
-                                </form>
+                                <td>미입금</td>
                             </th:block>
-                        </td>
-                        
-                    </tr>
-                </th:block>
-                
-                <th:block th:if="${rreqList ==null}">
-                    
-                    <tr>
-                        <td colspan="9">조회된 내역이 없습니다.</td>
-                    </tr>
-                    
-                </th:block>
+                            <th:block th:if="${rreq.depositStatus==1}">
+                                <td>입금확인</td>
+                            </th:block>
+                            <th:block th:if="${rreq.approvalStatus==0}">
+                                <td>미확인</td>
+                            </th:block>
+                            <th:block th:if="${rreq.approvalStatus==1}">
+                                <td>승인</td>
+                            </th:block>
+                            <th:block th:if="${rreq.approvalStatus==2}">
+                                <td>거절</td>
+                            </th:block>
+                            <td>
+                                <th:block th:if="${rreq.depositStatus==0}">
+                                    <form action="/facilityRental/reqDel" method="POST">
+                                        
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                        <input type="hidden" name="brNo" th:value="${rreq.brNo}">
+                                        
+                                        <input type="submit" value="신청취소">
+                                    </form>
+                                </th:block>
+                            </td>
+                        </tr>
+                    </th:block>
+                    <th:block th:if="${rreqList.isEmpty()}">
+                        <tr>
+                            <td colspan="9">조회된 내역이 없습니다.</td>
+                        </tr>
+                    </th:block>
+                </tbody>
             </table>
         </div>
     </div>
 </body>
-
 </html>

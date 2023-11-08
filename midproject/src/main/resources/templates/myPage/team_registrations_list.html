@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/user/layout/main_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/UI/user/layout/main_layout}">
+
 <head>
-    <title>팀 참가 신청 목록</title>
+  <title>팀 참가 신청 목록</title>
+  <link rel="stylesheet" href="/css/list.css">
 </head>
+
 <body layout:fragment="content">
+  <div id="topContent">
     <h2>My Page</h2>
     <h1>팀 참가 신청 목록</h1>
+  </div>
 
-    <!-- 
-    <a href="/a/insert">글쓰기</a>
-    -->
-    
-    <table border="1">
-        <tr>
+  <div id="teamListContainer">
+    <div class="tableContainer">
+      <table style="margin-bottom: 100px;">
+        <thead>
+          <tr>
             <th width="50">번호</th>
             <th width="300">제목</th>
             <th width="120">연락처</th>
@@ -26,66 +28,69 @@
             <th width="80">입금 확인</th>
             <th width="80">승인</th>
             <th width="80">거절</th>
-        </tr>
+          </tr>
+        </thead>
+        <tbody>
+          <th:block th:each="resTeam : ${resTeamAppList}">
+            <tr th:onclick="'readApp('+${resTeam.appNo}+')'">
 
-        <th:block th:each="resTeam : ${resTeamAppList}">
-      <tr th:onclick="'readApp('+${resTeam.appNo}+')'">
-
-        <td th:text="${resTeam.appNo}"></td>
-        <td th:text="${resTeam.title}"></td>
-        <td th:text="${resTeam.phone}"></td>
-        <td th:text="${#dates.format(resTeam.updDate,'yyyy-MM-dd HH:mm:ss')}"></td>
-        <td th:text="${resTeam.username}"></td>
-        <th:block th:if="${resTeam.approvalStatus==0}">
+              <td th:text="${resTeam.appNo}"></td>
+              <td th:text="${resTeam.title}"></td>
+              <td th:text="${resTeam.phone}"></td>
+              <td th:text="${#dates.format(resTeam.updDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+              <td th:text="${resTeam.username}"></td>
+              <th:block th:if="${resTeam.approvalStatus==0}">
                 <td>미확인</td>
-              </th:block>
+            </th:block>
             <th:block th:if="${resTeam.approvalStatus==1}">
-                <td>승인</td>
-              </th:block>
+              <td>승인</td>
+            </th:block>
             <th:block th:if="${resTeam.approvalStatus==2}">
-                <td>거절</td>
-              </th:block>
-        <th:block th:if="${resTeam.depositStatus==1}">
-          <td>입금확정</td>
-        </th:block>
-      <th:block th:if="${resTeam.depositStatus==0}">
-          <td>미입금</td>
-        </th:block>
+              <td>거절</td>
+            </th:block>
+            <th:block th:if="${resTeam.depositStatus==1}">
+              <td>입금확정</td>
+            </th:block>
+            <th:block th:if="${resTeam.depositStatus==0}">
+              <td>미입금</td>
+            </th:block>
+            
+            
+            <td><form action="/team/app/confirmed" method="POST">
+              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+              <input type="hidden" name="appNo" th:value="${resTeam.appNo}">
+              <input type="hidden" name="teamNo" th:value="${resTeam.teamNo}">
+              <input type="submit" th:if="${resTeam.approvalStatus==1&& resTeam.depositStatus==0}" value="입금확인"></input>
+            </form></td>
+            
+            <td><form action="/team/app/accept" method="POST">
+              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+              <input type="hidden" th:name="appNo" th:value="${resTeam.appNo}">
+              <input type="submit" th:if="${resTeam.approvalStatus==0}" value="참가승인"></input>
+            </form></td>
+            
+            <td>
+              <form action="/team/app/denied" method="POST">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <input type="hidden" name="appNo" th:value="resTeam.appNo">
+                <input type="submit" th:if="${resTeam.approvalStatus==0}" value="참가거절"></input>
+              </form></td>
+              
+            </tr>
+            
+            
+            
+          </th:block>
+        </table>
+      </div>
+  </div>
+  </body>
+      <script>
 
-        
-        <td><form action="/team/app/confirmed" method="POST">
-          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-          <input type="hidden" name="appNo" th:value="${resTeam.appNo}">
-          <input type="hidden" name="teamNo" th:value="${resTeam.teamNo}">
-          <input type="submit" th:if="${resTeam.approvalStatus==1&& resTeam.depositStatus==0}" value="입금확인"></input>
-        </form></td>
+        let readApp = function(appNo){
+          location.href = `/team/user/readApp?appNo=${appNo}`
+        }
 
-        <td><form action="/team/app/accept" method="POST">
-          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-          <input type="hidden" th:name="appNo" th:value="${resTeam.appNo}">
-          <input type="submit" th:if="${resTeam.approvalStatus==0}" value="참가승인"></input>
-        </form></td>
-        
-        <td>
-          <form action="/team/app/denied" method="POST">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-            <input type="hidden" name="appNo" th:value="resTeam.appNo">
-            <input type="submit" th:if="${resTeam.approvalStatus==0}" value="참가거절"></input>
-          </form></td>
-
-      </tr>
-
-
-
-    </th:block>
-    </table>
-
-    <script>
-
-      let readApp = function(appNo){
-        location.href = `/team/user/readApp?appNo=${appNo}`
-      }
-
-    </script>
+      </script>
 </body>
 </html>

@@ -5,38 +5,43 @@
       >
 <head>
     <title>티켓 판매 내역</title>
+    <link rel="stylesheet" href="/css/list.css">
 </head>
 <body layout:fragment="content">
-    <h2>My Page</h2>
-    <h1>티켓 판매 내역</h1>
+    <!-- <div id="topContent"> -->
+        <h2>My Page</h2>
+        <h1>티켓 판매 내역</h1>
+    <!-- </div> -->
 
+    <div id="teamListContainer">
+        <div class="tableContainer">
+            <table style="margin-bottom: 100px;">
+                <thead>
+                    <tr>
+                        <th width="350">티켓 번호</th>
+                        <th width="300">공연명</th>
+                        <th width="100">성명</th>
+                        <th width="200">연락처</th>
+                        <th width="200">공연일자</th>
+                        <th width="200">구매일자</th>
+                        <th width="100">예매상태</th>
+                    </tr>
+                </thead>
 
-    <input type="hidden" id="username"  name="username" th:value="${#authentication.principal.users.username}" >
-    <table border="1">
-        <thead>
-            <tr>
-                <th width="350">티켓 번호</th>
-                <th width="300">공연명</th>
-                <th width="100">성명</th>
-                <th width="200">연락처</th>
-                <th width="200">공연일자</th>
-                <th width="200">구매일자</th>
-                <th width="100">예매상태</th>
-            </tr>
-        </thead>
-
-        <tbody id="ticket-data">
-            <tr>
-                <td>티켓번호</td>
-                <td>티켓번호</td>
-                <td>티켓번호</td>
-                <td>티켓번호</td>
-                <td>티켓번호</td>
-                <td>티켓번호</td>
-                <td>티켓번호</td>
-            </tr>
-        </tbody>
-    </table>
+                <tbody id="ticket-data">
+                    <tr>
+                        <td>티켓번호</td>
+                        <td>티켓번호</td>
+                        <td>티켓번호</td>
+                        <td>티켓번호</td>
+                        <td>티켓번호</td>
+                        <td>티켓번호</td>
+                        <td>티켓번호</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
     <script>
