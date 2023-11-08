@@ -162,7 +162,7 @@ public class UserController {
 
 
   //  유저 전화번호로 구매한 티켓 리스트 조회하기
-
+@ResponseBody
 	@RequestMapping(value = "/listByPhone")
 	public ResponseEntity<List<Ticket>> listByPhone(Users users) throws Exception {
 			List<Ticket> ticketList = userService.listByPhone(users);
@@ -170,8 +170,8 @@ public class UserController {
 	}
 
   //  유저 아이디로 판매한 티켓 리스트 조회하기
-
-
+@ResponseBody
+ @RequestMapping(value = "/listByUserName")
 	public ResponseEntity<List<Ticket>> listByUserName(Users users) throws Exception {
 			List<Ticket> ticketList = userService.listByUserName(users);
 	    return new ResponseEntity<List<Ticket>>(ticketList, HttpStatus.OK);

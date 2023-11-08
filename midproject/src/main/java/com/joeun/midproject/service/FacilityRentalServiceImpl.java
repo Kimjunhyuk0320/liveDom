@@ -32,8 +32,6 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
     @Autowired
     private BookingRequestsMapper bookingRequestsMapper;
 
-    @Autowired
-    private SMSService smsService;
 
     @Autowired
     private FileMapper fileMapper;
@@ -160,17 +158,6 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
         map.add("msg", msg);
         map.add("testmode_yn", testmode_yn);
 
-        Map<String, Object> resultMap = smsService.send(map);
-        Object resultCode = resultMap.get("result_code");
-        Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
-        String message = (String) resultMap.get("message");
-
-        if( result_code == 1 )
-            log.info("문자 발송 성공");
-        if( result_code == -1 )
-            log.info("문자 발송 실패");
-
-
 
 
 
@@ -244,34 +231,30 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
         map.add("msg", msg);
         map.add("testmode_yn", testmode_yn);
 
-        Map<String, Object> resultMap = smsService.send(map);
-        Object resultCode = resultMap.get("result_code");
-        Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
-        String message = (String) resultMap.get("message");
-
-        if( result_code == 1 )
-            log.info("문자 발송 성공");
-        if( result_code == -1 )
-            log.info("문자 발송 실패");
-
 
 
 
 
         return result;
     }
-
+    
     @Override
     public int reqConfirm(BookingRequests bookingRequests) throws Exception {
+        
+        int resultReqConfirm = 0;
+         resultReqConfirm = bookingRequestsMapper.reqConfirm(bookingRequests);
 
-        int result = bookingRequestsMapper.reqConfirm(bookingRequests);
+        if(resultReqConfirm>0){
+
+            int br_no = bookingRequests.getBrNo();
+            BookingRequests br = bookingRequestsMapper.listBybrNo(br_no);
+            int fr_no = br.getFrNo();
+            bookingRequests.setFrNo(fr_no);
+
         // 대관 신청자에게 예약완료되었다고 메세지 보내기
-        int br_no = bookingRequests.getBrNo();
-        BookingRequests br = bookingRequestsMapper.listBybrNo(br_no);
-        int fr_no = br.getFrNo();
         FacilityRental facilityRental = facilityRentalMapper.select(fr_no);
         MultiValueMap<String, String> map =  new LinkedMultiValueMap<>();
-         // ✅ 필수 정보
+        // ✅ 필수 정보
         // - receiver       :   1) 01012341234
         //                      2) 01011112222,01033334444
         // - msg            : 문자 메시지 내용
@@ -284,23 +267,14 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
         String title = facilityRental.getTitle();
         String liveDate = facilityRental.getLiveDate();
         String address = facilityRental.getAddress();
-
+        
         String msg = "[Web발신]\n"+"LiveDom 대관 서비스\n" + title + "의 대관이 성사되었습니다. \n" +
-                                    "공연장 : " + address + "대관일자 : " + liveDate;
+        "공연장 : " + address + "대관일자 : " + liveDate;
         String testmode_yn = "Y";
         map.add("receiver", receiver);
         map.add("msg", msg);
         map.add("testmode_yn", testmode_yn);
 
-        Map<String, Object> resultMap = smsService.send(map);
-        Object resultCode = resultMap.get("result_code");
-        Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
-        String message = (String) resultMap.get("message");
-
-        if( result_code == 1 )
-            log.info("문자 발송 성공");
-        if( result_code == -1 )
-            log.info("문자 발송 실패");
 
 
 
@@ -312,13 +286,12 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
 
 
 
-
-        if(result>0){
-            result += bookingRequestsMapper.reqDeniedAll();
-            result += bookingRequestsMapper.confirmUsername(bookingRequests);
+        
+            resultReqConfirm += bookingRequestsMapper.reqDeniedAll(bookingRequests);
+            resultReqConfirm += bookingRequestsMapper.confirmUsername(bookingRequests);
         }
 
-        return result;
+        return resultReqConfirm;
     }
 
     @Override

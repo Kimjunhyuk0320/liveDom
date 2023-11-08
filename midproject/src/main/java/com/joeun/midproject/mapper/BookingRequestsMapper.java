@@ -27,7 +27,7 @@ public interface BookingRequestsMapper {
     public int reqDenied(BookingRequests bookingRequests) throws Exception;
 
     //확정 시 나머지 예약 거절
-    public int reqDeniedAll() throws Exception;
+    public int reqDeniedAll(BookingRequests bookingRequests) throws Exception;
 
     //예약 신청 승인
     public int reqAccept(BookingRequests bookingRequests) throws Exception;

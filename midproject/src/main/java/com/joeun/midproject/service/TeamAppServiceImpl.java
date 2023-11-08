@@ -28,8 +28,6 @@ public class TeamAppServiceImpl implements TeamAppService{
   @Autowired
   private TeamMapper teamMapper;
 
-  @Autowired
-  private SMSService smsService;
 
   @Autowired
   private UserMapper userMapper;
@@ -59,15 +57,7 @@ public class TeamAppServiceImpl implements TeamAppService{
       map.add("msg", msg);
       map.add("testmode_yn", testmode_yn);
 
-      Map<String, Object> resultMap = smsService.send(map);
-      Object resultCode = resultMap.get("result_code");
-      Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
-      String message = (String) resultMap.get("message");
 
-      if( result_code == 1 )
-          log.info("문자 발송 성공");
-      if( result_code == -1 )
-          log.info("문자 발송 실패");
 
 
 
@@ -132,17 +122,6 @@ public class TeamAppServiceImpl implements TeamAppService{
       map.add("receiver", receiver);
       map.add("msg", msg);
       map.add("testmode_yn", testmode_yn);
-
-      Map<String, Object> resultMap = smsService.send(map);
-      Object resultCode = resultMap.get("result_code");
-      Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
-      String message = (String) resultMap.get("message");
-
-      if( result_code == 1 )
-          log.info("문자 발송 성공");
-      if( result_code == -1 )
-          log.info("문자 발송 실패");
-
 
 
 
@@ -227,16 +206,6 @@ public class TeamAppServiceImpl implements TeamAppService{
       map.add("receiver", receiver);
       map.add("msg", msg);
       map.add("testmode_yn", testmode_yn);
-
-      Map<String, Object> resultMap = smsService.send(map);
-      Object resultCode = resultMap.get("result_code");
-      Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
-      String message = (String) resultMap.get("message");
-
-      if( result_code == 1 )
-          log.info("문자 발송 성공");
-      if( result_code == -1 )
-          log.info("문자 발송 실패");
 
 
 
