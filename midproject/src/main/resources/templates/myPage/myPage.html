@@ -7,11 +7,57 @@
 </head>
 <body>
     <h2>ID</h2>
-    <h1>kyocha_nnnnnnn</h1>
+    <h1 th:text="${#authentication.principal.users.username}"></h1>
 
+    
     <section>
+
         <img src="" alt="">
+
         <button>내정보</button>
+
+        <th:block sec:authorize="hasRole('ROLE_USER')">
+
+        <div class="mypage-btn" id="mypage-btn-ticket-purchase-list">
+            <span>티켓 구매 내역</span>
+        </div>
+        
+    </th:block>
+    
+    <th:block sec:authorize="hasRole('ROLE_CLUB')">
+        <div class="mypage-btn" id="mypage-btn-received-rental-list">
+            <span>받은 대관 신청 내역 </span>
+        </div>
+        <div class="mypage-btn" id="mypage-btn-ticket-sales-list">
+            <span>티켓 판매 현황</span>
+        </div>
+        <div class="mypage-btn" id="mypage-btn-ticket-purchase-list">
+            <span>티켓 구매 내역</span>
+        </div>
+        
+    </th:block>
+    
+    <th:block sec:authorize="hasRole('ROLE_BAND')">
+            <div class="mypage-btn" id="">
+                <span></span>
+            </div>
+            <div class="mypage-btn">
+                <span></span>
+            </div>
+            <div class="mypage-btn">
+                <span></span>
+            </div>
+            <div class="mypage-btn">
+                <span></span>
+            </div>
+            <div class="mypage-btn">
+                <span></span>
+            </div>
+            <div class="mypage-btn">
+                <span></span>
+            </div>
+    
+        </th:block>
         <button>티켓 구매 현황</button>
     </section>
 </body>

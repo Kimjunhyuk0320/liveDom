@@ -284,8 +284,6 @@ public class FacilityRentalController {
     }
 
 
-
-  @CrossOrigin(origins = "*")
   @ResponseBody
   @GetMapping(value = "/pageInfoFr", produces = "application/json")
   public PageInfo pageInfoFr(PageInfo pageInfo){
@@ -302,11 +300,9 @@ public class FacilityRentalController {
     
   }
 
-  @CrossOrigin(origins = "*")
   @ResponseBody
   @GetMapping(value="/pageFrList", produces = "application/json")
   public List<FacilityRental> confirmedLiveList(Team team, Principal principal)throws Exception{
-    
     
     List<FacilityRental> pageListResult = facilityRentalService.pageFrList(team);
     
@@ -323,7 +319,6 @@ public class FacilityRentalController {
 
   
   @ResponseBody
-  @CrossOrigin(origins="*")
   @GetMapping(value="/commentList", produces = "application/json")
   public List<Comment> commentList(Comment comment) {
     comment.setParentTable("facility_rental");
@@ -337,7 +332,6 @@ public class FacilityRentalController {
   }
 
   @ResponseBody
-  @CrossOrigin(origins="*")
   @GetMapping(value="/commentInsert")
   public String commentInsert(Comment comment) {
 
@@ -353,7 +347,6 @@ public class FacilityRentalController {
   }
 
   @ResponseBody
-  @CrossOrigin(origins="*")
   @GetMapping(value="/commentDelete")
   public String commentDelete(Comment comment) {
 
@@ -369,7 +362,6 @@ public class FacilityRentalController {
   }
 
   @ResponseBody
-  @CrossOrigin(origins="*")
   @GetMapping(value="/commentUpdate")
   public String commentUpdate(Comment comment) {
 

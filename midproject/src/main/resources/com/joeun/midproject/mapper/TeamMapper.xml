@@ -223,4 +223,10 @@ WHERE
     LIMIT #{pageNo}, #{rows};
   </select>
 
+
+  <update id="confirmed">
+    UPDATE `team_recruitments` SET confirmed = 1
+    WHERE team_no = #{teamNo}
+  </update>
+
 </mapper>

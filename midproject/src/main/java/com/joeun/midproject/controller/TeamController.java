@@ -62,10 +62,8 @@ public class TeamController {
 
 
 
-
-  @CrossOrigin(origins = "*")
   @ResponseBody
-  @GetMapping(value = "/pageInfo", produces = "application/json")
+  @RequestMapping(value = "/pageInfo")
   public PageInfo pageInfo(
   PageInfo pageInfo){
     pageInfo.setTable("team_recruitments");
@@ -82,9 +80,8 @@ public class TeamController {
   }
 
 
-  @CrossOrigin(origins = "*")
   @ResponseBody
-  @GetMapping(value="/pageList", produces = "application/json")
+  @RequestMapping(value="/pageList")
   public List<Team> pageList(@RequestParam("pageNo") int pageNo,
   @RequestParam("rows") int rows,
   @RequestParam("searchType") int searchType,
@@ -159,6 +156,8 @@ public class TeamController {
       model.addAttribute("team",readTeam);
 
       model.addAttribute("teamList", teamService.list());
+
+      log.info(readTeam.toString());
 
       return "team/read";
   }
@@ -302,7 +301,6 @@ public class TeamController {
     return "myPage/completed_performances_list";
   }
   
-  @CrossOrigin(origins = "*")
   @ResponseBody
   @GetMapping(value = "/pageInfoConfirmedLive", produces = "application/json")
   public PageInfo pageInfoConfirmedLIve(PageInfo pageInfo){
@@ -319,7 +317,6 @@ public class TeamController {
     
   }
 
-  @CrossOrigin(origins = "*")
   @ResponseBody
   @GetMapping(value="/confirmedLiveList", produces = "application/json")
   public List<Team> confirmedLiveList(Team team, Principal principal) {
@@ -347,7 +344,6 @@ public class TeamController {
 
 
   @ResponseBody
-  @CrossOrigin(origins="*")
   @GetMapping(value="/commentList", produces = "application/json")
   public List<Comment> commentList(Comment comment) {
     comment.setParentTable("team_recruitments");
@@ -361,7 +357,6 @@ public class TeamController {
   }
 
   @ResponseBody
-  @CrossOrigin(origins="*")
   @GetMapping(value="/commentInsert")
   public String commentInsert(Comment comment) {
 
@@ -377,7 +372,6 @@ public class TeamController {
   }
 
   @ResponseBody
-  @CrossOrigin(origins="*")
   @GetMapping(value="/commentDelete")
   public String commentDelete(Comment comment) {
 
@@ -393,7 +387,6 @@ public class TeamController {
   }
 
   @ResponseBody
-  @CrossOrigin(origins="*")
   @GetMapping(value="/commentUpdate")
   public String commentUpdate(Comment comment) {
 
