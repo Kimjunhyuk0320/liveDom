@@ -236,12 +236,12 @@
             for(let i = 0 ; i < teamList.length ; i++ ){
 
                 let tr =``
-                if(teamList[i].thumbnail!=null){
-                tr+=`<img src="/file/img/${teamList[i].thumbnail.fileNo}" alt="썸네일">`
-                }
                 tr+=`
             <a href="/facilityRental/read?frNo=${teamList[i].frNo}">
                 `
+                if(teamList[i].thumbnail!=null){
+                tr+=`<img src="/file/img/${teamList[i].thumbnail.fileNo}" alt="썸네일">`
+                }
                 if(teamList[i].buyUsername!=null){
                     tr+= `<span>(예약종료)</span>`
                 }

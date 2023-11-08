@@ -16,5 +16,6 @@ public class Files {
     private long fileSize;
     private String originName;
     private Date updDate;
+    private String parentUsername;
 
 }

@@ -22,7 +22,8 @@ public interface UserMapper {
     // 회원 연락처 조회
     public Users readOnlyPhone(String phone);
     
-    
+    //회원 프로필사진 번호 등록
+    public int profileSet(Users users);
 
     
     

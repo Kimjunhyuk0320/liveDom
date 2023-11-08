@@ -16,7 +16,7 @@ public interface UserService {
   // 회원 연락처 조회
   public Users readOnlyPhone(String phone);
 
-  public int insert(Users users);
+  public int insert(Users users) throws Exception;
 
   public int update(Users users);
 
