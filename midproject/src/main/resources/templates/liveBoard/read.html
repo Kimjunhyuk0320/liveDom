@@ -85,7 +85,7 @@
 
         </table>
     </form>
-    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+    <th:block sec:authorize="isAuthenticated()">
         <form action="/liveBoard/purchase" method="POST" id="purchase">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="_csrf"/>
             <input type="hidden" id="boardNo"    name="boardNo" th:value="${liveBoard.boardNo}">
@@ -100,7 +100,7 @@
 
     <div>
         <button type="button" onclick="moveList()">목록</button>
-        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+        <th:block sec:authorize="isAuthenticated()">
 
             <button type="button" onclick="moveUpdate()" th:if="${#authentication.principal.users.username == liveBoard.username}">수정</button>
         </th:block>
