@@ -41,4 +41,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE username = #{username}
     </update>
 
+    <update id="profileSet">
+    
+        UPDATE `user`
+        SET profile_no = #{profileNo}
+        WHERE username = #{username}
+    </update>
+
 </mapper>

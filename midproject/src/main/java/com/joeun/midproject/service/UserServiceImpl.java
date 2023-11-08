@@ -1,14 +1,21 @@
 package com.joeun.midproject.service;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.joeun.midproject.dto.Files;
 import com.joeun.midproject.dto.LiveBoard;
 import com.joeun.midproject.dto.Ticket;
 import com.joeun.midproject.dto.Users;
+import com.joeun.midproject.mapper.FileMapper;
 import com.joeun.midproject.mapper.LiveBoardMapper;
 import com.joeun.midproject.mapper.TicketMapper;
 import com.joeun.midproject.mapper.UserMapper;
@@ -27,6 +34,15 @@ public class UserServiceImpl implements UserService{
 
   @Autowired
   private LiveBoardMapper liveBoardMapper;
+
+  @Autowired
+  private FileMapper fileMapper;
+
+  @Value("${upload.path}")
+  private String uploadPath;
+
+
+
   // 유저 조회
   @Override
   public Users read(String username) {
@@ -47,14 +63,63 @@ public class UserServiceImpl implements UserService{
 
   // 회원가입
   @Override
-  public int insert(Users users) {
+  public int insert(Users users) throws Exception{
 
     users.setPassword(passwordEncoder.encode(users.getPassword()));
 
     int result = userMapper.insert(users);
 
-    return result;
+    if(result>0){
+      // 파일 업로드 
+        MultipartFile file = users.getFile();
+
+        if(file!=null&&file.isEmpty()){
+
+        
+
+
+            // 파일 정보 : 원본파일명, 파일 용량, 파일 데이터 
+            String originName = file.getOriginalFilename();
+            long fileSize = file.getSize();
+            byte[] fileData = file.getBytes();
+            
+            // 업로드 경로
+            // 파일명 중복 방지 방법(정책)
+            // - 날짜_파일명.확장자
+            // - UID_파일명.확장자
+
+            // UID_강아지.png
+            String fileName = UUID.randomUUID().toString() + "_" + originName;
+
+            // c:/upload/UID_강아지.png
+            String filePath = uploadPath + "/" + fileName;
+
+            // 파일업로드
+            // - 서버 측, 파일 시스템에 파일 복사
+            // - DB 에 파일 정보 등록
+            File uploadFile = new File(uploadPath, fileName);
+            FileCopyUtils.copy(fileData, uploadFile);       // 파일 업로드
+
+            // FileOutputStream fos = new FileOutputStream(uploadFile);
+            // fos.write(fileData);
+            // fos.close();
+
+            Files uploadedFile = new Files();
+            uploadedFile.setParentTable("users");
+            uploadedFile.setParentUsername(users.getUsername());
+            uploadedFile.setFileName(fileName);
+            uploadedFile.setPath(filePath);
+            uploadedFile.setOriginName(originName);
+            uploadedFile.setFileSize(fileSize);
+            uploadedFile.setFileCode(2);
+
+            fileMapper.insert(uploadedFile);
+            users.setProfileNo(fileMapper.selectProfile(users).getFileNo());
+            userMapper.profileSet(users);
+    }
   }
+  return result;
+}
 
   // 회원 정보 수정
   @Override

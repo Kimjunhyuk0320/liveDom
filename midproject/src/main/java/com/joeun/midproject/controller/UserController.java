@@ -67,7 +67,7 @@ public class UserController {
   }
   
   @PostMapping(value="/join")
-  public String joinPro(Users users) {
+  public String joinPro(Users users) throws Exception{
 
     int result = userService.insert(users);
 
@@ -189,6 +189,14 @@ public class UserController {
   public String ticketSales() {
       return "/myPage/ticket_sales_list";
   }
+
+  @GetMapping(value="/myPage/myInfo")
+  public String myInfo() {
+
+      return "/myPage/myInfo";
+  }
+
+  
   
 
 }

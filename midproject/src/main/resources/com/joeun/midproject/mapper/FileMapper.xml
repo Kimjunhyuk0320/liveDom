@@ -81,5 +81,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT MAX(file_no)
         FROM file
     </select>
+
+    <select id="selectProfile" resultType="users">
+    
+        SELECT file_no
+        FROM `file`
+        WHERE parent_username = #{username}
+    </select>
     
 </mapper>
