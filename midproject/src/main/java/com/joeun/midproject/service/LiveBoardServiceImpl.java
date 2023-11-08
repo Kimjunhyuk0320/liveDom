@@ -171,7 +171,6 @@ public class LiveBoardServiceImpl implements LiveBoardService{
 
 
 
-        log.info(result + "");
         return result;
     }
 
@@ -213,7 +212,6 @@ public class LiveBoardServiceImpl implements LiveBoardService{
         ticket.setReservationNo(reservationNo);
         int result = ticketMapper.insert(ticket);
 
-        log.info("메세지 발송 테스트 1111" + ticket);
 
 
         String phone = ticket.getPhone();
@@ -225,7 +223,6 @@ public class LiveBoardServiceImpl implements LiveBoardService{
         String address = liveBoard.getAddress();
         String name = ticket.getName();
 
-        log.info("메세지 발송 테스트 2222" + liveBoard);
         
         
         MultiValueMap<String, String> map =  new LinkedMultiValueMap<>();
@@ -235,14 +232,14 @@ public class LiveBoardServiceImpl implements LiveBoardService{
         // - msg            : 문자 메시지 내용
         // - testmode_yn    : 테스트 모드 여부 (Y-테스트⭕, N-테스트❌)
         String receiver = phone;
-        String msg = "[Web발신]\n"+"LiveDom 공연\n" + title + "에 대한 티켓 구매가 완료되었습니다. \n" + "예매번호 : " + reservationNo + 
+        String msg = "LiveDom 공연\n \"" + title + "\"에 대한 티켓 구매가 완료되었습니다. \n" + "예매번호 : " + reservationNo + 
         "\n 예매자 명 : " + name + "\n 공연일자 : " + liveDate + "\n 공연시간 : " + time + "\n 주소 : " + address;
         String testmode_yn = "Y";
         map.add("receiver", receiver);
         map.add("msg", msg);
         map.add("testmode_yn", testmode_yn);
         
-        log.info("메세지 발송 테스트 333 메세지 : " + msg + " 전화번호 : "+ receiver);
+        log.info("메세지 발송 테스트  메세지 : " + msg + " 전화번호 : "+ receiver);
         Map<String, Object> resultMap = smsService.send(map);
         log.info(resultMap + "");
         Object resultCode = resultMap.get("result_code");

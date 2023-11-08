@@ -69,11 +69,9 @@ public class LiveBoardController {
     pageInfo.setTable("live_board");
     pageInfo.setTotalCount(teamMapper.totalCount(pageInfo));
 
-    log.info(pageInfo.toString());
 
     PageInfo pageInfoResult = teamMapper.pageInfo(pageInfo);
 
-    log.info(pageInfoResult.toString());
     return pageInfoResult;
     
   }
@@ -82,13 +80,9 @@ public class LiveBoardController {
   @GetMapping(value="/liveBoardPageList", produces = "application/json")
   public List<LiveBoard> liveBoardPageList(Team team) throws Exception{
     
-    log.info("공연성사 요청값"+(team.toString()));
     
     List<LiveBoard> pageListResult = liveBoardService.liveBoardPageList(team);
     
-    for (LiveBoard team2 : pageListResult) {
-      log.info("공연성사 리스트 : "+team2.toString());
-    }
     
     return pageListResult;
   }
@@ -141,7 +135,6 @@ public class LiveBoardController {
         String liveEndTime = liveBoard.getLiveEndTime();
         String liveTime = liveStTime + " ~ " + liveEndTime;
         liveBoard.setLiveTime(liveTime);
-        log.info(liveBoard + "");
         int result = liveBoardService.insert(liveBoard);
 
         // 게시글 쓰기 실패 ➡ 게시글 쓰기 화면
@@ -192,7 +185,6 @@ public class LiveBoardController {
     @Secured({"ROLE_USER", "ROLE_BAND", "ROLE_CLUB"})
     @PostMapping(value="/purchase")
     public String ticket(Ticket ticket, int count) throws Exception {
-        log.info("ajax 티켓 구매 처리 테스트");
         int boardNo = ticket.getBoardNo();
         int totalTicketCount = liveBoardService.select(boardNo).getMaxTickets();
         List<Ticket> ticketList = liveBoardService.listByBoardNo(boardNo);
@@ -220,7 +212,6 @@ public class LiveBoardController {
         int afterCount = totalTicketCount - afterTicketCount;
         if((Integer)afterCount == 0 ){
             int update = liveBoardService.soldOut(boardNo);
-            log.info( "잔여 티켓수 0 일시 매진으로 전환 : " + update);
         }
         // 성공응답
         return "SUCCESS";
@@ -246,12 +237,8 @@ public class LiveBoardController {
   @GetMapping(value="/commentList", produces = "application/json")
   public List<Comment> commentList(Comment comment) {
     comment.setParentTable("live_board");
-    log.info(comment.toString());
     List<Comment> commentList = commentService.commentList(comment);
 
-    for (Comment comment2 : commentList) {
-      log.info(comment2.toString());
-    }
     return commentList;
   }
 
