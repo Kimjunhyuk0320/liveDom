@@ -76,6 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SELECT *
     FROM `team_applications`
     WHERE team_no = #{teamNo}
+    AND deposit_status = 1;
   </select>
 
   <insert id="insertLive">

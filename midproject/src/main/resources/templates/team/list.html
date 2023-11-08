@@ -304,7 +304,7 @@
                 'keyword': keyword,
             }
 
-            const url = 'http://127.0.0.1:8080/team/pageInfo'
+            const url = 'http://localhost:8080/team/pageInfo'
 
             $.ajax({
                 url: url,
@@ -382,7 +382,7 @@
 
         // 게시글 목록 - 페이징
         function getPageList() {
-            const url = 'http://127.0.0.1:8080/team/pageList'
+            const url = 'http://localhost:8080/team/pageList'
 
             let data = {
                 'pageNo': page,
@@ -497,7 +497,7 @@
                 'order': order,
             }
 
-            const url = 'http://127.0.0.1:8080/team/pageList'
+            const url = 'http://localhost:8080/team/pageList'
 
             $.ajax({
                 url: url,
@@ -536,7 +536,7 @@
                 order: order,
             }
 
-            const url = 'http://127.0.0.1:8080/team/pageList'
+            const url = 'http://localhost:8080/team/pageList'
 
             $.ajax({
                 url: url,

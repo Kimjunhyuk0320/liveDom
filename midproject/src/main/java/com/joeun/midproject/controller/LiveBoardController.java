@@ -63,7 +63,6 @@ public class LiveBoardController {
         return "liveBoard/list";
     }
 
-  @CrossOrigin(origins = "*")
   @ResponseBody
   @GetMapping(value = "/pageInfoLiveBoard", produces = "application/json")
   public PageInfo pageInfoLiveBoard(PageInfo pageInfo){
@@ -79,7 +78,6 @@ public class LiveBoardController {
     
   }
 
-  @CrossOrigin(origins = "*")
   @ResponseBody
   @GetMapping(value="/liveBoardPageList", produces = "application/json")
   public List<LiveBoard> liveBoardPageList(Team team) throws Exception{
@@ -245,7 +243,6 @@ public class LiveBoardController {
 
     
   @ResponseBody
-  @CrossOrigin(origins="*")
   @GetMapping(value="/commentList", produces = "application/json")
   public List<Comment> commentList(Comment comment) {
     comment.setParentTable("live_board");
@@ -259,7 +256,6 @@ public class LiveBoardController {
   }
 
   @ResponseBody
-  @CrossOrigin(origins="*")
   @GetMapping(value="/commentInsert")
   public String commentInsert(Comment comment) {
 
@@ -275,7 +271,6 @@ public class LiveBoardController {
   }
 
   @ResponseBody
-  @CrossOrigin(origins="*")
   @GetMapping(value="/commentDelete")
   public String commentDelete(Comment comment) {
 
@@ -291,7 +286,6 @@ public class LiveBoardController {
   }
 
   @ResponseBody
-  @CrossOrigin(origins="*")
   @GetMapping(value="/commentUpdate")
   public String commentUpdate(Comment comment) {
 

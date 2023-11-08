@@ -190,6 +190,14 @@ public class TeamAppServiceImpl implements TeamAppService{
       //공연성사 데이터 삽입
       teamAppMapper.insertLive(teamApp);
 
+      String tempString = "";
+      for (int i = 0; i<confirmedTeamAppList.size();i++) {
+        if(i<confirmedTeamAppList.size()-1)
+        tempString += confirmedTeamAppList.get(i).getPhone() + ",";
+      else
+        tempString += confirmedTeamAppList.get(i).getPhone();
+      }
+
       MultiValueMap<String, String> map =  new LinkedMultiValueMap<>();
       // ✅ 필수 정보
       // - receiver       :   1) 01012341234
@@ -200,10 +208,10 @@ public class TeamAppServiceImpl implements TeamAppService{
       // Title에 게시글의 제목을 입력해주세요
       // liveDate에 공연일자를 입력해주세요.
       // address에 공연장의 위치를 입력해주세요.
-      String receiver = "";
-      String title = "";
-      String liveDate = "";
-      String address = "";
+      String receiver = tempString;
+      String title = "『"+team.getTitle()+"』";
+      String liveDate = team.getLiveDate();
+      String address = team.getAddress();
       
       String msg = "[Web발신]\n"+"LiveDom 팀 모집 서비스\n" + title + "의 공연이 성사되었습니다. \n" +
                                  "공연장 : " + address + "공연일자 : " + liveDate;
