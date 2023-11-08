@@ -1,64 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/user/layout/main_layout}"
+      >
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyPage</title>
+    <title>마이페이지</title>
 </head>
-<body>
+<body layout:fragment="content">
     <h2>ID</h2>
     <h1 th:text="${#authentication.principal.users.username}"></h1>
 
     
     <section>
 
-        <img src="" alt="">
+        <!-- 프로필 사진 쏴주기 -->
+        <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.users.profileNo != null}">
+        <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진">
+        </th:block>
 
-        <button>내정보</button>
+        <div class="mypage-btn" onclick="moveUser('/myPage/myInfo')">
+            <span>내 정보</span>
+        </div>
 
         <th:block sec:authorize="hasRole('ROLE_USER')">
 
-        <div class="mypage-btn" id="mypage-btn-ticket-purchase-list">
+        <div class="mypage-btn" onclick="moveUser('/myPage/ticket_purchase_list')">
             <span>티켓 구매 내역</span>
         </div>
         
     </th:block>
     
+
+
     <th:block sec:authorize="hasRole('ROLE_CLUB')">
-        <div class="mypage-btn" id="mypage-btn-received-rental-list">
+        <div class="mypage-btn" onclick="moveFr('/user/receivedList')">
             <span>받은 대관 신청 내역 </span>
         </div>
-        <div class="mypage-btn" id="mypage-btn-ticket-sales-list">
+        <div class="mypage-btn" onclick="moveUser('/myPage/ticket_sales_list')">
             <span>티켓 판매 현황</span>
         </div>
-        <div class="mypage-btn" id="mypage-btn-ticket-purchase-list">
+        <div class="mypage-btn" onclick="moveUser('/myPage/ticket_purchase_list')">
             <span>티켓 구매 내역</span>
         </div>
-        
     </th:block>
     
+
+
     <th:block sec:authorize="hasRole('ROLE_BAND')">
-            <div class="mypage-btn" id="">
-                <span></span>
+
+            <div class="mypage-btn" onclick="moveUser('/myPage/ticket_purchase_list')">
+                <span>티켓 구매 내역</span>
             </div>
-            <div class="mypage-btn">
-                <span></span>
+            <div class="mypage-btn" onclick="moveUser('/myPage/ticket_sales_list')">
+                <span>티켓 판매 내역</span>
             </div>
-            <div class="mypage-btn">
-                <span></span>
+
+            <div class="mypage-btn" onclick="moveTeam('/user/listByLeader')">
+                <span>팀 모집 현황</span>
             </div>
-            <div class="mypage-btn">
-                <span></span>
+
+            <div class="mypage-btn" onclick="moveTeam('/user/listByMember')">
+                <span>팀 참가 신청 목록</span>
             </div>
-            <div class="mypage-btn">
-                <span></span>
+
+            <div class="mypage-btn" onclick="moveTeam('/user/listByConfirmedLive')">
+                <span>성사된 공연 목록</span>
             </div>
-            <div class="mypage-btn">
-                <span></span>
+
+            <div class="mypage-btn" onclick="moveFr('/user/reqList')">
+                <span>예약 신청한 대관 내역</span>
             </div>
     
         </th:block>
-        <button>티켓 구매 현황</button>
     </section>
+
+    <script>
+
+        let moveUser = function(url){
+            location.href = `${url}`
+        }
+
+        let moveTeam = function(url){
+            location.href = `/team${url}`
+        }
+
+        let moveFr = function(url){
+            location.href = `/facilityRental${url}`
+        }
+
+    </script>
 </body>
 </html>

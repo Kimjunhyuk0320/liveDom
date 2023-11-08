@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.joeun.midproject.dto.Files;
+import com.joeun.midproject.dto.Users;
 
 @Mapper
 public interface FileMapper {
@@ -27,4 +28,7 @@ public interface FileMapper {
     
     // 파일 최고 Pk 조회
     public int maxPk() throws Exception;
+
+    public Files selectProfile(Users users)throws Exception;
+
 }

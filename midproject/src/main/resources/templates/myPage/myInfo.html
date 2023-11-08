@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/user/layout/main_layout}"
+      >
+<head>
+    <title>내 정보</title>
+</head>
+<body layout:fragment="content">
+
+  <table>
+    <tr>
+      <td>ID</td>
+      <td th:text="${#authentication.principal.users.username}"></td>
+    </tr>
+    <tr>
+      <td>성명</td>
+      <td th:text="${#authentication.principal.users.name}"></td>
+    </tr>
+    <tr>
+      <td>닉네임</td>
+      <td th:text="${#authentication.principal.users.nickname}"></td>
+    </tr>
+    <tr>
+      <td>소속</td>
+      <td th:text="${#authentication.principal.users.auth}"></td>
+    </tr>
+    <tr>
+      <td>연락처</td>
+      <td th:text="${#authentication.principal.users.phone}"></td>
+    </tr>
+    <tr>
+      <td>이메일</td>
+      <td th:text="${#authentication.principal.users.email}"></td>
+    </tr>
+    <tr>
+      <td>갱신일자</td>
+      <td th:text="${#dates.format(#authentication.principal.users.updDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+    </tr>
+
+  </table>
+
+</body>
+</html>
