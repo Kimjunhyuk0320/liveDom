@@ -137,11 +137,7 @@
             <p th:utext="${liveBoard.content}"></p>
         </div>
         
-        <!-- 댓글 목록 -->
-        <div id="comment-list">
-
-        </div>
-
+        
         <!-- 댓글 입력 -->
         <div class="input-box">
             <div class="top">
@@ -151,13 +147,17 @@
                 <input type="text" name="writer" id="comment-writer" placeholder="작성자" th:value="${#authentication.principal.users.nickname}" readonly>
                 <br>
                 <textarea name="content" id="comment-content" 
-                        cols="60" rows="5" placeholder="댓글을 작성해주세요"></textarea>
+                cols="60" rows="5" placeholder="댓글을 작성해주세요"></textarea>
                 <div class="btn-box">
                     <a href="javascript:;" id="btn-comment-insert" class="btn btn-sm">등록</a>
                 </div>
             </div>
         </div>
+        
+        <!-- 댓글 목록 -->
+        <div id="comment-list">
 
+        </div>
 
     </div>
 
