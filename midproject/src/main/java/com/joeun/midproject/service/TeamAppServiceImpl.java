@@ -32,6 +32,9 @@ public class TeamAppServiceImpl implements TeamAppService{
   @Autowired
   private UserMapper userMapper;
 
+  @Autowired
+  private SMSService smsService;
+
   @Override
   public int insert(TeamApp teamApp) {
 
@@ -56,6 +59,17 @@ public class TeamAppServiceImpl implements TeamAppService{
       map.add("receiver", receiver);
       map.add("msg", msg);
       map.add("testmode_yn", testmode_yn);
+
+      log.info("메세지 발송 테스트 333 메세지 : " + msg + " 전화번호 : "+ receiver);
+      Map<String, Object> resultMap = smsService.send(map);
+      log.info(resultMap + "");
+      Object resultCode = resultMap.get("result_code");
+      Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
+      String message = (String) resultMap.get("message");
+      if( result_code == 1 )
+          log.info("문자 발송 성공 : " + message);
+      if( result_code == -1 )
+          log.info("문자 발송 실패 : " + message);
 
 
 
@@ -122,6 +136,21 @@ public class TeamAppServiceImpl implements TeamAppService{
       map.add("receiver", receiver);
       map.add("msg", msg);
       map.add("testmode_yn", testmode_yn);
+
+      log.info("메세지 발송 테스트 333 메세지 : " + msg + " 전화번호 : "+ receiver);
+      Map<String, Object> resultMap = smsService.send(map);
+      log.info(resultMap + "");
+      Object resultCode = resultMap.get("result_code");
+      Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
+      String message = (String) resultMap.get("message");
+      if( result_code == 1 )
+          log.info("문자 발송 성공 : " + message);
+      if( result_code == -1 )
+          log.info("문자 발송 실패 : " + message);
+
+
+
+
 
 
 
@@ -206,6 +235,17 @@ public class TeamAppServiceImpl implements TeamAppService{
       map.add("receiver", receiver);
       map.add("msg", msg);
       map.add("testmode_yn", testmode_yn);
+
+       log.info("메세지 발송 테스트 333 메세지 : " + msg + " 전화번호 : "+ receiver);
+      Map<String, Object> resultMap = smsService.send(map);
+      log.info(resultMap + "");
+      Object resultCode = resultMap.get("result_code");
+      Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
+      String message = (String) resultMap.get("message");
+      if( result_code == 1 )
+          log.info("문자 발송 성공 : " + message);
+      if( result_code == -1 )
+          log.info("문자 발송 실패 : " + message);
 
 
 

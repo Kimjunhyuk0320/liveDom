@@ -2,12 +2,15 @@ package com.joeun.midproject.service;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.joeun.midproject.dto.Files;
@@ -20,6 +23,7 @@ import com.joeun.midproject.mapper.FileMapper;
 import com.joeun.midproject.mapper.LiveBoardMapper;
 import com.joeun.midproject.mapper.TeamMapper;
 import com.joeun.midproject.mapper.TicketMapper;
+import com.joeun.midproject.service.SMSService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,6 +41,10 @@ public class LiveBoardServiceImpl implements LiveBoardService{
 
     @Autowired
     private TeamMapper teamMapper;
+
+    @Autowired
+    private SMSService smsService;
+
 
     @Value("${upload.path}")            // application.properties 에 설정한 업로드 경로 속성명
     private String uploadPath;          // 업로드 경로
@@ -204,6 +212,62 @@ public class LiveBoardServiceImpl implements LiveBoardService{
         String reservationNo = "T" + reservationUuid;
         ticket.setReservationNo(reservationNo);
         int result = ticketMapper.insert(ticket);
+
+        log.info("메세지 발송 테스트 1111" + ticket);
+
+
+        String phone = ticket.getPhone();
+        int boardNo = ticket.getBoardNo();
+        LiveBoard liveBoard = liveBoardMapper.select(boardNo);
+        String title = liveBoard.getTitle();
+        String liveDate = liveBoard.getLiveDate();
+        String time = liveBoard.getLiveTime();
+        String address = liveBoard.getAddress();
+        String name = ticket.getName();
+
+        log.info("메세지 발송 테스트 2222" + liveBoard);
+        
+        
+        MultiValueMap<String, String> map =  new LinkedMultiValueMap<>();
+        // ✅ 필수 정보
+        // - receiver       :   1) 01012341234
+        //                      2) 01011112222,01033334444
+        // - msg            : 문자 메시지 내용
+        // - testmode_yn    : 테스트 모드 여부 (Y-테스트⭕, N-테스트❌)
+        String receiver = phone;
+        String msg = "[Web발신]\n"+"LiveDom 공연\n" + title + "에 대한 티켓 구매가 완료되었습니다. \n" + "예매번호 : " + reservationNo + 
+        "\n 예매자 명 : " + name + "\n 공연일자 : " + liveDate + "\n 공연시간 : " + time + "\n 주소 : " + address;
+        String testmode_yn = "Y";
+        map.add("receiver", receiver);
+        map.add("msg", msg);
+        map.add("testmode_yn", testmode_yn);
+        
+        log.info("메세지 발송 테스트 333 메세지 : " + msg + " 전화번호 : "+ receiver);
+        Map<String, Object> resultMap = smsService.send(map);
+        log.info(resultMap + "");
+        Object resultCode = resultMap.get("result_code");
+        Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
+        String message = (String) resultMap.get("message");
+        if( result_code == 1 )
+            log.info("문자 발송 성공 : " + message);
+        if( result_code == -1 )
+            log.info("문자 발송 실패 : " + message);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         return result;
     }
 
