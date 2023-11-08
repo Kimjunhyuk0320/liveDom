@@ -63,7 +63,7 @@ public class LiveBoardController {
         return "liveBoard/list";
     }
 
-@CrossOrigin(origins = "*")
+  @CrossOrigin(origins = "*")
   @ResponseBody
   @GetMapping(value = "/pageInfoLiveBoard", produces = "application/json")
   public PageInfo pageInfoLiveBoard(PageInfo pageInfo){

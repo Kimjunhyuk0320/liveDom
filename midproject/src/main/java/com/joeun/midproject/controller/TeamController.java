@@ -160,6 +160,8 @@ public class TeamController {
 
       model.addAttribute("teamList", teamService.list());
 
+      log.info(readTeam.toString());
+
       return "team/read";
   }
 

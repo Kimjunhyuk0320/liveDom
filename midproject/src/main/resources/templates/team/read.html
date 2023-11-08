@@ -587,6 +587,11 @@ img { width: 100%; }
 <body layout:fragment="content">
     <h1>공연팀 모집</h1>
 
+    <th:block th:if="${team.confirmed == 1}">
+
+        <h2>(모집종료)</h2>
+
+    </th:block>
     <h2 th:text="${team.title}"></h2>
 
     <table>
@@ -626,8 +631,9 @@ img { width: 100%; }
 
     <div>
         <button type="button" onclick="moveList()">목록</button>
+        <th:block th:if="${team.confirmed == 0 AND team.username != #authentication.principal.username}">
         <button type="button" th:onclick=" 'moveApplication('+${team.teamNo}+')' ">신청</button>
-
+        </th:block>
         <th:block sec:authorize="isAuthenticated()" th:if="${team.username eq #authentication.principal.username}">
 
         <a th:href="|/team/update?teamNo=${team.teamNo}|">수정</a>

@@ -154,6 +154,7 @@ public class TeamAppServiceImpl implements TeamAppService{
   @Override
   public int confirmed(TeamApp teamApp) {
 
+    //해당신청서 확정
      int result = teamAppMapper.confirmed(teamApp);
 
     int deniedAllResult = 0;
@@ -161,10 +162,13 @@ public class TeamAppServiceImpl implements TeamAppService{
     Team tempTeam = new Team();
     tempTeam.setTeamNo(teamApp.getTeamNo());
 
+    //해당 팀 데이터 조회
     Team team = teamMapper.read(tempTeam);
 
     if(team.getRecStatus()==team.getCapacity()){
 
+      //해당 팀 모집 종료 상태로 변경
+      teamMapper.confirmed(team);
       //공연성사테이블에 추가하는 로직을 구상해야합니다.
       //Team객체에 필요한 속성을 2개 추가로 구성했습니다.
       //crew의 경우, 해당 참여자들의 밴드명을 모두 찍어야합니다.
@@ -183,6 +187,7 @@ public class TeamAppServiceImpl implements TeamAppService{
       
       teamApp.setMembers(members);
 
+      //공연성사 데이터 삽입
       teamAppMapper.insertLive(teamApp);
 
       MultiValueMap<String, String> map =  new LinkedMultiValueMap<>();

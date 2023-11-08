@@ -284,8 +284,7 @@ public class FacilityRentalController {
     }
 
 
-
-  @CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*")
   @ResponseBody
   @GetMapping(value = "/pageInfoFr", produces = "application/json")
   public PageInfo pageInfoFr(PageInfo pageInfo){
@@ -306,7 +305,6 @@ public class FacilityRentalController {
   @ResponseBody
   @GetMapping(value="/pageFrList", produces = "application/json")
   public List<FacilityRental> confirmedLiveList(Team team, Principal principal)throws Exception{
-    
     
     List<FacilityRental> pageListResult = facilityRentalService.pageFrList(team);
     
