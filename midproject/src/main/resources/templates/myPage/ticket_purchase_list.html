@@ -1,40 +1,45 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/user/layout/main_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/UI/user/layout/main_layout}">
+
 <head>
     <title>티켓 구매 내역</title>
+    <link rel="stylesheet" href="/css/list.css">
 </head>
+
 <body layout:fragment="content">
+    <!-- <div id="topContent"> -->
     <h2>My Page</h2>
     <h1>티켓 구매 내역</h1>
-    <input type="hidden" id="phone"  name="phone" th:value="${#authentication.principal.users.phone}" >
+    <!-- </div> -->
+    <input type="hidden" id="phone" name="phone" th:value="${#authentication.principal.users.phone}" >
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th width="300">예매 번호</th>
-                <th width="300">공연명</th>
-                <th width="100">공연일자</th>
-                <th width="100">예매자명</th>
-                <th width="80">예매상태</th>
-                <th width="100">구매일자</th>
-            </tr>
-        </thead>
-        <tbody id="ticket-data">
-            <tr>
-                <td>123</td>
-                <td>123</td>
-                <td>123</td>
-                <td>123</td>
-                <td>123</td>
-                <td>123</td>
-            </tr>
-        </tbody>
-    </table>
-
-
+    <div id="teamListContainer">
+        <div class="tableContainer">
+            <table style="margin-bottom: 100px;">
+                <thead>
+                    <tr>
+                        <th width="300">예매 번호</th>
+                        <th width="300">공연명</th>
+                        <th width="100">공연일자</th>
+                        <th width="100">예매자명</th>
+                        <th width="80">예매상태</th>
+                        <th width="100">구매일자</th>
+                    </tr>
+                </thead>
+                <tbody id="ticket-data">
+                    <tr>
+                        <td>123</td>
+                        <td>123</td>
+                        <td>123</td>
+                        <td>123</td>
+                        <td>123</td>
+                        <td>123</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
     <script>
@@ -113,12 +118,6 @@
             })
 
         }
-
-
-
-
-
-
 
 
     </script>

@@ -39,6 +39,11 @@ dependencies {
 	// 타임리프 레이아웃 다이얼렉트
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
+	// httpclient
+	implementation 'org.apache.httpcomponents:httpclient:4.5'
+	implementation 'org.apache.httpcomponents:httpmime:4.3.1'
+
+
 }
 
 tasks.named('test') {

@@ -19,7 +19,7 @@
     <form action="/facilityRental/delete" method="POST" id="form">
         <!-- csrf -->
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <!-- <input type="hidden" name="frNo" th:value="${facilityRental.frNo}"> -->
+        <input type="hidden" name="frNo" th:value="${facilityRental.frNo}">
         <table>
             
             <tr>

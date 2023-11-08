@@ -1,56 +1,62 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/user/layout/main_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/UI/user/layout/main_layout}">
+
 <head>
-    <title>팀 참가신청서 조회</title>
+  <title>팀 참가신청서 조회</title>
+  <link rel="stylesheet" href="/css/list.css">
 </head>
+
 <body layout:fragment="content">
-    <h1>참가신청서</h1>
+  <!-- <div id="topContent"> -->
+  <h1>참가신청서</h1>
+  <!-- </div> -->
 
-    <h2 th:text="${teamApp.title}"></h2>
+  <h2 th:text="${teamApp.title}"></h2>
 
-    <table>
+  <div id="teamListContainer">
+    <div class="tableContainer">
+      <table style="margin-bottom: 100px;">
         <tr>
-            <td>밴드명</td>
-            <td th:text="${teamApp.bandName}"></td>
+          <td>밴드명</td>
+          <td th:text="${teamApp.bandName}"></td>
         </tr>
         <tr>
-            <td>연락처</td>
-            <td th:text="${teamApp.phone}"></td>
+          <td>연락처</td>
+          <td th:text="${teamApp.phone}"></td>
         </tr>
         <tr>
-            <td>아이디</td>
-            <td th:text="${teamApp.username}"></td>
+          <td>아이디</td>
+          <td th:text="${teamApp.username}"></td>
         </tr>
         <tr>
-            <td>승인상태</td>
-            <th:block th:if="${teamApp.approvalStatus==0}">
-              <td>미확인</td>
-            </th:block>
-            <th:block th:if="${teamApp.approvalStatus==1}">
-              <td>승인</td>
-            </th:block>
-            <th:block th:if="${teamApp.approvalStatus==2}">
-              <td>거절</td>
-            </th:block>
-          </tr>
-          <tr>
-            <td>입금여부</td>
-            <th:block th:if="${teamApp.depositStatus==0}">
-              <td>미입금</td>
-            </th:block>
-            <th:block th:if="${teamApp.depositStatus==1}">
-              <td>입금확정</td>
-            </th:block>
+          <td>승인상태</td>
+          <th:block th:if="${teamApp.approvalStatus==0}">
+            <td>미확인</td>
+          </th:block>
+          <th:block th:if="${teamApp.approvalStatus==1}">
+            <td>승인</td>
+          </th:block>
+          <th:block th:if="${teamApp.approvalStatus==2}">
+            <td>거절</td>
+          </th:block>
+        </tr>
+        <tr>
+          <td>입금여부</td>
+          <th:block th:if="${teamApp.depositStatus==0}">
+            <td>미입금</td>
+          </th:block>
+          <th:block th:if="${teamApp.depositStatus==1}">
+            <td>입금확정</td>
+          </th:block>
         </tr>
         <tr>
           <td>신청일자</td>
           <td th:text="${#dates.format(teamApp.updDate,'yyyy-MM-dd HH:mm:ss')}"></td>
-        </tr>
-    </table>
-
+                </tr>
+            </table>
+          </div>
+        </div>
     <div>
 
       <a href="/team/user/listByLeader">신청리스트로 돌아가기</a>

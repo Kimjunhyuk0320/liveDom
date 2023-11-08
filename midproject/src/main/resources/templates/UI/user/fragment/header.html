@@ -319,7 +319,7 @@
         <div class="header-inner">
             <div class="logo img-box">
                 <a href="/">
-                    <img src="/img/logo_header.png" style="width: 350px; margin-bottom: 5px;">
+                    <img src="/img/logo_header.png" style="width: 280px; margin-bottom: 5px;">
                 </a>     
             
          </div>
@@ -368,7 +368,7 @@
                         </ul>
                         <div class="sub-menu-width sub-menu-width-4"></div>
                     </li>
-                    <th:block th:if="${!#authorization.expression('isAuthenticated()')}">
+                    <th:block sec:authorize="isAnonymous()">
                         <li class="cells menu-5">
                             <a href="/login">로그인</a>
                             <ul>
@@ -378,7 +378,7 @@
                             <div class="sub-menu-width sub-menu-width-5"></div>
                         </li>
                     </th:block>
-                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                    <th:block sec:authorize="isAuthenticated()">
                         <li class="cells ">
                                 <a href="#" onclick="logOut()">로그아웃</a>
                                 

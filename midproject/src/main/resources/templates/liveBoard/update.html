@@ -5,105 +5,142 @@
       >
 <head>
     <title>타이틀</title>
+    <link rel="stylesheet" href="/css/update.css">
+    <!-- 하단 버튼만을 위한 css -->
+    <style>
+        .bottomSubmit {
+            text-align: center;
+        }
+
+        .centered-buttons {
+            display: inline-block; 
+        }
+
+        .centered-buttons button {
+            margin: 0 10px; 
+            background-color: rgb(41, 43, 50);
+            width: 200px;
+            height: 50px;
+            color: white;
+            transition: background-color 0.3s, opacity 0.3s;
+        }
+        .centered-buttons button:hover {
+            margin: 0 10px; 
+            scale: 103%;
+            background-color: rgb(58, 59, 63);
+            width: 200px;
+            height: 50px;
+            color: white;
+        }
+    </style>
 </head>
 <body layout:fragment="content">
-    <h1>공연 게시글 수정</h1>
-    <form action="/liveBoard/update" method="POST" id="form" enctype="multipart/form-data">
-        <input type="hidden" name="boardNo" th:value="${liveBoard.boardNo}">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <table>
-            <tr>
-                <td>아이디
-                    <input type="hidden" th:value="${liveBoard.username}" name="username">
-                </td>
-            </tr>
-            <tr>
-                <td>닉네임
-                    <input type="hidden" th:value="${liveBoard.writer}" name="writer">
-                </td>
-            </tr>
-            <tr>
-                <td>제목</td>
-                <td>
-                    <input type="text" th:value="${liveBoard.title}" name="title">
-                </td>
-            </tr>
-            <tr>
-                <td>공연진</td>
-                <td>
-                    <input type="text" th:value="${liveBoard.crew}" name="crew">
-                </td>
-            </tr>
-            <tr>
-                <td>공연일자</td>
-                <td>
-                    <input type="text" th:value="${liveBoard.liveDate}" name="liveDate">
-                </td>
-            </tr>
-            <tr>
-                <td>공연 시간</td>
-                <td>
-                    <input type="text" th:value="${liveBoard.liveTime}" name="liveTime">
-                </td>
-            </tr>
-            <tr>
-                <td>지역</td>
-                <td>
-                    <input type="text" th:value="${liveBoard.location}" name="location">
-                </td>
-            </tr>
-            <tr>
-                <td>주소</td>
-                <td>
-                    <input type="text" th:value="${liveBoard.address}" name="address">
-                </td>
-            </tr>
+    <div id="topContent">
+        <h1>공연 게시글 수정</h1>
+    </div>
+    <div id="insertContainer">
+        <form action="/liveBoard/update" method="POST" id="form" enctype="multipart/form-data">
+            <input type="hidden" name="boardNo" th:value="${liveBoard.boardNo}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
-           <!-- 글 작성 에디터 -->
-            <tr>
-                <td>게시글 적성 에디터</td>
-                <td class="data">
-                    <textarea name="content" id="content" cols="30" rows="10" 
-                            class="input-textarea" th:text="${liveBoard.content}"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td>티켓 가격</td>
-                <td>
-                    <input type="text" th:value="${liveBoard.price}" name="price">
-                </td>
-            </tr>
-            <tr>
-                <td>수용인원</td>
-                <td>
-                    <input type="text" th:value="${liveBoard.maxTickets}" name="maxTickets">
-                </td>
-            </tr>
+            <div class="tableContainer">
+                <table>
+                    <tr>
+                        <td>
+                            <input type="hidden" th:value="${liveBoard.username}" name="username">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="hidden" th:value="${liveBoard.writer}" name="writer">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>제목</td>
+                        <td>
+                            <input type="text" th:value="${liveBoard.title}" name="title">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>공연진</td>
+                        <td>
+                            <input type="text" th:value="${liveBoard.crew}" name="crew">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>공연일자</td>
+                        <td>
+                            <input type="text" th:value="${liveBoard.liveDate}" name="liveDate">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>공연 시간</td>
+                        <td>
+                            <input type="text" th:value="${liveBoard.liveTime}" name="liveTime">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>지역</td>
+                        <td>
+                            <input type="text" th:value="${liveBoard.location}" name="location">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>주소</td>
+                        <td>
+                            <input type="text" th:value="${liveBoard.address}" name="address">
+                        </td>
+                    </tr>
 
-            <tr>
-                <td class="label">썸네일</td>
-                <td class="data">
-                    <!-- 썸네일 업로드 -->
-                    <div class="dropzone">
-                        <input type="file" id="thumbnail" name="file" accept="image/*">
-                        <a href="javascript:;" class="btn btn-sm btn-thumb-remove hide">삭제</a>
-                        <div class="drop-img flex col main-center sub-center">
-                            <div class="upload-box">
-                                <h3 class="mb-20">이미지를 드래그 하세요.</h3>
-                                <label for="thumbnail" class="btn">업로드</label>
+
+                    <tr>
+                        <td>티켓 가격</td>
+                        <td>
+                            <input type="text" th:value="${liveBoard.price}" name="price">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>수용인원</td>
+                        <td>
+                            <input type="text" th:value="${liveBoard.maxTickets}" name="maxTickets">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">썸네일</td>
+                        <td class="data">
+                            <!-- 썸네일 업로드 -->
+                            <div class="dropzone">
+                                <input type="file" id="thumbnail" name="file" accept="image/*">
+                                <a href="javascript:;" class="btn btn-sm btn-thumb-remove hide">삭제</a>
+                                <div class="drop-img flex col main-center sub-center">
+                                    <div class="upload-box">
+                                    </div>
+                                    <div class="img-box hide">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="img-box hide"></div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-
-    </form>
-    
-    <div>
-        <button type="button" onclick="moveList()">목록</button>
-        <button type="button" onclick="actionUpdate()">수정</button>
+                        </td>
+                    </tr>
+                    <!-- 글 작성 에디터 -->
+                    <tr>
+                        <td>게시글 적성 에디터</td>
+                        <td class="data">
+                            <textarea name="content" id="content" cols="30" rows="10" 
+                            class="input-textarea" th:text="${liveBoard.content}"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="bottomSubmit">
+                            <div class="centered-buttons">
+                                <button type="button" onclick="moveList()">목록</button>
+                                <button type="button" onclick="actionUpdate()">수정</button>
+                            </div>
+                        </td>
+                    </tr>                    
+                </table>
+            </div>
+        </form>
     </div>
 
     <script>
