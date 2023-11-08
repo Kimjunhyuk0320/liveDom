@@ -1,228 +1,171 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/user/layout/main_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/UI/user/layout/main_layout}">
+
 <head>
     <title>공연 게시글 작성</title>
+    <link rel="stylesheet" href="/css/insert.css">
+    <!-- 하단 버튼만을 위한 css -->
     <style>
-            /* 폼 제출 버튼 */
-    .submit_button {
-        margin-top: 30px;
-        display: flex;
-        justify-content: center;
-    }
-    .submit_button > input {
-        width: 350px;
-        height: 50px;
-        border-radius: 10px;
-        background-color: #222222;
-        border: none;
-        color: white;
-    }
-    .submit_button > input:hover {
-        width: 350px;
-        height: 50px;
-        border-radius: 10px;
-        background-color: #9b9b9b;
-        border: none;
-        color: white;
-    }
+        .bottomSubmit {
+            text-align: center;
+        }
 
-    .form__group {
-    position: relative;
-    padding: 15px 0 0;
-    margin-top: 10px;
-    width: 100%;
-    }
+        .centered-buttons {
+            display: inline-block; 
+        }
 
-    .form__field {
-    font-family: inherit;
-    width: 100%;
-    border: 0;
-    border-bottom: 2px solid #9b9b9b;
-    outline: 0;
-    font-size: 1.3rem;
-    padding: 7px 0;
-    background: transparent;
-    transition: border-color 0.2s;
-    }
-
-    .form__field::placeholder {
-    color: transparent;
-    }
-
-    .form__field:placeholder-shown ~ .form__label {
-    font-size: 1.3rem;
-    cursor: text;
-    top: 20px;
-    }
-
-    .form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: #9b9b9b;
-    }
-
-    .form__field:focus ~ .form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: #11998e;
-    font-weight: 700;
-    padding-bottom: 6px;
-    font-weight: 700;
-    border-width: 3px;
-    border-image: linear-gradient(to right, #11998e, #38ef7d);
-    border-image-slice: 1;
-    }
-
-    /* reset input */
-    .form__field:required, .form__field:invalid {
-    box-shadow: none;
-    }
-
-    /* demo */
-    body {
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    font-size: 1.5rem;;
-    }
-
-    #group {
-    padding: 0px 10px;
-    height: 48px;
-    width: 150px;
-    border-radius: 5px;
-    font-size: 12px;
-    }
+        .centered-buttons button {
+            margin: 0 10px; 
+            background-color: rgb(41, 43, 50);
+            width: 200px;
+            height: 50px;
+            color: white;
+            transition: background-color 0.3s, opacity 0.3s;
+        }
+        .centered-buttons button:hover {
+            margin: 0 10px; 
+            scale: 103%;
+            background-color: rgb(58, 59, 63);
+            width: 200px;
+            height: 50px;
+            color: white;
+        }
     </style>
 </head>
-<body layout:fragment="content">
-    <h1>공연 게시글 작성</h1>
-    <form action="/liveBoard/insert" method="POST" id="form" enctype="multipart/form-data">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="_csrf"/>
-        <table class="board">
-            <tr>
-                <td>
-                    <input type="hidden" name="username" th:value="${#authentication.principal.users.username}">
-                </td>
-            </tr>
+<div layout:fragment="content">
 
-            
-            <tr>
-                <td>
-                    <input type="hidden"  name="writer" th:value="${#authentication.principal.users.nickname}">
-                </td>
-            </tr>
-            <div class="form__group field">
-                <input type="text" class="form__field" placeholder="제목" name="title" id="title">
-                <label for="title" class="form__label">제목</label>
-            </div>
-            <div class="form__group field">
-                <input type="text" class="form__field" placeholder="공연진" name="crew" id="crew">
-                <label for="title" class="form__label">공연진</label>
-            </div>
-            
-            
-            <!-- 글 작성 에디터 -->
-            <tr>
-                <td class="data">
-                    <textarea name="content" id="content" cols="30" rows="10" 
-                    class="input-textarea"></textarea>
-                </td>
-            </tr>
-
-
-            <div class="form__group field">
-                <input type="date" class="form__field" placeholder="공연일자" name="liveDate" id="liveDate">
-                <label for="liveDate" class="form__label">공연일자</label>
-            </div>
-
-            <div class="form__group field">
-                <input type="time" class="form__field" placeholder="공연 시작 시각" name="liveStTime" id="liveStTime">
-                <label for="liveStTime" class="form__label">공연 시작 시각</label>
-            </div>
-
-            <div class="form__group field">
-                <input type="time" class="form__field" placeholder="공연 종료 시각" name="liveEndTime" id="liveEndTime">
-                <label for="liveEndTime" class="form__label">공연 종료 시각</label>
-            </div>
-
-            <tr>
-                <td>지역</td>
-                <td>
-                    <select name="location" id="location">
-                        <option value="경기">경기</option>
-                        <option value="서울">서울</option>
-                        <option value="부산">부산</option>
-                        <option value="경남">경남</option>
-                        <option value="인천">인천</option>
-                        <option value="경북">경북</option>
-                        <option value="대구">대구</option>
-                        <option value="충남">충남</option>
-                        <option value="전남">전남</option>
-                        <option value="전북">전북</option>
-                        <option value="충북">충북</option>
-                        <option value="강원">강원</option>
-                        <option value="대전">대전</option>
-                        <option value="광주">광주</option>
-                        <option value="울산">울산</option>
-                        <option value="제주">제주</option>
-                        <option value="세종">세종</option>
-                      </select>
-                </td>
-            </tr>
-
-            <div class="form__group field">
-                <input type="text" class="form__field" placeholder="주소" name="address" id="address">
-                <label for="address" class="form__label">주소</label>
-            </div>
-
-            <div class="form__group field">
-                <input type="text" class="form__field" placeholder="티켓 가격" name="price" id="price">
-                <label for="price" class="form__label">티켓 가격</label>
-            </div>
-
-            <div class="form__group field">
-                <input type="text" class="form__field" placeholder="수용인원" name="maxTickets" id="maxTickets">
-                <label for="maxTickets" class="form__label">수용인원</label>
-            </div>
-            <tr>
-                <td class="label">썸네일</td>
-                <td class="data">
-                    <!-- 썸네일 업로드 -->
-                    <div class="dropzone">
-                        <input type="file" id="thumbnail" name="file" accept="image/*">
-                        <a href="javascript:;" class="btn btn-sm btn-thumb-remove hide">삭제</a>
-                        <div class="drop-img flex col main-center sub-center">
-                            <div class="upload-box">
-                                <h3 class="mb-20">이미지를 드래그 하세요.</h3>
-                                <label for="thumbnail" class="btn">업로드</label>
-                            </div>
-                            <div class="img-box hide"></div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-
-    </form>
-    
-    <div>
-        <button type="button" onclick="moveList()">목록</button>
-        <button type="button" onclick="actionInsert()">등록</button>
+    <div id="topContent">
+        <h1>공연 게시글 작성</h1><br>
     </div>
-    
+
+    <div id="insertContainer">
+        <form action="/liveBoard/insert" method="POST" id="form" enctype="multipart/form-data">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="_csrf" />
+
+            <div class="tableContainer">
+                <table>
+                    <tr>
+                        <td>
+                            <input type="hidden" name="username" th:value="${#authentication.principal.users.username}">
+                        </td>
+                    </tr>
+
+                    
+                    <tr>
+                        <td>
+                            <input type="hidden"  name="writer" th:value="${#authentication.principal.users.nickname}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>제목</td>
+                        <td>
+                            <input type="text" class="form__field" placeholder="제목" name="title" id="title">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>공연진</td>
+                        <td>
+                            <input type="text" class="form__field" placeholder="공연진" name="crew" id="crew">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>공연일자</td>
+                        <td>
+                            <input type="date" class="form__field" placeholder="공연일자" name="liveDate" id="liveDate">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>공연 시작 시각</td>
+                        <td>
+                            <input type="time" class="form__field" placeholder="공연 시작 시각" name="liveStTime" id="liveStTime">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>공연 종료 시각</td>
+                        <td>
+                            <input type="time" class="form__field" placeholder="공연 종료 시각" name="liveEndTime" id="liveEndTime">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>지역</td>
+                        <td>
+                            <select name="location" id="location">
+                                <option value="경기">경기</option>
+                                <option value="서울">서울</option>
+                                <option value="부산">부산</option>
+                                <option value="경남">경남</option>
+                                <option value="인천">인천</option>
+                                <option value="경북">경북</option>
+                                <option value="대구">대구</option>
+                                <option value="충남">충남</option>
+                                <option value="전남">전남</option>
+                                <option value="전북">전북</option>
+                                <option value="충북">충북</option>
+                                <option value="강원">강원</option>
+                                <option value="대전">대전</option>
+                                <option value="광주">광주</option>
+                                <option value="울산">울산</option>
+                                <option value="제주">제주</option>
+                                <option value="세종">세종</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>주소</td>
+                        <td>
+                            <input type="text" class="form__field" placeholder="주소" name="address" id="address">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>티켓 가격</td>
+                        <td>
+                            <input type="text" class="form__field" placeholder="티켓 가격" name="price" id="price">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>수용인원</td>
+                        <td>
+                            <input type="text" class="form__field" placeholder="수용인원" name="maxTickets" id="maxTickets">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">썸네일</td>
+                        <td class="data">
+                            <!-- 썸네일 업로드 -->
+                            <div class="dropzone">
+                                <input type="file" id="thumbnail" name="file" accept="image/*">
+                                <a href="javascript:;" class="btn btn-sm btn-thumb-remove hide">삭제</a>
+                                <div class="drop-img flex col main-center sub-center">
+                                    <div class="upload-box">
+                                    </div>
+                                    <div class="img-box hide"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 글 작성 에디터 -->
+                    <tr>
+                        <td colspan="2" id="textEditer" class="data">
+                            <textarea name="content" id="content" cols="30" rows="10" 
+                            class="input-textarea"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="bottomSubmit">
+                            <div class="centered-buttons">
+                                <button type="button" onclick="moveList()">목록</button>
+                                <button type="button" onclick="actionInsert()">등록</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
     
     <script>
   

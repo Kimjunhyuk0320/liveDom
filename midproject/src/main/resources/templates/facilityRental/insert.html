@@ -1,113 +1,144 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/user/layout/main_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/UI/user/layout/main_layout}">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>대관 게시글 작성</title>
+    <link rel="stylesheet" href="/css/insert.css">
+    <!-- 하단 버튼만을 위한 css -->
+    <style>
+        .bottomSubmit {
+            text-align: center;
+        }
+
+        .centered-buttons {
+            display: inline-block;
+        }
+
+        .centered-buttons button {
+            margin: 0 10px;
+            background-color: rgb(41, 43, 50);
+            width: 200px;
+            height: 50px;
+            color: white;
+            transition: background-color 0.3s, opacity 0.3s;
+        }
+
+        .centered-buttons button:hover {
+            margin: 0 10px;
+            scale: 103%;
+            background-color: rgb(58, 59, 63);
+            width: 200px;
+            height: 50px;
+            color: white;
+        }
+    </style>
 </head>
+
 <body layout:fragment="content">
-    <h1>대관 게시글 작성</h1>
-    <form action="/facilityRental/insert" method="POST" id="form" enctype="multipart/form-data">
-        <!-- csrf -->
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <input type="hidden" name="writer" th:value="${#authentication.principal.users.nickname}">
-        <input type="hidden" name="username" th:value="${#authentication.principal.users.username}">
-        <input type="hidden" name="phone" th:value="${#authentication.principal.users.phone}">
-        <table>
-            <tr>
-                <td>제목</td>
-                <td>
-                    <input type="text" name="title" >
-                </td>
-            </tr>
-            <tr>
-                <td>가격</td>
-                <td>
-                    <input type="text" name="price" >
-                </td>
-            </tr>
-            <tr>
-                <td>대관일자</td>
-                <td>
-                    <input type="date" name="liveDate" >
-                </td>
-            </tr>
-            <tr>
-                <td>계좌번호</td>
-                <td>
-                    <input type="text" name="account" >
-                </td>
-            </tr>
 
-            <tr>
-                <td>지역</td>
-                <td>
-                    <select name="location">
-                        <option value="경기">경기</option>
-                        <option value="서울">서울</option>
-                        <option value="부산">부산</option>
-                        <option value="경남">경남</option>
-                        <option value="인천">인천</option>
-                        <option value="경북">경북</option>
-                        <option value="대구">대구</option>
-                        <option value="충남">충남</option>
-                        <option value="전남">전남</option>
-                        <option value="전북">전북</option>
-                        <option value="충북">충북</option>
-                        <option value="강원">강원</option>
-                        <option value="대전">대전</option>
-                        <option value="광주">광주</option>
-                        <option value="울산">울산</option>
-                        <option value="제주">제주</option>
-                        <option value="세종">세종</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>장소</td>
-                <td>
-                    <input type="text" name="address">
-                </td>
-            </tr>
-
-            <!-- 글 작성 에디터 -->
-            <tr>
-                <td>게시글 적성 에디터</td>
-                <td class="data">
-                    <textarea name="content" id="content" cols="30" rows="10" 
-                              class="input-textarea"></textarea>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="label">썸네일</td>
-                <td class="data">
-                    <!-- 썸네일 업로드 -->
-                    <div class="dropzone">
-                        <input type="file" id="thumbnail" accept="image/*" name="file">
-                        <a href="javascript:;" class="btn btn-sm btn-thumb-remove hide">삭제</a>
-                        <div class="drop-img flex col main-center sub-center">
-                            <div class="upload-box">
-                                <h3 class="mb-20">이미지를 드래그 하세요.</h3>
-                                <label for="thumbnail" class="btn">업로드</label>
-                            </div>
-                            <div class="img-box hide"></div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        
-    </form>
-    
-    <div>
-        <button type="button" onclick="moveList()">목록</button>
-        <button type="button" onclick="actionInsert()">등록</button>
+    <div id="topContent">
+        <h1>대관 게시글 작성</h1>
     </div>
+    <div id="insertContainer">
+        <form action="/facilityRental/insert" method="POST" id="form" enctype="multipart/form-data">
+            <!-- csrf -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input type="hidden" name="writer" th:value="${#authentication.principal.users.nickname}">
+            <input type="hidden" name="username" th:value="${#authentication.principal.users.username}">
+            <input type="hidden" name="phone" th:value="${#authentication.principal.users.phone}">
+            <div class="tableContainer">
+                <table>
+                    <tr>
+                        <td>제목</td>
+                        <td>
+                            <input type="text" name="title" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>가격</td>
+                        <td>
+                            <input type="text" name="price" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>대관일자</td>
+                        <td>
+                            <input type="date" name="liveDate" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>계좌번호</td>
+                        <td>
+                            <input type="text" name="account" >
+                        </td>
+                    </tr>
 
+                    <tr>
+                        <td>지역</td>
+                        <td>
+                            <select name="location">
+                                <option value="경기">경기</option>
+                                <option value="서울">서울</option>
+                                <option value="부산">부산</option>
+                                <option value="경남">경남</option>
+                                <option value="인천">인천</option>
+                                <option value="경북">경북</option>
+                                <option value="대구">대구</option>
+                                <option value="충남">충남</option>
+                                <option value="전남">전남</option>
+                                <option value="전북">전북</option>
+                                <option value="충북">충북</option>
+                                <option value="강원">강원</option>
+                                <option value="대전">대전</option>
+                                <option value="광주">광주</option>
+                                <option value="울산">울산</option>
+                                <option value="제주">제주</option>
+                                <option value="세종">세종</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>장소</td>
+                        <td>
+                            <input type="text" name="address">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">썸네일</td>
+                        <td class="data">
+                            <!-- 썸네일 업로드 -->
+                            <div class="dropzone">
+                                <input type="file" id="thumbnail" accept="image/*" name="file">
+                                <a href="javascript:;" class="btn btn-sm btn-thumb-remove hide">삭제</a>
+                                <div class="drop-img flex col main-center sub-center">
+                                    <div class="upload-box">
+                                    </div>
+                                    <div class="img-box hide"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 글 작성 에디터 -->
+                    <tr>
+                        <td>게시글 적성 에디터</td>
+                        <td class="data">
+                            <textarea name="content" id="content" cols="30" rows="10" 
+                                    class="input-textarea"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="bottomSubmit">
+                            <div class="centered-buttons">
+                                <button type="button" onclick="moveList()">목록</button>
+                                <button type="button" onclick="actionInsert()">등록</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
     <script>
         let form = document.getElementById('form')
         
