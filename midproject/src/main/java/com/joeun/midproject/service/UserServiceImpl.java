@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService{
       // 파일 업로드 
         MultipartFile file = users.getFile();
 
-        if(file!=null&&file.isEmpty()){
+        if(file!=null){
 
         
 
@@ -112,9 +112,11 @@ public class UserServiceImpl implements UserService{
             uploadedFile.setOriginName(originName);
             uploadedFile.setFileSize(fileSize);
             uploadedFile.setFileCode(2);
-
+            //파일DB등록
             fileMapper.insert(uploadedFile);
-            users.setProfileNo(fileMapper.selectProfile(users).getFileNo());
+
+            //유저DB에서 방금등록한 fileNo가져와 객체에 담기
+            users.setProfileNo(fileMapper.maxPk());
             userMapper.profileSet(users);
     }
   }

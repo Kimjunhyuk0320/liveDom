@@ -13,7 +13,7 @@
     
     <section>
 
-        <img src="" alt="">
+        <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진">
 
         <div class="mypage-btn" onclick="moveUser('/myPage/myInfo')">
             <span>내 정보</span>
