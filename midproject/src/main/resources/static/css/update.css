@@ -50,7 +50,7 @@ select, input {
     color: black;
     /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); */
     border-style: none;
-    width: 750px;
+    width: 720px;
     border-bottom: 1px solid rgb(41, 43, 50);
 }
 
