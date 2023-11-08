@@ -13,7 +13,10 @@
     
     <section>
 
+        <!-- 프로필 사진 쏴주기 -->
+        <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.users.profileNo != null}">
         <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진">
+        </th:block>
 
         <div class="mypage-btn" onclick="moveUser('/myPage/myInfo')">
             <span>내 정보</span>

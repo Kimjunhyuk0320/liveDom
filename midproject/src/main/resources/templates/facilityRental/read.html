@@ -63,7 +63,7 @@
                 </td>
             </tr>
             <tr>
-                <td th:text="${facilityRental.content}"></td>
+                <td th:utext="${facilityRental.content}"></td>
             </tr>
             
         </table>
@@ -87,7 +87,11 @@
         <button type="button" onclick="moveList()">목록</button>
         <th:block th:if="${facilityRental.username eq #authentication.principal.users.username}">
         <button type="button" onclick="actionUpdate()">수정</button>
-        <button type="button" onclick="actionDelete()">삭제</button>
+        <form action="/facilityRental/delete" method="POST" id="delForm">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input type="hidden" name="frNo" th:value="${facilityRental.frNo}">
+            <button type="button" onclick="actionDelete()">삭제</button>
+        </form>
     </th:block>
     </div>
 
@@ -467,7 +471,7 @@ function deleteCommentData(commentNo) {
 
 
 
-        const frNo = $('#frNo').val()
+        const frNo = "[[${facilityRental.frNo}]]"
         const form = document.getElementById('form')
         
         // 목록으로 이동
@@ -491,8 +495,7 @@ function deleteCommentData(commentNo) {
         function actionDelete() {
             let check = confirm('정말로 삭제하시겠습니까?')
             if(check){
-                form.action = '/facilityRental/delete'      // form 태그의 action 속성을 변경
-                form.submit()
+                $(`#delForm`).submit()
             }
         }
 
