@@ -595,6 +595,7 @@ img { width: 100%; }
     <div>
         <button type="button" onclick="moveList()">목록</button>
         <th:block sec:authorize="isAuthenticated()">
+            <input type="hidden" name="username" th:value="${#authentication.principal.username}" id="username">
             <th:block th:if="${team.confirmed == 0 && team.username != #authentication.principal.username}">
                 <button type="button" th:onclick=" 'moveApplication('+${team.teamNo}+')' ">신청</button>
             </th:block>
@@ -652,8 +653,7 @@ img { width: 100%; }
 
 let boardNo = "[[${team.teamNo}]]"
 
-//GG
-let username = "[[${#authentication.principal.users != null ? #authentication.principal.username : 'GUEST'}]]"
+let username = $(`#username`).val() != null ? $(`#username`).val() : `GUEST`;
 
 
 if( boardNo != null ) {
@@ -714,7 +714,7 @@ function getCommentList() {
                                 commentBox +=`
                             </div>
                             <div class="bottom">
-                                <p class="comment-content">${comment.content}</p>
+                                <p class="comment-content" id="con${comment.commentNo}">${comment.content}</p>
                             </div>
                         </div>
                         <div class="edit-box"></div>
@@ -724,7 +724,6 @@ function getCommentList() {
             }
 
             $('#comment-list').html(commentData)
-
             initCommentEvent()
             
         },
@@ -740,6 +739,15 @@ $('#btn-comment-insert').on('click', function() {
 
     insertComment( writer, content )
 })
+
+$('#comment-content').on('keyup', function(event) {
+    let writer = $('#comment-writer').val()
+    let content = $('#comment-content').val()
+
+    if(event.keyCode==13)
+    insertComment( writer, content )
+})
+
 
 
 function insertComment( writer, content ) {
@@ -827,6 +835,7 @@ function initCommentEvent() {
             </div>
             `
         commentBox.find('.edit-box').html(editBox)    
+
 
         $('#btn-comment-cancel').on('click', function() {
 
@@ -932,9 +941,6 @@ function initCommentEvent() {
     }
 
 }
-
-
-
 
 
         function moveList() {

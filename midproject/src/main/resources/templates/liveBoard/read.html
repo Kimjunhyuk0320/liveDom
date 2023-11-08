@@ -12,9 +12,6 @@
         <input type="hidden" name="boardNo" th:value="${liveBoard.boardNo}" id="boardNo">
 
         <h2 th:text="${liveBoard.title}"></h2>
-        
-        <img th:src="|/file/img/${liveBoard.thumbnail.fileNo}|" style="width: 200px;" th:if="${liveBoard.thumbnail != null}">
-
         <table>
             <tr>
                 <td>공연일자</td>
@@ -114,22 +111,24 @@
 
 
 </div>
-
-<!-- 댓글 입력 -->
-<div class="input-box">
-    <div class="top">
-        <h3>댓글 입력</h3>
-    </div>
-    <div class="comment-input">
-        <input type="text" name="writer" id="comment-writer" placeholder="작성자" th:value="${#authentication.principal.users.nickname}" readonly>
-        <br>
-        <textarea name="content" id="comment-content" 
-                  cols="60" rows="5" placeholder="댓글을 작성해주세요"></textarea>
-        <div class="btn-box">
-            <a href="javascript:;" id="btn-comment-insert" class="btn btn-sm">등록</a>
+<th:block sec:authorize="isAuthenticated()">
+    <input type="hidden" name="username" id="username" th:value="${#authentication.principal.users.username}">
+    <!-- 댓글 입력 -->
+    <div class="input-box">
+        <div class="top">
+            <h3>댓글 입력</h3>
+        </div>
+        <div class="comment-input">
+            <input type="text" name="writer" id="comment-writer" placeholder="작성자" th:value="${#authentication.principal.users.nickname}" readonly>
+            <br>
+            <textarea name="content" id="comment-content" 
+            cols="60" rows="5" placeholder="댓글을 작성해주세요"></textarea>
+            <div class="btn-box">
+                <a href="javascript:;" id="btn-comment-insert" class="btn btn-sm">등록</a>
+            </div>
         </div>
     </div>
-</div>
+</th:block>
 
 
 
@@ -144,32 +143,11 @@
 <script>
 
 let boardNo = "[[${liveBoard.boardNo}]]"
-let username = "[[${#authentication.principal.users.username}]]"
+let username = $(`#username`).val() != null ? $(`#username`).val() : `GUEST`;
 
 if( boardNo != null ) {
 getCommentList()
 }
-
-
-
-// Swal.fire({
-//     title: '정말로 삭제하시겠습니까?',
-//     text: "삭제하면 되돌릴 수 없습니다!",
-//     icon: 'warning',
-//     showCancelButton: true,
-//     confirmButtonColor: '#3085d6',
-//     cancelButtonColor: '#d33',
-//     confirmButtonText: '예',
-//     cancelButtonText: '아니오',
-// }).then((result) => {
-//     // result.isConfirmed : true  [예]
-//     // result.isConfirmed : false  [아니오]
-//     if (result.isConfirmed) {
-//         deleteData()
-        
-//     }
-// })
-
 
 
 
@@ -213,7 +191,7 @@ $.ajax({
                                 <span class="comment-date">${regDate} ${regTime}</span>
                             </div>
                             `
-                            if(commentList[i].username=="[[${#authentication.principal.users.username}]]"){
+                            if(commentList[i].username==username){
                                 commentBox +=`
                                 <div class="item">
                                     <a href="javascript:;" class="btn btn-sm btn-comment-update" data="${comment.commentNo}">수정</a>
