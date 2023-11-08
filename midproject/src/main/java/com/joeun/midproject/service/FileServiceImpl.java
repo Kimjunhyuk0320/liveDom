@@ -120,7 +120,6 @@ public class FileServiceImpl implements FileService{
         // 0 : 파일 다운로드 처리 실패
         // 1 : 파일 다운로드 성공
         Files file = fileMapper.select(fileNo);
-        log.info("파일 서비스 임플 확인" +file + "");
         if(file == null) {
             // BAD_REQUEST : 400, 클라이언트의 요청이 잘못되었음을 알려주는 상태코드
             // response.setStatus(response.SC_BAD_REQUEST);
@@ -135,7 +134,6 @@ public class FileServiceImpl implements FileService{
         // - Content-Disposition : attachment, filename="파일명.확장자"
         int index = fileName.lastIndexOf(".");
         String ext = fileName.substring(index).toUpperCase();
-        log.info("확장자 : " +ext);
         String mediaType = null;
 
         switch(ext){
@@ -177,7 +175,6 @@ public class FileServiceImpl implements FileService{
 
     @Override
     public int uploadImg(List<MultipartFile> file) throws Exception {
-        log.info("#########테스트입니다 2222############");
         // 파일 업로드 
         List<MultipartFile> fileList = file;
         int parentNo = 0;
@@ -185,7 +182,6 @@ public class FileServiceImpl implements FileService{
         int fileNo = 0;
         if( !fileList.isEmpty() ) 
         for (MultipartFile files : fileList) {
-            log.info("#########테스트입니다 33333############");
             if( files.isEmpty() ) continue;
 
             // 파일 정보 : 원본파일명, 파일 용량, 파일 데이터 
@@ -209,7 +205,6 @@ public class FileServiceImpl implements FileService{
             // - DB 에 파일 정보 등록
             File uploadFile = new File(uploadPath, fileName);
             FileCopyUtils.copy(fileData, uploadFile);       // 파일 업로드
-              log.info("#########테스트입니다 44444############");
             // FileOutputStream fos = new FileOutputStream(uploadFile);
             // fos.write(fileData);
             // fos.close();
@@ -223,7 +218,6 @@ public class FileServiceImpl implements FileService{
             uploadedFile.setFileCode(1);
             fileMapper.insert(uploadedFile);
             fileNo = fileMapper.maxPk();
-            log.info("파일 번호" + fileNo + "");
         }
 
         return fileNo;

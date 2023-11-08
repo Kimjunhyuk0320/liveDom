@@ -54,7 +54,7 @@ public class TeamAppServiceImpl implements TeamAppService{
       // - testmode_yn    : 테스트 모드 여부 (Y-테스트⭕, N-테스트❌)
       // receiver에 문자 받는 사람의 전화번호를 넣어주세요.
       String receiver = phone;
-      String msg = "[Web발신]\n"+"LiveDom 팀 모집 서비스\n" +"1개의 참가신청서가 도착했습니다. 웹사이트를 방문해 확인해주시기 바랍니다.";
+      String msg = "LiveDom 팀 모집 서비스\n" +"1개의 참가신청서가 도착했습니다. 웹사이트를 방문해 확인해주시기 바랍니다.";
       String testmode_yn = "Y";
       map.add("receiver", receiver);
       map.add("msg", msg);
@@ -131,7 +131,7 @@ public class TeamAppServiceImpl implements TeamAppService{
       String receiver = phone;
       String bank = account;
       Integer price = team.getPrice();
-      String msg = "[Web발신]\n"+"LiveDom 팀 모집 서비스\n" +"참가 신청이 승인되었습니다." + bank + "로" + price + "원을 입금해주시기 바랍니다.";
+      String msg = "LiveDom 팀 모집 서비스\n" +"참가 신청이 승인되었습니다." + bank + "로" + price + "원을 입금해주시기 바랍니다.";
       String testmode_yn = "Y";
       map.add("receiver", receiver);
       map.add("msg", msg);
@@ -184,7 +184,50 @@ public class TeamAppServiceImpl implements TeamAppService{
   public int confirmed(TeamApp teamApp) {
 
     //해당신청서 확정
-     int result = teamAppMapper.confirmed(teamApp);
+    int result = teamAppMapper.confirmed(teamApp);
+
+    TeamApp teamApp2 = teamAppMapper.read(teamApp);
+    int teamNo = teamApp2.getTeamNo();
+    Team team1 = new Team();
+    team1.setTeamNo(teamNo);
+    Team team2 = teamMapper.read(team1);
+
+    // 입금 확인되었다고 메세지 보내기
+    MultiValueMap<String, String> map1 =  new LinkedMultiValueMap<>();
+    // ✅ 필수 정보
+    // - receiver       :   1) 01012341234
+    //                      2) 01011112222,01033334444
+    // - msg            : 문자 메시지 내용
+    // - testmode_yn    : 테스트 모드 여부 (Y-테스트⭕, N-테스트❌)
+    // receiver에 문자 받는 사람들의 전화번호를 "," 로 연결해서 넣어주세요.
+    // Title에 게시글의 제목을 입력해주세요
+    // liveDate에 공연일자를 입력해주세요.
+    // address에 공연장의 위치를 입력해주세요.
+    String receiver1 = teamApp2.getPhone();
+    String title1 = team2.getTitle();
+    String liveDate1 = team2.getLiveDate();
+    String address1 = team2.getAddress();
+    
+    String msg1 = "LiveDom 팀 모집 서비스\n\"" + title1 + "\"에 대한 입금이 획인되었습니다 \n" +
+    "공연장 : " + address1 + "\n대관일자 : " + liveDate1;
+    String testmode_yn1 = "Y";
+    map1.add("receiver", receiver1);
+    map1.add("msg", msg1);
+    map1.add("testmode_yn", testmode_yn1);
+
+
+
+    log.info("메세지 발송 테스트 333 메세지 : " + msg1 + " 전화번호 : "+ receiver1);
+    Map<String, Object> resultMap1 = smsService.send(map1);
+    log.info(resultMap1 + "");
+    Object resultCode1 = resultMap1.get("result_code");
+    Integer result_code1 = Integer.valueOf( resultCode1 != null ? resultCode1.toString() : "-1" );
+    String message1 = (String) resultMap1.get("message");
+    if( result_code1 == 1 )
+        log.info("문자 발송 성공 : " + message1);
+    if( result_code1 == -1 )
+        log.info("문자 발송 실패 : " + message1);
+
 
     int deniedAllResult = 0;
 
@@ -226,7 +269,8 @@ public class TeamAppServiceImpl implements TeamAppService{
       else
         tempString += confirmedTeamAppList.get(i).getPhone();
       }
-
+      String username = team.getUsername();
+      String phonenumber = userMapper.read(username).getPhone();
       MultiValueMap<String, String> map =  new LinkedMultiValueMap<>();
       // ✅ 필수 정보
       // - receiver       :   1) 01012341234
@@ -237,13 +281,13 @@ public class TeamAppServiceImpl implements TeamAppService{
       // Title에 게시글의 제목을 입력해주세요
       // liveDate에 공연일자를 입력해주세요.
       // address에 공연장의 위치를 입력해주세요.
-      String receiver = tempString;
+      String receiver = tempString + "," + phonenumber;
       String title = "『"+team.getTitle()+"』";
       String liveDate = team.getLiveDate();
       String address = team.getAddress();
       
-      String msg = "[Web발신]\n"+"LiveDom 팀 모집 서비스\n" + title + "의 공연이 성사되었습니다. \n" +
-                                 "공연장 : " + address + "공연일자 : " + liveDate;
+      String msg = "LiveDom 팀 모집 서비스\n\"" + title + "\"의 공연이 성사되었습니다. \n" +
+                                 "공연장 : " + address + "\n공연일자 : " + liveDate;
       String testmode_yn = "Y";
       map.add("receiver", receiver);
       map.add("msg", msg);

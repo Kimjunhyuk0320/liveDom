@@ -154,7 +154,7 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
         // - testmode_yn    : 테스트 모드 여부 (Y-테스트⭕, N-테스트❌)
         // receiver에 문자 받는 사람의 전화번호를 넣어주세요.
         String receiver = facilityRental.getPhone();
-        String msg = "[Web발신]\n"+"LiveDom 대관 서비스\n" +"1개의 대관신청이 도착했습니다. 웹사이트를 방문해 확인해주시기 바랍니다.";
+        String msg = "LiveDom 대관 서비스\n" +"1개의 대관신청이 도착했습니다. 웹사이트를 방문해 확인해주시기 바랍니다.";
         String testmode_yn = "Y";
         map.add("receiver", receiver);
         map.add("msg", msg);
@@ -238,7 +238,7 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
         String receiver = facilityRental.getPhone();
         String bank = facilityRental.getAccount();
         Integer price = facilityRental.getPrice();
-        String msg = "[Web발신]\n"+"LiveDom 대관 서비스\n" +"대관 신청이 승인되었습니다." + bank + "로" + price + "원을 입금해주시기 바랍니다.";
+        String msg = "LiveDom 대관 서비스\n" +"대관 신청이 승인되었습니다." + bank + "로" + price + "원을 입금해주시기 바랍니다.";
         String testmode_yn = "Y";
         map.add("receiver", receiver);
         map.add("msg", msg);
@@ -267,14 +267,64 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
         
         int resultReqConfirm = 0;
          resultReqConfirm = bookingRequestsMapper.reqConfirm(bookingRequests);
+        int brNo = bookingRequests.getBrNo();
+        BookingRequests bookingRequests2 = bookingRequestsMapper.listBybrNo(brNo);
+        int frNo = bookingRequests2.getFrNo();
+        FacilityRental facilityRental1 = facilityRentalMapper.select(frNo);
 
         if(resultReqConfirm>0){
+            // 입금 확인되었다고 메세지 보내기
+             MultiValueMap<String, String> map1 =  new LinkedMultiValueMap<>();
+            // ✅ 필수 정보
+            // - receiver       :   1) 01012341234
+            //                      2) 01011112222,01033334444
+            // - msg            : 문자 메시지 내용
+            // - testmode_yn    : 테스트 모드 여부 (Y-테스트⭕, N-테스트❌)
+            // receiver에 문자 받는 사람들의 전화번호를 "," 로 연결해서 넣어주세요.
+            // Title에 게시글의 제목을 입력해주세요
+            // liveDate에 공연일자를 입력해주세요.
+            // address에 공연장의 위치를 입력해주세요.
+            String receiver1 = bookingRequests2.getPhone();
+            String title1 = facilityRental1.getTitle();
+            String liveDate1 = facilityRental1.getLiveDate();
+            String address1 = facilityRental1.getAddress();
+            
+            String msg1 = "LiveDom 대관 서비스\n\"" + title1 + "\"에 대한 대관료 입금이 획인되었습니다 \n" +
+            "공연장 : " + address1 + "\n대관일자 : " + liveDate1;
+            String testmode_yn1 = "Y";
+            map1.add("receiver", receiver1);
+            map1.add("msg", msg1);
+            map1.add("testmode_yn", testmode_yn1);
 
+
+
+            log.info("메세지 발송 테스트 333 메세지 : " + msg1 + " 전화번호 : "+ receiver1);
+            Map<String, Object> resultMap1 = smsService.send(map1);
+            log.info(resultMap1 + "");
+            Object resultCode1 = resultMap1.get("result_code");
+            Integer result_code1 = Integer.valueOf( resultCode1 != null ? resultCode1.toString() : "-1" );
+            String message1 = (String) resultMap1.get("message");
+            if( result_code1 == 1 )
+                log.info("문자 발송 성공 : " + message1);
+            if( result_code1 == -1 )
+                log.info("문자 발송 실패 : " + message1);
+
+
+
+
+
+
+
+
+
+
+
+
+            
             int br_no = bookingRequests.getBrNo();
             BookingRequests br = bookingRequestsMapper.listBybrNo(br_no);
             int fr_no = br.getFrNo();
             bookingRequests.setFrNo(fr_no);
-
         // 대관 신청자에게 예약완료되었다고 메세지 보내기
         FacilityRental facilityRental = facilityRentalMapper.select(fr_no);
         MultiValueMap<String, String> map =  new LinkedMultiValueMap<>();
@@ -292,8 +342,8 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
         String liveDate = facilityRental.getLiveDate();
         String address = facilityRental.getAddress();
         
-        String msg = "[Web발신]\n"+"LiveDom 대관 서비스\n" + title + "의 대관이 성사되었습니다. \n" +
-        "공연장 : " + address + "대관일자 : " + liveDate;
+        String msg = "LiveDom 대관 서비스\n\"" + title + "\"의 대관이 성사되었습니다. \n" +
+        "공연장 : " + address + "\n대관일자 : " + liveDate;
         String testmode_yn = "Y";
         map.add("receiver", receiver);
         map.add("msg", msg);
