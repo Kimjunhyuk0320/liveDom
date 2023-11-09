@@ -8,10 +8,8 @@
 </head>
 
 <body layout:fragment="content">
-    <!-- <div id="topContent"> -->
         <h2>My Page</h2>
         <h1>내가 신청한 참가 내역</h1>
-    <!-- </div> -->
 
     <div id="teamListContainer">
         <div class="tableContainer">
@@ -28,9 +26,11 @@
                         <th width="100">참가취소</th>
                     </tr>
                 </thead>
-                <tbody id="team-data">
+                <tbody>
 
-                    <tr th:each="reqTeam : ${reqTeamAppList}">
+                    <th:block th:if="${reqTeamAppList != null}" th:each="reqTeam : ${reqTeamAppList}">
+
+                    <tr>
                         <td th:text="${reqTeam.appNo}"></td>
                         <td th:text="${reqTeam.teamTitle}" th:onclick="'readTeam('+${reqTeam.teamNo}+')'"></td>
                         <td th:text="${reqTeam.username}"></td>
@@ -65,6 +65,12 @@
                         </td>
                     </th:block>
                     </tr>
+                </th:block>
+                <th:block th:if="${reqTeamAppList.isEmpty()}">
+                    <tr>
+                        <td colspan="8">조회된 데이터가 없습니다.</td>
+                    </tr>
+                </th:block>
                 </tbody>
             </table>
         </div>

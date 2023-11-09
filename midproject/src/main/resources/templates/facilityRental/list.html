@@ -234,9 +234,9 @@
                 let msg = '조회된 데이터가 없습니다.'
                 console.log(msg);
 
-                let tr = `<tr>
-                            <h5>${msg}</h5>
-                            </tr>
+                let tr = `<div class="card-body">
+                    <h5 class="card-text">${msg}</h5>
+                 </div>
                             `
                 $('#team-data').html(tr)
                 return

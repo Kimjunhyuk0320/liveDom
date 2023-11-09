@@ -33,13 +33,13 @@
                     <tr>
                         <td>비밀번호</td>
                         <td>
-                            <input type="text" name="password" id="password">
+                            <input type="password" name="password" id="password">
                         </td>
                     </tr>
                     <tr>
                         <td>비밀번호 확인</td>
                         <td>
-                            <input type="text" name="userPwCheck">
+                            <input type="password" name="userPwCheck" id="passwordCheck">
                         </td>
                     </tr>
                     <tr>
@@ -87,7 +87,7 @@
         </form>
     </div>
     
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script>
         let joinFrom_checkedLoginId = "";
         let form = document.querySelector("form");
@@ -104,41 +104,6 @@
         let userNickName = $('#userNickName').val();
         let userPhone = $('#userPhone').val();
 
-        // 로그인 아이디 중복 체크
-        function joinFrom_checkedLoginIdDup(el) {
-            const form = $(el).closest('form').get(0);
-            const username = form.username.value;
-
-            let data = {
-                'username' : username
-            }
-
-            // alert(form.username.value);
-            let url = 'http://localhost:8080/getLoginIdDup'
-            $.ajax({
-                url             :   url,
-                type            :   'GET',
-                data            :   data,
-                success         : function(response) {
-                    if( response == 'Y' ){
-                        alert('이용 가능한 이이디입니다.')
-                        checkUserName.val('1');
-                        $("#username").prop("readonly", true);
-                    }
-                    if( response == 'N' ){
-                        alert('아이디가 중복되었습니다.')
-                        
-                    }
-                },
-                error           : function(request, status, error){
-                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                }
-
-            })
-
-        }
-
-        // 닉네임 중복 검사
         function joinFrom_checkedNicknameDup(el) {
             const form = $(el).closest('form').get(0);
             const nickname = form.nickname.value;
@@ -277,24 +242,24 @@
             if (form.username.value.length == 0) {
                 alert('로그인 아이디를 입력해주세요.');
                 form.username.focus();
-                event.preventDefault(); // 폼 제출을 중지합니다.
+                event.preventDefault(); 
             }
 
             if ( password != passwordCheck ) {
                 alert('비밀번호가 일치하지 않습니다.')
-                event.preventDefault(); // 폼 제출을 중지합니다.
+                event.preventDefault(); 
             }
         
             if ( checkUserNicknameVal == 0 ) {
                 alert('닉네임 중복검사를 실시해주세요.');
                 form.btnNicknameDupCheck.focus();
-                event.preventDefault(); // 폼 제출을 중지합니다.
+                event.preventDefault(); 
             }
 
             if ( checkUserPhoneVal == 0 ) {
                 alert('연락처 중복검사를 실시해주세요.');
                 form.btnPhoneDupCheck.focus();
-                event.preventDefault(); // 폼 제출을 중지합니다.
+                event.preventDefault(); 
             }
             
             // 유효성 검사 부분

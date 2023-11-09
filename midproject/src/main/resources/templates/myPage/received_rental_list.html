@@ -89,9 +89,9 @@
 
             </tr>
         </th:block>
-        <th:block th:if="${rrList==null}">
+        <th:block th:if="${rrList.isEmpty()}">
             <th>
-                <td colspan="8">조회된 데이터가 없습니다!</td>
+                <td colspan="11">조회된 데이터가 없습니다!</td>
             </th>
         </th:block>
     </table>

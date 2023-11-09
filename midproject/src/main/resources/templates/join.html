@@ -16,7 +16,7 @@
             다양한 서비스를<br>
             이용해 보세요<br>
         </h1>
-        <img src="../static/img/90.jpeg" alt="">
+        <img src="/img/90.jpeg" alt="">
     </div>
     <div class="container">
         <form action="/join" method="POST" id="joinForm" enctype="multipart/form-data">
@@ -43,7 +43,7 @@
                     <div class="form__group field plus_flex">
                         <input type="text" class="form__field" placeholder="아이디" name="username" id="username">
                         <label for="username" class="form__label">아이디</label>
-                        <button onclick="joinFrom_checkedLoginIdDup(this);" name="btnLoginIdDupCheck" type="button"
+                        <button onclick="joinFrom_checkedLoginIdDup()" name="btnLoginIdDupCheck" type="button"
                             class="btn btn-outline-dark dul_btn_size">아이디 중복 검사</button>
                     </div>
                     <input type="hidden" id="checkUserName" value="0">
@@ -94,11 +94,9 @@
             </div>
         </form>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        let joinFrom_checkedLoginId = "";
-        let form = document.querySelector("form");
+        
+        let form = $(`#joinForm`)
 
         let checkUserName = $('#checkUserName');
         let checkUserNameVal = checkUserName.val();
@@ -111,10 +109,73 @@
 
 
 
-        // 로그인 아이디 중복 체크
-        function joinFrom_checkedLoginIdDup(el) {
-            const form = $(el).closest('form').get(0);
-            const username = form.username.value;
+      
+       
+
+        $(`#joinForm`).on("submit", function(event) {
+            checkUserNameVal = checkUserName.val();
+            checkUserNicknameVal = checkUserNickname.val();
+            checkUserPhoneVal = checkUserPhone.val();
+
+            // 비밀번호 확인 체크 관련 변수
+            let password = $('#password').val();
+            let passwordCheck = $('#passwordCheck').val();
+
+
+            if ($(`#username`).val.length == 0) {
+                alert('로그인 아이디를 입력해주세요.');
+                form.username.focus();
+                event.preventDefault(); 
+            }
+
+            if (checkUserNameVal == 0) {
+                alert('로그인 아이디 중복검사를 실시해주세요.');
+                form.btnLoginIdDupCheck.focus();
+                event.preventDefault();
+            }
+
+            if (password != passwordCheck) {
+                alert('비밀번호가 일치하지 않습니다.')
+                event.preventDefault();
+            }
+
+            if (checkUserNicknameVal == 0) {
+                alert('닉네임 중복검사를 실시해주세요.');
+                form.btnNicknameDupCheck.focus();
+                event.preventDefault();
+            }
+
+            if (checkUserPhoneVal == 0) {
+                alert('연락처 중복검사를 실시해주세요.');
+                form.btnPhoneDupCheck.focus();
+                event.preventDefault();
+            }
+
+            // 유효성 검사 부분
+            // 1. 비밀번호에 대한 유효성 검사
+            if (validatePassword() === false) {
+                event.preventDefault();
+            }
+            // 2. 이메일에 대한 유효성 검사 실시
+            if (validateEmail() === false) {
+                event.preventDefault();
+            }
+            // 3. 연락처에 대한 유효성 검사 실시
+            if (validatePhone() === false) {
+                alert('이메일 유요성 검사를 통화하지 못했습니다.')
+                event.preventDefault();
+            }
+
+        });
+
+
+
+      // 로그인 아이디 중복 체크
+      function joinFrom_checkedLoginIdDup() {
+            const form = document.getElementById('joinForm')
+            console.log(form);
+            const username = form.username.value
+            console.log(username);
 
             let data = {
                 'username': username
@@ -146,8 +207,9 @@
 
         }
 
-        // 닉네임 중복 검사
-        function joinFrom_checkedNicknameDup(el) {
+
+         // 닉네임 중복 검사
+         function joinFrom_checkedNicknameDup(el) {
             const form = $(el).closest('form').get(0);
             const nickname = form.nickname.value;
 
@@ -265,65 +327,7 @@
             return true;
         }
 
-
-
-        form.addEventListener("submit", function (event) {
-            checkUserNameVal = checkUserName.val();
-            checkUserNicknameVal = checkUserNickname.val();
-            checkUserPhoneVal = checkUserPhone.val();
-
-            // 비밀번호 확인 체크 관련 변수
-            let password = $('#password').val();
-            let passwordCheck = $('#passwordCheck').val();
-
-
-            if (form.username.value.length == 0) {
-                alert('로그인 아이디를 입력해주세요.');
-                form.username.focus();
-                event.preventDefault(); // 폼 제출을 중지합니다.
-            }
-
-            if (checkUserNameVal == 0) {
-                alert('로그인 아이디 중복검사를 실시해주세요.');
-                form.btnLoginIdDupCheck.focus();
-                event.preventDefault();
-            }
-
-            if (password != passwordCheck) {
-                alert('비밀번호가 일치하지 않습니다.')
-                event.preventDefault();
-            }
-
-            if (checkUserNicknameVal == 0) {
-                alert('닉네임 중복검사를 실시해주세요.');
-                form.btnNicknameDupCheck.focus();
-                event.preventDefault();
-            }
-
-            if (checkUserPhoneVal == 0) {
-                alert('연락처 중복검사를 실시해주세요.');
-                form.btnPhoneDupCheck.focus();
-                event.preventDefault();
-            }
-
-            // 유효성 검사 부분
-            // 1. 비밀번호에 대한 유효성 검사
-            if (validatePassword() === false) {
-                event.preventDefault();
-            }
-            // 2. 이메일에 대한 유효성 검사 실시
-            if (validateEmail() === false) {
-                event.preventDefault();
-            }
-            // 3. 연락처에 대한 유효성 검사 실시
-            if (validatePhone() === false) {
-                alert('이메일 유요성 검사를 통화하지 못했습니다.')
-                event.preventDefault();
-            }
-
-        });
     </script>
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 </body>
 
 </html>

@@ -31,6 +31,7 @@
           </tr>
         </thead>
         <tbody>
+          <th:block th:if="${resTeamAppList != null}">
           <th:block th:each="resTeam : ${resTeamAppList}">
             <tr th:onclick="'readApp('+${resTeam.appNo}+')'">
 
@@ -81,6 +82,13 @@
             
             
           </th:block>
+        </th:block>
+
+        <th:block th:if="${resTeamAppList.isEmpty()}">
+          <tr>
+            <td colspan="10">조회된 내역이 없습니다.</td>
+          </tr>
+        </th:block>
         </table>
       </div>
   </div>

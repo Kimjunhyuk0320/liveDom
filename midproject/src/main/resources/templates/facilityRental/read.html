@@ -75,7 +75,7 @@
     <br>
 <th:block sec:authorize="isAuthenticated()">
 
-    <th:block th:if="facilityRental.buyUsername==null && facilityRental.username != #authentication.principal.users.username}">
+    <th:block th:if="${facilityRental.buyUsername==null && facilityRental.username != #authentication.principal.users.username}">
         <form action="/facilityRental/reservation" method="POST" id="reservation">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
             <input type="hidden" name="frNo" id="frNo" th:value="${facilityRental.frNo}">
@@ -89,7 +89,7 @@
         <button type="button" onclick="moveList()">목록</button>
 
         <th:block sec:authorize="isAuthenticated()">
-        <th:block th:if="${facilityRental.username eq #authentication.principal.users.username}">
+        <th:block th:if="${facilityRental.username == #authentication.principal.users.username}">
         <button type="button" onclick="actionUpdate()">수정</button>
         <form action="/facilityRental/delete" method="POST" id="delForm">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -113,7 +113,7 @@
 
 
 </div>
-
+<th:block sec:authorize="isAuthenticated()">
 <!-- 댓글 입력 -->
 <div class="input-box">
     <div class="top">
@@ -129,7 +129,7 @@
         </div>
     </div>
 </div>
-
+</th:block>
 
 
 
