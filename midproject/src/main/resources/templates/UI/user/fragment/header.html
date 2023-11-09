@@ -329,14 +329,16 @@
                         <a href="/facilityRental/list">클럽 대관 서비스</a>
                         <ul>
                             <li><a href="/facilityRental/list">전체보기</a></li>
-                            <th:block sec:authorize="hasRole('ROLE_CLUB')">
-                            <li><a href="/facilityRental/insert">대관 게시글 작성하기</a></li>
-                            <li><a href="/facilityRental/user/receivedList">받은 대관 신청</a></li>
-                        </th:block>
+                            <li class="cell">
+                                <ul>
+                                    <li><a href="/facilityRental/insert">대관 게시글 작성하기</a></li>
+                                    <li><a href="/facilityRental/user/receivedList">받은 대관 신청</a></li>
+                                </ul>
+                            </li>
                         </ul>
                         <div class="sub-menu-width sub-menu-width-1"></div>
                     </li>
-                    <li class="cells menu-1">
+                    <li class="cells menu-2">
                         <a href="/liveBoard">공연</a>
                         <ul class="header-row">
                             <li><a href="/liveBoard/list">전체보기</a></li>
@@ -350,15 +352,17 @@
                         </ul>
                         <div class="sub-menu-width sub-menu-width-2"></div>
                     </li>
-                    <li class="cells menu-3">
+                    <li class="cells menu-2">
                         <a href="/team">공연팀 모집</a>
                         <ul>
                             <li><a href="/team">전체보기</a></li>
-                            <th:block sec:authorize="hasRole('ROLE_BAND')">
-                            <li><a href="/team/insert">모집글 작성하기</a></li>
-                            <li><a href="/team/user/listByMember">참가신청 내역</a></li>
-                            <li><a href="/team/user/listByLeader">받은 참가신청</a></li>
-                        </th:block>
+                            <li class="cell">
+                                <ul>
+                                    <li><a href="/team/insert">모집글 작성하기</a></li>
+                                    <li><a href="/team/user/listByMember">참가신청 내역</a></li>
+                                    <li><a href="/team/user/listByLeader">받은 참가신청</a></li>
+                                </ul>
+                            </li>
                         </ul>
                         <div class="sub-menu-width sub-menu-width-3"></div>
                     </li>

@@ -11,7 +11,7 @@
 <body layout:fragment="content">
     <h1>대관 게시글 읽기</h1>
 
-    <h2><input type="text" name="title" th:value="${facilityRental.title}"></h2>
+    <h2 th:text="${facilityRental.title}"></h2>
     <th:block th:if="${facilityRental.thumbnail!=null}">
     <img th:src="|/file/img/${facilityRental.thumbnail.fileNo}|" alt="썸네일">
     </th:block>

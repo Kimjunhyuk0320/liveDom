@@ -41,7 +41,7 @@
     <div id="insertContainer">
         <form action="/liveBoard/update" method="POST" id="form" enctype="multipart/form-data">
             <input type="hidden" name="boardNo" th:value="${liveBoard.boardNo}">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="_csrf" />
 
             <div class="tableContainer">
                 <table>
@@ -197,15 +197,17 @@
 
 
         $('#content').summernote(setting)
-
+        let _csrf_name = $('#_csrf').attr('name')
+        let _csrf_value = $('#_csrf').val()  
+        
         // 에디터 파일 업로드
         function uploadImage(file, element) {
             const fileUrl = 'http://localhost:8080/file'
             const url = 'http://localhost:8080/file'
 
             let formData = new FormData()
+            formData.append(_csrf_name, _csrf_value )
             formData.append("file", file)
-
             $.ajax({
                 url : url,
                 type : "post",
@@ -215,7 +217,7 @@
                 success : function(response) {
                     let fileNo = response
                     // let img = `<img src="${fileUrl}/img/${fileNo}">`
-                    let imgUrl = `${fileUrl}/img?fileNo=${fileNo}`
+                    let imgUrl = `${fileUrl}/img/${fileNo}`
                     // 업로드된 이미지url 를 에디터에 추가
                     $(element).summernote('editor.insertImage', imgUrl)
                 },

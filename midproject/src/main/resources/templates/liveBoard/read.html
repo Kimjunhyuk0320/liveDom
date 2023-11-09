@@ -1,140 +1,187 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/user/layout/main_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/UI/user/layout/main_layout}">
+
 <head>
     <title>공연 게시글 읽기</title>
+    <link rel="stylesheet" href="/css/read.css">
 </head>
+
 <body layout:fragment="content">
-  <h1>공연 게시글 읽기</h1>
-    <form action="/liveBoard/delete" method="POST" id="form">
-        <input type="hidden" name="boardNo" th:value="${liveBoard.boardNo}" id="boardNo">
 
-        <h2 th:text="${liveBoard.title}"></h2>
-        <table>
-            <tr>
-                <td>공연일자</td>
-                <td>
-                    <span th:text="${liveBoard.liveDate}"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>공연시간</td>
-                <td>
-                    <span th:text="${liveBoard.liveTime}"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>공연진</td>
-                <td>
-                    <span th:text="${liveBoard.crew}"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>수용인원</td>
-                <td>
-                    <span th:text="${liveBoard.maxTickets}"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>티켓가격</td>
-                <td>
-                    <span th:text="${liveBoard.price}"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>지역</td>
-                <td>
-                    <span th:text="${liveBoard.location}"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>주소</td>
-                <td>
-                    <span th:text="${liveBoard.address}"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>잔여티켓</td>
-                <td>
-                    <span th:text="${liveBoard.ticketLeft}" id="ticketLeft"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>매진여부</td>
-                <td>
-                    <span th:if="${liveBoard.soldOut == 0}">판매 중</span> 
-                    <span th:if="${liveBoard.soldOut == 1}">매진</span> 
-                </td>
-            </tr>
-            <tr>
-                <td>매수</td>
-                <td>
-                    <!-- 버튼 클릭 시 숫자가 증감함 -->
-                    <div>
-                        <h3 id="countNum">0</h3>
-                        <div id="countBtn" onclick="increase()">+</div>
-                        <div id="countBtn" onclick="decrease()">-</div>
-                    </div>
-                </td>
-            </tr>
+    <div class="totalContainer">
+        
 
-        </table>
-    </form>
-    <th:block sec:authorize="isAuthenticated()">
-        <form action="/liveBoard/purchase" method="POST" id="purchase">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="_csrf"/>
-            <input type="hidden" id="boardNo"    name="boardNo" th:value="${liveBoard.boardNo}">
-            <input type="hidden" id="name"     name="name" th:value="${#authentication.principal.users.name}" >
-            <input type="hidden" id="phone"  name="phone" th:value="${#authentication.principal.users.phone}" >
-            <input type="hidden" id="count"   name="count" value="0">
+        <form action="/liveBoard/delete" method="POST" id="form">
+            <input type="hidden" name="boardNo" th:value="${liveBoard.boardNo}" id="boardNo">
             
-    
-            <button type="button" id="btn-purchase">티켓 구매</button>
+            <div class="topContentContainer">
+
+                <div class="imgContainer">
+                    <img th:src="|/file/img/${liveBoard.thumbnail.fileNo}|" th:if="${liveBoard.thumbnail != null}">
+                </div>
+
+                <div class="contentContainer">
+                    <div class="tableContainer">
+                        <table>
+                            <tr>
+                                <td colspan="2">
+                                    <h2 th:text="${liveBoard.title}"></h2>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>공연일자</td>
+                                <td>
+                                    <span th:text="${liveBoard.liveDate}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>공연시간</td>
+                                <td>
+                                    <span th:text="${liveBoard.liveTime}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>공연진</td>
+                                <td>
+                                    <span th:text="${liveBoard.crew}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>수용인원</td>
+                                <td>
+                                    <span th:text="${liveBoard.maxTickets}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>티켓가격</td>
+                                <td>
+                                    <span th:text="${liveBoard.price}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>지역</td>
+                                <td>
+                                    <span th:text="${liveBoard.location}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>주소</td>
+                                <td>
+                                    <span th:text="${liveBoard.address}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>잔여티켓</td>
+                                <td>
+                                    <span th:text="${liveBoard.ticketLeft}" id="ticketLeft"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>매진여부</td>
+                                <td>
+                                    <span th:if="${liveBoard.soldOut == 0}">판매 중</span>
+                                    <span th:if="${liveBoard.soldOut == 1}">매진</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>매수</td>
+                                <td>
+                                    <!-- 버튼 클릭 시 숫자가 증감함 -->
+                                    <div id="countFor">
+                                        <div>
+                                            <h3 id="countNum">0</h3>
+                                        </div>
+                                        <div id="aaaa">
+                                            <button type="button" class="countBtn" onclick="increase()">+</button>
+                                            <button type="button" class="countBtn" onclick="decrease()">-</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
         </form>
-    </th:block>
 
-    <div>
-        <button type="button" onclick="moveList()">목록</button>
-        <th:block sec:authorize="isAuthenticated()">
-
-            <button type="button" onclick="moveUpdate()" th:if="${#authentication.principal.users.username == liveBoard.username}">수정</button>
-        </th:block>
-    </div>
-
-    <div style="background-color: darkgrey; width: 500px; height: 800px;">
-        <p th:utext="${liveBoard.content}"></p>
-    </div>
-<!-- 댓글 목록 -->
-<div id="comment-list">
-
-
-</div>
-<th:block sec:authorize="isAuthenticated()">
-    <input type="hidden" name="username" id="username" th:value="${#authentication.principal.users.username}">
-    <!-- 댓글 입력 -->
-    <div class="input-box">
-        <div class="top">
-            <h3>댓글 입력</h3>
-        </div>
-        <div class="comment-input">
-            <input type="text" name="writer" id="comment-writer" placeholder="작성자" th:value="${#authentication.principal.users.nickname}" readonly>
-            <br>
-            <textarea name="content" id="comment-content" 
-            cols="60" rows="5" placeholder="댓글을 작성해주세요"></textarea>
-            <div class="btn-box">
-                <a href="javascript:;" id="btn-comment-insert" class="btn btn-sm">등록</a>
+        <div class="bottomContainer">
+            <div>
+                <button type="button" onclick="moveList()">목록</button>
+                <th:block sec:authorize="isAuthenticated()">
+                    
+                    <button type="button" onclick="moveUpdate()" th:if="${#authentication.principal.users.username == liveBoard.username}">수정</button>
+                </th:block>
+            </div>
+            <div>
+                <!-- 티켓 구매 버튼 -->
+                <th:block sec:authorize="isAuthenticated()">
+                    <form action="/liveBoard/purchase" method="POST" id="purchase">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="_csrf" />
+                        <input type="hidden" id="boardNo" name="boardNo" th:value="${liveBoard.boardNo}">
+                        <input type="hidden" id="name" name="name" th:value="${#authentication.principal.users.name}" >
+                        <input type="hidden" id="phone"  name="phone" th:value="${#authentication.principal.users.phone}" >
+                        <input type="hidden" id="count"   name="count" value="0">
+                        
+                        
+                        <button type="button" id="btn-purchase">예매하기</button>
+                    </form>
+                </th:block>
             </div>
         </div>
-    </div>
+
+
+        <div class="textContainer">
+            <p th:utext="${liveBoard.content}"></p>
+        </div>
+        
+       
+<th:block sec:authorize="isAuthenticated()">
+
+
+        <!-- 댓글 입력 -->
+        <h2 style="margin: 20px;">댓글 20개</h2>
+        <div class="input-box">
+            <div class="imgDiv">
+                <!-- 여기 추가 -->
+                <img src="/img/90.jpeg" alt="...">
+            </div>
+            <div class="comment-input">
+                <input type="hidden" name="writer" id="comment-writer" placeholder="작성자" th:value="${#authentication.principal.users.nickname}" readonly>
+                <br>
+                <textarea name="content" id="comment-content" 
+                cols="10" rows="1" placeholder="댓글 추가..."></textarea>
+                <div class="btn-box">
+                    <a href="javascript:;" id="btn-comment-insert" class="btn btn-sm">등록</a>
+                </div>
+                <div class="btn-box-can">
+                    <a href="javascript:;" id="btn-comment-del" class="btn btn-sm">취소</a>
+                </div>
+            </div>
+        </div>
+        <script>
+             // 취소 버튼을 누르면 input태그 안의 글이 삭제됨
+            document.getElementById("btn-comment-del").addEventListener("click", function() {
+                document.getElementById("comment-content").value = ""; // 댓글 내용을 비움
+            });
+        </script>
+
+    
 </th:block>
 
+ <!-- 댓글 목록 -->
+ <div id="comment-list">
 
 
+ </div>
 
-</div>
-</section>
+
+        
+
+    </div>
 
 
 <!-- sweetalert2 -->
@@ -183,29 +230,37 @@ $.ajax({
             let depthNo = comment.depthNo
 
             let commentBox 
-            = `<div class="comment-box">
-                    <div class="data-box">
-                        <div class="top">
-                            <div class="item">
-                                <span class="comment-writer">${comment.writer}</span>
-                                <span class="comment-date">${regDate} ${regTime}</span>
-                            </div>
-                            `
-                            if(commentList[i].username==username){
-                                commentBox +=`
-                                <div class="item">
-                                    <a href="javascript:;" class="btn btn-sm btn-comment-update" data="${comment.commentNo}">수정</a>
-                                    <a href="javascript:;" class="btn btn-sm btn-comment-delete" data="${comment.commentNo}">삭제</a>
+            =   `   
+                <div class="commentContainer">
+                    <div class="imgDiv">
+                        <!-- 여기 추가 -->
+                        <img src="/img/90.jpeg" alt="..." style="">
+                    </div>
+                    <div class="comment-box">
+                        <div class="data-box">
+                            <div class="top">
+                                <div class="itemSt">
+                                    
+                                    <h2 class="comment-writer">${comment.writer}</h2>
+                                    <span class="comment-date">${regDate} ${regTime}</span>
                                 </div>
                                 `
-                            }
-                            commentBox +=`
+                                if(commentList[i].username==username){
+                                    commentBox +=`
+                                    <div class="itemsNd">
+                                        <a href="javascript:;" class="btn btn-sm btn-comment-update" data="${comment.commentNo}">수정</a>
+                                        <a href="javascript:;" class="btn btn-sm btn-comment-delete" data="${comment.commentNo}">삭제</a>
+                                    </div>
+                                    `
+                                }
+                                commentBox +=`
+                            </div>
+                            <div class="bottom">
+                                <p class="comment-content">${comment.content}</p>
+                            </div>
                         </div>
-                        <div class="bottom">
-                            <p class="comment-content">${comment.content}</p>
-                        </div>
+                        <div class="edit-box"></div>
                     </div>
-                    <div class="edit-box"></div>
                 </div>
                 `
             commentData += commentBox
@@ -533,6 +588,16 @@ function deleteCommentData(commentNo) {
                 $("#count").val(count)
             }
         }
+
+        $(document).ready(function() {
+            $('#comment-content').on('input', function () {
+                this.style.height = 'auto'; // 높이 초기화
+                this.style.height = (this.scrollHeight) + 'px'; // 스크롤 높이에 따라 높이 조절
+            });
+        });
+
+       
+
 
     </script>
 </body>

@@ -58,6 +58,7 @@ select, input {
 
 }
 
+/* 테이블 관련 */
 .tableContainer {
     display: flex;
     justify-content: center;
