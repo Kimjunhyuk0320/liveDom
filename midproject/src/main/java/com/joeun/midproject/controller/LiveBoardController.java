@@ -177,6 +177,28 @@ public class LiveBoardController {
         // 뷰 페이지 지정
         return "redirect:/liveBoard/list";
     }
+
+     /**
+     * 티켓 수량 비동기 조회
+     * [POST]
+     */
+    @ResponseBody
+    @Secured({"ROLE_USER", "ROLE_BAND", "ROLE_CLUB"})
+    @PostMapping(value="/ticketNum")
+    public String ticketNum(Ticket ticket, int count) throws Exception {
+        int boardNo = ticket.getBoardNo();
+        int totalTicketCount = liveBoardService.select(boardNo).getMaxTickets();
+        List<Ticket> ticketList = liveBoardService.listByBoardNo(boardNo);
+        int purchaseTicketCount = ticketList.size();
+        int ticketLeft = totalTicketCount - purchaseTicketCount;
+        // 잔여티켓보다 구매티켓이 많은경우의 응답
+        if( ticketLeft < count) return "OVERCOUNT";
+
+        // 잔여티켓의 수가 0 일때 매진 응답
+        if( (Integer)ticketLeft == 0 ) return "ZERO";
+
+      return "SUCCESS";
+    }
      /**
      * 티켓 구매 처리
      * [POST]
@@ -197,7 +219,7 @@ public class LiveBoardController {
         if( (Integer)ticketLeft == 0 ) return "ZERO";
 
 
-        // 데이터 처리
+        // 티켓 테이블에 등록
         int result = 0;
         for(int i = 0 ; i < count ; i++){
             result += liveBoardService.purchase(ticket);

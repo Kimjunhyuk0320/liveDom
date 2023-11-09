@@ -597,6 +597,20 @@ function deleteCommentData(commentNo) {
         });
 
        
+        setInterval(() => {
+            console.log("Delayed for 1 second.");
+            // 매진 체크
+
+            let result = false
+            if( result ) {
+                alert('매진 되었습니다.')
+                // 결제 모듈 강제 종료
+                // 리다이렉트
+                location.href = ''
+            }
+
+        }, 1000);
+
 
 
     </script>
