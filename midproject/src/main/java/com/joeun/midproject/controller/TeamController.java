@@ -108,6 +108,21 @@ public class TeamController {
   }
   
 
+  // team 목록 component 요청
+  @GetMapping(value="/component/list")
+  public String teamCoponentList(Model model) {
+
+      log.info("컴포넌트 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      // 여기로 
+      model.addAttribute("teamList", teamService.list());
+      model.addAttribute("teamList", teamService.list());
+
+
+      return "UI/user/component/team/list";
+  }
+  
+  
+
 
 
 

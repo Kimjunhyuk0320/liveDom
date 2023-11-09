@@ -52,8 +52,19 @@
 <th:block sec:authorize="hasRole('ROLE_CLUB')">
     <a href="/facilityRental/insert">글쓰기</a>
 </th:block>
-    <div class="card" style="width: 18rem;" id="team-data">
+
+
+<div class="container">
+
+    <div class="row" id="team-data">
+        <!--페이지네이션 리스트-->
+
     </div>
+
+</div>
+
+
+    
 
     <!-- 페이지네이션 -->
     <div class="pagination">
@@ -237,6 +248,7 @@
 
                 let tr =``
                 tr+=`
+                <div class="card" style="width: 18rem;">
             <a href="/facilityRental/read?frNo=${teamList[i].frNo}">
                 `
                 if(teamList[i].thumbnail!=null){
@@ -250,6 +262,7 @@
             <p class="card-text">${new Date(teamList[i].updDate).toISOString().split("T")[0]}</p>
             <p class="card-text">${teamList[i].price}</p>
             <p class="card-text">${teamList[i].location}</p>
+        </div>
             `
                 teamData += tr
             }
