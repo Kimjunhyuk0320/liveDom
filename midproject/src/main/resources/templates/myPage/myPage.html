@@ -8,18 +8,20 @@
     <link rel="stylesheet" href="/css/mypage.css">
 </head>
 <body layout:fragment="content" id="mypage-body">
+    
+    <div id="mypage-container">
+    <div id="mypage-id">
     <h2>ID</h2>
     <h1 th:text="${#authentication.principal.users.username}"></h1>
-
+    </div>
+    <section class="mypage-btn-container" stlye="margin-top : 0;">
     
-    <section class="mypage-btn-container">
-
         <!-- 프로필 사진 쏴주기 -->
         <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.users.profileNo != null}">
-        <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진">
+        <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진" id="profile">
         </th:block>
 
-        <div class="mypage-btn" onclick="moveUser('/myPage/myInfo')">
+        <div class="mypage-btn" onclick="moveUser('/myPage/myInfo')" style="width: 450px;">
             <span>내 정보</span>
         </div>
 
@@ -64,7 +66,7 @@
                 <span>팀 참가 신청 목록</span>
             </div>
 
-            <div class="mypage-btn" onclick="moveTeam('/user/listByConfirmedLive')">
+            <div class="mypage-btn"  style="width: 615px;" onclick="moveTeam('/user/listByConfirmedLive')">
                 <span>성사된 공연 목록</span>
             </div>
 
@@ -73,8 +75,9 @@
             </div>
     
         </th:block>
+        </div>
     </section>
-
+</div>
     <script>
 
         let moveUser = function(url){
