@@ -137,7 +137,10 @@
             <p th:utext="${liveBoard.content}"></p>
         </div>
         
-        
+       
+<th:block sec:authorize="isAuthenticated()">
+
+
         <!-- 댓글 입력 -->
         <h2 style="margin: 20px;">댓글 20개</h2>
         <div class="input-box">
@@ -158,11 +161,24 @@
                 </div>
             </div>
         </div>
-        
-        <!-- 댓글 목록 -->
-        <div id="comment-list">
+        <script>
+             // 취소 버튼을 누르면 input태그 안의 글이 삭제됨
+            document.getElementById("btn-comment-del").addEventListener("click", function() {
+                document.getElementById("comment-content").value = ""; // 댓글 내용을 비움
+            });
+        </script>
 
-        </div>
+    
+</th:block>
+
+ <!-- 댓글 목록 -->
+ <div id="comment-list">
+
+
+ </div>
+
+
+        
 
     </div>
 
@@ -173,32 +189,11 @@
 <script>
 
 let boardNo = "[[${liveBoard.boardNo}]]"
-let username = "[[${#authentication.principal.users.username}]]"
+let username = $(`#username`).val() != null ? $(`#username`).val() : `GUEST`;
 
 if( boardNo != null ) {
 getCommentList()
 }
-
-
-
-// Swal.fire({
-//     title: '정말로 삭제하시겠습니까?',
-//     text: "삭제하면 되돌릴 수 없습니다!",
-//     icon: 'warning',
-//     showCancelButton: true,
-//     confirmButtonColor: '#3085d6',
-//     cancelButtonColor: '#d33',
-//     confirmButtonText: '예',
-//     cancelButtonText: '아니오',
-// }).then((result) => {
-//     // result.isConfirmed : true  [예]
-//     // result.isConfirmed : false  [아니오]
-//     if (result.isConfirmed) {
-//         deleteData()
-        
-//     }
-// })
-
 
 
 
@@ -249,7 +244,7 @@ $.ajax({
                                     <span class="comment-date">${regDate} ${regTime}</span>
                                 </div>
                                 `
-                                if(commentList[i].username=="[[${#authentication.principal.users.username}]]"){
+                                if(commentList[i].username==username){
                                     commentBox +=`
                                     <div class="itemsNd">
                                         <a href="javascript:;" class="btn btn-sm btn-comment-update" data="${comment.commentNo}">수정</a>
@@ -600,10 +595,7 @@ function deleteCommentData(commentNo) {
             });
         });
 
-        // 취소 버튼을 누르면 input태그 안의 글이 삭제됨
-        document.getElementById("btn-comment-del").addEventListener("click", function() {
-            document.getElementById("comment-content").value = ""; // 댓글 내용을 비움
-        });
+       
 
 
     </script>

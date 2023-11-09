@@ -1,552 +1,977 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/user/layout/main_layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/UI/user/layout/main_layout}">
+
 <head>
-<style>
-* {margin: 0; padding: 0; box-sizing: border-box; }
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;}
-h1, h2, h3, h4, h5, h6 {font-weight: 700; font-size: inherit;}
-a {text-decoration: inherit; color: inherit;}
-li {list-style: none;}
-img {vertical-align: middle;}
-a img {border: none;}
-a:focus {outline: none}
-button:focus {outline: none}
-
-body { 
-    font-family: 'Noto Sans KR', sans-serif;
-}
-
-::selection {
-    background-color: var(--main);
-    color: white;
-}
-
-:root {
-    --main: #DCE6FF;
-    --sub: #89B1FF;
-    --bg-light: #F3EFEB;
-    --bg-gray: #aaa;
-    --neon-green: #B9CC95;
-    --neon-pink: #E8A3B5;
-    --light-pink: #F7CCD3;
-
-    --text-black: #000 ;
-    --text-gray: #666 ;
-    --text-light-gray: #999 ;
-}
-html {
-    overflow-x: hidden;
-}
-
-.hide { display: none; }
-
-header {
-    border-bottom: 1px solid black;
-}
-header .util {}
-header .menu {
-    width: 1024px;
-    margin: 0 auto;
-}
-header .menu nav {
-    height: 60px;
-}
-header .menu nav ul {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center; 
-    height: 100%;
-}
-header .menu nav ul li {
-    position: relative;
-    height: 100%;
-    overflow: hidden;
-}
-header .menu nav ul li a {
-    display: inline-block;
-    min-width: 100px;
-    height: 100%;
-    line-height: 60px;
-    position: relative;
-    z-index: 1;
-    color: black;
-    text-align: center;
-}
-
-.mobile { display: none !important; }
-
-@media screen and (max-width: 1024px) {
-   header .menu { width: 100%; }
-}
-
-@media screen and (max-width: 600px) {
-   .pc { display: none !important; }
-   .mobile { display: flex !important; }
-
-
-   header .menu nav ul.mobile {
-      justify-content: space-between;
-   }
-
-   header .menu nav ul.mobile li a {
-      border: none;
-      line-height: 82px;
-   }
-
-   header .menu nav ul.mobile li a span {
-      font-size: 40px;
-   }
-   
-   
-}
-
-
-#sidebar {
-   width: 70vw;
-   max-width: 300px;
-   height: 100vh;
-   background-color: black;
-   position: fixed;
-   right: -70vw;
-   transition: all 0.4s;
-   z-index: 20;
-   color: white;
-   text-align: center;
-}
-
-#sidebar.on {
-   right: 0;
-}
-
-#sidebar ul li {
-   width: 100%;
-   height: 100%;
-   transition: all 0.2s;
-}
-
-#sidebar ul li:hover {
-   transform: scale(2);
-}
-#sidebar ul li a {
-   display: inline-block;
-   width: 100%;
-   height: 60px;
-   margin: 10px 0;
-   line-height: 60px;
-}
-
-#btn-close {
-   color: white;
-   padding: 20px;
-}
-#btn-close span { font-size: 40px; }
-
-
-.container {
-    width: 1024px;
-    margin: 0 auto;
-}
-
-.main {}
-.main .inner { padding: 50px; }
-.main h2 { font-size: 32px; margin-bottom: 20px; }
-.main ul { font-size: 20px; margin-bottom: 20px; }
-.main ul li {}
-
-.btn-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.btn-box .item {
-    display: flex;
-    align-items: center;
-    column-gap: 10px;
-}
-
-.btn {
-    display: inline-block;
-    min-width: 120px;
-    min-height: 48px;
-    line-height: 48px;
-    background-color: royalblue;
-    color: white;
-    text-align: center;
-}
-
-.btn-sm {
-    min-width: 60px;
-    min-height: 32px;
-    line-height: 32px;
-}
-
-
-.main-title { margin-bottom: 40px; }
-.main-title h1 { font-size: 30px; }
-.main-title p { font-size: 20px; }
-
-
-.board {
-    width: 100%;
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
-    margin: 30px 0;
-    border-collapse: collapse;
-}
-
-.board tr {
-    border-bottom: 1px solid gray;
-    text-align: center;
-}
-.board .num { width: 10%;}
-.board .title { width: 40%; max-width: 340px; }
-.board .writer { width: 20%; max-width: 160px; }
-.board .date { width: 20%; }
-.board .view { width: 10%; }
-
-.board thead { font-weight: bold; }
-.board tbody .title { text-align: left; }
-
-.board td {
-    display: inline-block;
-    padding: 15px 0;
-    font-size: 1.2rem;
-}
-
-.board .label { width: 20%; }
-.board .data { 
-    width: 80%;
-    text-align: left;
-}
-
-.input-text {
-    width: 90%;
-    font-size: 32px;
-    margin: 0 10px;
-    border-radius: 5px;
-    padding-left: 10px;
-    outline: none;
-}
-
-.input-textarea {
-    resize: none;
-    width: 90%;
-    font-size: 32px;
-    margin: 0 10px;
-    border-radius: 5px;
-    outline: none;
-}
-
-
-.pagination {
-    margin: 40px auto;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-}
-.pagination a {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
-    border: 1px solid gray;
-}
-.pagination .page-no {
-    font-size: 18px;
-}
-.pagination .page-arrow {
-    color: gray;
-}
-
-.pagination .page-list { display: flex;}
-
-.pagination a.on,
-.pagination a:hover {
-    background-color: royalblue;
-    font-weight: bold;
-    color: white;
-}
-
-.input-search {
-    min-height: 48px;
-    font-size: 18px;
-    padding-left: 8px;
-}
-
-#comment-list { margin-bottom: 40px; }
-#comment-list .comment-box {
-    width: 400px;
-    border: 1px solid black;
-    padding: 12px;
-}
-#comment-list .comment-box .top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-#comment-list .comment-box .bottom {}
-#comment-list .comment-box .comment-writer { font-weight: bold; }
-#comment-list .comment-box .comment-date { color: #333; font-size: 12px; }
-#comment-list .comment-box .comment-content {}
-#comment-list .comment-box .etc-box {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 12px 0;
-}
-
-.input-box {
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    margin: 20px 0;
-    padding: 20px 0;
-}
-.input-box .top { margin-bottom: 20px; }
-.input-box .comment-input {
-    width: 400px;
-}
-.input-box .comment-input input {
-    min-height: 48px;
-    font-size: 18px;
-    padding-left: 8px;
-}
-.input-box .comment-input textarea {
-    font-size: 18px;
-    padding-top: 8px;
-    padding-left: 8px;
-    resize: none;
-    width: 100%;
-}
-.input-box .btn-box {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.edit-box input {
-    min-height: 48px;
-    font-size: 18px;
-    padding-left: 8px;
-}
-
-.edit-box textarea {
-    font-size: 18px;
-    padding-left: 8px;
-    padding-top: 8px;
-    resize: none;
-    width: 100%;
-}
-
-.etc-box .btn {
-    margin: 0 2px;
-}
-
-
-
-img { width: 100%; }
-.card { 
-   box-shadow: 5px 5px 5px rgba(100,100,100,0.3); 
-   overflow: hidden;
-}
-
-.card.border { border: 1px solid black; }
-.card.round { border-radius: 12px; }
-
-.card .img-box {}
-.card .img-box a {}
-.card .img-box img {
-   width: 100%;
-   height: 140px;
-   object-fit: cover;
-}
-
-.card .content-box { padding: 14px 10px; }
-.card .content-box .title { font-size: 18px; }
-.card .content-box .writer { font-size: 12px; }
-.card .content-box .date { font-size: 12px; }
-
-
-.dropzone {
-    position: relative;
-    width: 100%;
-    height: 300px;
-    border: 2px dashed royalblue;
-    text-align: center;
-    font-size: 20px;
- }
- 
- .dropzone.over {
-    background-color: royalblue;
-    color: white;
- }
- 
- .dropzone .drop-img {
-    width: 100%;
-    height: 100%;
-    padding: 10px;
- }
- 
- .dropzone .drop-img .img-box {
-    width: 100%;
-    height: 100%;
- }
- 
- .dropzone img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
- }
- 
- .dropzone input { display: none; }
- 
- .dropzone .btn-thumb-remove {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    display: none;
- }
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.flex { display: flex; }
-.flex.main-start { justify-content: start; }
-.flex.main-end { justify-content: end; }
-.flex.main-center { justify-content: center; }
-.flex.main-space-between { justify-content: space-between; }
-.flex.main-space-around { justify-content: space-around; }
-
-.flex.sub-start { align-items: start; }
-.flex.sub-end { align-items: end; }
-.flex.sub-center { align-items: center; }
-
-.flex.wrap { flex-wrap: wrap; }
-
-.flex.col { flex-direction: column; }
-
-.flex.row-gap-10 { row-gap: 10px; }
-.flex.row-gap-20 { row-gap: 20px; }
-.flex.row-gap-30 { row-gap: 30px; }
-.flex.row-gap-40 { row-gap: 40px; }
-.flex.row-gap-50 { row-gap: 50px; }
-
-.flex.col-gap-10 { column-gap: 10px; }
-.flex.col-gap-20 { column-gap: 20px; }
-.flex.col-gap-30 { column-gap: 30px; }
-.flex.col-gap-40 { column-gap: 40px; }
-.flex.col-gap-50 { column-gap: 50px; }
-
-
-.flex .item {
-   width: 200px;
-   max-width: 100%;
-}
-
-.flex .item.col-4 {
-   width: calc( (100% - (20px*3)) / 4 );
-}
-
-.flex .item.col-3 {
-   width: calc( (100% - (20px*2)) / 3 );
-}
-
-.flex .item.col-2 {
-   width: calc( (100% - (20px*1)) / 2 );
-}
-
-
-.grid { display: grid; }
-.grid.col-1 { grid-template-columns: repeat(1, auto); }
-.grid.col-2 { grid-template-columns: repeat(2, auto); }
-.grid.col-3 { grid-template-columns: repeat(3, auto); }
-.grid.col-4 { grid-template-columns: repeat(4, auto); }
-
-.grid.col-gap-10 { column-gap: 10px; }
-.grid.col-gap-20 { column-gap: 20px; }
-.grid.col-gap-30 { column-gap: 30px; }
-.grid.col-gap-40 { column-gap: 40px; }
-.grid.col-gap-50 { column-gap: 50px; }
-
-.grid.row-gap-10 { row-gap: 10px; }
-.grid.row-gap-20 { row-gap: 20px; }
-.grid.row-gap-30 { row-gap: 30px; }
-.grid.row-gap-40 { row-gap: 40px; }
-.grid.row-gap-50 { row-gap: 50px; }
-
-.grid .item { width: 100%; }
-
-.m-10 { margin: 10px; }
-.m-20 { margin: 20px; }
-.m-30 { margin: 30px; }
-.m-40 { margin: 40px; }
-.m-50 { margin: 50px; }
-
-.mt-10 { margin-top: 10px; }
-.mt-20 { margin-top: 20px; }
-.mt-30 { margin-top: 30px; }
-.mt-40 { margin-top: 40px; }
-.mt-50 { margin-top: 50px; }
-
-.mb-10 { margin-bottom: 10px; }
-.mb-20 { margin-bottom: 20px; }
-.mb-30 { margin-bottom: 30px; }
-.mb-40 { margin-bottom: 40px; }
-.mb-50 { margin-bottom: 50px; }
-
-.ml-10 { margin-left: 10px; }
-.ml-20 { margin-left: 20px; }
-.ml-30 { margin-left: 30px; }
-.ml-40 { margin-left: 40px; }
-.ml-50 { margin-left: 50px; }
-
-.mr-10 { margin-right: 10px; }
-.mr-20 { margin-right: 20px; }
-.mr-30 { margin-right: 30px; }
-.mr-40 { margin-right: 40px; }
-.mr-50 { margin-right: 50px; }
-
-.w-100 { width: 100px !important; }
-.w-200 { width: 200px !important; }
-.w-300 { width: 300px !important; }
-.w-400 { width: 400px !important; }
-.w-500 { width: 500px !important; }
-
-.w-100p { width: 100% !important; }
-.w-90p { width: 90% !important; }
-.w-80p { width: 80% !important; }
-.w-70p { width: 70% !important; }
-.w-60p { width: 60% !important; }
-.w-50p { width: 50% !important; }
-.w-40p { width: 40% !important; }
-.w-30p { width: 30% !important; }
-.w-20p { width: 20% !important; }
-.w-10p { width: 10% !important; }
-
-
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body,
+        div,
+        span,
+        applet,
+        object,
+        iframe,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        blockquote,
+        pre,
+        a,
+        abbr,
+        acronym,
+        address,
+        big,
+        cite,
+        code,
+        del,
+        dfn,
+        em,
+        font,
+        img,
+        ins,
+        kbd,
+        q,
+        s,
+        samp,
+        small,
+        strike,
+        strong,
+        sub,
+        sup,
+        tt,
+        var,
+        b,
+        u,
+        i,
+        center,
+        dl,
+        dt,
+        dd,
+        ol,
+        ul,
+        li,
+        fieldset,
+        form,
+        label,
+        legend,
+        table,
+        tbody,
+        tfoot,
+        thead,
+        tr,
+        th,
+        td {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 700;
+            font-size: inherit;
+        }
+
+        a {
+            text-decoration: inherit;
+            color: inherit;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        img {
+            vertical-align: middle;
+        }
+
+        a img {
+            border: none;
+        }
+
+        a:focus {
+            outline: none
+        }
+
+        button:focus {
+            outline: none
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        ::selection {
+            background-color: var(--main);
+            color: white;
+        }
+
+        :root {
+            --main: #DCE6FF;
+            --sub: #89B1FF;
+            --bg-light: #F3EFEB;
+            --bg-gray: #aaa;
+            --neon-green: #B9CC95;
+            --neon-pink: #E8A3B5;
+            --light-pink: #F7CCD3;
+
+            --text-black: #000;
+            --text-gray: #666;
+            --text-light-gray: #999;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        header {
+            border-bottom: 1px solid black;
+        }
+
+        header .util {}
+
+        header .menu {
+            width: 1024px;
+            margin: 0 auto;
+        }
+
+        header .menu nav {
+            height: 60px;
+        }
+
+        header .menu nav ul {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100%;
+        }
+
+        header .menu nav ul li {
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        header .menu nav ul li a {
+            display: inline-block;
+            min-width: 100px;
+            height: 100%;
+            line-height: 60px;
+            position: relative;
+            z-index: 1;
+            color: black;
+            text-align: center;
+        }
+
+        .mobile {
+            display: none !important;
+        }
+
+        @media screen and (max-width: 1024px) {
+            header .menu {
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .pc {
+                display: none !important;
+            }
+
+            .mobile {
+                display: flex !important;
+            }
+
+
+            header .menu nav ul.mobile {
+                justify-content: space-between;
+            }
+
+            header .menu nav ul.mobile li a {
+                border: none;
+                line-height: 82px;
+            }
+
+            header .menu nav ul.mobile li a span {
+                font-size: 40px;
+            }
+
+
+        }
+
+
+        #sidebar {
+            width: 70vw;
+            max-width: 300px;
+            height: 100vh;
+            background-color: black;
+            position: fixed;
+            right: -70vw;
+            transition: all 0.4s;
+            z-index: 20;
+            color: white;
+            text-align: center;
+        }
+
+        #sidebar.on {
+            right: 0;
+        }
+
+        #sidebar ul li {
+            width: 100%;
+            height: 100%;
+            transition: all 0.2s;
+        }
+
+        #sidebar ul li:hover {
+            transform: scale(2);
+        }
+
+        #sidebar ul li a {
+            display: inline-block;
+            width: 100%;
+            height: 60px;
+            margin: 10px 0;
+            line-height: 60px;
+        }
+
+        #btn-close {
+            color: white;
+            padding: 20px;
+        }
+
+        #btn-close span {
+            font-size: 40px;
+        }
+
+
+        .container {
+            width: 1024px;
+            margin: 0 auto;
+        }
+
+        .main {}
+
+        .main .inner {
+            padding: 50px;
+        }
+
+        .main h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .main ul {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .main ul li {}
+
+        .btn-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-box .item {
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            min-width: 120px;
+            min-height: 48px;
+            line-height: 48px;
+            background-color: royalblue;
+            color: white;
+            text-align: center;
+        }
+
+        .btn-sm {
+            min-width: 60px;
+            min-height: 32px;
+            line-height: 32px;
+        }
+
+
+        .main-title {
+            margin-bottom: 40px;
+        }
+
+        .main-title h1 {
+            font-size: 30px;
+        }
+
+        .main-title p {
+            font-size: 20px;
+        }
+
+
+        .board {
+            width: 100%;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            margin: 30px 0;
+            border-collapse: collapse;
+        }
+
+        .board tr {
+            border-bottom: 1px solid gray;
+            text-align: center;
+        }
+
+        .board .num {
+            width: 10%;
+        }
+
+        .board .title {
+            width: 40%;
+            max-width: 340px;
+        }
+
+        .board .writer {
+            width: 20%;
+            max-width: 160px;
+        }
+
+        .board .date {
+            width: 20%;
+        }
+
+        .board .view {
+            width: 10%;
+        }
+
+        .board thead {
+            font-weight: bold;
+        }
+
+        .board tbody .title {
+            text-align: left;
+        }
+
+        .board td {
+            display: inline-block;
+            padding: 15px 0;
+            font-size: 1.2rem;
+        }
+
+        .board .label {
+            width: 20%;
+        }
+
+        .board .data {
+            width: 80%;
+            text-align: left;
+        }
+
+        .input-text {
+            width: 90%;
+            font-size: 32px;
+            margin: 0 10px;
+            border-radius: 5px;
+            padding-left: 10px;
+            outline: none;
+        }
+
+        .input-textarea {
+            resize: none;
+            width: 90%;
+            font-size: 32px;
+            margin: 0 10px;
+            border-radius: 5px;
+            outline: none;
+        }
+
+
+        .pagination {
+            margin: 40px auto;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination a {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            border: 1px solid gray;
+        }
+
+        .pagination .page-no {
+            font-size: 18px;
+        }
+
+        .pagination .page-arrow {
+            color: gray;
+        }
+
+        .pagination .page-list {
+            display: flex;
+        }
+
+        .pagination a.on,
+        .pagination a:hover {
+            background-color: royalblue;
+            font-weight: bold;
+            color: white;
+        }
+
+        .input-search {
+            min-height: 48px;
+            font-size: 18px;
+            padding-left: 8px;
+        }
+
+        #comment-list {
+            margin-bottom: 40px;
+        }
+
+        #comment-list .comment-box {
+            width: 400px;
+            border: 1px solid black;
+            padding: 12px;
+        }
+
+        #comment-list .comment-box .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        #comment-list .comment-box .bottom {}
+
+        #comment-list .comment-box .comment-writer {
+            font-weight: bold;
+        }
+
+        #comment-list .comment-box .comment-date {
+            color: #333;
+            font-size: 12px;
+        }
+
+        #comment-list .comment-box .comment-content {}
+
+        #comment-list .comment-box .etc-box {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 12px 0;
+        }
+
+        .input-box {
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            margin: 20px 0;
+            padding: 20px 0;
+        }
+
+        .input-box .top {
+            margin-bottom: 20px;
+        }
+
+        .input-box .comment-input {
+            width: 400px;
+        }
+
+        .input-box .comment-input input {
+            min-height: 48px;
+            font-size: 18px;
+            padding-left: 8px;
+        }
+
+        .input-box .comment-input textarea {
+            font-size: 18px;
+            padding-top: 8px;
+            padding-left: 8px;
+            resize: none;
+            width: 100%;
+        }
+
+        .input-box .btn-box {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .edit-box input {
+            min-height: 48px;
+            font-size: 18px;
+            padding-left: 8px;
+        }
+
+        .edit-box textarea {
+            font-size: 18px;
+            padding-left: 8px;
+            padding-top: 8px;
+            resize: none;
+            width: 100%;
+        }
+
+        .etc-box .btn {
+            margin: 0 2px;
+        }
+
+
+
+        img {
+            width: 100%;
+        }
+
+        .card {
+            box-shadow: 5px 5px 5px rgba(100, 100, 100, 0.3);
+            overflow: hidden;
+        }
+
+        .card.border {
+            border: 1px solid black;
+        }
+
+        .card.round {
+            border-radius: 12px;
+        }
+
+        .card .img-box {}
+
+        .card .img-box a {}
+
+        .card .img-box img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+        }
+
+        .card .content-box {
+            padding: 14px 10px;
+        }
+
+        .card .content-box .title {
+            font-size: 18px;
+        }
+
+        .card .content-box .writer {
+            font-size: 12px;
+        }
+
+        .card .content-box .date {
+            font-size: 12px;
+        }
+
+
+        .dropzone {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            border: 2px dashed royalblue;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .dropzone.over {
+            background-color: royalblue;
+            color: white;
+        }
+
+        .dropzone .drop-img {
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+        }
+
+        .dropzone .drop-img .img-box {
+            width: 100%;
+            height: 100%;
+        }
+
+        .dropzone img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .dropzone input {
+            display: none;
+        }
+
+        .dropzone .btn-thumb-remove {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .flex {
+            display: flex;
+        }
+
+        .flex.main-start {
+            justify-content: start;
+        }
+
+        .flex.main-end {
+            justify-content: end;
+        }
+
+        .flex.main-center {
+            justify-content: center;
+        }
+
+        .flex.main-space-between {
+            justify-content: space-between;
+        }
+
+        .flex.main-space-around {
+            justify-content: space-around;
+        }
+
+        .flex.sub-start {
+            align-items: start;
+        }
+
+        .flex.sub-end {
+            align-items: end;
+        }
+
+        .flex.sub-center {
+            align-items: center;
+        }
+
+        .flex.wrap {
+            flex-wrap: wrap;
+        }
+
+        .flex.col {
+            flex-direction: column;
+        }
+
+        .flex.row-gap-10 {
+            row-gap: 10px;
+        }
+
+        .flex.row-gap-20 {
+            row-gap: 20px;
+        }
+
+        .flex.row-gap-30 {
+            row-gap: 30px;
+        }
+
+        .flex.row-gap-40 {
+            row-gap: 40px;
+        }
+
+        .flex.row-gap-50 {
+            row-gap: 50px;
+        }
+
+        .flex.col-gap-10 {
+            column-gap: 10px;
+        }
+
+        .flex.col-gap-20 {
+            column-gap: 20px;
+        }
+
+        .flex.col-gap-30 {
+            column-gap: 30px;
+        }
+
+        .flex.col-gap-40 {
+            column-gap: 40px;
+        }
+
+        .flex.col-gap-50 {
+            column-gap: 50px;
+        }
+
+
+        .flex .item {
+            width: 200px;
+            max-width: 100%;
+        }
+
+        .flex .item.col-4 {
+            width: calc((100% - (20px*3)) / 4);
+        }
+
+        .flex .item.col-3 {
+            width: calc((100% - (20px*2)) / 3);
+        }
+
+        .flex .item.col-2 {
+            width: calc((100% - (20px*1)) / 2);
+        }
+
+
+        .grid {
+            display: grid;
+        }
+
+        .grid.col-1 {
+            grid-template-columns: repeat(1, auto);
+        }
+
+        .grid.col-2 {
+            grid-template-columns: repeat(2, auto);
+        }
+
+        .grid.col-3 {
+            grid-template-columns: repeat(3, auto);
+        }
+
+        .grid.col-4 {
+            grid-template-columns: repeat(4, auto);
+        }
+
+        .grid.col-gap-10 {
+            column-gap: 10px;
+        }
+
+        .grid.col-gap-20 {
+            column-gap: 20px;
+        }
+
+        .grid.col-gap-30 {
+            column-gap: 30px;
+        }
+
+        .grid.col-gap-40 {
+            column-gap: 40px;
+        }
+
+        .grid.col-gap-50 {
+            column-gap: 50px;
+        }
+
+        .grid.row-gap-10 {
+            row-gap: 10px;
+        }
+
+        .grid.row-gap-20 {
+            row-gap: 20px;
+        }
+
+        .grid.row-gap-30 {
+            row-gap: 30px;
+        }
+
+        .grid.row-gap-40 {
+            row-gap: 40px;
+        }
+
+        .grid.row-gap-50 {
+            row-gap: 50px;
+        }
+
+        .grid .item {
+            width: 100%;
+        }
+
+        .m-10 {
+            margin: 10px;
+        }
+
+        .m-20 {
+            margin: 20px;
+        }
+
+        .m-30 {
+            margin: 30px;
+        }
+
+        .m-40 {
+            margin: 40px;
+        }
+
+        .m-50 {
+            margin: 50px;
+        }
+
+        .mt-10 {
+            margin-top: 10px;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mt-30 {
+            margin-top: 30px;
+        }
+
+        .mt-40 {
+            margin-top: 40px;
+        }
+
+        .mt-50 {
+            margin-top: 50px;
+        }
+
+        .mb-10 {
+            margin-bottom: 10px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .mb-30 {
+            margin-bottom: 30px;
+        }
+
+        .mb-40 {
+            margin-bottom: 40px;
+        }
+
+        .mb-50 {
+            margin-bottom: 50px;
+        }
+
+        .ml-10 {
+            margin-left: 10px;
+        }
+
+        .ml-20 {
+            margin-left: 20px;
+        }
+
+        .ml-30 {
+            margin-left: 30px;
+        }
+
+        .ml-40 {
+            margin-left: 40px;
+        }
+
+        .ml-50 {
+            margin-left: 50px;
+        }
+
+        .mr-10 {
+            margin-right: 10px;
+        }
+
+        .mr-20 {
+            margin-right: 20px;
+        }
+
+        .mr-30 {
+            margin-right: 30px;
+        }
+
+        .mr-40 {
+            margin-right: 40px;
+        }
+
+        .mr-50 {
+            margin-right: 50px;
+        }
+
+        .w-100 {
+            width: 100px !important;
+        }
+
+        .w-200 {
+            width: 200px !important;
+        }
+
+        .w-300 {
+            width: 300px !important;
+        }
+
+        .w-400 {
+            width: 400px !important;
+        }
+
+        .w-500 {
+            width: 500px !important;
+        }
+
+        .w-100p {
+            width: 100% !important;
+        }
+
+        .w-90p {
+            width: 90% !important;
+        }
+
+        .w-80p {
+            width: 80% !important;
+        }
+
+        .w-70p {
+            width: 70% !important;
+        }
+
+        .w-60p {
+            width: 60% !important;
+        }
+
+        .w-50p {
+            width: 50% !important;
+        }
+
+        .w-40p {
+            width: 40% !important;
+        }
+
+        .w-30p {
+            width: 30% !important;
+        }
+
+        .w-20p {
+            width: 20% !important;
+        }
+
+        .w-10p {
+            width: 10% !important;
+        }
     </style>
     <title>공연팀 모집 조회</title>
 </head>
+
 <body layout:fragment="content">
     <h1>공연팀 모집</h1>
 
@@ -561,11 +986,11 @@ img { width: 100%; }
         <tr>
             <td>조회수</td>
             <td th:text="${team.views}"></td>
-          </tr>
+        </tr>
         <tr>
             <td>갱신일자</td>
             <td th:text="${#dates.format(team.updDate,'yyyy-MM-dd HH:mm:ss')}"></td>
-          </tr>
+        </tr>
         <tr>
             <td>모집 팀 수</td>
             <td th:text="${team.capacity}+'팀'"></td>
@@ -595,24 +1020,25 @@ img { width: 100%; }
     <div>
         <button type="button" onclick="moveList()">목록</button>
         <th:block sec:authorize="isAuthenticated()">
+            <input type="hidden" name="username" th:value="${#authentication.principal.username}" id="username">
             <th:block th:if="${team.confirmed == 0 && team.username != #authentication.principal.username}">
                 <button type="button" th:onclick=" 'moveApplication('+${team.teamNo}+')' ">신청</button>
             </th:block>
             <th:block th:if="${team.username == #authentication.principal.username}">
-                
+
                 <a th:href="|/team/update?teamNo=${team.teamNo}|">수정</a>
-                
-                
+
+
                 <form action="/team/delete" method="POST">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-            <input type="hidden" name="teamNo" th:value="${team.teamNo}">
-            <input type="hidden" name="recStatus" th:value="${team.recStatus}">
-            <input type="submit" value="삭제">
+                    <input type="hidden" name="teamNo" th:value="${team.teamNo}">
+                    <input type="hidden" name="recStatus" th:value="${team.recStatus}">
+                    <input type="submit" value="삭제">
 
-        </form>
-        
-    </th:block>
-</th:block>
+                </form>
+
+            </th:block>
+        </th:block>
     </div>
 
     <div style="background-color: darkgrey; width: 500px; height: 800px;">
@@ -621,81 +1047,80 @@ img { width: 100%; }
         </p>
     </div>
 
-      <!-- 댓글 목록 -->
-      <div id="comment-list">
+    <!-- 댓글 목록 -->
+    <div id="comment-list">
 
 
     </div>
     <th:block sec:authorize="isAuthenticated()">
-    <!-- 댓글 입력 -->
-    <div class="input-box">
-        <div class="top">
-            <h3>댓글 입력</h3>
-        </div>
-        <div class="comment-input">
-            <input type="text" name="writer" id="comment-writer" placeholder="작성자" th:value="${#authentication.principal.users.nickname}" readonly>
-            <br>
-            <textarea name="content" id="comment-content" 
-                      cols="60" rows="5" placeholder="댓글을 작성해주세요"></textarea>
-            <div class="btn-box">
-                <a href="javascript:;" id="btn-comment-insert" class="btn btn-sm">등록</a>
+        <!-- 댓글 입력 -->
+        <div class="input-box">
+            <div class="top">
+                <h3>댓글 입력</h3>
+            </div>
+            <div class="comment-input">
+                <input type="text" name="writer" id="comment-writer" placeholder="작성자"
+                    th:value="${#authentication.principal.users.nickname}" readonly>
+                <br>
+                <textarea name="content" id="comment-content" cols="60" rows="5" placeholder="댓글을 작성해주세요"></textarea>
+                <div class="btn-box">
+                    <a href="javascript:;" id="btn-comment-insert" class="btn btn-sm">등록</a>
+                </div>
             </div>
         </div>
-    </div>
     </th:block>
 
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-<script>
+    <script>
 
-let boardNo = "[[${team.teamNo}]]"
+        let boardNo = "[[${team.teamNo}]]"
 
-//GG
-let username = "[[${#authentication.principal.users != null ? #authentication.principal.username : 'GUEST'}]]"
-
-
-if( boardNo != null ) {
-    getCommentList()
-}
+        let username = $(`#username`).val() != null ? $(`#username`).val() : `GUEST`;
 
 
+        if (boardNo != null) {
+            getCommentList()
+        }
 
 
 
 
 
-function getCommentList() {
 
-    const url = 'http://localhost:8080/team/commentList'
 
-    let data = {
-        'parentNo' : boardNo
-    }
+        function getCommentList() {
 
-    $.ajax({
-        url : url,
-        type : 'get',
-        data : data,
-        success : function(response) {
-            let commentList = response
+            const url = 'http://localhost:8080/team/commentList'
 
-            console.log(commentList)
+            let data = {
+                'parentNo': boardNo
+            }
 
-            let commentData = ''
-            for (let i = 0; i < commentList.length; i++) {
-                let comment = commentList[i]
+            $.ajax({
+                url: url,
+                type: 'get',
+                data: data,
+                success: function (response) {
+                    let commentList = response
 
-                let date = new Date(comment.regDate);
-                let regDate = date.toISOString().split("T")[0];
-                let regTime = date.toISOString().split("T")[1];
-                regTime = regTime.split(".")[0]
+                    console.log(commentList)
 
-                let depthNo = comment.depthNo
+                    let commentData = ''
+                    for (let i = 0; i < commentList.length; i++) {
+                        let comment = commentList[i]
 
-                let commentBox 
-                = `<div class="comment-box">
+                        let date = new Date(comment.regDate);
+                        let regDate = date.toISOString().split("T")[0];
+                        let regTime = date.toISOString().split("T")[1];
+                        regTime = regTime.split(".")[0]
+
+                        let depthNo = comment.depthNo
+
+                        let commentBox
+                            = `<div class="comment-box">
                         <div class="data-box">
                             <div class="top">
                                 <div class="item">
@@ -703,114 +1128,122 @@ function getCommentList() {
                                     <span class="comment-date">${regDate} ${regTime}</span>
                                 </div>
                                 `
-                                if(commentList[i].username==username){
-                                    commentBox +=`
+                        if (commentList[i].username == username) {
+                            commentBox += `
                                     <div class="item">
                                         <a href="javascript:;" class="btn btn-sm btn-comment-update" data="${comment.commentNo}">수정</a>
                                         <a href="javascript:;" class="btn btn-sm btn-comment-delete" data="${comment.commentNo}">삭제</a>
                                     </div>
                                     `
-                                }
-                                commentBox +=`
+                        }
+                        commentBox += `
                             </div>
                             <div class="bottom">
-                                <p class="comment-content">${comment.content}</p>
+                                <p class="comment-content" id="con${comment.commentNo}">${comment.content}</p>
                             </div>
                         </div>
                         <div class="edit-box"></div>
                     </div>
                     `
-                commentData += commentBox
+                        commentData += commentBox
+                    }
+
+                    $('#comment-list').html(commentData)
+                    initCommentEvent()
+
+                },
+                error: function (error) {
+
+                }
+            })
+        }
+
+        $('#btn-comment-insert').on('click', function () {
+            let writer = $('#comment-writer').val()
+            let content = $('#comment-content').val()
+
+            insertComment(writer, content)
+        })
+
+        $('#comment-content').on('keyup', function (event) {
+            let writer = $('#comment-writer').val()
+            let content = $('#comment-content').val()
+
+            if (event.keyCode == 13)
+                insertComment(writer, content)
+        })
+
+
+
+        function insertComment(writer, content) {
+
+            const url = 'http://localhost:8080/team/commentInsert'
+
+            let data = {
+                'parentNo': boardNo,
+                'parentTable': 'team_recruitments',
+                'writer': writer,
+                'content': content,
+                'username': username
             }
 
-            $('#comment-list').html(commentData)
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: data,
+                success: function (response) {
+                    let result = response
+                    console.log(result)
+                    if (result == 'SUCCESS') {
+                        Swal.fire(
+                            '완료!',
+                            '댓글 등록이 완료되었습니다.',
+                            'success'
+                        )
+                        getCommentList()
 
-            initCommentEvent()
-            
-        },
-        error : function(error) {
+                        $('#comment-content').val('')
 
+                    }
+                },
+                error: function (request, status, error) {
+                    Swal.fire(
+                        '에러!',
+                        'code:' + request.status,
+                        'error'
+                    )
+                }
+            })
         }
-    })
-}
-
-$('#btn-comment-insert').on('click', function() {
-    let writer = $('#comment-writer').val()
-    let content = $('#comment-content').val()
-
-    insertComment( writer, content )
-})
 
 
-function insertComment( writer, content ) {
+        function initCommentEvent() {
 
-    const url = 'http://localhost:8080/team/commentInsert'
+            $('.btn-comment-update').on('click', function () {
+                let btn = $(this)
+                let commentNo = btn.attr('data')
+                let commentBox = btn.parents('.comment-box')
+                let commentWriter = commentBox.find('.comment-writer')
+                let commentContent = commentBox.find('.comment-content')
 
-    let data = {
-        'parentNo'   : boardNo,
-        'parentTable' : 'team_recruitments',
-        'writer'    : writer,
-        'content'   : content,
-        'username' : username
-    }
+                let writer = commentWriter.text()
+                let content = commentContent.text()
 
-    $.ajax({
-        url : url,
-        type : 'GET',
-        data : data,
-        success : function(response) {
-            let result = response
-            console.log(result)
-            if( result == 'SUCCESS' ) {
-                Swal.fire(
-                    '완료!',
-                    '댓글 등록이 완료되었습니다.',
-                    'success'
-                )
-                getCommentList()
+                console.log(btn.parents())
+                console.log(btn.parents('.comment-box'))
+                console.log(commentBox.children())
+                console.log(commentBox.find('.comment-writer'))
+                console.log(writer);
+                console.log(content);
 
-                $('#comment-content').val('')
+                $('.data-box').show()
+                $('.edit-box').empty()
+                $('.reply-box').remove()
 
-            }
-        },
-        error           : function(request, status, error){
-            Swal.fire(
-                '에러!',
-                'code:' + request.status,
-                'error'
-            )
-        }
-    })
-}
+                commentBox.find('.data-box').hide()
 
-
-function initCommentEvent() {
-
-    $('.btn-comment-update').on('click', function() {
-        let btn = $(this)
-        let commentNo = btn.attr('data')
-        let commentBox = btn.parents('.comment-box')
-        let commentWriter = commentBox.find('.comment-writer')
-        let commentContent = commentBox.find('.comment-content')
-
-        let writer = commentWriter.text()
-        let content = commentContent.text()
-
-        console.log( btn.parents() )                        
-        console.log( btn.parents('.comment-box') )         
-        console.log( commentBox.children() )               
-        console.log( commentBox.find('.comment-writer') )   
-        console.log( writer );
-        console.log( content );
-
-        $('.data-box').show()
-        $('.edit-box').empty()
-        $('.reply-box').remove()
-
-        commentBox.find('.data-box').hide()
-
-        let editBox 
-        = `<div class="top">
+                let editBox
+                    = `<div class="top">
                 <div class="item">
                     <input type="text" id="input-update-writer" value="${writer}" />
                 </div>
@@ -826,43 +1259,150 @@ function initCommentEvent() {
                 </div>
             </div>
             `
-        commentBox.find('.edit-box').html(editBox)    
+                commentBox.find('.edit-box').html(editBox)
 
-        $('#btn-comment-cancel').on('click', function() {
 
-            commentBox.find('.data-box').show()
-            commentBox.find('.edit-box').empty()
+                $('#btn-comment-cancel').on('click', function () {
+
+                    commentBox.find('.data-box').show()
+                    commentBox.find('.edit-box').empty()
+                })
+
+                $('#btn-comment-update').on('click', function () {
+
+                    let url = 'http://localhost:8080/team/commentUpdate'
+
+                    let data = {
+                        commentNo: commentNo,
+                        writer: $('#input-update-writer').val(),
+                        content: $('#input-update-content').val(),
+                    }
+
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        data: data,
+                        success: function (response) {
+                            let result = response
+                            if (result == 'SUCCESS') {
+
+                                Swal.fire(
+                                    '완료!',
+                                    '댓글 수정이 완료되었습니다.',
+                                    'success'
+                                )
+
+                                getCommentList()
+                            }
+
+                        },
+                        error: function (request, status, error) {
+                            Swal.fire(
+                                '에러!',
+                                'code:' + request.status,
+                                'error'
+                            )
+                        }
+                    })
+                })
+                
+                    $('#input-update-content').on('keyup', function (event) {
+
+                        if (event.keyCode == 13) {
+
+
+
+                            let url = 'http://localhost:8080/team/commentUpdate'
+
+                            let data = {
+                                commentNo: commentNo,
+                                writer: $('#input-update-writer').val(),
+                                content: $('#input-update-content').val(),
+                            }
+
+                            $.ajax({
+                                url: url,
+                                type: 'GET',
+                                data: data,
+                                success: function (response) {
+                                    let result = response
+                                    if (result == 'SUCCESS') {
+
+                                        Swal.fire(
+                                            '완료!',
+                                            '댓글 수정이 완료되었습니다.',
+                                            'success'
+                                        )
+
+                                        getCommentList()
+                                    }
+
+                                },
+                                error: function (request, status, error) {
+                                    Swal.fire(
+                                        '에러!',
+                                        'code:' + request.status,
+                                        'error'
+                                    )
+                                }
+                            })
+                        }
+                    })
+
+
+                
+
+
+            })
+
+
+        }
+
+        $('.btn-comment-delete').on('click', function () {
+            let commentNo = $(this).attr('data')
+
+
+            Swal.fire({
+                title: '정말로 삭제하시겠습니까?',
+                text: "삭제하면 되돌릴 수 없습니다!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '예',
+                cancelButtonText: '아니오',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteCommentData(commentNo)
+                }
+            })
         })
 
-        $('#btn-comment-update').on('click', function() {
+        function deleteCommentData(commentNo) {
 
-            let url = 'http://localhost:8080/team/commentUpdate'
 
+            let url = 'http://localhost:8080/team/commentDelete'
             let data = {
-                commentNo   : commentNo,
-                writer      : $('#input-update-writer').val(),
-                content     : $('#input-update-content').val(),
+                commentNo: commentNo,
             }
 
             $.ajax({
-                url     : url,
-                type    : 'GET',
-                data    : data,
-                success : function(response) {
+                url: url,
+                type: 'GET',
+                data: data,
+                success: function (response) {
                     let result = response
-                    if( result == 'SUCCESS' ) {
-
+                    if (result == 'SUCCESS') {
                         Swal.fire(
                             '완료!',
-                            '댓글 수정이 완료되었습니다.',
+                            '댓글 삭제가 완료되었습니다.',
                             'success'
                         )
-
                         getCommentList()
                     }
 
                 },
-                error           : function(request, status, error){
+                error: function (request, status, error) {
                     Swal.fire(
                         '에러!',
                         'code:' + request.status,
@@ -870,70 +1410,7 @@ function initCommentEvent() {
                     )
                 }
             })
-
-
-        })
-
-        
-    })
-    
-    $('.btn-comment-delete').on('click', function() {
-        let commentNo = $(this).attr('data')
-
-
-        Swal.fire({
-            title: '정말로 삭제하시겠습니까?',
-            text: "삭제하면 되돌릴 수 없습니다!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '예',
-            cancelButtonText: '아니오',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                deleteCommentData(commentNo)
-            }
-        })
-    })
-
-    function deleteCommentData(commentNo) {
-
-        
-        let url = 'http://localhost:8080/team/commentDelete'
-        let data = {
-            commentNo   : commentNo,
         }
-
-        $.ajax({
-            url     : url,
-            type    : 'GET',
-            data    : data,
-            success : function(response) {
-                let result = response
-                if( result == 'SUCCESS' ) {
-                    Swal.fire(
-                        '완료!',
-                        '댓글 삭제가 완료되었습니다.',
-                        'success'
-                    )
-                    getCommentList()
-                }
-
-            },
-            error           : function(request, status, error){
-                Swal.fire(
-                    '에러!',
-                    'code:' + request.status,
-                    'error'
-                )
-            }
-        })
-    }
-
-}
-
-
 
 
 
@@ -947,4 +1424,5 @@ function initCommentEvent() {
 
     </script>
 </body>
+
 </html>
