@@ -49,9 +49,9 @@
             </select>
         </div>
     </div>
-
+<th:block sec:authorize="hasRole('ROLE_CLUB')">
     <a href="/facilityRental/insert">글쓰기</a>
-    
+</th:block>
     <div class="card" style="width: 18rem;" id="team-data">
     </div>
 
