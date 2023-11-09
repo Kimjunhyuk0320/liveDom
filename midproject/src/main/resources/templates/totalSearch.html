@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/UI/user/layout/main_layout}">
+
+<head>
+    <title>통합 검색 조회</title>
+</head>
+
+<body layout:fragment="content">
+
+  <th:block th:each="live : ${searchedLiveList}"></th:block>
+  
+  <th:block th:each="fr : ${searchedFrList}"></th:block>
+  
+  <th:block th:each="team : ${searchedTeamList}"></th:block>
+
+</body>
+
+</html>
