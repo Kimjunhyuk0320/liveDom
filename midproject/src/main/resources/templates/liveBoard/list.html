@@ -66,10 +66,13 @@
         </div>
     </div> -->
 
-    <!--페이지네이션 리스트-->
+    <div class="container">
 
-    <div class="card" style="width: 18rem;" th:each="liveBoard : ${liveBoardList}" id="team-data">
-        
+        <div class="row" id="team-data">
+            <!--페이지네이션 리스트-->
+
+        </div>
+
     </div>
 
 
@@ -257,30 +260,31 @@
              for(let i = 0 ; i < teamList.length ; i++ ){
  
                  let tr = `
-             <a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">
-                `
-                if(teamList[i].thumbnail!=null){
-                tr+=`
-                <img src="/file/img/${teamList[i].thumbnail.fileNo}" style="width: 200px;">
-                `
-                }
-                tr+=`
-            </a>
-            <div class="card-body">
-              <h5 class="card-title"><a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">${teamList[i].title}</a></h5>
-              <p class="card-text">${teamList[i].crew}</p>
-              <p class="card-text">${teamList[i].address}</p>
-              <p class="card-text">${teamList[i].liveDate}</p>
-              `
-              if(teamList[i].soldOut==1){
-                tr+=`
-                  <p class="card-text" style="background-color: red;">매진</p>                             
-                  `
-
-              }
-              tr+=`
-            </div>
-             `
+                 <div class="card col-8" style="width: 18rem;>
+                    <a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">
+                        `
+                        if(teamList[i].thumbnail!=null){
+                            tr+=`
+                            <img src="/file/img/${teamList[i].thumbnail.fileNo}" style="width: 200px;">
+                            `
+                        }
+                        tr+=`
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">${teamList[i].title}</a></h5>
+                            <p class="card-text">${teamList[i].crew}</p>
+                            <p class="card-text">${teamList[i].address}</p>
+                            <p class="card-text">${teamList[i].liveDate}</p>
+                            `
+                            if(teamList[i].soldOut==1){
+                                tr+=`
+                                <p class="card-text" style="background-color: red;">매진</p>                             
+                                `
+                            }
+                            tr+=`
+                        </div>
+                    </div>
+            `
                  teamData += tr
              }
              $('#team-data').html(teamData)

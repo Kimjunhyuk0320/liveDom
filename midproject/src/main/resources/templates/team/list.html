@@ -49,6 +49,7 @@
             color: black;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             border-style: none;
+            outline: none;
         }
 
         #teamListContainer>.page-box>.search_item {
@@ -158,6 +159,16 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
+        #filter-btn{
+            width: 123px; 
+            height: 42px; 
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: black;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-style: none;
+        }
+
 
     </style>
 </head>
@@ -191,7 +202,7 @@
             </div>
             <!-- 필터 -->
             <div class="item">
-                <a href="/team/insert"><button style="width: 100px; height:30px"></button></a>
+                <a href="/team/insert"><button id="filter-btn">작성하기</button></a>
                 <select name="rows" id="rows" class="input-search">
                     <option value="5">5개씩 보기</option>
                     <option value="10" selected>10개씩 보기</option>
