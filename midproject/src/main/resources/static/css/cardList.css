@@ -1,0 +1,152 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: rgb(248, 249, 250);
+    /* background: linear-gradient(45deg, #49a09d, #5f2c82); */
+    font-family: sans-serif;
+    font-weight: 100;
+}
+
+#topContent {
+    height: 800px;
+    /* margin: 20px 0; */
+    background: linear-gradient(180deg, #916ea9, rgb(248, 249, 250));
+}
+
+#teamListContainer {
+    margin-top: 150px;
+}
+
+#teamListContainer>h1 {
+    color: black;
+}
+
+#teamListContainer .listTopText{
+    margin: 0 0 20px 75px ;
+
+}
+
+#teamListContainer>.page-box {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    /* width: 90%; */
+    margin-bottom: 10px;
+    width: 1320px;
+
+}
+
+/* 이미지 슬라이드 사진 관련 */
+.img-slide {
+    height: 600px;
+    object-fit: cover;
+}
+
+
+
+/* 카드 리스트 관련 */
+.card_list{ 
+    
+}
+
+.card {
+    /* margin-bottom: 20px; */
+    border: none;
+    background-color: rgb;
+}
+
+#teamListContainer>.page-box>.item 
+select, input {
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: black;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-style: none;
+    outline: none;
+}
+
+#card-img {
+    width: 310px; 
+    height: 390px; 
+    object-fit: cover;
+    margin-top: 10px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    box-shadow: 1px 2px 7px rgb(176, 176, 176);
+}
+
+#card-img:hover {
+    scale: 0.98;
+}
+
+.card-text {
+    margin: 0;
+}
+
+.card-text-date {
+    color: red;
+}
+
+/* 페이지네이션 관련 */
+#paginationContainer {
+    margin-top: 20px;
+}
+
+#paginationContainer>.pagination_count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+/* 페이지네이션 관련 */
+#paginationContainer>.pagination_count a {
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+}
+#paginationContainer>.pagination_count a {
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+}
+/* #paginationContainer>.pagination_count>.page-list a {
+    border: 1px solid black;
+    padding: 0 10px;
+    border-radius: 100px;
+} */
+
+/* 검색 관련 */
+.search_item a {
+    text-decoration: none;
+    color: black;
+    height: 45px;
+    padding-top: 5px;
+}
+.search_item a:hover {
+    text-decoration: none;
+    color: black;
+    background-color: rgb(248, 249, 250);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+#filter-btn{
+    width: 123px; 
+    height: 42px; 
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: black;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-style: none;
+}
+
+/* 오늘의 추천 공연 */
+.toDayRecommend {
+        
+}
