@@ -15,19 +15,16 @@ body {
 }
 
 #topContent {
-    height: 800px;
+    /* height: 800px;
     margin: 20px 0;
-    background: linear-gradient(180deg, #916ea9, rgb(248, 249, 250));
-}
-
-#topContent > h1 {
-    padding: 300px;
-    text-align: center;
-    color: white;
+    background: linear-gradient(180deg, #916ea9, rgb(248, 249, 250)); */
+    margin: auto;
+    width: 1320px;
+    margin-top: 100px;
 }
 
 #insertContainer {
-    margin-top: 150px;
+    margin-top: 50px;
 }
 
 #insertContainer>h1 {
@@ -50,7 +47,7 @@ select, input {
     color: black;
     /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); */
     border-style: none;
-    width: 720px;
+    width: 1000px;
     border-bottom: 1px solid rgb(41, 43, 50);
 }
 
@@ -64,12 +61,11 @@ select, input {
 }
 
 table {
-    width: 1000px;
+    width: 1320px;
     border-collapse: collapse;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
-
 
 th,
 td {
