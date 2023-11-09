@@ -149,7 +149,7 @@
         <div class="input-box">
             <div class="imgDiv">
                 <!-- 여기 추가 -->
-                <img src="/img/90.jpeg" alt="...">
+                <img th:src="|/file/img/${#authentication.principal.users.profileNo}|">
             </div>
             <div class="comment-input">
                 <input type="hidden" name="writer" id="comment-writer" placeholder="작성자" th:value="${#authentication.principal.users.nickname}" readonly>
