@@ -191,6 +191,8 @@ public class LiveBoardController {
         List<Ticket> ticketList = liveBoardService.listByBoardNo(boardNo);
         int purchaseTicketCount = ticketList.size();
         int ticketLeft = totalTicketCount - purchaseTicketCount;
+        // 티켓 수량이 0개 일때 응답
+        if( count == 0) return "TICKETZERO";
         // 잔여티켓보다 구매티켓이 많은경우의 응답
         if( ticketLeft < count) return "OVERCOUNT";
 
@@ -199,6 +201,7 @@ public class LiveBoardController {
 
       return "SUCCESS";
     }
+    
      /**
      * 티켓 구매 처리
      * [POST]
@@ -212,6 +215,7 @@ public class LiveBoardController {
         List<Ticket> ticketList = liveBoardService.listByBoardNo(boardNo);
         int purchaseTicketCount = ticketList.size();
         int ticketLeft = totalTicketCount - purchaseTicketCount;
+        if( count == 0) return "TICKETZERO";
         // 잔여티켓보다 구매티켓이 많은경우의 응답
         if( ticketLeft < count) return "OVERCOUNT";
 

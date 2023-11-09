@@ -233,13 +233,13 @@ public class LiveBoardServiceImpl implements LiveBoardService{
         // - testmode_yn    : 테스트 모드 여부 (Y-테스트⭕, N-테스트❌)
         String receiver = phone;
         String msg = "LiveDom 공연\n \"" + title + "\"에 대한 티켓 구매가 완료되었습니다. \n" + "예매번호 : " + reservationNo + 
-        "\n 예매자 명 : " + name + "\n 공연일자 : " + liveDate + "\n 공연시간 : " + time + "\n 주소 : " + address;
+        "\n예매자 명 : " + name + "\n공연일자 : " + liveDate + "\n공연시간 : " + time + "\n주소 : " + address;
         String testmode_yn = "Y";
         map.add("receiver", receiver);
         map.add("msg", msg);
         map.add("testmode_yn", testmode_yn);
         
-        log.info("메세지 발송 테스트  메세지 : " + msg + " 전화번호 : "+ receiver);
+        log.info("메세지 발송 테스트  메세지 : " + msg + "\n전화번호 : "+ receiver);
         Map<String, Object> resultMap = smsService.send(map);
         log.info(resultMap + "");
         Object resultCode = resultMap.get("result_code");
@@ -249,19 +249,6 @@ public class LiveBoardServiceImpl implements LiveBoardService{
             log.info("문자 발송 성공 : " + message);
         if( result_code == -1 )
             log.info("문자 발송 실패 : " + message);
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
