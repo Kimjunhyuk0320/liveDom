@@ -415,6 +415,39 @@
             })
         }
 
+        
+        // [컴포넌트] 게시글 목록 - 페이징
+        function getComponentList() {
+            const url = 'http://localhost:8080/team/component/list'
+
+            // let data = {
+            //     'pageNo': page,
+            //     'rows': rows,
+            //     'searchType': searchType,
+            //     'keyword': keyword,
+            //     'order': order,
+            // }
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                // data: data,
+                success: function (response) {
+                    let teamList = response
+                    console.log(teamList);
+                    $(`#team-data`).html(teamList)
+                },
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error)
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error);
+                }
+            })
+        }
+
+
+
         // 게시글 목록 출력
         function displayList(teamList) {
             console.log(teamList)
