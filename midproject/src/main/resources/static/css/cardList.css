@@ -146,7 +146,28 @@ select, input {
     border-style: none;
 }
 
-/* 오늘의 추천 공연 */
-.toDayRecommend {
-        
+/*  */
+.a {
+    background-color: rgb(242, 242, 242);
+    margin-bottom: 400px;
+    
+}
+.staticContainer {
+    display: flex;
+    width: 1320px;
+    /* padding: ; */
+    margin: auto;
+    
+}
+
+.staticContainer .staticTextSection {
+    padding: 70px 30px;
+}
+
+.staticContainer .staticVideoSection {
+    margin: 20px 0;
+}
+
+.staticVideoSection iframe {
+    border-radius: 20px;
 }
