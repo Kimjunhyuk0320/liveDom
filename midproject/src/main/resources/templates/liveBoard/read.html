@@ -10,10 +10,11 @@
 <body layout:fragment="content">
 
     <div class="totalContainer">
+        
 
         <form action="/liveBoard/delete" method="POST" id="form">
             <input type="hidden" name="boardNo" th:value="${liveBoard.boardNo}" id="boardNo">
-
+            
             <div class="topContentContainer">
 
                 <div class="imgContainer">
@@ -137,11 +138,7 @@
             <p th:utext="${liveBoard.content}"></p>
         </div>
         
-        <!-- 댓글 목록 -->
-        <div id="comment-list">
-
-
-</div>
+       
 <th:block sec:authorize="isAuthenticated()">
     <input type="hidden" name="username" id="username" th:value="${#authentication.principal.users.username}">
     <!-- 댓글 입력 -->
@@ -160,28 +157,40 @@
         </div>
     </div>
 </th:block>
-        </div>
+
+ <!-- 댓글 목록 -->
+ <div id="comment-list">
+
+
+ </div>
+
+
+        
 
         <!-- 댓글 입력 -->
+        <h2 style="margin: 20px;">댓글 20개</h2>
         <div class="input-box">
-            <div class="top">
-                <h3>댓글 입력</h3>
+            <div class="imgDiv">
+                <!-- 여기 추가 -->
+                <img src="/img/90.jpeg" alt="...">
             </div>
             <div class="comment-input">
-                <input type="text" name="writer" id="comment-writer" placeholder="작성자" th:value="${#authentication.principal.users.nickname}" readonly>
+                <input type="hidden" name="writer" id="comment-writer" placeholder="작성자" th:value="${#authentication.principal.users.nickname}" readonly>
                 <br>
                 <textarea name="content" id="comment-content" 
-                        cols="60" rows="5" placeholder="댓글을 작성해주세요"></textarea>
+                cols="10" rows="1" placeholder="댓글 추가..."></textarea>
                 <div class="btn-box">
                     <a href="javascript:;" id="btn-comment-insert" class="btn btn-sm">등록</a>
+                </div>
+                <div class="btn-box-can">
+                    <a href="javascript:;" id="btn-comment-del" class="btn btn-sm">취소</a>
                 </div>
             </div>
         </div>
 
 
-
-
     </div>
+
 
 <!-- sweetalert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -229,30 +238,37 @@ $.ajax({
             let depthNo = comment.depthNo
 
             let commentBox 
-            =   `<div class="comment-box">
-                    <div class="data-box">
-                        <div class="top">
-                            <div class="itemSt">
-                                
-                                <h1 class="comment-writer">${comment.writer}</h1>
-                                <span class="comment-date">${regDate} ${regTime}</span>
-                            </div>
-                            `
-                            if(commentList[i].username==username){
-                                commentBox +=`
-                                <div class="itemsNd">
-                                    <a href="javascript:;" class="btn btn-sm btn-comment-update" data="${comment.commentNo}">수정</a>
-                                    <a href="javascript:;" class="btn btn-sm btn-comment-delete" data="${comment.commentNo}">삭제</a>
+            =   `   
+                <div class="commentContainer">
+                    <div class="imgDiv">
+                        <!-- 여기 추가 -->
+                        <img src="/img/90.jpeg" alt="..." style="">
+                    </div>
+                    <div class="comment-box">
+                        <div class="data-box">
+                            <div class="top">
+                                <div class="itemSt">
+                                    
+                                    <h2 class="comment-writer">${comment.writer}</h2>
+                                    <span class="comment-date">${regDate} ${regTime}</span>
                                 </div>
                                 `
-                            }
-                            commentBox +=`
+                                if(commentList[i].username==username){
+                                    commentBox +=`
+                                    <div class="itemsNd">
+                                        <a href="javascript:;" class="btn btn-sm btn-comment-update" data="${comment.commentNo}">수정</a>
+                                        <a href="javascript:;" class="btn btn-sm btn-comment-delete" data="${comment.commentNo}">삭제</a>
+                                    </div>
+                                    `
+                                }
+                                commentBox +=`
+                            </div>
+                            <div class="bottom">
+                                <p class="comment-content">${comment.content}</p>
+                            </div>
                         </div>
-                        <div class="bottom">
-                            <p class="comment-content">${comment.content}</p>
-                        </div>
+                        <div class="edit-box"></div>
                     </div>
-                    <div class="edit-box"></div>
                 </div>
                 `
             commentData += commentBox
@@ -580,6 +596,18 @@ function deleteCommentData(commentNo) {
                 $("#count").val(count)
             }
         }
+
+        $(document).ready(function() {
+            $('#comment-content').on('input', function () {
+                this.style.height = 'auto'; // 높이 초기화
+                this.style.height = (this.scrollHeight) + 'px'; // 스크롤 높이에 따라 높이 조절
+            });
+        });
+
+        // 취소 버튼을 누르면 input태그 안의 글이 삭제됨
+        document.getElementById("btn-comment-del").addEventListener("click", function() {
+            document.getElementById("comment-content").value = ""; // 댓글 내용을 비움
+        });
 
 
     </script>
