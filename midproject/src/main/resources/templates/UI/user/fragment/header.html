@@ -369,6 +369,7 @@
                                             <li><a href="/team/insert">모집글 작성하기</a></li>
                                             <li><a href="/team/user/listByMember">참가신청 내역</a></li>
                                             <li><a href="/team/user/listByLeader">받은 참가신청</a></li>
+                                            <li><a href="/team/user/listByConfirmedLive">성사된 공연</a></li>
                                         </ul>
                                     </li>
                                 </th:block>
@@ -467,7 +468,7 @@
 
         if(auth == 'ROLE_BAND'){
             $('.header > .header-inner > .top-menu-bar > ul > .menu-3').mouseenter(function(){
-                $('.sub-menu-bg').css('height','180px');
+                $('.sub-menu-bg').css('height','220px');
             });
         }else{
             $('.header > .header-inner > .top-menu-bar > ul > .menu-3').mouseenter(function(){
