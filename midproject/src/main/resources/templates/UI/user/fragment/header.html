@@ -384,9 +384,9 @@
             </nav>
             
             <div class="search-box">
-                <a href="#">
-                    <span>검색</span><img src="https://www.dacorkorea.com/images/icon-search.png" alt="search">
-                </a>
+                <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.users.profileNo != null}">
+                <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진" id="profile" style="width:50px; height:50px; border-radius: 100%; box-shadow: 0px 0px 15px gray;">
+                </th:block>
             </div>
             <!-- 검색기능은 좀만 이따가 넣자
             <div class="search-box-on">

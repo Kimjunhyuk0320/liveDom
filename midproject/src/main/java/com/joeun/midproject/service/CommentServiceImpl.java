@@ -28,7 +28,6 @@ public class CommentServiceImpl implements CommentService{
   @Override
   public int commentInsert(Comment comment) {
 
-    //여기서부터해라잉
     int result = commentMapper.commentInsert(comment);
 
     return result;

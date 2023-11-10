@@ -272,16 +272,14 @@
              for(let i = 0 ; i < teamList.length ; i++ ){
  
                  let tr = `
-                 <div class="card col-3" style=">
-                    <a href="/facilityRental/read?frNo=${teamList[i].frNo}">
-                        `
-                        if(teamList[i].thumbnail!=null){
-                            tr+=`
-                                <img src="/file/img/${teamList[i].thumbnail.fileNo}" id="card-img">
+                 <div class="card col-3">
+                    `
+                    if(teamList[i].thumbnail!=null){
+                        tr+=`
+                        <a href="/facilityRental/read?frNo=${teamList[i].frNo}"><img src="/file/img/${teamList[i].thumbnail.fileNo}" id="card-img"></a>
                             `
                         }
                         tr+=`
-                        </a>
                         <div class="card-body">
                             <a href="/facilityRental/read?frNo=${teamList[i].frNo}">
                             <h5 class="card-title">${teamList[i].title}</h5>

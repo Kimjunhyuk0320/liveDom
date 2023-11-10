@@ -117,9 +117,11 @@
             <h2>이 부분에 클럽에 대한 내용 부분이 나옵니다.</h2>
         </div> -->
 
-        <th:block sec:authorize="isAuthenticated()">
         <!-- 댓글 입력 -->
-        <h2 style="margin: 20px;">댓글 20개</h2>
+        <h2 style="margin: 20px;" id="totalCount"></h2>
+        <th:block sec:authorize="isAuthenticated()">
+            <input type="hidden" name="username" id="username" th:value="${#authentication.principal.users.username}">
+            <input type="hidden" name="profileNo" id="profileNo" th:value="${#authentication.principal.users.profileNo}">
         <div class="input-box">
             <div class="imgDiv">
                 <!-- 여기 추가 -->
@@ -163,7 +165,7 @@
 
 let boardNo = "[[${facilityRental.frNo}]]"
 let username = $(`#username`).val() != null ? $(`#username`).val() : `GUEST`;
-
+let profileNo = $(`#profileNo`).val() != null ? $(`#profileNo`).val() : 0;
 if( boardNo != null ) {
 getCommentList()
 }
@@ -206,56 +208,80 @@ $.ajax({
     type : 'get',
     data : data,
     success : function(response) {
-        let commentList = response
+                    let commentList = response
+                    let totalCount =  commentList[0].totalCount
+                    let countMsg = `<span>댓글 ${totalCount}개</span>`
+                    $(`#totalCount`).html(countMsg)
 
-        console.log(commentList)
+                    if(commentList.length==0){
 
-        let commentData = ''
-        for (let i = 0; i < commentList.length; i++) {
-            let comment = commentList[i]
-
-            let date = new Date(comment.regDate);
-            let regDate = date.toISOString().split("T")[0];
-            let regTime = date.toISOString().split("T")[1];
-            regTime = regTime.split(".")[0]
-
-            // 계층번호
-            let depthNo = comment.depthNo
-
-            let commentBox 
-            = `<div class="comment-box">
-                    <div class="data-box">
-                        <div class="top">
-                            <div class="item">
-                                <span class="comment-writer">${comment.writer}</span>
-                                <span class="comment-date">${regDate} ${regTime}</span>
-                            </div>
+                        let msg = `
+                        <div class="commentContainer">
+                            <p>댓글이 없습니다.</p>
+                                </div>
                             `
-                            if(commentList[i].username=="username"){
-                                commentBox +=`
-                                <div class="item">
-                                    <a href="javascript:;" class="btn btn-sm btn-comment-update" data="${comment.commentNo}">수정</a>
-                                    <a href="javascript:;" class="btn btn-sm btn-comment-delete" data="${comment.commentNo}">삭제</a>
+                        $('#comment-list').html(msg)
+                        initCommentEvent()
+                        return
+                    }
+
+                    console.log(commentList)
+
+                    let commentData = ''
+                    for (let i = 0; i < commentList.length; i++) {
+                        let comment = commentList[i]
+
+                        let date = new Date(comment.regDate);
+                        let regDate = date.toISOString().split("T")[0];
+                        let regTime = date.toISOString().split("T")[1];
+                        regTime = regTime.split(".")[0]
+
+
+                        let commentBox 
+                            =   `   
+                                <div class="commentContainer">`
+                                        if(comment.profileNo != 0){
+                                        commentBox +=`<div class="imgDiv">
+                                            <img src="/file/img/${comment.profileNo}" alt="프로필" style="width:50px; height:50px; border-radius:100%; box-shadow:0px 0px 10px gray;">
+                                            </div>
+                                            `
+                                        }
+                                        commentBox +=
+                                        `
+                                    <div class="comment-box">
+                                        <div class="data-box">
+                                            <div class="top">
+                                                <div class="itemSt">
+                                                    
+                                                    <h2 class="comment-writer">${comment.writer}</h2>
+                                                    <span class="comment-date">${regDate} ${regTime}</span>
+                                                </div>
+                                                    `
+                                                if(commentList[i].username==username){
+                                                    commentBox +=`
+                                                <div class="itemsNd">
+                                                        <a href="javascript:;" class="btn btn-sm btn-comment-update" data="${comment.commentNo}">수정</a>
+                                                        <a href="javascript:;" class="btn btn-sm btn-comment-delete" data="${comment.commentNo}">삭제</a>
+                                                </div>
+                                                    `
+                                                }
+                                                commentBox +=`
+                                            </div>
+                                            <div class="bottom">
+                                                <p class="comment-content">${comment.content}</p>
+                                            </div>
+                                        </div>
+                                        <div class="edit-box"></div>
+                                    </div>
                                 </div>
                                 `
-                            }
-                            commentBox +=`
-                        </div>
-                        <div class="bottom">
-                            <p class="comment-content">${comment.content}</p>
-                        </div>
-                    </div>
-                    <div class="edit-box"></div>
-                </div>
-                `
-            commentData += commentBox
-        }
+                            commentData += commentBox
+                        }
 
-        $('#comment-list').html(commentData)
 
-        // 이벤트 추가
-        initCommentEvent()
-        
+                    $('#comment-list').html(commentData)
+                    initCommentEvent()
+
     },
     error : function(error) {
 
@@ -271,6 +297,13 @@ let content = $('#comment-content').val()
 insertComment( writer, content )
 })
 
+$('#comment-content').on('keyup', function (event) {
+            let writer = $('#comment-writer').val()
+            let content = $('#comment-content').val()
+
+            if (event.keyCode == 13)
+                insertComment(writer, content)
+        })
 
 // 댓글 등록
 function insertComment( writer, content ) {
@@ -283,6 +316,7 @@ let data = {
     'writer'    : writer,
     'content'   : content,
     'username' : username,
+    'profileNo' : profileNo
 }
 
 $.ajax({
@@ -421,6 +455,48 @@ $('.btn-comment-update').on('click', function() {
 
 
     })
+    $('#input-update-content').on('keyup', function (event) {
+
+if (event.keyCode == 13) {
+
+
+
+    let url = 'http://localhost:8080/team/commentUpdate'
+
+    let data = {
+        commentNo: commentNo,
+        writer: $('#input-update-writer').val(),
+        content: $('#input-update-content').val(),
+    }
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        data: data,
+        success: function (response) {
+            let result = response
+            if (result == 'SUCCESS') {
+
+                Swal.fire(
+                    '완료!',
+                    '댓글 수정이 완료되었습니다.',
+                    'success'
+                )
+
+                getCommentList()
+            }
+
+        },
+        error: function (request, status, error) {
+            Swal.fire(
+                '에러!',
+                'code:' + request.status,
+                'error'
+            )
+        }
+    })
+}
+})
 
     
 })
