@@ -4,14 +4,16 @@
 
 <head>
     <title>티켓 구매 내역</title>
-    <link rel="stylesheet" href="/css/list.css">
+    <link rel="stylesheet" href="/css/teamList.css">
 </head>
 
 <body layout:fragment="content">
-    <!-- <div id="topContent"> -->
-    <h2>My Page</h2>
-    <h1>티켓 구매 내역</h1>
-    <!-- </div> -->
+
+    <div id="topContent">
+        <h1>예매한 티켓 내역</h1>
+        <p>예매한 티켓 내역에 대한 내용입니다.</p>
+        <hr>
+    </div>
     <input type="hidden" id="phone" name="phone" th:value="${#authentication.principal.users.phone}" >
 
     <div id="teamListContainer">

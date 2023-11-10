@@ -5,14 +5,16 @@
       >
 <head>
     <title>티켓 판매 내역</title>
-    <link rel="stylesheet" href="/css/list.css">
+    <link rel="stylesheet" href="/css/teamList.css">
 </head>
 <body layout:fragment="content">
 
-    <!-- <div id="topContent"> -->
-        <h2>My Page</h2>
+    <div id="topContent">
         <h1>티켓 판매 내역</h1>
-    <!-- </div> -->
+        <p>티켓 판매 내역에 대한 소식을 알려드립니다.</p>
+        <hr>
+    </div>
+
     <input type="hidden" id="username" name="username" th:value="${#authentication.principal.users.username}" >
     <div id="teamListContainer">
         <div class="tableContainer">
