@@ -426,10 +426,6 @@
 
 
     <script>
-        function logOut(){
-            let form = $('#logoutForm')
-            form.submit()
-        }
 
         let auth = $('#auth').val()
         // 상단 메뉴 관련
@@ -500,7 +496,7 @@
         $('.header > .header-inner > .top-menu-bar > ul > .menu-5').mouseleave(function(){
             $('.sub-menu-bg').css('height','');
         });
-    })
+
         function logOut(){
             let form = $('#logoutForm')
             form.submit()
