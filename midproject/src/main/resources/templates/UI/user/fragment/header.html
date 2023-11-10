@@ -36,19 +36,6 @@
             padding-left: 0 !important;
             margin-bottom: 0 !important;
         }
-        /* 노말라이즈 */
-        /* body, ul, li {
-            margin:0;
-            padding:0;
-            list-style:none;
-        }
-        body {
-            word-break:keep-all;
-        }
-        a {
-            text-decoration:none;
-            color:inherit;
-        } */
         html {
             overflow-x:hidden;
             line-height:1.15;
@@ -100,7 +87,6 @@
 
         /* 커스텀 */
         .header {
-
             position:sticky;
             /* position:fixed; */
             top:0;
@@ -207,7 +193,7 @@
             width:100%;
             height:0;
             background-color:#fff;
-            /* border-top:1px solid #ccc; */
+            border-top:1px solid #ccc;
             z-index:-5;
             transition:height .3s;
         }
@@ -309,7 +295,7 @@
             margin-right:80px;
         }
         
-        </style>
+    </style>
     
     <!-- 헤더 -->
     <header class="header">
@@ -319,10 +305,10 @@
         <div class="header-inner">
             <div class="logo img-box">
                 <a href="/">
-                    <img src="/img/logo_header.png" style="width: 280px; margin-bottom: 5px;">
+                    <img src="/img/logo_header.png" style="width: 280px; height: 100px; object-fit: cover; margin-bottom: 5px;">
                 </a>     
+            </div>
             
-         </div>
             <nav class="top-menu-bar header-row line-height-0">
                 <ul class="header-row">
                     <li class="cells menu-1">
@@ -416,8 +402,6 @@
             let form = $('#logoutForm')
             form.submit()
         }
-
-
 
         // 상단 메뉴 관련
         $('.header > .header-inner > .top-menu-bar > ul > li').mouseenter(function(){

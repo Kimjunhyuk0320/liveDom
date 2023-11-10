@@ -6,94 +6,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
-    <!-- <link rel="stylesheet" href="/css/mainJoin.css"> -->
+    <link rel="stylesheet" href="/css/join.css">
 </head>
 
 <body layout:fragment="content">
-    <div class="imgClass">
-        <h1 class="imgInText">
-            회원가입 후 <br>
-            다양한 서비스를<br>
-            이용해 보세요<br>
-        </h1>
-        <img src="/img/90.jpeg" alt="">
-    </div>
-    <div class="container">
-        <form action="/join" method="POST" id="joinForm" enctype="multipart/form-data">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-            <table>
-                <tr>
-                    <div class="form__group field">
-                        <input type="file" class="form__field" placeholder="프로필사진" name="file" id="file">
-                        <label for="file" class="form__label">프로필사진</label>
-                    </div>
-                </tr>
-                <tr>
-                    <div class="form__group field plus_flex">
-                        <input type="text" class="form__field" placeholder="이름" name="name" id="name">
-                        <label for="name" class="form__label">이름</label>
-                        <select name="auth" id="group" class="dul_btn_size">
-                            <option value="ROLE_USER">일반 사용자</option>
-                            <option value="ROLE_CLUB">클럽</option>
-                            <option value="ROLE_BAND">밴드</option>
-                        </select>
-                    </div>
-                </tr>
-                <tr>
-                    <div class="form__group field plus_flex">
-                        <input type="text" class="form__field" placeholder="아이디" name="username" id="username">
-                        <label for="username" class="form__label">아이디</label>
-                        <button onclick="joinFrom_checkedLoginIdDup()" name="btnLoginIdDupCheck" type="button" id="btnLoginIdDupCheck"
-                            class="btn btn-outline-dark dul_btn_size">아이디 중복 검사</button>
-                    </div>
-                    <input type="hidden" id="checkUserName" value="0">
-                </tr>
-                <tr>
-                    <div class="form__group field">
-                        <input type="text" class="form__field" placeholder="비밀번호" name="password" id="password">
-                        <label for="password" class="form__label">비밀번호</label>
-                    </div>
-                </tr>
-                <tr>
-                    <div class="form__group field">
-                        <input type="text" class="form__field" placeholder="비밀번호 확인" name="userPwCheck"
-                            id="passwordCheck">
-                        <label for="userPwCheck" class="form__label">비밀번호 확인</label>
-                    </div>
-                </tr>
-                <tr>
-                    <div class="form__group field">
-                        <input type="text" class="form__field" placeholder="닉네임" name="nickname" id="nickname">
-                        <label for="nickname" class="form__label">닉네임</label>
-                        <input type="hidden" id="checkUserNickname" value="0">
-                        <button class="btn btn-outline-dark dul_btn_size" onclick="joinFrom_checkedNicknameDup(this);"
-                            name="btnNicknameDupCheck" id="btnNicknameDupCheck" type="button">닉네임 중복 검사</button>
-                    </div>
-                </tr>
-                <tr>
-                    <div class="form__group field plus_flex">
-                        <input type="text" class="form__field" placeholder="연락처" name="phone" id="phone">
-                        <label for="phone" class="form__label">연락처</label>
-                        <input type="hidden" id="checkUserPhone" value="0">
-                        <button class="btn btn-outline-dark dul_btn_size" onclick="joinFrom_checkedPhoneDup(this);"
-                            name="btnPhoneDupCheck" id="btnPhoneDupCheck" type="button">연락처 중복 검사</button>
-                    </div>
-                </tr>
-                <tr>
-                    <div class="form__group field">
-                        <input type="text" class="form__field" placeholder="이메일" name="email" id="email">
-                        <label for="phone" class="form__label">이메일</label>
-                    </div>
-                </tr>
-                <tr>
+    <div class="joinBody">
+        <div class="joinContainer">
+            <form action="/join" method="POST" id="joinForm" enctype="multipart/form-data">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <table>
+                    <tr>
+                        <div class="form__group field">
+                            <!-- <input type="file" class="form__field profile-img" placeholder="프로필사진" name="file" id="file"> -->
 
-                </tr>
-            </table>
-            <div class="submit_button">
-                <input type="submit" value="회원가입">
-            </div>
-        </form>
+                                <!-- 썸네일 업로드 -->
+                                <div class="dropzone">
+                                    <input type="file" id="thumbnail" name="file" accept="image/*">
+                                    <a href="javascript:;" class="btn btn-sm btn-thumb-remove hide">삭제</a>
+                                    <div class="drop-img flex col main-center sub-center">
+                                        <div class="upload-box">
+                                        </div>
+                                        <div class="img-box hide"></div>
+                                    </div>
+                                </div>
+
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form__group field plus_flex">
+                            <input type="text" class="form__field" placeholder="이름" name="name" id="name">
+                            <label for="name" class="form__label">이름</label>
+                            <select name="auth" id="group" class="dul_btn_size">
+                                <option value="ROLE_USER">일반 사용자</option>
+                                <option value="ROLE_CLUB">클럽</option>
+                                <option value="ROLE_BAND">밴드</option>
+                            </select>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form__group field plus_flex">
+                            <input type="text" class="form__field" placeholder="아이디" name="username" id="username">
+                            <label for="username" class="form__label">아이디</label>
+                            <button onclick="joinFrom_checkedLoginIdDup(this);" name="btnLoginIdDupCheck" type="button"
+                                class="btn btn-outline-dark dul_btn_size">아이디 중복 검사</button>
+                        </div>
+                        <input type="hidden" id="checkUserName" value="0">
+                    </tr>
+                    <tr>
+                        <div class="form__group field">
+                            <input type="text" class="form__field" placeholder="비밀번호" name="password" id="password">
+                            <label for="password" class="form__label">비밀번호</label>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form__group field">
+                            <input type="text" class="form__field" placeholder="비밀번호 확인" name="userPwCheck"
+                            id="passwordCheck">
+                            <label for="userPwCheck" class="form__label">비밀번호 확인</label>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form__group field plus_flex">
+                            <input type="text" class="form__field" placeholder="닉네임" name="nickname" id="nickname">
+                            <label for="nickname" class="form__label">닉네임</label>
+                            <input type="hidden" id="checkUserNickname" value="0">
+                            <button class="btn btn-outline-dark dul_btn_size" onclick="joinFrom_checkedNicknameDup(this);"
+                                name="btnNicknameDupCheck" type="button">닉네임 중복 검사</button>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form__group field plus_flex">
+                            <input type="text" class="form__field" placeholder="연락처" name="phone" id="phone">
+                            <label for="phone" class="form__label">연락처</label>
+                            <input type="hidden" id="checkUserPhone" value="0">
+                            <button class="btn btn-outline-dark dul_btn_size" onclick="joinFrom_checkedPhoneDup(this);"
+                            name="btnPhoneDupCheck" type="button">연락처 중복 검사</button>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form__group field">
+                            <input type="text" class="form__field" placeholder="이메일" name="email" id="email">
+                            <label for="phone" class="form__label">이메일</label>
+                        </div>
+                    </tr>
+                    <tr>
+                        
+                    </tr>
+                </table>
+                <div class="submit_button">
+                    <input type="submit" value="회원가입">
+                </div>
+            </form>
+        </div>
     </div>
+
+    
     <script>
         
         let form = $(`#joinForm`)
@@ -326,7 +333,65 @@
             return true;
         }
 
+
+
+        form.addEventListener("submit", function (event) {
+            checkUserNameVal = checkUserName.val();
+            checkUserNicknameVal = checkUserNickname.val();
+            checkUserPhoneVal = checkUserPhone.val();
+
+            // 비밀번호 확인 체크 관련 변수
+            let password = $('#password').val();
+            let passwordCheck = $('#passwordCheck').val();
+
+
+            if (form.username.value.length == 0) {
+                alert('로그인 아이디를 입력해주세요.');
+                form.username.focus();
+                event.preventDefault(); // 폼 제출을 중지합니다.
+            }
+
+            if (checkUserNameVal == 0) {
+                alert('로그인 아이디 중복검사를 실시해주세요.');
+                form.btnLoginIdDupCheck.focus();
+                event.preventDefault();
+            }
+
+            if (password != passwordCheck) {
+                alert('비밀번호가 일치하지 않습니다.')
+                event.preventDefault();
+            }
+
+            if (checkUserNicknameVal == 0) {
+                alert('닉네임 중복검사를 실시해주세요.');
+                form.btnNicknameDupCheck.focus();
+                event.preventDefault();
+            }
+
+            if (checkUserPhoneVal == 0) {
+                alert('연락처 중복검사를 실시해주세요.');
+                form.btnPhoneDupCheck.focus();
+                event.preventDefault();
+            }
+
+            // 유효성 검사 부분
+            // 1. 비밀번호에 대한 유효성 검사
+            if (validatePassword() === false) {
+                event.preventDefault();
+            }
+            // 2. 이메일에 대한 유효성 검사 실시
+            if (validateEmail() === false) {
+                event.preventDefault();
+            }
+            // 3. 연락처에 대한 유효성 검사 실시
+            if (validatePhone() === false) {
+                alert('이메일 유요성 검사를 통화하지 못했습니다.')
+                event.preventDefault();
+            }
+
+        });
     </script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 </body>
 
 </html>

@@ -4,89 +4,114 @@
       layout:decorate="~{/UI/user/layout/main_layout}"
       >
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>클럽 대관</title>
+    <link rel="stylesheet" href="/css/cardList.css">
 </head>
+
 <body layout:fragment="content">
-    <h1>클럽 대관</h1>
-    <table>
-        <tr>
-            <td>전체 게시글 수</td>
-        </tr>
-        <tr>
-            <td id="totalCount"></td>
-        </tr>
-    </table>
-      <!-- 검색/필터 -->
-      <div class="btn-box">
-        <!-- 검색 -->
-        <div class="item">
-            <select name="search-type" id="search-type" class="input-search">
-                <option value="0">전체</option>
-                <option value="1">제목</option>
-                <option value="2">내용</option>
-                <option value="3">제목+내용</option>
-                <option value="4">작성자</option>
-            </select>
-            <input type="text" name="keyword" id="keyword" class="input-search">
-            <a href="javascript:;" class="btn" id="btn-search">검색</a>
+    <!-- 이미지 슬라이드 -->
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="8000">
+              <img src="/img/imgslide3.jpg" class="d-block w-100 img-slide" alt="...">
         </div>
-        <!-- 필터 -->
-        <div class="item">
-            <select name="rows" id="rows" class="input-search">
-                <option value="5">5개씩 보기</option>
-                <option value="10">10개씩 보기</option>
-                <option value="30">30개씩 보기</option>
-                <option value="50">50개씩 보기</option>
-            </select>
+        <div class="carousel-item" data-bs-interval="2000">
+            <img src="/img/imgslide1.jpg" class="d-block w-100 img-slide" alt="...">
         </div>
-        <div class="item">
-            <select name="order" id="order" class="input-search">
-                <option value="0">최근 순</option>
-                <option value="1">오래된 순</option>
-                <option value="2">가격 순</option>
-            </select>
+        <div class="carousel-item">
+              <img src="/img/imgslide2.jpg" class="d-block w-100 img-slide" alt="...">
+          </div>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
     </div>
-<th:block sec:authorize="hasRole('ROLE_CLUB')">
-    <a href="/facilityRental/insert">글쓰기</a>
-</th:block>
+    <div id="teamListContainer">
+        <!-- 검색/필터 -->
+        <!-- <div class="listTopText">
+            <h1>티켓오픈</h1>
+        </div> -->
+        <div class="page-box">
+            <div class="item">
+                <!-- 검색 -->
+                <div class="search_item">
+                    <select name="search-type" id="search-type" class="input-search">
+                        <option value="0">전체</option>
+                        <option value="1">제목</option>
+                        <option value="2">내용</option>
+                        <option value="3">제목+내용</option>
+                        <option value="4">작성자</option>
+                    </select>
+                    <input type="text" name="keyword" id="keyword" class="input-search">
+                    <a href="javascript:;" class="btn" id="btn-search">
+                        <img src="https://www.dacorkorea.com/images/icon-search.png" alt="search" style="width: 23px; padding-top: 5px;">
+                    </a>
+                </div>
+            </div>
 
-
-<div class="container">
-
-    <div class="row" id="team-data">
-        <!--페이지네이션 리스트-->
-
-    </div>
-
-</div>
-
-
-    
-
-    <!-- 페이지네이션 -->
-    <div class="pagination">
-        <a href="javascript:;" class="page-arrow" id="first">&laquo;</a>
-        <a href="javascript:;" class="page-arrow" id="prev">&lsaquo;</a>
-    
-        <!-- 페이지 번호 목록 -->
-        <div class="page-list">
-            <a href="javascript:;" class="page-no">1</a>
-            <a href="javascript:;" class="page-no">2</a>
-            <a href="javascript:;" class="page-no">3</a>
-            <a href="javascript:;" class="page-no">4</a>
-            <a href="javascript:;" class="page-no">5</a>
-            <a href="javascript:;" class="page-no">6</a>
-            <a href="javascript:;" class="page-no">7</a>
-            <a href="javascript:;" class="page-no">8</a>
-            <a href="javascript:;" class="page-no">9</a>
-            <a href="javascript:;" class="page-no">10</a>
+            <!-- 필터 -->
+            <div class="item">
+                <select name="rows" id="rows" class="input-search">
+                    <option value="5">5개씩 보기</option>
+                    <option value="10">10개씩 보기</option>
+                    <option value="30">30개씩 보기</option>
+                    <option value="50">50개씩 보기</option>
+                </select>
+                <select name="order" id="order" class="input-search">
+                    <option value="0">최근 순</option>
+                    <option value="1">오래된 순</option>
+                    <option value="2">가격 순</option>
+                </select>
+            </div>
         </div>
+
+        <th:block sec:authorize="hasRole('ROLE_CLUB')">
+            <a href="/facilityRental/insert">글쓰기</a>
+        </th:block>
+
+
+        <div class="container">
+            <div class="row" id="team-data">
+                <!--페이지네이션 리스트-->
+
+            </div>
+        </div>
+
+
     
-        <a href="javascript:;" class="page-arrow" id="next">&rsaquo;</a>
-        <a href="javascript:;" class="page-arrow" id="last">&raquo;</a>
+        <div id="paginationContainer">
+            <!-- 페이지네이션 -->
+            <div class="pagination_count">
+                <a href="javascript:;" class="page-arrow" id="first">
+                    <img src="/img/right_S.png" width="15px" style="transform: rotate(180deg);">
+                </a>
+                <a href="javascript:;" class="page-arrow" id="prev">&lsaquo;</a>
+            
+                <!-- 페이지 번호 목록 -->
+                <div class="page-list">
+                    <a href="javascript:;" class="page-no">1</a>
+                    <a href="javascript:;" class="page-no">2</a>
+                    <a href="javascript:;" class="page-no">3</a>
+                    <a href="javascript:;" class="page-no">4</a>
+                    <a href="javascript:;" class="page-no">5</a>
+                    <a href="javascript:;" class="page-no">6</a>
+                    <a href="javascript:;" class="page-no">7</a>
+                    <a href="javascript:;" class="page-no">8</a>
+                    <a href="javascript:;" class="page-no">9</a>
+                    <a href="javascript:;" class="page-no">10</a>
+                </div>
+            
+                <a href="javascript:;" class="page-arrow" id="next">&rsaquo;</a>
+                <a href="javascript:;" class="page-arrow" id="last">
+                    <img src="/img/right_S.png" width="15px">
+                </a>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -242,32 +267,42 @@
                 return
             }
 
-            // 게시글 목록 출력
-            let teamData = ''
-            for(let i = 0 ; i < teamList.length ; i++ ){
-
-                let tr =``
-                tr+=`
-                <div class="card" style="width: 18rem;">
-            <a href="/facilityRental/read?frNo=${teamList[i].frNo}">
-                `
-                if(teamList[i].thumbnail!=null){
-                tr+=`<img src="/file/img/${teamList[i].thumbnail.fileNo}" alt="썸네일">`
-                }
-                if(teamList[i].buyUsername!=null){
-                    tr+= `<span>(예약종료)</span>`
-                }
-                tr+=`
-                <h5 class="card-title">${teamList[i].title}</h5></a>
-            <p class="card-text">${new Date(teamList[i].updDate).toISOString().split("T")[0]}</p>
-            <p class="card-text">${teamList[i].price}</p>
-            <p class="card-text">${teamList[i].location}</p>
-        </div>
+             // 게시글 목록 출력
+             let teamData = ''
+             for(let i = 0 ; i < teamList.length ; i++ ){
+ 
+                 let tr = `
+                 <div class="card col-3" style=">
+                    <a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">
+                        `
+                        if(teamList[i].thumbnail!=null){
+                            tr+=`
+                            <a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">
+                                <img src="/file/img/${teamList[i].thumbnail.fileNo}" id="card-img">
+                            </a>
+                            `
+                        }
+                        tr+=`
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">${teamList[i].title}</a></h5>
+                            <p class="card-text">${teamList[i].crew}</p>
+                            <p class="card-text">${teamList[i].address}</p>
+                            <p class="card-text card-text-date">${teamList[i].liveDate}</p>
+                            `
+                            if(teamList[i].soldOut==1){
+                                tr+=`
+                                <p class="card-text" style="background-color: red;"></p>                       
+                                `
+                            }
+                            tr+=`
+                        </div>
+                    </div>
             `
-                teamData += tr
-            }
-            $('#team-data').html(teamData)
-        }
+                 teamData += tr
+             }
+             $('#team-data').html(teamData)
+         }
 
 
         // 검색 클릭 이벤트

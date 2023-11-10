@@ -1,38 +1,28 @@
-.container {
-
+@media (max-width: 1000px) {
+    /* 화면 너비가 1000px 이하일 때의 스타일 지정 */
+    body {
+        min-width: 1000px; /* 최소 너비를 1000px로 설정 */
+    }
 }
 
-.imgClass {
-    position: absolute;
-    order: 10;
-    color: #fff;
+.joinBody {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.5rem;
 }
-
-.imgInText {
-    position: absolute;
-    margin: 40px;
-    margin-top: 100px;
-}
-
-.imgClass>img {
-    border-radius: 20px;
-    margin-right: 300px;
-    box-shadow: 3px 3px 10px gray;
-}
-
-.container {
-    margin-left: 250px;
-    position: absolute;
+.joinContainer {
+    /* margin-left: 250px; */
+    /* position: absolute; */
     background-color: white;
     width: 650px;
     padding: 30px 75px;
     border-radius: 20px;
-    box-shadow: 3px 3px 10px gray;
-    order: 0;
-}
-
-form {
-    width: 500px;
+    /* box-shadow: 3px 3px 10px gray; */
+    /* order: 0; */
 }
 
 .plus_flex {
@@ -131,17 +121,7 @@ form {
     box-shadow: none;
 }
 
-/* demo */
-body {
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    font-size: 1.5rem;
-    ;
-}
+
 
 #group {
     padding: 0px 10px;

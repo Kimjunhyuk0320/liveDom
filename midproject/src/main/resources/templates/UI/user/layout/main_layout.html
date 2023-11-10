@@ -6,6 +6,7 @@
 
     <!-- CSS -->
     <th:block th:replace="~{UI/user/fragment/link::link}"></th:block>
+    <th:block th:replace="~{UI/user/fragment/favicon::favicon}"></th:block>
 </head>
 <body>
     <!-- <th:block th:replace="~{프래그먼트경로::프로그래먼트명}"></th:block> -->
@@ -16,6 +17,9 @@
     <!-- content -->
     <th:block layout:fragment="content"></th:block>
     
+    <!-- activeFooter -->
+    <th:block th:replace="~{UI/user/fragment/footerActive::footerActive}"></th:block>
+
     <!-- footer -->
     <th:block th:replace="~{UI/user/fragment/footer::footer}"></th:block>
     
