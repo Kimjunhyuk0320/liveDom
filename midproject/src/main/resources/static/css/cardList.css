@@ -57,13 +57,13 @@ body {
 
 /* 카드 리스트 관련 */
 .card_list{ 
-    
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background-color: white;
 }
 
 .card {
     /* margin-bottom: 20px; */
     border: none;
-    background-color: rgb;
 }
 
 #teamListContainer>.page-box>.item 

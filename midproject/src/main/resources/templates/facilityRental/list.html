@@ -75,7 +75,7 @@
         </th:block>
 
 
-        <div class="container">
+        <div class="container card_list">
             <div class="row" id="team-data">
                 <!--페이지네이션 리스트-->
 
@@ -272,7 +272,7 @@
              for(let i = 0 ; i < teamList.length ; i++ ){
  
                  let tr = `
-                 <div class="card col-3" style=">
+                 <div class="card col-3 card-list">
                     <a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">
                         `
                         if(teamList[i].thumbnail!=null){
