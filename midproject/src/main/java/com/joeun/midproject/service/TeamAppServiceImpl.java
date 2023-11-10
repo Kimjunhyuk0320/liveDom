@@ -119,6 +119,7 @@ public class TeamAppServiceImpl implements TeamAppService{
      teams.setTeamNo(teamNo);
      Team team = teamMapper.read(teams);
      String account = team.getAccount();
+     String title = team.getTitle();
       MultiValueMap<String, String> map =  new LinkedMultiValueMap<>();
       // ✅ 필수 정보
       // - receiver       :   1) 01012341234
@@ -131,7 +132,7 @@ public class TeamAppServiceImpl implements TeamAppService{
       String receiver = phone;
       String bank = account;
       Integer price = team.getPrice();
-      String msg = "LiveDom 팀 모집 서비스\n" +"참가 신청이 승인되었습니다." + bank + "로" + price + "원을 입금해주시기 바랍니다.";
+      String msg = "LiveDom 팀 모집 서비스\n" + "\"" +title + "\"에 대한 참가 신청이 승인되었습니다.\n" + bank + "로" + price + "원을 입금해주시기 바랍니다.";
       String testmode_yn = "Y";
       map.add("receiver", receiver);
       map.add("msg", msg);
