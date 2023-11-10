@@ -95,7 +95,7 @@
         </div>
 
         <!-- 댓글 입력 -->
-        <h2 style="margin: 20px;" id="totalCount">댓글 20개</h2>
+        <h2 style="margin: 20px;" id="totalCount"></h2>
         <th:block sec:authorize="isAuthenticated()">
             <div class="input-box">
                 <div class="imgDiv">
@@ -163,6 +163,10 @@
                 data: data,
                 success: function (response) {
                     let commentList = response
+                    let totalCount =  commentList[0].totalCount
+                    let countMsg = `<span>댓글 ${totalCount}개</span>`
+                    $(`#totalCount`).html(countMsg)
+
                     if(commentList.length==0){
 
                         let msg = `
@@ -170,9 +174,6 @@
                             <p>댓글이 없습니다.</p>
                                 </div>
                             `
-                        let totalCount =  commentList[0].totalCount
-                        let countMsg = `<span>${totalCount}</span>`
-                        $(`#totalCount`).html(countMsg)
                         $('#comment-list').html(msg)
                         initCommentEvent()
                         return
@@ -192,17 +193,14 @@
 
                         let commentBox 
                             =   `   
-                                <div class="commentContainer">
-                                    
-                                        `
+                                <div class="commentContainer">`
                                         if(comment.profileNo != 0){
-                                        comment +=`
-                                        <div class="imgDiv">
+                                        commentBox +=`<div class="imgDiv">
                                             <img src="/file/img/${comment.profileNo}" alt="프로필" style="width:50px; height:50px; border-radius:100%; box-shadow:0px 0px 10px gray;">
                                             </div>
                                             `
                                         }
-                                            comment +=
+                                        commentBox +=
                                         `
                                     <div class="comment-box">
                                         <div class="data-box">
