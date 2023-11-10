@@ -11,6 +11,8 @@ public interface CommentMapper {
 
   public List<Comment> commentList(Comment comment);
 
+  public int totalCount(Comment comment);
+
   public int commentInsert(Comment comment);
 
   public int commentDelete(Comment comment);
