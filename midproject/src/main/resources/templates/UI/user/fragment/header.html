@@ -301,7 +301,11 @@
     <header class="header">
         <form action="/logout" method="POST" id="logoutForm">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-        </form> 
+        </form>
+        <th:block sec:authorize="isAuthenticated()">
+            <input type="hidden" id="auth" name="auth" th:value="${#authentication.principal.users.auth}" >
+        </th:block>
+
         <div class="header-inner">
             <div class="logo img-box">
                 <a href="/">
@@ -314,57 +318,77 @@
                     <li class="cells menu-1">
                         <a href="/facilityRental/list">클럽 대관 서비스</a>
                         <ul>
-                            <li><a href="/facilityRental/list">전체보기</a></li>
-                            <li class="cell">
-                                <ul>
-                                    <li><a href="/facilityRental/insert">대관 게시글 작성하기</a></li>
-                                    <li><a href="/facilityRental/user/receivedList">받은 대관 신청</a></li>
-                                </ul>
-                            </li>
+                            <th:block sec:authorize="isAuthenticated()">
+                                <th:block sec:authorize="hasRole('ROLE_CLUB')">
+                                    <li><a href="/facilityRental/list">전체보기</a></li>
+                                    <li class="cell">
+                                        <ul>
+                                            <li><a href="/facilityRental/insert">대관 게시글 작성하기</a></li>
+                                            <li><a href="/facilityRental/user/receivedList">받은 대관 신청</a></li>
+                                        </ul>
+                                    </li>
+                                </th:block>
+                                <th:block sec:authorize="hasRole('ROLE_BAND')">
+                                    <li><a href="/facilityRental/list">전체보기</a></li>
+                                    <li class="cell">
+                                        <ul>
+                                            <li><a href="/facilityRental/user/reqList">대관 신청 내역</a></li>
+                                        </ul>
+                                    </li>
+                                </th:block>
+                            </th:block>
                         </ul>
                         <div class="sub-menu-width sub-menu-width-1"></div>
                     </li>
                     <li class="cells menu-2">
                         <a href="/liveBoard">공연</a>
                         <ul class="header-row">
-                            <li><a href="/liveBoard/list">전체보기</a></li>
-                            <li class="cell">
-                                <ul>
-                                    <li><a href="/myPage/ticket_purchase_list">예매한 티켓 내역</a></li>
-
-                                    <li><a href="/liveBoard/insert">공연 등록하기</a></li>
-                                    <li><a href="/myPage/ticket_sales_list">판매한 티켓 내역</a></li>
-
-                                </ul>
-                            </li>
+                            <th:block sec:authorize="isAuthenticated()">
+                                <th:block sec:authorize="hasAnyRole('ROLE_CLUB', 'ROLE_BAND')">
+                                    <li><a href="/liveBoard/list">전체보기</a></li>
+                                    <li class="cell">
+                                        <ul>
+                                            <li><a href="/liveBoard/insert">공연 등록하기</a></li>
+                                            <li><a href="/myPage/ticket_sales_list">판매한 티켓 내역</a></li>
+                                            <li><a href="/myPage/ticket_purchase_list">예매한 티켓 내역</a></li>
+                                        </ul>
+                                    </li>
+                                </th:block>
+                            </th:block>
                         </ul>
                         <div class="sub-menu-width sub-menu-width-2"></div>
                     </li>
-                    <li class="cells menu-2">
+                    <li class="cells menu-3">
                         <a href="/team">공연팀 모집</a>
                         <ul>
-                            <li><a href="/team">전체보기</a></li>
-                            <li class="cell">
-                                <ul>
-                                    <li><a href="/team/insert">모집글 작성하기</a></li>
-                                    <li><a href="/team/user/listByMember">참가신청 내역</a></li>
-                                    <li><a href="/team/user/listByLeader">받은 참가신청</a></li>
-                                </ul>
-                            </li>
+                            <th:block sec:authorize="isAuthenticated()">
+                                <th:block sec:authorize="hasRole('ROLE_BAND')">
+                                    <li><a href="/team">전체보기</a></li>
+                                    <li class="cell">
+                                        <ul>
+                                            <li><a href="/team/insert">모집글 작성하기</a></li>
+                                            <li><a href="/team/user/listByMember">참가신청 내역</a></li>
+                                            <li><a href="/team/user/listByLeader">받은 참가신청</a></li>
+                                        </ul>
+                                    </li>
+                                </th:block>
+                            </th:block>
                         </ul>
                         <div class="sub-menu-width sub-menu-width-3"></div>
                     </li>
                 </ul>
                 <ul class="header-row cells-right">
-                    <li class="cells menu-5">
-                        <a href="/myPage">마이페이지</a>
-                        <ul>
-                            <li><a href="/myPage">내 정보 보기</a></li>
-                            <li><a href="/update">내 정보 수정하기</a></li>
-                        </ul>
-                        <div class="sub-menu-width sub-menu-width-4"></div>
+                    <th:block sec:authorize="isAuthenticated()">
+                    <li class="cells menu-4">
+                            <a href="/myPage">마이페이지</a>
+                            <ul>
+                                <li><a href="/myPage">내 정보 보기</a></li>
+                                <li><a href="/update">내 정보 수정하기</a></li>
+                            </ul>
+                            <div class="sub-menu-width sub-menu-width-4"></div>
                     </li>
-                    <th:block sec:authorize="isAnonymous()">
+                    </th:block>
+                        <th:block sec:authorize="isAnonymous()">
                         <li class="cells menu-5">
                             <a href="/login">로그인</a>
                             <ul>
@@ -398,32 +422,16 @@
         </div>
     </header>
     
-    <th:block sec:authorize="isAuthenticated()">
-
-    <input type="hidden" name="auth" id="auth" th:value="${#authentication.principal.users.auth}">
-
-    </th:block>
+    
 
 
     <script>
-
-        // 현재 로그인한 권한의 유형을 principal에서 불러와 0,1,2,3 의형태로 저장합니다. 조건문에서 사용하세요.
-        let auth = ``
-        switch($(`#auth`).val()){
-            case "ROLE_USER" : auth = `1`;
-            break;
-            case "ROLE_BAND" : auth = `2`
-            break;
-            case "ROLE_CLUB" : auth = `3`
-            break;
-            default :  auth = "0";
+        function logOut(){
+            let form = $('#logoutForm')
+            form.submit()
         }
 
-
-
-        $(function(){
-
-        
+        let auth = $('#auth').val()
         // 상단 메뉴 관련
         $(' .header > .header-inner > .top-menu-bar > ul > li').mouseenter(function(){
             $(this).addClass('active');
@@ -436,36 +444,58 @@
         });
 
         // 상단 2차 메뉴 배경
-        $('.header > .header-inner > .top-menu-bar > ul > .menu-1').mouseenter(function(){
-            $('.sub-menu-bg').css('height','164px');
-        });
+        if(auth == 'ROLE_CLUB' || auth == 'ROLE_BAND'){
+            $('.header > .header-inner > .top-menu-bar > ul > .menu-1').mouseenter(function(){
+                $('.sub-menu-bg').css('height','140px');
+            });
+        }else{
+            $('.header > .header-inner > .top-menu-bar > ul > .menu-1').mouseenter(function(){
+                $('.sub-menu-bg').css('height','');
+            });
+        }
         $('.header > .header-inner > .top-menu-bar > ul > .menu-1').mouseleave(function(){
             $('.sub-menu-bg').css('height','');
         });
-
-        $('.header > .header-inner > .top-menu-bar > ul > .menu-2').mouseenter(function(){
-            $('.sub-menu-bg').css('height','238px');
-        });
+        if(auth == 'ROLE_CLUB' || auth == 'ROLE_BAND'){
+            $('.header > .header-inner > .top-menu-bar > ul > .menu-2').mouseenter(function(){
+                $('.sub-menu-bg').css('height','180px');
+            });
+        }else{
+            $('.header > .header-inner > .top-menu-bar > ul > .menu-2').mouseenter(function(){
+                $('.sub-menu-bg').css('height','');
+            });
+        }
         $('.header > .header-inner > .top-menu-bar > ul > .menu-2').mouseleave(function(){
             $('.sub-menu-bg').css('height','');
         });
 
-        $('.header > .header-inner > .top-menu-bar > ul > .menu-3').mouseenter(function(){
-            $('.sub-menu-bg').css('height','164px');
-        });
+        if(auth == 'ROLE_BAND'){
+            $('.header > .header-inner > .top-menu-bar > ul > .menu-3').mouseenter(function(){
+                $('.sub-menu-bg').css('height','180px');
+            });
+        }else{
+            $('.header > .header-inner > .top-menu-bar > ul > .menu-3').mouseenter(function(){
+                $('.sub-menu-bg').css('height','');
+            });
+        }
         $('.header > .header-inner > .top-menu-bar > ul > .menu-3').mouseleave(function(){
             $('.sub-menu-bg').css('height','');
         });
-
-        $('.header > .header-inner > .top-menu-bar > ul > .menu-4').mouseenter(function(){
-            $('.sub-menu-bg').css('height','90px');
-        });
+        if(auth == 'ROLE_CLUB' || auth == 'ROLE_BAND' || auth == 'ROLE_USER'){
+            $('.header > .header-inner > .top-menu-bar > ul > .menu-4').mouseenter(function(){
+                $('.sub-menu-bg').css('height','120px');
+            });
+        }else{
+            $('.header > .header-inner > .top-menu-bar > ul > .menu-4').mouseenter(function(){
+                $('.sub-menu-bg').css('height','');
+            });
+        }
         $('.header > .header-inner > .top-menu-bar > ul > .menu-4').mouseleave(function(){
             $('.sub-menu-bg').css('height','');
         });
 
         $('.header > .header-inner > .top-menu-bar > ul > .menu-5').mouseenter(function(){
-            $('.sub-menu-bg').css('height','127px');
+            $('.sub-menu-bg').css('height','110px');
         });
         $('.header > .header-inner > .top-menu-bar > ul > .menu-5').mouseleave(function(){
             $('.sub-menu-bg').css('height','');
