@@ -20,6 +20,7 @@ public class CommentServiceImpl implements CommentService{
 
     List<Comment> commentList = commentMapper.commentList(comment);
 
+    commentList.get(0).setTotalCount(commentMapper.totalCount(comment));
 
     return commentList;
   }

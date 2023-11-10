@@ -39,6 +39,13 @@ public class UserController {
   }
   
  
+
+  @GetMapping(value="/denied")
+  public String denied() {
+      return "denied";
+  }
+  
+
   /**
    * 로그인 화면
    * @return

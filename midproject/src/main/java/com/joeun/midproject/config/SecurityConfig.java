@@ -111,7 +111,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 인증 예외 처리
         http.exceptionHandling( (exception) -> exception
                                                 .accessDeniedHandler( accessDeniedHandler() )
-        
+                                                
                               );
 
       

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/UI/user/layout/main_layout}">
+
+<head>
+    <title>권한이 없습니다</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body layout:fragment="content">
+
+    <h1>해당 페이지에 접근할 수 없습니다.</h1>
+
+    <a href="/" class="bnt btn-outline-primary">메인화면</a>
+
+</body>
+
+</html>
