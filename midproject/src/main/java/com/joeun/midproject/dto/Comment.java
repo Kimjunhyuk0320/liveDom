@@ -17,5 +17,6 @@ public class Comment {
   private Date regDate;
   private Date updDate;
   private int totalCount;
+  private int profileNo;
   
 }

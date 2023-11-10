@@ -360,7 +360,7 @@ public class TeamController {
 
 
   @ResponseBody
-  @GetMapping(value="/commentList", produces = "application/json")
+  @GetMapping(value="/commentList")
   public List<Comment> commentList(Comment comment) {
     comment.setParentTable("team_recruitments");
     log.info(comment.toString());

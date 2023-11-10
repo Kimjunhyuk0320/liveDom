@@ -68,7 +68,8 @@
             <div>
                 <button type="button" onclick="moveList()">목록</button>
                 <th:block sec:authorize="isAuthenticated()">
-                    <input type="hidden" name="username" th:value="${#authentication.principal.username}" id="username">
+                    <input type="hidden" name="username" th:value="${#authentication.principal.users.username}" id="username">
+                    <input type="hidden" name="profileNo" th:value="${#authentication.principal.users.profileNo}" id="profileNo">
                     <th:block th:if="${team.confirmed == 0 && team.username != #authentication.principal.username}">
                         <button type="button" th:onclick=" 'moveApplication('+${team.teamNo}+')' " id="go-btn">신청</button>
                     </th:block>
@@ -93,9 +94,9 @@
             <p th:utext="${team.content}"></p>
         </div>
 
+        <!-- 댓글 입력 -->
+        <h2 style="margin: 20px;" id="totalCount">댓글 20개</h2>
         <th:block sec:authorize="isAuthenticated()">
-            <!-- 댓글 입력 -->
-            <h2 style="margin: 20px;">댓글 20개</h2>
             <div class="input-box">
                 <div class="imgDiv">
                     <!-- 여기 추가 -->
@@ -135,6 +136,7 @@
         let boardNo = "[[${team.teamNo}]]"
 
         let username = $(`#username`).val() != null ? $(`#username`).val() : `GUEST`;
+        let profileNo = $(`#profileNo`).val() != null ? $(`#profileNo`).val() : 0;
 
 
         if (boardNo != null) {
@@ -161,6 +163,20 @@
                 data: data,
                 success: function (response) {
                     let commentList = response
+                    if(commentList.length==0){
+
+                        let msg = `
+                        <div class="commentContainer">
+                            <p>댓글이 없습니다.</p>
+                                </div>
+                            `
+                        let totalCount =  commentList[0].totalCount
+                        let countMsg = `<span>${totalCount}</span>`
+                        $(`#totalCount`).html(countMsg)
+                        $('#comment-list').html(msg)
+                        initCommentEvent()
+                        return
+                    }
 
                     console.log(commentList)
 
@@ -173,16 +189,21 @@
                         let regTime = date.toISOString().split("T")[1];
                         regTime = regTime.split(".")[0]
 
-                        let depthNo = comment.depthNo
-
 
                         let commentBox 
                             =   `   
                                 <div class="commentContainer">
-                                    <div class="imgDiv">
-                                        <!-- 여기 추가 -->
-                                        <img src="/img/90.jpeg" alt="..." style="">
-                                    </div>
+                                    
+                                        `
+                                        if(comment.profileNo != 0){
+                                        comment +=`
+                                        <div class="imgDiv">
+                                            <img src="/file/img/${comment.profileNo}" alt="프로필" style="width:50px; height:50px; border-radius:100%; box-shadow:0px 0px 10px gray;">
+                                            </div>
+                                            `
+                                        }
+                                            comment +=
+                                        `
                                     <div class="comment-box">
                                         <div class="data-box">
                                             <div class="top">
@@ -191,13 +212,13 @@
                                                     <h2 class="comment-writer">${comment.writer}</h2>
                                                     <span class="comment-date">${regDate} ${regTime}</span>
                                                 </div>
-                                                `
+                                                    `
                                                 if(commentList[i].username==username){
                                                     commentBox +=`
-                                                    <div class="itemsNd">
+                                                <div class="itemsNd">
                                                         <a href="javascript:;" class="btn btn-sm btn-comment-update" data="${comment.commentNo}">수정</a>
                                                         <a href="javascript:;" class="btn btn-sm btn-comment-delete" data="${comment.commentNo}">삭제</a>
-                                                    </div>
+                                                </div>
                                                     `
                                                 }
                                                 commentBox +=`
@@ -250,7 +271,8 @@
                 'parentTable': 'team_recruitments',
                 'writer': writer,
                 'content': content,
-                'username': username
+                'username': username,
+                'profileNo' : profileNo
             }
 
             $.ajax({

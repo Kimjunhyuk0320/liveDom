@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <insert id="commentInsert">
 
-  INSERT INTO `comment` (parent_table,parent_no,writer,username,content,reg_date,upd_date) VALUES (#{parentTable},#{parentNo},#{writer},#{username},#{content},now(),now())
+  INSERT INTO `comment` (parent_table,parent_no,writer,username,content,reg_date,upd_date,profile_no) VALUES (#{parentTable},#{parentNo},#{writer},#{username},#{content},now(),now(),#{profileNo})
 
 </insert>
 
