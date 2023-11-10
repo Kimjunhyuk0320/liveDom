@@ -1,3 +1,10 @@
+@media (max-width: 1320px) {
+    /* 화면 너비가 1000px 이하일 때의 스타일 지정 */
+    body {
+        min-width: 1320px; /* 최소 너비를 1000px로 설정 */
+    }
+}
+
 #insertContainer {
     margin: 200px 0;
 }
