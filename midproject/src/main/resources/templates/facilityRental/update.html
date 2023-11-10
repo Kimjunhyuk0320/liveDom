@@ -45,7 +45,7 @@
     <div id="insertContainer">
         <form action="/facilityRental/update" method="POST" id="form">
             <!-- csrf -->
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="_csrf" />
             <input type="hidden" name="frNo" th:value="${facilityRental.frNo}" id="frNo">
 
             <div class="tableContainer">
@@ -136,6 +136,14 @@
                             </div>
                         </td>
                     </tr>
+                    <!-- 글 작성 에디터 -->
+                    <tr>
+                        <td>게시글 적성 에디터</td>
+                        <td class="data">
+                            <textarea name="content" id="content" cols="30" rows="10" 
+                            class="input-textarea" th:text="${facilityRental.content}"></textarea>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </form>
@@ -157,11 +165,6 @@
         function actionUpdate() {
             form.submit()
         }
-
- 
-    </script>
-    <script>
-
 
         var toolbar = [
             // 글꼴 설정
@@ -185,7 +188,7 @@
         ];
 
         var setting = {
-            height : 1000,
+            height : 300,
             minHeight : null,
             maxHeight : null,
             focus : true,
@@ -203,15 +206,17 @@
 
 
         $('#content').summernote(setting)
-
+        let _csrf_name = $('#_csrf').attr('name')
+        let _csrf_value = $('#_csrf').val()  
+        
         // 에디터 파일 업로드
         function uploadImage(file, element) {
-            const fileUrl = 'http://192.168.30.119:8080/api/file'
-            const url = 'http://192.168.30.119:8080/api/file'
+            const fileUrl = 'http://localhost:8080/file'
+            const url = 'http://localhost:8080/file'
 
             let formData = new FormData()
+            formData.append(_csrf_name, _csrf_value )
             formData.append("file", file)
-
             $.ajax({
                 url : url,
                 type : "post",
@@ -221,7 +226,7 @@
                 success : function(response) {
                     let fileNo = response
                     // let img = `<img src="${fileUrl}/img/${fileNo}">`
-                    let imgUrl = `${fileUrl}/img?fileNo=${fileNo}`
+                    let imgUrl = `${fileUrl}/img/${fileNo}`
                     // 업로드된 이미지url 를 에디터에 추가
                     $(element).summernote('editor.insertImage', imgUrl)
                 },
@@ -231,8 +236,7 @@
                 
             })
         }
-    </script>
-    <script>
+
 
         let fileList = null
 
@@ -271,7 +275,16 @@
                     $('.btn-thumb-remove').show()               // 삭제 버튼 보여주기
                     $('.drop-img .img-box').show().html(img)    // 이미지 보여주기
                     $('.drop-img .upload-box').hide()           // 업로드 영역 숨김
+                    // 파일 데이터를 변수에 저장
+                    let fileData = event.target.result;
 
+                    // 파일 데이터를 직접 설정 (주의: 보안 정책에 따라 허용되지 않을 수 있음)
+                    try {
+                        $('#thumbnail').val(fileData);
+                    } catch (error) {
+                        console.error(error);
+                        alert("파일 데이터를 설정할 수 없습니다. 브라우저 보안 정책을 확인하세요.");
+                    }
                 }
                 reader.readAsDataURL(file)
             }
@@ -287,63 +300,7 @@
         })
 
 
-        // 등록 버튼 - 클릭 이벤트
-        $('#btn-insert').on('click', function() {
 
-            // 등록 요청
-            const url = 'http://192.168.30.119:8080/api/gallery'
-
-            let formData = new FormData()
-
-            let title = $('#title').val()
-            let writer = $('#writer').val()
-            let content = $('#content').val()
-
-            let file = $('#file')[0]
-            let files = file.files
-
-            formData.append('title', title)
-            formData.append('writer', writer)
-            formData.append('content', content)
-
-            for (let i = 0; i < files.length; i++) {
-                formData.append('file[]', files[i])
-            }
-
-            // 썸네일 파일 formData 추가
-            if( fileList != null )
-                formData.append("thumbnail[]", fileList[0])   // 썸네일 1개
-
-            $.ajax({
-                url : url,
-                type : 'post',
-                data : formData,            
-                contentType     : false,    
-                processData     : false,    
-                success : function(response) {
-                    // alert(response)
-                    if( response == 'SUCCESS' ) {
-                        // alert('등록이 완료되었습니다.')
-                        Swal.fire(
-                            '완료!',
-                            '등록이 완료되었습니다.',
-                            'success'
-                        ).then((result) => {
-                            if( result.isConfirmed ) {
-                                // 목록 페이지로 이동
-                                location.href = 'list.html'
-                            }
-                        })
-                    }
-
-                },
-                error : function(error) {
-
-                }
-            })
-
-
-        })
 
 
         // 파일 변경 이벤트
@@ -367,7 +324,6 @@
                 reader.readAsDataURL(file)
             }
         })
-
 
     </script>
 </body>

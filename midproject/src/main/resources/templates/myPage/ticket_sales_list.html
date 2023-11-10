@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="/css/list.css">
 </head>
 <body layout:fragment="content">
+
     <!-- <div id="topContent"> -->
         <h2>My Page</h2>
         <h1>티켓 판매 내역</h1>
     <!-- </div> -->
-
+    <input type="hidden" id="username" name="username" th:value="${#authentication.principal.users.username}" >
     <div id="teamListContainer">
         <div class="tableContainer">
             <table style="margin-bottom: 100px;">
