@@ -579,6 +579,9 @@ function deleteCommentData(commentNo) {
                                 // buyer_postcode : "",                   // 결제자 우편번호
                                 // m_redirect_url : "success"          //  "리디렉션 URL", (리디렉션 방식의 경우 callback은 실행되지 않습니다.)
                             }, function (rsp) { // callback
+
+                                clearInterval(timerId)
+
                                 if (rsp.success) {
                                     // 결제 성공
                                     console.log(rsp);
@@ -683,7 +686,7 @@ function deleteCommentData(commentNo) {
 
 
 
-            setInterval(() => {
+            let timerId = setInterval(() => {
             console.log("Delayed for 1 second.");
             // 매진 체크
             // 등록 요청
