@@ -120,12 +120,12 @@
                             </div>
                         </td>
                     </tr>
-                    <!-- 글 작성 에디터 -->
-                    <tr>
+                   <!-- 글 작성 에디터 -->
+                   <tr>
                         <td>게시글 적성 에디터</td>
                         <td class="data">
                             <textarea name="content" id="content" cols="30" rows="10" 
-                                    class="input-textarea"></textarea>
+                            class="input-textarea" th:text="${facilityRental.content}"></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -136,14 +136,7 @@
                             </div>
                         </td>
                     </tr>
-                    <!-- 글 작성 에디터 -->
-                    <tr>
-                        <td>게시글 적성 에디터</td>
-                        <td class="data">
-                            <textarea name="content" id="content" cols="30" rows="10" 
-                            class="input-textarea" th:text="${facilityRental.content}"></textarea>
-                        </td>
-                    </tr>
+                    
                 </table>
             </div>
         </form>
