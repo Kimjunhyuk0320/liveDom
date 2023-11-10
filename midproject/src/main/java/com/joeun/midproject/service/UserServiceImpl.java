@@ -72,8 +72,8 @@ public class UserServiceImpl implements UserService{
     if(result>0){
       // 파일 업로드 
         MultipartFile file = users.getFile();
-
-        if(file!=null){
+      
+        if(file!=null&&!file.isEmpty()){
 
         
 
@@ -125,11 +125,71 @@ public class UserServiceImpl implements UserService{
 
   // 회원 정보 수정
   @Override
-  public int update(Users users) {
+  public int update(Users users) throws Exception{
 
     users.setPassword(passwordEncoder.encode(users.getPassword()));
 
     int result = userMapper.update(users);
+
+    if(result>0){
+      // 파일 업로드 
+        MultipartFile file = users.getFile();
+      
+        if(file!=null&&!file.isEmpty()){
+
+        
+
+
+            // 파일 정보 : 원본파일명, 파일 용량, 파일 데이터 
+            String originName = file.getOriginalFilename();
+            long fileSize = file.getSize();
+            byte[] fileData = file.getBytes();
+            
+            // 업로드 경로
+            // 파일명 중복 방지 방법(정책)
+            // - 날짜_파일명.확장자
+            // - UID_파일명.확장자
+
+            // UID_강아지.png
+            String fileName = UUID.randomUUID().toString() + "_" + originName;
+
+            // c:/upload/UID_강아지.png
+            String filePath = uploadPath + "/" + fileName;
+
+            // 파일업로드
+            // - 서버 측, 파일 시스템에 파일 복사
+            // - DB 에 파일 정보 등록
+            File uploadFile = new File(uploadPath, fileName);
+            FileCopyUtils.copy(fileData, uploadFile);       // 파일 업로드
+
+            // FileOutputStream fos = new FileOutputStream(uploadFile);
+            // fos.write(fileData);
+            // fos.close();
+
+            Files uploadedFile = new Files();
+            uploadedFile.setParentTable("users");
+            uploadedFile.setParentUsername(users.getUsername());
+            uploadedFile.setFileName(fileName);
+            uploadedFile.setPath(filePath);
+            uploadedFile.setOriginName(originName);
+            uploadedFile.setFileSize(fileSize);
+            uploadedFile.setFileCode(2);
+            //파일DB등록
+            fileMapper.insert(uploadedFile);
+            
+            Integer preProfileNo =  userMapper.read(users.getUsername()).getProfileNo();
+
+            if(preProfileNo != null){
+
+              fileMapper.delete(preProfileNo);
+
+            }
+
+            //유저DB에서 방금등록한 fileNo가져와 객체에 담기
+            users.setProfileNo(fileMapper.maxPk());
+            userMapper.profileSet(users);
+    }
+  }
 
     return result;
 

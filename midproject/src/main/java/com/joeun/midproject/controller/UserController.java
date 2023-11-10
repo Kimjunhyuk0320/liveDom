@@ -39,6 +39,13 @@ public class UserController {
   }
   
  
+
+  @GetMapping(value="/denied")
+  public String denied() {
+      return "denied";
+  }
+  
+
   /**
    * 로그인 화면
    * @return
@@ -96,7 +103,7 @@ public class UserController {
   }
   
   @PostMapping(value="/update")
-  public String updatePro(Users users) {
+  public String updatePro(Users users) throws Exception{
 
     int result = userService.update(users);
 

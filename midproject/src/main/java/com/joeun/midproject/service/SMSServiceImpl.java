@@ -55,7 +55,7 @@ public class SMSServiceImpl implements SMSService {
             sms.put("testmode_yn", testmodeYn);                               // 테스트 모드 여부
             // sms.put("testmode_yn", "Y");                                       
             // sms.put("testmode_yn", "N");
-            // sms.put("title", "제목입력");
+            sms.put("title", "LiveDom 서비스 알림");
 
 
             // 💎 이미지 첨부 관련

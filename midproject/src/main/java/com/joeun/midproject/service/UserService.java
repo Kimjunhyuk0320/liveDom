@@ -18,7 +18,7 @@ public interface UserService {
 
   public int insert(Users users) throws Exception;
 
-  public int update(Users users);
+  public int update(Users users)throws Exception;
 
 
   //유저 전화번호로 구매한 티켓 조회하기

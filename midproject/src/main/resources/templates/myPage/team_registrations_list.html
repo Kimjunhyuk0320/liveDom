@@ -4,13 +4,16 @@
 
 <head>
   <title>팀 참가 신청 목록</title>
-  <link rel="stylesheet" href="/css/list.css">
+  <link rel="stylesheet" href="/css/teamList.css">
 </head>
 
 <body layout:fragment="content">
+
   <div id="topContent">
-    <h2>My Page</h2>
     <h1>팀 참가 신청 목록</h1>
+    <p>팀 참가 신청에 대한 정보입니다.</p>
+    <hr>
+</div>
   </div>
 
   <div id="teamListContainer">
@@ -31,6 +34,7 @@
           </tr>
         </thead>
         <tbody>
+          <th:block th:if="${resTeamAppList != null}">
           <th:block th:each="resTeam : ${resTeamAppList}">
             <tr th:onclick="'readApp('+${resTeam.appNo}+')'">
 
@@ -81,6 +85,13 @@
             
             
           </th:block>
+        </th:block>
+
+        <th:block th:if="${resTeamAppList.isEmpty()}">
+          <tr>
+            <td colspan="10">조회된 내역이 없습니다.</td>
+          </tr>
+        </th:block>
         </table>
       </div>
   </div>

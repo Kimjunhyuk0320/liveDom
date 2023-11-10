@@ -90,7 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 로그아웃 설정
         http.logout( (logout) -> logout
-                                    .logoutSuccessUrl("/login")
+                                    .logoutSuccessUrl("/")
                                     .logoutUrl("/logout")  
                                     .deleteCookies("remember-id","remember-me","JSESSIONID")
                                     .invalidateHttpSession(true)
@@ -111,7 +111,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 인증 예외 처리
         http.exceptionHandling( (exception) -> exception
                                                 .accessDeniedHandler( accessDeniedHandler() )
-        
+                                                
                               );
 
       
