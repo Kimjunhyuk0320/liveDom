@@ -272,7 +272,7 @@
              for(let i = 0 ; i < teamList.length ; i++ ){
  
                  let tr = `
-                 <div class="card col-3 card-list">
+                 <div class="card col-3">
                     <a href="/facilityRental/read?frNo=${teamList[i].frNo}">
                         `
                         if(teamList[i].thumbnail!=null){
@@ -281,7 +281,6 @@
                             `
                         }
                         tr+=`
-                        </a>
                         <div class="card-body">
                             <a href="/facilityRental/read?frNo=${teamList[i].frNo}">
                             <h5 class="card-title">${teamList[i].title}</h5>
