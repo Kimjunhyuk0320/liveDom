@@ -43,7 +43,7 @@
                     <div class="form__group field plus_flex">
                         <input type="text" class="form__field" placeholder="아이디" name="username" id="username">
                         <label for="username" class="form__label">아이디</label>
-                        <button onclick="joinFrom_checkedLoginIdDup()" name="btnLoginIdDupCheck" type="button"
+                        <button onclick="joinFrom_checkedLoginIdDup()" name="btnLoginIdDupCheck" type="button" id="btnLoginIdDupCheck"
                             class="btn btn-outline-dark dul_btn_size">아이디 중복 검사</button>
                     </div>
                     <input type="hidden" id="checkUserName" value="0">
@@ -67,7 +67,7 @@
                         <label for="nickname" class="form__label">닉네임</label>
                         <input type="hidden" id="checkUserNickname" value="0">
                         <button class="btn btn-outline-dark dul_btn_size" onclick="joinFrom_checkedNicknameDup(this);"
-                            name="btnNicknameDupCheck" type="button">닉네임 중복 검사</button>
+                            name="btnNicknameDupCheck" id="btnNicknameDupCheck" type="button">닉네임 중복 검사</button>
                     </div>
                 </tr>
                 <tr>
@@ -76,7 +76,7 @@
                         <label for="phone" class="form__label">연락처</label>
                         <input type="hidden" id="checkUserPhone" value="0">
                         <button class="btn btn-outline-dark dul_btn_size" onclick="joinFrom_checkedPhoneDup(this);"
-                            name="btnPhoneDupCheck" type="button">연락처 중복 검사</button>
+                            name="btnPhoneDupCheck" id="btnPhoneDupCheck" type="button">연락처 중복 검사</button>
                     </div>
                 </tr>
                 <tr>
@@ -110,6 +110,8 @@
 
 
       
+       $(function(){
+
        
 
         $(`#joinForm`).on("submit", function(event) {
@@ -122,32 +124,34 @@
             let passwordCheck = $('#passwordCheck').val();
 
 
-            if ($(`#username`).val.length == 0) {
+            if ($(`#username`).val().length == 0) {
                 alert('로그인 아이디를 입력해주세요.');
-                form.username.focus();
+                $(`#username`).focus();
                 event.preventDefault(); 
             }
 
             if (checkUserNameVal == 0) {
                 alert('로그인 아이디 중복검사를 실시해주세요.');
-                form.btnLoginIdDupCheck.focus();
+                $(`#btnLoginIdDupCheck`).focus();
                 event.preventDefault();
             }
 
             if (password != passwordCheck) {
                 alert('비밀번호가 일치하지 않습니다.')
                 event.preventDefault();
+                $(`#passowrd`).val(``)
+                $(`#passwordCheck`).val(``)
             }
 
             if (checkUserNicknameVal == 0) {
                 alert('닉네임 중복검사를 실시해주세요.');
-                form.btnNicknameDupCheck.focus();
+                $(`#btnNicknameDupCheck`).focus();
                 event.preventDefault();
             }
 
             if (checkUserPhoneVal == 0) {
                 alert('연락처 중복검사를 실시해주세요.');
-                form.btnPhoneDupCheck.focus();
+                $(`#btnPhoneDupCheck`).focus();
                 event.preventDefault();
             }
 
@@ -158,24 +162,22 @@
             }
             // 2. 이메일에 대한 유효성 검사 실시
             if (validateEmail() === false) {
+                alert('잘못된 이메일 형식입니다.')
                 event.preventDefault();
             }
             // 3. 연락처에 대한 유효성 검사 실시
             if (validatePhone() === false) {
-                alert('이메일 유요성 검사를 통화하지 못했습니다.')
+                alert('잘못된 연락처 형식입니다. ( - 제외)')
                 event.preventDefault();
             }
 
         });
-
+    })
 
 
       // 로그인 아이디 중복 체크
       function joinFrom_checkedLoginIdDup() {
-            const form = document.getElementById('joinForm')
-            console.log(form);
-            const username = form.username.value
-            console.log(username);
+            let username = $(`#username`).val()
 
             let data = {
                 'username': username
@@ -189,7 +191,7 @@
                 data: data,
                 success: function (response) {
                     if (response == 'Y') {
-                        alert('이용 가능한 이이디입니다.')
+                        alert('이용 가능한 아이디입니다.')
                         checkUserName.val('1');
                         $("#username").prop("readonly", true);
                     }
@@ -210,8 +212,7 @@
 
          // 닉네임 중복 검사
          function joinFrom_checkedNicknameDup(el) {
-            const form = $(el).closest('form').get(0);
-            const nickname = form.nickname.value;
+            const nickname = $(`#nickname`).val()
 
             let data = {
                 'nickname': nickname
@@ -245,8 +246,7 @@
 
         // 연락처 중복 검사
         function joinFrom_checkedPhoneDup(el) {
-            const form = $(el).closest('form').get(0);
-            const phone = form.phone.value;
+            let phone = $(`#phone`).val()
 
             let data = {
                 'phone': phone
@@ -281,7 +281,7 @@
         // 유효성 검사 함수
         // 1. 비밀번호에 대한 부분
         function validatePassword() {
-            const password = $('#password').val();
+            let password = $('#password').val();
 
             // 나머지 유효성 검사는 그대로 유지
             if (password.length < 8) {
@@ -289,7 +289,7 @@
                 return false;
             }
 
-            const complexityRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
+            let complexityRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
             if (!complexityRegex.test(password)) {
                 alert("비밀번호는 영문 대문자, 영문 소문자, 숫자, 특수문자를 포함해야 합니다.");
                 return false;
@@ -300,9 +300,9 @@
 
         // 2. 이메일 유효성 검사 부분
         function validateEmail() {
-            const email = $('#email').val();
+            let email = $('#email').val();
 
-            const complexityRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            let complexityRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             // 첫 번째 부분에는 영문자, 숫자, 밑줄("_"), 마침표(".") 및 퍼센트("%") 기호가 포함하게 하고,
             // 두 번째 부분에는 도메인 주소가 오도록 함
 
@@ -315,10 +315,9 @@
 
         // 3. 연락처 유효성 검사 부분
         function validatePhone() {
-            const email = $('#phone').val();
+            let phone = $('#phone').val()
 
-            const complexityRegex = /^(01[016789])-(\d{3,4})-(\d{4})$/;     
-                    // 유효성 검사 "-" 빼기  
+            let complexityRegex = /^(01[016789])(\d{3,4})(\d{4})$/
 
             if (!complexityRegex.test(phone)) {
                 return false;

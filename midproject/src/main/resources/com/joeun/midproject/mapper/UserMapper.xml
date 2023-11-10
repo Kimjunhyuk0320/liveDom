@@ -32,8 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update">
         UPDATE user
         SET 
-            name = #{name}
-            ,password = #{password}
+            password = #{password}
             ,nickname = #{nickname}
             ,phone = #{phone}
             ,auth = #{auth}
