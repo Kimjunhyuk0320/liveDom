@@ -19,8 +19,9 @@ public class CommentServiceImpl implements CommentService{
   public List<Comment> commentList(Comment comment) {
 
     List<Comment> commentList = commentMapper.commentList(comment);
-
-    commentList.get(0).setTotalCount(commentMapper.totalCount(comment));
+    if(!commentList.isEmpty()){
+      commentList.get(0).setTotalCount(commentMapper.totalCount(comment));
+    }
 
     return commentList;
   }

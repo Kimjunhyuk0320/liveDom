@@ -100,7 +100,12 @@
             <div class="input-box">
                 <div class="imgDiv">
                     <!-- 여기 추가 -->
-                    <img th:src="|/file/img/${#authentication.principal.users.profileNo}|">
+                    <th:block  th:if="${#authentication.principal.users.profileNo != 0}">
+                    <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진">
+                </th:block>
+                <th:block th:if="${#authentication.principal.users.profileNo == 0}">
+                <img src="/img/defaultProfile.png" alt="프로필사진">
+                </th:block>
                 </div>
                 <div class="comment-input">
                     <input type="hidden" name="writer" id="comment-writer" placeholder="작성자"
@@ -162,22 +167,23 @@
                 type: 'get',
                 data: data,
                 success: function (response) {
+                    let totalCount = 0
                     let commentList = response
-                    let totalCount =  commentList[0].totalCount
-                    let countMsg = `<span>댓글 ${totalCount}개</span>`
-                    $(`#totalCount`).html(countMsg)
-
-                    if(commentList==0){
-
+                    if(commentList.length==0){
+                        
                         let msg = `
                         <div class="commentContainer">
                             <span>댓글이 없습니다.</span>
-                                </div>
-                            `
+                        </div>
+                        `
                         $('#comment-list').html(msg)
+                        $(`#totalCount`).html(`<span>댓글 ${totalCount}개</span>`)
                         initCommentEvent()
                         return
                     }
+                    totalCount =  commentList[0].totalCount
+                    $(`#totalCount`).html(`<span>댓글 ${totalCount}개</span>`)
+
 
                     console.log(commentList)
 
@@ -199,6 +205,11 @@
                                             <img src="/file/img/${comment.profileNo}" alt="프로필" style="width:50px; height:50px; border-radius:100%; box-shadow:0px 0px 10px gray;">
                                             </div>
                                             `
+                                        }else{
+                                            commentBox +=`<div class="imgDiv">
+                                                <img src="/img/defaultProfile.png" alt="프로필" style="width:50px; height:50px; border-radius:100%; box-shadow:0px 0px 10px gray;">
+                                                </div>
+                                                `
                                         }
                                         commentBox +=
                                         `

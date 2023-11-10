@@ -18,8 +18,13 @@
     <section class="mypage-btn-container" stlye="margin-top : 0;">
     
         <!-- 프로필 사진 쏴주기 -->
-        <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.users.profileNo != null}">
-            <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진" id="profile">
+        <th:block sec:authorize="isAuthenticated()">
+            <th:block  th:if="${#authentication.principal.users.profileNo != 0}">
+        <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진" id="profile" style="width:150px; height:150px; border-radius: 100%; box-shadow: 0px 0px 15px gray;">
+    </th:block>
+        <th:block th:if="${#authentication.principal.users.profileNo == 0}">
+            <img src="/img/defaultProfile.png" alt="프로필사진" id="profile" style="width:150px; height:150px; border-radius: 100%; box-shadow: 0px 0px 15px gray;">
+        </th:block>
         </th:block>
 
         <div class="mypage-btn" onclick="moveUser('/myPage/myInfo')" style="width: 450px;">

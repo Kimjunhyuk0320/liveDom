@@ -2,6 +2,9 @@ package com.joeun.midproject.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.joeun.midproject.dto.Ticket;
 import com.joeun.midproject.dto.Users;
 
@@ -16,9 +19,9 @@ public interface UserService {
   // 회원 연락처 조회
   public Users readOnlyPhone(String phone);
 
-  public int insert(Users users) throws Exception;
+  public int insert(Users users,HttpServletRequest request) throws Exception;
 
-  public int update(Users users)throws Exception;
+  public int update(Users users,HttpServletRequest request,HttpServletResponse response)throws Exception;
 
 
   //유저 전화번호로 구매한 티켓 조회하기

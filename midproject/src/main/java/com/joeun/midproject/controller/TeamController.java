@@ -24,6 +24,7 @@ import com.joeun.midproject.dto.Comment;
 import com.joeun.midproject.dto.PageInfo;
 import com.joeun.midproject.dto.Team;
 import com.joeun.midproject.dto.TeamApp;
+import com.joeun.midproject.mapper.CommentMapper;
 import com.joeun.midproject.mapper.TeamMapper;
 import com.joeun.midproject.service.CommentService;
 import com.joeun.midproject.service.TeamAppService;
@@ -53,6 +54,7 @@ public class TeamController {
 
   @Autowired
   private CommentService commentService;
+
 
   @GetMapping(value={"/",""})
   public String index(Model model) {
@@ -137,19 +139,10 @@ public class TeamController {
   
   @Secured("ROLE_BAND")
   @PostMapping(value="/insert")
-  public String insertPro(HttpServletRequest request,Team team) {
+  public String insertPro(Team team) {
     
-// Enumeration<String> parameterNames = request.getParameterNames();
-//         while (parameterNames.hasMoreElements()) {
-//             String paramName = parameterNames.nextElement();
-//             String[] paramValues = request.getParameterValues(paramName);
-//             System.out.print(paramName + ": ");
-//             for (String paramValue : paramValues) {
-//                 System.out.print(paramValue + " ");
-//             }
-//             System.out.println();
-//         }
 
+    team.setAccount(team.getAccount1()+"/"+team.getAccount2());
     int result = teamService.insert(team);
 
     if(result>0){
@@ -365,8 +358,8 @@ public class TeamController {
   public List<Comment> commentList(Comment comment) {
     comment.setParentTable("team_recruitments");
     log.info(comment.toString());
-    List<Comment> commentList = new ArrayList<Comment>();
-    commentList = commentService.commentList(comment);
+
+    List<Comment>commentList = commentService.commentList(comment);
 
     for (Comment comment2 : commentList) {
       log.info(comment2.toString());

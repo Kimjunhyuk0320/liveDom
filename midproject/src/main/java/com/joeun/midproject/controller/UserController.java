@@ -3,6 +3,8 @@ package com.joeun.midproject.controller;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -74,9 +76,9 @@ public class UserController {
   }
   
   @PostMapping(value="/join")
-  public String joinPro(Users users) throws Exception{
+  public String joinPro(Users users,HttpServletRequest request) throws Exception{
 
-    int result = userService.insert(users);
+    int result = userService.insert(users,request);
 
       if(result>0){
         return "redirect:/";
@@ -103,9 +105,9 @@ public class UserController {
   }
   
   @PostMapping(value="/update")
-  public String updatePro(Users users) throws Exception{
+  public String updatePro(Users users,HttpServletRequest request, HttpServletResponse response) throws Exception{
 
-    int result = userService.update(users);
+    int result = userService.update(users,request,response);
 
       if(result>0){
         return "redirect:/";
