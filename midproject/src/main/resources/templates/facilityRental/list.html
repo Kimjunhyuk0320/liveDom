@@ -273,24 +273,25 @@
  
                  let tr = `
                  <div class="card col-3" style=">
-                    <a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">
+                    <a href="/facilityRental/read?frNo=${teamList[i].frNo}">
                         `
                         if(teamList[i].thumbnail!=null){
                             tr+=`
-                            <a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">
                                 <img src="/file/img/${teamList[i].thumbnail.fileNo}" id="card-img">
-                            </a>
                             `
                         }
                         tr+=`
                         </a>
                         <div class="card-body">
-                            <h5 class="card-title"><a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">${teamList[i].title}</a></h5>
-                            <p class="card-text">${teamList[i].crew}</p>
-                            <p class="card-text">${teamList[i].address}</p>
+                            <a href="/facilityRental/read?frNo=${teamList[i].frNo}">
+                            <h5 class="card-title">${teamList[i].title}</h5>
+                            </a>
+                            <p class="card-text">${teamList[i].writer}</p>
+                            <p class="card-text">${teamList[i].location}</p>
+                            <p class="card-text">${teamList[i].price}</p>
                             <p class="card-text card-text-date">${teamList[i].liveDate}</p>
                             `
-                            if(teamList[i].soldOut==1){
+                            if(teamList[i].confirmed==1){
                                 tr+=`
                                 <p class="card-text" style="background-color: red;"></p>                       
                                 `
