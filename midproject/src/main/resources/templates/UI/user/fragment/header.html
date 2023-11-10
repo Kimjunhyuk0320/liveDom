@@ -330,9 +330,11 @@
                             <li><a href="/liveBoard/list">전체보기</a></li>
                             <li class="cell">
                                 <ul>
-                                    <li><a href="/liveBoard/insert">공연 등록하기</a></li>
                                     <li><a href="/myPage/ticket_purchase_list">예매한 티켓 내역</a></li>
+
+                                    <li><a href="/liveBoard/insert">공연 등록하기</a></li>
                                     <li><a href="/myPage/ticket_sales_list">판매한 티켓 내역</a></li>
+
                                 </ul>
                             </li>
                         </ul>
@@ -396,15 +398,34 @@
         </div>
     </header>
     
+    <th:block sec:athorize="isAuthenticated()">
+
+    <input type="hidden" name="auth" id="auth" th:value="${#authentication.principal.users.auth}">
+
+    </th:block>
+
 
     <script>
-        function logOut(){
-            let form = $('#logoutForm')
-            form.submit()
+
+        // 현재 로그인한 권한의 유형을 principal에서 불러와 0,1,2,3 의형태로 저장합니다. 조건문에서 사용하세요.
+        let auth = ``
+        switch($(`#auth`).val()){
+            case "ROLE_USER" : auth = `1`;
+            break;
+            case "ROLE_BAND" : auth = `2`
+            break;
+            case "ROLE_CLUB" : auth = `3`
+            break;
+            default :  auth = "0";
         }
 
+
+
+        $(function(){
+
+        
         // 상단 메뉴 관련
-        $('.header > .header-inner > .top-menu-bar > ul > li').mouseenter(function(){
+        $(' .header > .header-inner > .top-menu-bar > ul > li').mouseenter(function(){
             $(this).addClass('active');
             $(this).find('> a').addClass('active');
         });
@@ -449,7 +470,11 @@
         $('.header > .header-inner > .top-menu-bar > ul > .menu-5').mouseleave(function(){
             $('.sub-menu-bg').css('height','');
         });
-
+    })
+        function logOut(){
+            let form = $('#logoutForm')
+            form.submit()
+        }
     </script>
 </th:block>
 
