@@ -1,0 +1,188 @@
+<th:block th:fragment="footerActive">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=DM+Sans:500,700&display=swap');
+
+        .activeFooterContainer {
+            position: fixed;
+            bottom: 50px;
+            text-align: center;
+            display: flex;
+            /* height: 100vh; */
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            background-image: url("https://www.toptal.com/designers/subtlepatterns/patterns/debut_light.png");
+            transition: all 2.4s;
+        }
+
+        .activeNav {
+        display: inline-flex;
+        position: relative;
+        overflow: hidden;
+        max-width: 100%;
+        background-color: #fff;
+        padding: 0 20px;
+        border-radius: 40px;
+        box-shadow: 0 10px 40px rgba(159, 162, 177, .8);
+        }
+
+        .activeNav-item {
+        color: #83818c;
+        padding: 20px;
+        text-decoration: none;
+        transition: .3s;
+        margin: 0 6px;
+        z-index: 1;
+        font-family: 'DM Sans', sans-serif;
+        font-weight: 500;
+        position: relative;
+        
+        &:before {
+            content: "";
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: #dfe2ea;
+            border-radius: 8px 8px 0 0;
+            opacity: 0;
+            transition: .3s;
+        }
+        }
+
+        .activeNav-item:not(.is-active):hover:before {
+        opacity: 1;
+        bottom: 0;
+        }
+
+
+        .activeNav-item:not(.is-active):hover { color: #333; }
+
+        .activeNav-indicator {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 4px;
+        transition: .4s;
+        height: 5px;
+        z-index: 1;
+        border-radius: 8px 8px 0 0;
+        }
+
+        /* @media (max-width: 580px) {
+        .activeNav { overflow: auto; }
+        } */
+
+
+    </style>
+
+    <div class="activeFooterContainer">
+        <nav class="activeNav">
+            <a href="#" class="activeNav-item is-active" active-color="blue">LiveDom</a>
+            <a href="#" class="activeNav-item" active-color="green">공연보기</a>
+            <a href="#" class="activeNav-item" active-color="orange">대관하기</a>
+            <a href="#" class="activeNav-item" active-color="red">팀모집하기</a>
+            <a href="#" class="activeNav-item" active-color="rebeccapurple">마이페이지</a>
+            <span class="activeNav-indicator"></span>
+        </nav>
+    </div>
+
+    <script>
+        const indicator = document.querySelector('.activeNav-indicator');
+        const items = document.querySelectorAll('.activeNav-item');
+
+        function handleIndicator(el) {
+        items.forEach(item => {
+            item.classList.remove('is-active');
+            item.removeAttribute('style');
+        });
+        
+        indicator.style.width = `${el.offsetWidth}px`;
+        indicator.style.left = `${el.offsetLeft}px`;
+        indicator.style.backgroundColor = el.getAttribute('active-color');
+
+        el.classList.add('is-active');
+        el.style.color = el.getAttribute('active-color');
+        }
+
+
+        items.forEach((item, index) => {
+        item.addEventListener('click', (e) => { handleIndicator(e.target)});
+        item.classList.contains('is-active') && handleIndicator(item);
+        });
+
+        $(function() {
+            // 스크롤 이벤트 등록
+            window.addEventListener('scroll', (event) => {
+                    let scrollY = window.scrollY      // 현재 세로방향 스크롤 위치
+                    let footerHeight = $('#footer').innerHeight()
+                    console.log('푸터의 높이' + footerHeight);
+                    console.log('현재 스크롤 위치 : ' + scrollY);
+    
+                    // 스크롤 맨 아래 확인
+                    // 1. html 전체 높이
+                    let docHeight = document.documentElement.scrollHeight
+                    console.log(`docHeight : ${docHeight}`);
+    
+                    // 2. window 의 높이
+                    let winHeight = window.innerHeight
+                    console.log(`winHeight : ${winHeight}`);
+
+                    // 현재 스클롤이 푸터 위치 까지 왔을 때
+                    // footerActive 를 fixed -> sticky
+                    let footerScrollY = docHeight - footerHeight
+                    console.log('footerScrollY : ' + footerScrollY);
+                    if( winHeight + scrollY >= footerScrollY ) {
+
+                        // 페이드 아웃
+                        // 푸터에 붙이기
+                        $('.activeFooterContainer').stop().fadeOut(1000).css({
+                            // 'position' : 'relative',
+                            'bottom' : '-100px',    
+                        })
+
+                    }     
+                    
+                    if( (winHeight + scrollY < footerScrollY - 100) ) {
+                        console.log('다시 액티브 띄우기');
+                        
+                        $('.activeFooterContainer').stop().fadeIn(1000).css({
+                            'position' : 'fixed',
+                            'bottom' : '50px',
+                        })
+                    }
+             
+    
+                    // if( winHeight + scrollY >= docHeight ) {
+                    //     alert('스크롤 마지막입니다.')
+                    // }
+    
+            })
+
+            let scrollUp = 0
+            let scrollDown = 0
+            document.addEventListener("mousewheel", e => {
+                const direction = e.deltaY > 0 ? "Scroll Down" : "Scroll Up";
+                scrollUp = e.deltaY < 0 
+                scrollDown = e.deltaY > 0
+                console.log('scrollUp : ' + scrollUp);
+                console.log('scrollDown : ' + scrollDown);
+
+                if( scrollUp ) {
+
+                }
+
+                if( scrollDown ) {
+
+                }
+                
+                console.log(direction);
+            });
+
+        })
+
+    </script>
+      
+</th:block>

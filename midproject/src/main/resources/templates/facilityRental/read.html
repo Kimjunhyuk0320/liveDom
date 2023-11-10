@@ -1,140 +1,159 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/user/layout/main_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/UI/user/layout/main_layout}">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>대관 게시글 읽기</title>
+    <link rel="stylesheet" href="/css/read.css">
 </head>
+
 <body layout:fragment="content">
-    <h1>대관 게시글 읽기</h1>
-
-    <h2 th:text="${facilityRental.title}"></h2>
-    <th:block th:if="${facilityRental.thumbnail!=null}">
-    <img th:src="|/file/img/${facilityRental.thumbnail.fileNo}|" alt="썸네일">
-    </th:block>
-
-    <form action="/facilityRental/delete" method="POST" id="form">
-        <!-- csrf -->
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <input type="hidden" name="frNo" th:value="${facilityRental.frNo}">
-        <table>
-            
-            <tr>
-                <td>글번호</td>
-                <td th:text="${facilityRental.frNo}">
-                </td>
-            </tr>
-            <tr>
-                <td>작성자</td>
-                <td th:text="${facilityRental.writer}">
-                </td>
-            </tr>
-            <tr>
-                <td>조회수</td>
-                <td th:text="${facilityRental.views}">
-                </td>
-            </tr>
-            <tr>
-                <td>작성일자</td>
-                <td th:text="${#dates.format(facilityRental.updDate, 'yyyy-MM-dd HH:mm:ss')}">
-                </td>
-            </tr>
-            <tr>
-                <td>대관일자</td>
-                <td th:text="${facilityRental.liveDate}">
-                </td>
-            </tr>
-            <tr>
-                <td>대관가격</td>
-                <td th:text="${facilityRental.price}">
-                </td>
-            </tr>
-            <tr>
-                <td>지역</td>
-                <td th:text="${facilityRental.location}">
-                </td>
-            </tr>
-            <tr>
-                <td>장소</td>
-                <td th:text="${facilityRental.address}">
-                </td>
-            </tr>
-            <tr>
-                <td th:utext="${facilityRental.content}"></td>
-            </tr>
-            
-        </table>
-        
-        
-    </form>
-    <br>
-    <br>
-    <br>
-<th:block sec:authorize="isAuthenticated()">
-
-    <th:block th:if="facilityRental.buyUsername==null && facilityRental.username != #authentication.principal.users.username}">
-        <form action="/facilityRental/reservation" method="POST" id="reservation">
+    <div class="totalContainer">
+        <form action="/facilityRental/delete" method="POST" id="form">
+            <!-- csrf -->
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-            <input type="hidden" name="frNo" id="frNo" th:value="${facilityRental.frNo}">
-            <input type="hidden" name="username" id="username" th:value="${#authentication.principal.users.username}">
-            <input type="hidden" name="phone" id="phone" th:value="${#authentication.principal.users.phone}">
-            <button type="button" onclick="actionRental()">대관하기</button>
+            <input type="hidden" name="frNo" th:value="${facilityRental.frNo}">
+            <div class="topContentContainer">
+                <div class="contentContainer">
+                    <div class="tableContainer">
+                        <table>
+                            <tr>
+                                <td colspan="2">
+                                    <h2 th:text="${facilityRental.title}"></h2>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>글번호</td>
+                                <td>
+                                    <span th:text="${facilityRental.frNo}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>작성자</td>
+                                <td>
+                                    <span th:text="${facilityRental.writer}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>조회수</td>
+                                <td>
+                                    <span th:text="${facilityRental.views}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>작성일자</td>
+                                <td>
+                                    <span th:text="${#dates.format(facilityRental.updDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>대관일자</td>
+                                <td>
+                                    <span th:text="${facilityRental.liveDate}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>대관가격</td>
+                                <td>
+                                    <span th:text="${facilityRental.price}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>지역</td>
+                                <td>
+                                    <span th:text="${facilityRental.location}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>장소</td>
+                                <td>
+                                    <span th:text="${facilityRental.address}"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </form>
-    </th:block>
-</th:block>
-    <div>
-        <button type="button" onclick="moveList()">목록</button>
+        
+
+
+        <div class="bottomContainer">
+            <th:block sec:authorize="isAuthenticated()">
+                <th:block th:if="${facilityRental.buyUsername==null && facilityRental.username != #authentication.principal.users.username}">
+                    <form action="/facilityRental/reservation" method="POST" id="reservation">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <input type="hidden" name="frNo" id="frNo" th:value="${facilityRental.frNo}">
+                        <input type="hidden" name="username" id="username" th:value="${#authentication.principal.users.username}">
+                        <input type="hidden" name="phone" id="phone" th:value="${#authentication.principal.users.phone}">
+                        <button type="button" onclick="actionRental()">대관하기</button>
+                    </form>
+                </th:block>
+            </th:block>
+
+            
+            <div>
+                <button type="button" onclick="moveList()">목록</button>
+                <th:block sec:authorize="isAuthenticated()">
+                    <th:block th:if="${facilityRental.username eq #authentication.principal.users.username}">
+                        <button type="button" onclick="actionUpdate()">수정</button>
+                        <form action="/facilityRental/delete" method="POST" id="delForm">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                            <input type="hidden" name="frNo" th:value="${facilityRental.frNo}">
+                            <button type="button" onclick="actionDelete()" id="go-btn">삭제</button>
+                        </form>
+                    </th:block>
+                </th:block>
+            </div>
+        </div>
+
+        <div class="textContainer">
+            <p th:utext="${facilityRental.content}"></p>
+        </div>
+
+
+        <!-- <div style="background-color: darkgrey; width: 500px; height: 800px;">
+            <h2>이 부분에 클럽에 대한 내용 부분이 나옵니다.</h2>
+        </div> -->
 
         <th:block sec:authorize="isAuthenticated()">
-        <th:block th:if="${facilityRental.username eq #authentication.principal.users.username}">
-        <button type="button" onclick="actionUpdate()">수정</button>
-        <form action="/facilityRental/delete" method="POST" id="delForm">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-            <input type="hidden" name="frNo" th:value="${facilityRental.frNo}">
-            <button type="button" onclick="actionDelete()">삭제</button>
-        </form>
+        <!-- 댓글 입력 -->
+        <h2 style="margin: 20px;">댓글 20개</h2>
+        <div class="input-box">
+            <div class="imgDiv">
+                <!-- 여기 추가 -->
+                <img th:src="|/file/img/${#authentication.principal.users.profileNo}|">
+            </div>
+            <div class="comment-input">
+                <input type="hidden" name="writer" id="comment-writer" placeholder="작성자" th:value="${#authentication.principal.users.nickname}" readonly>
+                <br>
+                <textarea name="content" id="comment-content" 
+                        cols="10" rows="1" placeholder="댓글 추가..."></textarea>
+                <div class="btn-box">
+                    <a href="javascript:;" id="btn-comment-insert" class="btn btn-sm">등록</a>
+                </div>
+                <div class="btn-box-can">
+                    <a href="javascript:;" id="btn-comment-del" class="btn btn-sm">취소</a>
+                </div>
+            </div>
+
+        </div>
+        <script>
+            // 취소 버튼을 누르면 input태그 안의 글이 삭제됨
+           document.getElementById("btn-comment-del").addEventListener("click", function() {
+               document.getElementById("comment-content").value = ""; // 댓글 내용을 비움
+           });
+       </script>
+
     </th:block>
-</th:block>
-    </div>
 
+        <!-- 댓글 목록 -->
+        <div id="comment-list">
 
-
-
-    <!-- <div style="background-color: darkgrey; width: 500px; height: 800px;">
-        <h2>이 부분에 클럽에 대한 내용 부분이 나옵니다.</h2>
-    </div> -->
-
-
-<!-- 댓글 목록 -->
-<div id="comment-list">
-
-
-</div>
-
-<!-- 댓글 입력 -->
-<div class="input-box">
-    <div class="top">
-        <h3>댓글 입력</h3>
-    </div>
-    <div class="comment-input">
-        <input type="text" name="writer" id="comment-writer" placeholder="작성자" th:value="${#authentication.principal.users.nickname}" readonly>
-        <br>
-        <textarea name="content" id="comment-content" 
-                  cols="60" rows="5" placeholder="댓글을 작성해주세요"></textarea>
-        <div class="btn-box">
-            <a href="javascript:;" id="btn-comment-insert" class="btn btn-sm">등록</a>
         </div>
     </div>
-</div>
 
-
-
-
-</div>
-</section>
 
 
 <!-- sweetalert2 -->
@@ -256,7 +275,7 @@ insertComment( writer, content )
 // 댓글 등록
 function insertComment( writer, content ) {
 
-const url = 'http://:8080/facilityRental/commentInsert'
+const url = 'http://localhost:8080/facilityRental/commentInsert'
 
 let data = {
     'parentNo'   : boardNo,
@@ -362,7 +381,7 @@ $('.btn-comment-update').on('click', function() {
     // 댓글 [수정] 수정 버튼 클릭
     $('#btn-comment-update').on('click', function() {
 
-        let url = 'http://:8080/facilityRental/commentUpdate'
+        let url = 'http://localhost:8080/facilityRental/commentUpdate'
 
         let data = {
             commentNo   : commentNo,

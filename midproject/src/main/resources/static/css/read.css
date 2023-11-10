@@ -249,3 +249,8 @@ th {
 .btn-box-can a{
     color: black;
 }
+
+#go-btn {
+    background-color: red;
+    margin-right: auto;
+}

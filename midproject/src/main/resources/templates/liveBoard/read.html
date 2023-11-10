@@ -6,20 +6,14 @@
     <title>공연 게시글 읽기</title>
     <link rel="stylesheet" href="/css/read.css">
 </head>
-
 <body layout:fragment="content">
-
     <div class="totalContainer">
-        
         <form action="/liveBoard/delete" method="POST" id="form">
             <input type="hidden" name="boardNo" th:value="${liveBoard.boardNo}" id="boardNo">
-            
             <div class="topContentContainer">
-
                 <div class="imgContainer">
                     <img th:src="|/file/img/${liveBoard.thumbnail.fileNo}|" th:if="${liveBoard.thumbnail != null}">
                 </div>
-
                 <div class="contentContainer">
                     <div class="tableContainer">
                         <table>
@@ -103,7 +97,6 @@
                         </table>
                     </div>
                 </div>
-
             </div>
         </form>
 
@@ -141,7 +134,7 @@
         </div>
         
        
-<th:block sec:authorize="isAuthenticated()">
+        <th:block sec:authorize="isAuthenticated()">
 
 
         <!-- 댓글 입력 -->
@@ -170,19 +163,12 @@
                 document.getElementById("comment-content").value = ""; // 댓글 내용을 비움
             });
         </script>
+        </th:block>
 
-    
-</th:block>
+        <!-- 댓글 목록 -->
+        <div id="comment-list">
 
- <!-- 댓글 목록 -->
- <div id="comment-list">
-
-
- </div>
-
-
-        
-
+        </div>
     </div>
 
 
