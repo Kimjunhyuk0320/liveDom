@@ -1,6 +1,7 @@
 package com.joeun.midproject.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -364,7 +365,8 @@ public class TeamController {
   public List<Comment> commentList(Comment comment) {
     comment.setParentTable("team_recruitments");
     log.info(comment.toString());
-    List<Comment> commentList = commentService.commentList(comment);
+    List<Comment> commentList = new ArrayList<Comment>();
+    commentList = commentService.commentList(comment);
 
     for (Comment comment2 : commentList) {
       log.info(comment2.toString());

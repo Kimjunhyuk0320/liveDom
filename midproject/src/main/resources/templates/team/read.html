@@ -167,11 +167,11 @@
                     let countMsg = `<span>댓글 ${totalCount}개</span>`
                     $(`#totalCount`).html(countMsg)
 
-                    if(commentList.length==0){
+                    if(commentList==0){
 
                         let msg = `
                         <div class="commentContainer">
-                            <p>댓글이 없습니다.</p>
+                            <span>댓글이 없습니다.</span>
                                 </div>
                             `
                         $('#comment-list').html(msg)
@@ -238,7 +238,7 @@
 
                 },
                 error: function (error) {
-
+                    alert(error)
                 }
             })
         }
