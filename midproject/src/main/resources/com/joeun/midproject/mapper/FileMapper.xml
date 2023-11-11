@@ -53,8 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 파일 수정 -->
     <update id="update">
         UPDATE file
-           SET parent_table = #{parentTable}
-              ,parent_no = #{parentNo}
+           SET parent_no = #{parentNo}
               ,file_name = #{fileName}
               ,origin_name = #{originName}
               ,path = #{path}
@@ -62,6 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
               ,file_code = #{fileCode}
               ,upd_date = now()
         WHERE file_no = #{fileNo}
+        AND parent_table = #{parentTable}
     </update>
 
     <!-- 파일 삭제 -->

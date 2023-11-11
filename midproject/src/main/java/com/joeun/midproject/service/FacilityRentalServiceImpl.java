@@ -79,7 +79,7 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
         // 파일 업로드
         List<MultipartFile> fileList = facilityRental.getFile();
 
-        if(fileList!=null&&!fileList.isEmpty())
+        if(result>0&&fileList!=null&&!fileList.isEmpty())
         for(MultipartFile file : fileList) {
             if(file.isEmpty()) continue;
 
@@ -128,6 +128,54 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
     @Override
     public int update(FacilityRental facilityRental) throws Exception {
         int result = facilityRentalMapper.update(facilityRental);
+        List<MultipartFile> fileList = facilityRental.getFile();
+        String parentTable = "facility_rental";
+        int parentNo = facilityRental.getFrNo();
+        if(result>0&&fileList!=null&&!fileList.isEmpty())
+        for(MultipartFile file : fileList) {
+            if(file.isEmpty()) continue;
+
+            // 파일 정보 : 원본파일명, 파일 용량, 파일 데이터
+            String originName = file.getOriginalFilename();
+            long fileSize = file.getSize();
+            byte[] fileData = file.getBytes();
+
+            // 업로드 경로
+            // 파일명 중복 방지 방법(정책)
+            // - 날짜_파일명.확장자
+            // - UID_파일명.확장자
+
+            // UID_강아지.png
+            String fileName = UUID.randomUUID().toString() + "_" + originName;
+
+            // c:/upload/UID_강아지.png
+            String filePath = uploadPath + "/" + fileName;
+
+            // 파일업로드
+            // - 서버 측, 파일 시스템에 파일 복사
+            // - DB 에 파일 정보 등록
+            File uploadFile = new File(uploadPath, fileName);
+            FileCopyUtils.copy(fileData, uploadFile);       // 파일 업로드
+
+            // FileOutputStream fos = new FileOutputStream(uploadFile);
+            // fos.write(fileData);
+            // DB 에 파일 정보 등록
+           
+            Files uploadedFile = new Files();
+            uploadedFile.setParentTable(parentTable);
+            uploadedFile.setParentNo(parentNo);
+            uploadedFile.setFileName(fileName);
+            uploadedFile.setPath(filePath);
+            uploadedFile.setOriginName(originName);
+            uploadedFile.setFileSize(fileSize);
+            uploadedFile.setFileCode(0);
+
+            //기존 썸네일 이미지 파일을 삭제해줘야합니다.
+            //여기
+
+            //file테이블에 새로운 썸네일 등록
+            fileMapper.update(uploadedFile);
+        }
         return result;
     }
 

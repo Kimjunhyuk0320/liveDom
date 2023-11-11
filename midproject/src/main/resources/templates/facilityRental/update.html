@@ -43,7 +43,7 @@
         <hr>
     </div>
     <div id="insertContainer">
-        <form action="/facilityRental/update" method="POST" id="form">
+        <form action="/facilityRental/update" method="POST" id="form" enctype="multipart/form-data">
             <!-- csrf -->
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="_csrf" />
             <input type="hidden" name="frNo" th:value="${facilityRental.frNo}" id="frNo">
