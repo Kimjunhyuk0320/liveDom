@@ -2,6 +2,40 @@
 
     <div class="row" id="liveContainer">
 
+        <th:block th:each="live : ${liveList}">
+
+        <div class="card card-list" width='306px'>
+            <th:block th:if="${live.thumbnail!=null}">
+                    <a th:href="|/liveBoard/read?boardNo=${live.boardNo}|">
+                        <img th:src="|/file/img/${live.thumbnail.fileNo}|" id="card-img">
+                    </a>
+                </th:block>
+                <div class="card-body">
+                    <h5 class="card-title"><a th:href="|/liveBoard/read?boardNo=${live.boardNo}|" th:text="${live.title}"></a></h5>
+                    <p class="card-text" th:text="${live.crew}"></p>
+                        <th:block th:if="${live.soldOut==0}">
+                        <p class="card-text">판매 중</p>
+                        </th:block>
+                        <th:block th:if="${live.soldOut==1}">
+                        <p class="card-text" style="background-color: red; color: yellow; display: inline; border-radius: 3px; padding: 3px 5px;">매진</p>
+                        </th:block>
+                    
+                    <p class="card-text" th:text="${live.address}"></p>
+                    <p class="card-text card-text-date" th:text="${live.liveDate}"></p>
+                </div>
+            </div>
+
+        </th:block>
+
+
+
+
+        <th:block th:if="${liveList == null}">
+            <div class="card-body">
+                <h5 class="card-title">조회된 데이터가 없습니다.</h5>
+             </div>
+        </th:block>
+
     </div>
 
 </div>
@@ -12,14 +46,14 @@
         <th:block th:each="fr : ${frList}">
 
         <div class="card col-3 card-list">
+            <th:block th:if="${fr.thumbnail!=null}">
             <a th:href="|/facilityRental/read?frNo=${team.frNo}|">
 
-                <th:block th:if="${fr.thumbnail!=null}">
 
                         <img th:src="|/file/img/${fr.thumbnail.fileNo}|" id="card-img">
-                    </th:block>
-
-                </a>
+                        
+                    </a>
+                </th:block>
                 <div class="card-body">
                     <h5 class="card-title"><a th:href="|/facilityRental/read?frNo=${fr.frNo}|" th:text="${fr.title}"></a></h5>
                     <p class="card-text" th:text="${fr.writer}"></p>
@@ -33,13 +67,15 @@
             </div>
         </th:block>
         <th:block th:if="${frList == null}">
-            
+            <div class="card-body">
+                <h5 class="card-title">조회된 데이터가 없습니다.</h5>
+             </div>
         </th:block>
     </div>
 </div>
 
 
-<div class="teamContainer" >
+<div class="teamContainer">
   <table>
       <thead>
           <tr>
@@ -57,7 +93,7 @@
 
       <tbody id="teamContainer">
           <th:block th:each="team : ${teamList}">
-            <tr th:onclick="teamRead(${team.teamNo})">
+            <tr th:onclick="'teamRead('+${team.teamNo}+')'">
                 <td th:text="${team.confirmed !=0 ?'마감':'모집중'}"></td>
                 <td th:text="${team.title}"></td>
                 <td th:text="${team.writer}"></td>
@@ -76,3 +112,12 @@
   
   
 </div>
+<script>
+
+    function teamRead(teamNo){
+
+        location.href = `team/read?teamNo=${teamNo}`
+
+    }
+    
+</script>

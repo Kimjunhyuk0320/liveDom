@@ -90,8 +90,9 @@ public class TeamServiceImpl implements TeamService{
   @Override
   public List<Team> pageList(Team team) {
 
+    if(team.getPageNo()!=0){
     team.setPageNo((team.getPageNo()-1)*team.getRows());
-
+    }
     List<Team> teamList = teamMapper.pageList(team);
 
     return teamList;

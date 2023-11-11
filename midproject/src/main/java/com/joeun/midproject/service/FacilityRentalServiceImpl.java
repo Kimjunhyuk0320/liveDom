@@ -381,7 +381,9 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
 
     @Override
     public List<FacilityRental> pageFrList(Team team) throws Exception {
+        if(team.getPageNo()!=0){
         team.setPageNo((team.getPageNo()-1)*team.getRows());
+        }
         List<FacilityRental> pageFrList = facilityRentalMapper.pageFrList
         (team);
 

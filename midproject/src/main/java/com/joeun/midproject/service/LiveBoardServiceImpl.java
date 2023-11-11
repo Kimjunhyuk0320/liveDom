@@ -263,9 +263,9 @@ public class LiveBoardServiceImpl implements LiveBoardService{
 
     @Override
     public List<LiveBoard> liveBoardPageList(Team team) throws Exception {
-
+        if(team.getPageNo()!=0){
         team.setPageNo((team.getPageNo()-1)*team.getRows());
-
+        }
         List<LiveBoard> liveBoardsPageList = liveBoardMapper.liveBoardPageList(team);
         for(int i = 0; i <liveBoardsPageList.size() ; i++){
             LiveBoard liveBoard = liveBoardsPageList.get(i);

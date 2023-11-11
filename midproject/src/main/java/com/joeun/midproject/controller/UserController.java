@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.joeun.midproject.dto.Team;
 import com.joeun.midproject.dto.Ticket;
 import com.joeun.midproject.dto.Users;
 import com.joeun.midproject.service.UserService;
@@ -204,6 +205,9 @@ public class UserController {
 
       return "/myPage/myInfo";
   }
+
+  
+  
 
   
   

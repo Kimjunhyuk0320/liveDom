@@ -8,12 +8,59 @@
 
 <body layout:fragment="content">
 
+  <input type="text" name="keyword" id="keyword">
+  <button id="btn-search">검색</button>
+
   <div class="container" id="container">
 
     
 
   </div>
 
+
+  <script>
+
+search()
+
+$(`#btn-search`).on(`click`,function(){
+  search()
+})
+
+$(`#keyword`).on(`keyup`, function(event){
+
+  if(event.keyCode==13){
+    search()
+  }
+
+})
+
+function search(){
+
+let url = 'http://localhost:8080/totalSearch'
+
+let keyword = $(`#keyword`).val()
+
+let data = {
+  'keyword' : keyword
+}
+
+$.ajax({
+    url: url,
+    type: 'GET',
+    data: data,
+    success: function (response) {
+        let totalList = response
+        $(`#container`).html(totalList)
+    },
+    error: function (request, status, error) {
+        console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+            "error:" + error)
+        alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+            "error:" + error);
+    }
+})
+}
+  </script>
 </body>
 
 </html>
