@@ -24,7 +24,7 @@
         }
 
         body {
-            background: var(--white);
+            background: rgb(242, 242, 242);
             margin: 0;
         }
 
@@ -94,7 +94,7 @@
 
         .profile____card .above-fold .role {
             font-size: 1.5rem;
-            color: var(--turquoise);
+            /* color: rgba(0, 0, 245, 0.5); */
             font-weight: 400;
             /* margin-bottom: 0.5rem; */
         }
@@ -283,7 +283,7 @@
                     <p th:text="${#authentication.principal.users.name}"></p>
                 </div>
                 <div class="role">
-                    <p th:text="${#authentication.principal.users.username}"></p>
+                    <p th:text="${#authentication.principal.users.nickname}"></p>
                 </div>
                 <div class="location">
                     <i class="fas fa-map-marker-alt"></i>
@@ -302,8 +302,8 @@
 
             <div class="below-fold">
                 <div class="about">
-                    <h5>연락처</h5>
-                    <p th:text="${#authentication.principal.users.phone}"></p>
+                    <h5>아이디</h3>
+                    <p th:text="${#authentication.principal.users.username}"></p>
                 </div>
                 <div class="about">
                     <h5>연락처</h3>
@@ -316,6 +316,7 @@
                 <div class="about">
                     <h5>정보 수정 일자</h5>
                     <p th:text="${#dates.format(#authentication.principal.users.updDate,'yyyy-MM-dd HH:mm:ss')}"></p>
+                    <br>
                 </div>
             </div>
         </div>

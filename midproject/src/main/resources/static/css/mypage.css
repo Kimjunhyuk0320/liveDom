@@ -5,15 +5,20 @@
   }
 }
 
+#mypage-body {
+  background-color: rgb(242, 242, 242);
+}
+
 #mypage-id h1{
   font-weight: bold;
 }
 
 #mypage-container{
   margin: 100px auto;
-  width: 60%;
+  width: 1320px;
   border-radius: 15px;
-  box-shadow: 0px 0px 30px gray;
+  background-color: white;
+  box-shadow: 0px 0px 10px gray;
 }
 
 #mypage-id{
@@ -22,6 +27,7 @@
   padding-top: 50px;
   display: block;
 }
+
 #profile{
   display: inline-block;
   border-radius: 100%;
@@ -34,7 +40,7 @@
   padding: 25px;
   margin: auto;
   display: flex;
-  justify-content: end;
+  justify-content: start;
   row-gap: 15px;
   column-gap: 15px;
   flex-wrap: wrap;
@@ -58,5 +64,6 @@
   font-size: 25px;
   font-weight: bold;
   color: #ddd;
-  text-shadow: 5px 5px 10px #ddddddaa;
+  text-align: center;
+  /* text-shadow: 5px 5px 10px #ddddddaa; */
 }
