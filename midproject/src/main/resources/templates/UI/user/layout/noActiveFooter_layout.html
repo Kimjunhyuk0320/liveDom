@@ -6,7 +6,7 @@
 
     <!-- CSS -->
     <th:block th:replace="~{UI/user/fragment/link::link}"></th:block>
-
+    <th:block th:replace="~{UI/user/fragment/favicon::favicon}"></th:block>
 </head>
 <body>
     <!-- <th:block th:replace="~{프래그먼트경로::프로그래먼트명}"></th:block> -->
@@ -14,22 +14,17 @@
     <!-- header -->
     <th:block th:replace="~{UI/user/fragment/header::header}"></th:block>
 
-    <div class="row m-0 ">
-        <!-- sidebar -->
-        <th:block th:replace="~{UI/user/fragment/sidebar::sidebar}"></th:block>
-
-        <div class="col-sm-9">
-            <!-- content -->
-            <th:block layout:fragment="content"></th:block>
-
-            <!-- footer -->
-            <th:block th:replace="~{UI/user/fragment/footer::footer}"></th:block>
-        </div>
-    </div>
+    <!-- content -->
+    <th:block layout:fragment="content"></th:block>
     
+    <!-- activeFooter -->
+    <!-- <th:block th:replace="~{UI/user/fragment/footerActive::footerActive}"></th:block> -->
+
+    <!-- footer -->
+    <th:block th:replace="~{UI/user/fragment/footer::footer}"></th:block>
     
     <!-- JS -->
     <th:block th:replace="~{UI/user/fragment/script::script}"></th:block>
-    
+
 </body>
 </html>

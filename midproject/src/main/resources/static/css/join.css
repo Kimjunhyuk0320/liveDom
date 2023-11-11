@@ -6,6 +6,7 @@
 }
 
 .joinBody {
+    background-color: rgb(242, 242, 242);
     font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
