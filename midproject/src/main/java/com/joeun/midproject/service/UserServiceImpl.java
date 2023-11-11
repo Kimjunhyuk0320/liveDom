@@ -4,9 +4,18 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,8 +47,13 @@ public class UserServiceImpl implements UserService{
   @Autowired
   private FileMapper fileMapper;
 
+  @Autowired
+  private AuthenticationManager authenticationManager;
+
   @Value("${upload.path}")
   private String uploadPath;
+
+
 
 
 
@@ -63,7 +77,7 @@ public class UserServiceImpl implements UserService{
 
   // 회원가입
   @Override
-  public int insert(Users users) throws Exception{
+  public int insert(Users users,HttpServletRequest request) throws Exception{
 
     users.setPassword(passwordEncoder.encode(users.getPassword()));
 
@@ -119,13 +133,29 @@ public class UserServiceImpl implements UserService{
             users.setProfileNo(fileMapper.maxPk());
             userMapper.profileSet(users);
     }
+    //바로 로그인 진행
+    String username = users.getUsername();
+    String password = users.getUserPwCheck();
+
+    // 아이디, 패스워드 인증 토큰 생성
+    UsernamePasswordAuthenticationToken token 
+        = new UsernamePasswordAuthenticationToken(username, password);
+
+    // 토큰에 요청정보를 등록
+    token.setDetails( new WebAuthenticationDetails(request) );
+
+    // 토큰을 이용하여 인증(로그인)
+    Authentication authentication = authenticationManager.authenticate(token);
+
+
+    SecurityContextHolder.getContext().setAuthentication(authentication);
   }
   return result;
 }
 
   // 회원 정보 수정
   @Override
-  public int update(Users users) throws Exception{
+  public int update(Users users,HttpServletRequest request,HttpServletResponse response) throws Exception{
 
     users.setPassword(passwordEncoder.encode(users.getPassword()));
 
@@ -189,6 +219,15 @@ public class UserServiceImpl implements UserService{
             users.setProfileNo(fileMapper.maxPk());
             userMapper.profileSet(users);
     }
+
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+    if(auth!=null){
+
+      new SecurityContextLogoutHandler().logout(request, response, auth);
+
+    }
+
   }
 
     return result;

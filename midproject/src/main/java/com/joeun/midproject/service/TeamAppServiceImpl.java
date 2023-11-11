@@ -247,7 +247,8 @@ public class TeamAppServiceImpl implements TeamAppService{
       //crew의 경우, 해당 참여자들의 밴드명을 모두 찍어야합니다.
 
       List<TeamApp> confirmedTeamAppList = teamAppMapper.listByTeamNo(tempTeam.getTeamNo());
-      String members = "";
+      
+      String members = userMapper.read(team.getUsername()).getNickname()+", ";
       for(int i = 0; i<confirmedTeamAppList.size();i++){
         if(i<confirmedTeamAppList.size()-1){
           members += (confirmedTeamAppList.get(i).getBandName() + ", ");

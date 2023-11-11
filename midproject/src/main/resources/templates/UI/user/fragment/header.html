@@ -412,8 +412,13 @@
             </nav>
             
             <div class="search-box">
-                <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.users.profileNo != null}">
+                <th:block sec:authorize="isAuthenticated()">
+                    <th:block  th:if="${#authentication.principal.users.profileNo != 0}">
                 <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진" id="profile" style="width:50px; height:50px; border-radius: 100%; box-shadow: 0px 0px 15px gray;">
+            </th:block>
+                <th:block th:if="${#authentication.principal.users.profileNo == 0}">
+                    <img src="/img/defaultProfile.png" alt="프로필사진" id="profile" style="width:50px; height:50px; border-radius: 100%; box-shadow: 0px 0px 15px gray;">
+                </th:block>
                 </th:block>
             </div>
             <!-- 검색기능은 좀만 이따가 넣자

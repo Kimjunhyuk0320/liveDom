@@ -18,7 +18,7 @@ public class BookingRequests {
     private String frTitle;
     private String frDate;
     private String frPhone;
-    private String frLocation;
+    private String frAddress;
     private String frAccount;
     private String frName;
 

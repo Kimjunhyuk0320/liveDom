@@ -28,12 +28,7 @@
           <input type="bandName" name="bandName" id="bandName">
          </td>
       </tr>
-      <tr>
-        <td>연락처</td>
-        <td> 
-          <input type="phone" name="phone" id="phone">
-        </td>
-      </tr> <!-- 글 작성 에디터 -->
+      <input type="hidden" name="phone" id="phone" th:value="${#authentication.principal.users.phone}">
       <tr>
         <td>게시글 적성 에디터</td>
         <td>

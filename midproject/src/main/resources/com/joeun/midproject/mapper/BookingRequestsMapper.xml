@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         f.title AS frTitle,
         f.phone AS frPhone,
         u.name AS name,
-        f.location AS frLocation,
+        f.address AS frAddress,
         f.account AS frAccount,
         b.deposit_status AS depositStatus,
         b.approval_status AS approvalStatus

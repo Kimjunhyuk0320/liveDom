@@ -20,6 +20,8 @@ public class Team {
   private int price;
   private int capacity;
   private String account;
+  private String account1;
+  private String account2;
   private int views;
   private int confirmed;
   private Date updDate;
