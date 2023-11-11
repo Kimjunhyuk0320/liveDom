@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/UI/user/layout/noActiveFooter_layout}"
+      >
+<head>
+    <title>내 정보</title>
+    <style>
+      #tatalContainer{
+        background-color: rgb(131, 91, 39);
+        
+      }
+      .myInfoContainer {
+        display: flex;
+        justify-content: center;
+        /* width: 1000px; */
+        background-color: antiquewhite;
+      }
+      /* 프로필 이미지 관련 css */
+      .profileImgContainer img {
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
+        border-radius: 50%;
+      }
+    </style>
+</head>
+<body layout:fragment="content">
+
+  
+  <section id="tatalContainer">
+    
+    <div class="myInfoContainer">
+      <!-- <h1 th:text="${#authentication.principal.users.username}"></h1> -->
+      <!-- <hr> -->
+      <div>
+        <div class="profileImgContainer">
+          <!-- 프로필 사진 쏴주기 -->
+          <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.users.profileNo != null}">
+            <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진" id="profile Img">
+          </th:block>
+        </div>
+      </div>
+
+      <div class="profileTableContainer">
+        <div class="tableContainer">
+
+          <table>
+            <tr>
+                <!--  -->
+              <td>성명</td>
+              <td th:text="${#authentication.principal.users.name}"></td>
+            </tr>
+            <tr>
+                <!--  -->
+              <td>닉네임</td>
+              <td th:text="${#authentication.principal.users.nickname}"></td>
+            </tr>
+            <tr>
+                <!--  -->
+              <td>소속</td>
+              <td th:text="${#authentication.principal.users.auth}"></td>
+            </tr>
+            <tr>
+                <!--  -->
+              <td>연락처</td>
+              <td th:text="${#authentication.principal.users.phone}"></td>
+            </tr>
+            <tr>
+                <!--  -->
+              <td>이메일</td>
+              <td th:text="${#authentication.principal.users.email}"></td>
+            </tr>
+            <tr>
+                <!--  -->
+              <td>최근 수정 일자</td>
+              <td th:text="${#dates.format(#authentication.principal.users.updDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
+
+
+
+

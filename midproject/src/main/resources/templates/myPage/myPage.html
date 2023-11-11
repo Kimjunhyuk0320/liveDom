@@ -14,12 +14,11 @@
     <h2>ID</h2>
     <h1 th:text="${#authentication.principal.users.username}"></h1>
     </div>
-    
     <section class="mypage-btn-container" stlye="margin-top : 0;">
     
         <!-- 프로필 사진 쏴주기 -->
         <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.users.profileNo != null}">
-            <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진" id="profile">
+        <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진" id="profile">
         </th:block>
 
         <div class="mypage-btn" onclick="moveUser('/myPage/myInfo')" style="width: 450px;">

@@ -6,18 +6,59 @@
     <title>권한이 없습니다</title>
     <style>
         body {
-            background-color: black;
-            color: white;
+            /* background-color: black;
+            color: white; */
         }
+        .deniedContainer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); 
+        }
+
+        .deniedContainer p {
+            font-size: 50px;
+        }
+
+        a{
+            text-decoration: none;
+        }
+
+                    /* 기본 스타일 */
+        .custom-button {
+            display: flex;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            margin: auto;
+            font-size: 20px;
+        }
+
+        /* 기본 색상 */
+        .custom-button-primary {
+            background-color: #3498db;
+            color: #fff;
+            border: 1px solid #2980b9;
+        }
+
+        /* 호버 효과 */
+        .custom-button:hover {
+            background-color: #2980b9;
+        }
+        
+
     </style>
 </head>
 
 <body layout:fragment="content">
-
-    <h1>해당 페이지에 접근할 수 없습니다.</h1>
-
-    <a href="/" class="bnt btn-outline-primary">메인화면</a>
-
+    <div class="deniedContainer">
+        <p>권한이 없거나 존재하지 않습니다.</p>
+        <a href="/" class="bnt btn-outline-primary"><button class="custom-button custom-button-primary">메인화면</button></a>
+    </div>
 </body>
 
 </html>
