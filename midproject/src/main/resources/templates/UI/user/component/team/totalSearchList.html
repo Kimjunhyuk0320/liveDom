@@ -1,0 +1,78 @@
+<div class="container card_list">
+
+    <div class="row" id="liveContainer">
+
+    </div>
+
+</div>
+
+
+<div class="container card_list">
+    <div class="row" id="frContainer">
+        <th:block th:each="fr : ${frList}">
+
+        <div class="card col-3 card-list">
+            <a th:href="|/facilityRental/read?frNo=${team.frNo}|">
+
+                <th:block th:if="${fr.thumbnail!=null}">
+
+                        <img th:src="|/file/img/${fr.thumbnail.fileNo}|" id="card-img">
+                    </th:block>
+
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title"><a th:href="|/facilityRental/read?frNo=${fr.frNo}|" th:text="${fr.title}"></a></h5>
+                    <p class="card-text" th:text="${fr.writer}"></p>
+                    <p class="card-text" th:text="${fr.location}"></p>
+                    <p class="card-text" th:text="${fr.price}"></p>
+                    <p class="card-text card-text-date" th:text="${fr.liveDate}"></p>
+                    <th:block th:if="${fr.confirmed==1}">
+                        <p class="card-text" style="background-color: red;"></p>                       
+                    </th:block>
+                </div>
+            </div>
+        </th:block>
+        <th:block th:if="${frList == null}">
+            
+        </th:block>
+    </div>
+</div>
+
+
+<div class="teamContainer" >
+  <table>
+      <thead>
+          <tr>
+              <th width="100">마감</th>
+              <th width="200">제목</th>
+              <th width="100">작성자</th>
+              <th width="95">팀 모집 현황</th>
+              <th width="70">지역</th>
+              <th width="80">가격</th>
+              <th width="100">공연일자</th>
+              <th width="100">갱신일자</th>
+              <th width="65">조회수</th>
+          </tr>
+      </thead>
+
+      <tbody id="teamContainer">
+          <th:block th:each="team : ${teamList}">
+            <tr th:onclick="teamRead(${team.teamNo})">
+                <td th:text="${team.confirmed !=0 ?'마감':'모집중'}"></td>
+                <td th:text="${team.title}"></td>
+                <td th:text="${team.writer}"></td>
+                <td th:text="${team.recStatus+' / '+team.capacity}"></td>
+                <td th:text="${team.location}"></td>
+                <td th:text="${team.price}"></td>
+                <td th:text="${team.liveDate}"></td>
+                <td th:text="${#dates.format(team.updDate,'yyyy-MM-dd HH-mm-ss')}"></td>
+                <td th:text="${team.views}"></td>
+            </tr>
+          </th:block>
+
+      </tbody>
+  </table>
+
+  
+  
+</div>
