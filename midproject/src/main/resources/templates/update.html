@@ -54,7 +54,7 @@
                             <input type="text" name="nickname" id="nickName" th:value="${#authentication.principal.users.nickname}">
                             <input type="hidden" name="principalNickname" id="principalNickname" th:value="${#authentication.principal.users.nickname}">
                             <input type="hidden" id="checkUserNickname" value="0">
-                            <button onclick="joinFrom_checkedNicknameDup();" name="btnNicknameDupCheck" type="button"  class="btn btn-light">닉네임 중복 검사</button>
+                            <button onclick="joinFrom_checkedNicknameDup();" name="btnNicknameDupCheck" type="button"  class="btn btn-outline-dark dul_btn_size">닉네임 중복 검사</button>
                         </td>
                     </tr>
                     <tr>
@@ -63,7 +63,7 @@
                             <input type="text" name="phone" id="phone" th:value="${#authentication.principal.users.phone}">
                             <input type="hidden" name="principalPhone" id="principalPhone" th:value="${#authentication.principal.users.phone}">
                             <input type="hidden" id="checkUserPhone" value="0">
-                            <button onclick="joinFrom_checkedPhoneDup();" name="btnPhoneDupCheck" type="button" class="btn btn-light">연락처 중복 검사</button>
+                            <button onclick="joinFrom_checkedPhoneDup();" name="btnPhoneDupCheck" type="button" class="btn btn-outline-dark dul_btn_size">연락처 중복 검사</button>
                         </td>
                     </tr>
                     <tr>

@@ -6,11 +6,11 @@
             position: fixed;
             bottom: 50px;
             text-align: center;
-            display: flex;
             /* height: 100vh; */
             width: 100%;
+            /* display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: center; */
             padding: 0 20px;
             background-image: url("https://www.toptal.com/designers/subtlepatterns/patterns/debut_light.png");
             transition: all 2.4s;
@@ -18,9 +18,11 @@
 
         .activeNav {
         display: inline-flex;
+        justify-content: space-between;
         position: relative;
         overflow: hidden;
-        max-width: 100%;
+        width: 640px;
+        /* max-width: 100%; */
         background-color: #fff;
         padding: 0 20px;
         border-radius: 40px;
@@ -80,11 +82,11 @@
 
     <div class="activeFooterContainer">
         <nav class="activeNav">
-            <a href="#" class="activeNav-item is-active" active-color="blue">LiveDom</a>
-            <a href="#" class="activeNav-item" active-color="green">공연보기</a>
-            <a href="#" class="activeNav-item" active-color="orange">대관하기</a>
-            <a href="#" class="activeNav-item" active-color="red">팀모집하기</a>
-            <a href="#" class="activeNav-item" active-color="rebeccapurple">마이페이지</a>
+            <a href="/" class="activeNav-item is-active" active-color="blue">LiveDom</a>
+            <a href="/liveBoard" class="activeNav-item" active-color="green">공연보기</a>
+            <a href="/facilityRental/list" class="activeNav-item" active-color="orange">대관하기</a>
+            <a href="/team" class="activeNav-item" active-color="red">팀모집하기</a>
+            <a href="/myPage" class="activeNav-item" active-color="rebeccapurple">마이페이지</a>
             <span class="activeNav-indicator"></span>
         </nav>
     </div>

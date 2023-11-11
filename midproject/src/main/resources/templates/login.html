@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{/UI/user/layout/main_layout}">
+    layout:decorate="~{/UI/user/layout/noActiveFooter_layout}">
 
 <head>
     <meta charset="UTF-8">
@@ -11,53 +11,55 @@
 
 <body layout:fragment="content">
     <!-- 회원수정 ( v ) / 아이디 저장 ( v ) / 자동 로그인 ( v ) -->
-    <div class="body2">
-        <section class="login-form">
-            <h1>로그인</h1>
-            <form action="/loginPro" method="POST">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                <div class="int-area">
-                    <input type="text" name="username" id="id" th:value="${username}" autocomplete="off" required>
-                    <label for="id">아이디</label>
-                </div>
-                <div class="int-area">
-                    <input type="password" name="password" id="pw" autocomplete="off" required>
-                    <label for="pw">비밀번호</label>
-                </div>
-
-                <div class="btn-div">
-                    <!-- 아이디 저장(remember-id) 기능 -->
-                    <div>
-                        <th:block th:if="${rememberId}">
-                            <input type="checkbox" name="rememberId" id="remember-id" checked>
-                        </th:block>
-                        <th:block th:if="${!rememberId}">
-                            <input type="checkbox" name="rememberId" id="remember-id">
-                        </th:block>
-                        <label for="remember-id">아이디 저장</label>
+    <div class="body1">
+        <div class="body2">
+            <section class="login-form">
+                <h1>로그인</h1>
+                <form action="/loginPro" method="POST">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <div class="int-area">
+                        <input type="text" name="username" id="id" th:value="${username}" autocomplete="off" required>
+                        <label for="id">아이디</label>
+                    </div>
+                    <div class="int-area">
+                        <input type="password" name="password" id="pw" autocomplete="off" required>
+                        <label for="pw">비밀번호</label>
                     </div>
 
-                    <!-- 자동로그인(Remember-Md) 기능 -->
-                    <!-- remember-me 요청 파라미터로 자동 로그인 여부를 전달 -->
-                    <div>
-                        <input type="checkbox" name="remember-me" id="remember-me">
-                        <label for="remember-me">자동 로그인</label> <br>
+                    <div class="btn-div">
+                        <!-- 아이디 저장(remember-id) 기능 -->
+                        <div>
+                            <th:block th:if="${rememberId}">
+                                <input type="checkbox" name="rememberId" id="remember-id" checked>
+                            </th:block>
+                            <th:block th:if="${!rememberId}">
+                                <input type="checkbox" name="rememberId" id="remember-id">
+                            </th:block>
+                            <label for="remember-id">아이디 저장</label>
+                        </div>
+
+                        <!-- 자동로그인(Remember-Md) 기능 -->
+                        <!-- remember-me 요청 파라미터로 자동 로그인 여부를 전달 -->
+                        <div>
+                            <input type="checkbox" name="remember-me" id="remember-me">
+                            <label for="remember-me">자동 로그인</label> <br>
+                        </div>
+
+                        <input type="hidden" name="remember-me" value="on">
                     </div>
 
-                    <input type="hidden" name="remember-me" value="on">
-                </div>
+                    <!-- 로그인 버튼 -->
+                    <div class="btn-area">
+                        <button id="btn" type="submit">LOGIN</button>
+                    </div>
+                </form>
 
-                <!-- 로그인 버튼 -->
-                <div class="btn-area">
-                    <button id="btn" type="submit">LOGIN</button>
+                <div class="caption">
+                    <!-- <a href="">비밀번호를 잊으셨습니까?</a> -->
+                    <a href="/join">회원가입</a>
                 </div>
-            </form>
-
-            <div class="caption">
-                <a href="">비밀번호를 잊으셨습니까?</a>
-                <a href="/join">회원가입</a>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
     <script>
         let id = $('#id');

@@ -7,13 +7,16 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
+.body1 {
+    background-color: rgb(242, 242, 242);
+}
 
 .body2 {
     font-family: 'Noto Sans KR', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10%;
+    padding-bottom: 120px;
 }
 
 .login-form h1 {
@@ -88,7 +91,7 @@
 .btn-area button {
     width: 100%;
     height: 50px;
-    margin: 0px 10px;
+    /* margin: 0px 10px; */
     color: #fff;
     background: #166caa;
     border: none;

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{/UI/user/layout/main_layout}">
+    layout:decorate="~{/UI/user/layout/noActiveFooter_layout}">
 
 <head>
     <title>대관 요청 내역</title>
@@ -27,10 +27,10 @@
                     <th width="150">대관일자</th>
                     <th width="100">입금여부</th>
                     <th width="100">승인여부</th>
-                    <th width="150">신청일자</th>
-                    <th width="150">입금확정</th>
-                    <th width="150">승인</th>
-                    <th width="150">거부</th>
+                    <th width="120">신청일자</th>
+                    <th width="120">입금확정</th>
+                    <th width="80">승인</th>
+                    <th width="80">거부</th>
                 </tr>
 
                 <th:block th:if="${rrList}!=null" th:each="rr : ${rrList}">
