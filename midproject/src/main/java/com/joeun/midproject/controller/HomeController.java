@@ -53,10 +53,10 @@ public class HomeController {
     team.setOrder(0);
     team.setPageNo(0);
     team.setRows(4);
-    
     List<LiveBoard> liveBoardList = liveBoardService.liveBoardPageList(team);
     log.info(liveBoardList.toString());
     model.addAttribute("liveList",liveBoardList);
+
     team.setSearchType(0);
     team.setOrder(0);
     team.setPageNo(0);
@@ -64,6 +64,7 @@ public class HomeController {
     List<FacilityRental> frList = facilityRentalService.pageFrList(team);
     log.info(frList.toString());
     model.addAttribute("frList", frList);
+
     team.setSearchType(0);
     team.setOrder(0);
     team.setPageNo(0);

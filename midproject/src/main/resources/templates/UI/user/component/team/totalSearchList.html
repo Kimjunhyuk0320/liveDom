@@ -1,11 +1,11 @@
-<div class="container card_list">
+<div class="container card_list" style="border: 2px solid gray;">
 
     <div class="row" id="liveContainer">
 
         <th:block th:each="live : ${liveList}">
 
         <div class="card card-list" width='306px'>
-            <th:block th:if="${live.thumbnail!=null}">
+            <th:block th:if="${live.thumbnail != null}">
                     <a th:href="|/liveBoard/read?boardNo=${live.boardNo}|">
                         <img th:src="|/file/img/${live.thumbnail.fileNo}|" id="card-img">
                     </a>
@@ -25,29 +25,33 @@
                 </div>
             </div>
 
+            
         </th:block>
-
-
-
-
-        <th:block th:if="${liveList == null}">
+        
+        
+        
+        
+        <th:block th:if="${liveList.isEmpty()}">
             <div class="card-body">
                 <h5 class="card-title">조회된 데이터가 없습니다.</h5>
-             </div>
+            </div>
         </th:block>
-
+        
     </div>
-
+    
+    <a href="/liveBoard/list" class="btn btn-primary">전체보기</a>
 </div>
 
+<br>
+<br>
 
-<div class="container card_list">
+<div class="container card_list" style="border: 2px solid gray;">
     <div class="row" id="frContainer">
         <th:block th:each="fr : ${frList}">
 
         <div class="card col-3 card-list">
-            <th:block th:if="${fr.thumbnail!=null}">
-            <a th:href="|/facilityRental/read?frNo=${team.frNo}|">
+            <th:block th:if="${fr.thumbnail != null}">
+            <a th:href="|/facilityRental/read?frNo=${fr.frNo}|">
 
 
                         <img th:src="|/file/img/${fr.thumbnail.fileNo}|" id="card-img">
@@ -66,16 +70,20 @@
                 </div>
             </div>
         </th:block>
-        <th:block th:if="${frList == null}">
+        <th:block th:if="${frList.isEmpty()}">
             <div class="card-body">
                 <h5 class="card-title">조회된 데이터가 없습니다.</h5>
              </div>
         </th:block>
     </div>
+    <a href="/facilityRental/list" class="btn btn-primary">전체보기</a>
 </div>
 
 
-<div class="teamContainer">
+<br>
+<br>
+
+<div class="teamContainer" style="border: 2px solid gray;">
   <table>
       <thead>
           <tr>
@@ -105,12 +113,17 @@
                 <td th:text="${team.views}"></td>
             </tr>
           </th:block>
-
+          <th:block th:if="${teamList.isEmpty()}">
+            <tr>
+                <td colspan="9">조회된 데이터가 없습니다.</td>
+            </tr>
+          </th:block>
       </tbody>
-  </table>
-
-  
-  
+    </table>
+    
+    
+    
+    <a href="/team" class="btn btn-primary">전체보기</a>
 </div>
 <script>
 
