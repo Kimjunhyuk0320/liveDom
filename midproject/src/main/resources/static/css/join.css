@@ -175,13 +175,13 @@
 }
 
 .img-box > img{
-    box-sizing: 0px 0px 15px gray;
     width: 150px;
     height: 150px;
     object-fit: cover;
     border-radius: 50%;
     background-position: center center;     /* 이미지를 가로세로 모두 가운데로 정렬하고 싶을 떄 사용 */
     margin: auto;
+    box-shadow: 0px 0px 15px gray;
 }
 
 /* 이미지 파일 선택 부분 css */
@@ -199,6 +199,13 @@
 .select_btn {
     background-color: white;
     /* box-sizing: 0px 0px 15px gray; */
+}
+
+/* <!-- 파일 업로드가 될 때 파일 명이 나오는 부분 --> */
+#file-name {
+    background-color: rgba(242, 242, 242);
+    border: none;
+    text-overflow: ellipsis;  /* 생략 부호 표시 */
 }
 
 /* 삭제 버튼 css */

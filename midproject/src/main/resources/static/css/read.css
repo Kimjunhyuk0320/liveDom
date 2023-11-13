@@ -36,6 +36,8 @@ a {
 
 .topContentContainer .imgContainer img {
     width: 450px;
+    height: 550px;
+    object-fit: cover;
     border-radius: 15px;
 }
 
