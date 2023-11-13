@@ -1,62 +1,240 @@
 @media (max-width: 1320px) {
+
   /* 화면 너비가 1000px 이하일 때의 스타일 지정 */
   body {
-      min-width: 1320px; /* 최소 너비를 1000px로 설정 */
+    min-width: 1320px;
+    /* 최소 너비를 1000px로 설정 */
   }
 }
 
-#mypage-id h1{
-  font-weight: bold;
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url("../img/clubr3.jpeg");
+  object-fit: cover;
+  /* background-color: #f4f4f4; */
 }
 
-#mypage-container{
+#mypage-container {
+  width: 1000px;
   margin: 100px auto;
-  width: 60%;
-  border-radius: 15px;
-  box-shadow: 0px 0px 30px gray;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 30px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-#mypage-id{
-
-  margin: 0 190px;
-  padding-top: 50px;
-  display: block;
+#mypage-id {
+  text-align: center;
+  margin-bottom: 50px;
 }
-#profile{
-  display: inline-block;
-  border-radius: 100%;
+
+#mypage-id h1 {
+  color: #333;
+  font-size: 24px;
+}
+
+.mypage-btn {
+  background-color: #333;
+  width: 450px;
+  color: #fff;
+  margin: 10px 0;
+  padding: 15px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.mypage-btn:hover {
+  background-color: #555;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+
+#profile {
   width: 150px;
   height: 150px;
+  border-radius: 100%;
+  box-shadow: 0px 0px 15px gray;
+  object-fit: cover;
+  /* margin-bottom: 50px; */
 }
 
-.mypage-btn-container{
-  margin: 0 !important;
-  padding: 25px;
-  margin: auto;
+/* 마이페이지 카드 스타일 */
+.body_box {
+  --background-color: hsl(180, 20%, 90%);
+  /* background-color: rgba(0, 0, 0, 0.9); */
+  border-radius: 18px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+  /* min-height: 100vh; */
+  padding: 5rem 2rem 0 2rem;
+
+  color: hsla(0, 0%, 0%, .6);
+  background: var(--background-color);
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.2rem;
+  padding-top: 2rem;
+}
+
+h1+p {
+  font-size: 1.8rem;
+}
+
+.auth_main_box {
   display: flex;
-  justify-content: end;
-  row-gap: 15px;
-  column-gap: 15px;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 10px !important;
+  min-height: 0px !important;
+  /* margin-bottom: 20px; */
 }
 
-.mypage-btn{
-  width: 300px;
-  height: 150px;
-  border-radius: 25px;
-  background-color: #333;
+.wrap- {
+  margin: 1rem;
+
+  transform-style: preserve-3d;
+  transform: perspective(50rem);
+
+  cursor: pointer;
+}
+
+.container_ {
+  --rX: 0;
+  --rY: 0;
+  --bX: 50%;
+  --bY: 80%;
+
+  width: 30rem;
+  height: 3rem;
+  border: 1px solid var(--background-color);
+  border-radius: 1.6rem;
+  padding: 2rem;
+
   display: flex;
-  row-gap: 5px;
-  column-gap: 5px;
-  justify-content: end;
-  align-items: end;
-  box-shadow: 0 0 15px #333;
+  justify-content: space-between;
+  align-items: center;
+
+  position: relative;
+  transform: rotateX(calc(var(--rX) * 0.8deg)) rotateY(calc(var(--rY) * 0.8deg));
+
+  background-position: var(--bX) var(--bY);
+  background-size: 40rem auto;
+  /* box-shadow: 0 0 3rem .5rem hsla(0, 0%, 0%, .2); */
+
+  transition: transform .6s 1s;
 }
 
-.mypage-btn span{
-  padding: 15px;
-  font-size: 25px;
-  font-weight: bold;
-  color: #ddd;
-  text-shadow: 5px 5px 10px #ddddddaa;
+/* 마이페이지 카드 안 이미지 */
+.containerImg1 {
+  background-color: rgba(255, 255, 255, 0.8);
+  /* background: url('../img/clubr2.jpeg') no-repeat center center/cover; */
+}
+
+.containerImg2 {
+  background-color: rgba(255, 255, 255, 0.8);
+  /* background: url('../img/clubr2.jpeg') no-repeat center center/cover; */
+}
+
+.containerImg3 {
+  background-color: rgba(255, 255, 255, 0.8);
+    /* background: url('../img/clubr2.jpeg') no-repeat center center/cover; */
+}
+
+.containerImg4 {
+  background-color: rgba(255, 255, 255, 0.8);
+    /* background: url('../img/clubr2.jpeg') no-repeat center center/cover; */
+}
+
+.containerImg5 {
+  background-color: rgba(255, 255, 255, 0.8);
+    /* background: url('../img/clubr2.jpeg') no-repeat center center/cover; */
+}
+
+.containerImg6 {
+  background-color: rgba(255, 255, 255, 0.8);
+    /* background: url('../img/clubr2.jpeg') no-repeat center center/cover; */
+}
+
+.containerImg7 {
+  background-color: rgba(255, 255, 255, 0.8);
+    /* background: url('../img/clubr2.jpeg') no-repeat center center/cover; */
+}
+
+
+.container_::before,
+.container_::after {
+  content: "";
+
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #fff;
+
+  position: absolute;
+  z-index: 2;
+
+  opacity: .3;
+  transition: .3s;
+}
+
+.container_::before {
+  top: 2rem;
+  right: 2rem;
+
+  border-bottom-width: 0;
+  border-left-width: 0;
+}
+
+.container_::after {
+  bottom: 2rem;
+  left: 2rem;
+
+  border-top-width: 0;
+  border-right-width: 0;
+}
+
+.container--active {
+  transition: none;
+}
+
+.container--2 {
+  filter: hue-rotate(20deg) saturate(140%);
+}
+
+.container--3 {
+  filter: hue-rotate(160deg) saturate(140%);
+}
+
+.container--4 {
+  filter: hue-rotate(20deg) saturate(140%);
+}
+
+.container_ span {
+  /* color: hsla(0, 0%, 100%, .6); */
+  color: black;
+  font-size: 1.5rem;
+}
+
+.wrap-:hover .container_::before,
+.wrap-:hover .container_::after {
+  width: calc(100% - 4rem);
+  height: calc(100% - 4rem);
+}
+
+.abs-site-link {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  color: hsla(0, 0%, 0%, .6);
+  font-size: 1.6rem;
+}
+
+.fi {
+  font-size: 30px;
+  margin-top: 5px;
 }

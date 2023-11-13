@@ -5,18 +5,19 @@
 <head>
     <title>공연 팀 모집 목록</title>
     <link rel="stylesheet" href="/css/teamList.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 </head>
 
 <div layout:fragment="content">
-    
-    
-    
+
+
+
     <div id="topContent">
         <h1>공연팀 모집</h1>
         <p>공연팀 모집에 대한 소식을 알려드립니다.</p>
         <hr>
     </div>
-    
+
     <div id="teamListContainer">
         <!-- 검색/필터 -->
         <div class="page-box">
@@ -32,7 +33,8 @@
                     </select>
                     <input type="text" name="keyword" id="keyword" class="input-search" placeholder="여기에 검색해보세요">
                     <a href="javascript:;" class="btn" id="btn-search">
-                        <img src="https://www.dacorkorea.com/images/icon-search.png" alt="search" style="width: 23px; padding-top: 5px;">
+                        <img src="https://www.dacorkorea.com/images/icon-search.png" alt="search"
+                            style="width: 23px; padding-top: 5px;">
                     </a>
 
                 </div>
@@ -40,7 +42,7 @@
             <!-- 필터 -->
             <div class="item">
                 <th:block sec:authorize="hasRole('ROLE_BAND')">
-                <a href="/team/insert"><button id="filter-btn">작성하기</button></a>
+                    <a href="/team/insert"><button id="filter-btn">작성하기</button></a>
                 </th:block>
                 <select name="rows" id="rows" class="input-search">
                     <option value="5">5개씩 보기</option>
@@ -85,7 +87,7 @@
                     <img src="/img/right_S.png" width="15px" style="transform: rotate(180deg);">
                 </a>
                 <a href="javascript:;" class="page-arrow" id="prev">&lsaquo;</a>
-                
+
                 <div class="page-list">
                     <a href="javascript:;" class="page-no">1</a>
                     <a href="javascript:;" class="page-no">2</a>
@@ -107,6 +109,155 @@
 
         </div>
     </div>
+
+
+    <div class="a">
+        <div class="staticContainer">
+            <div class="staticTextSection">
+                <h1>오늘의 추천밴드</h1>
+                <h2>유다빈 밴드</h2>
+                <hr>
+                <p>
+                    한 순간들도 빠짐없이 사랑했던 모든 순간과 진정한 안녕을 말할 때, 마지막으로 딱 한 번만 나를 다정하게 기억해 주기를
+                </p>
+                <!-- <p>이런 식으로 추가하면 될 듯</p> -->
+            </div>
+            <div class="staticVideoSection">
+                <!-- YouTube Video Embed Code -->
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/wmMrFpemJNY" frameborder="0"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div id="topContent">
+        <h1>공지사항</h1>
+        <p>공연팀 모집에 대한 공지사항입니다.</p>
+        <hr>
+    </div> -->
+
+    <div class="common_container liveDom">
+        <div class="container__">
+            <div class="inner">
+                <div class="bx_info">
+                    <div class="bx_inner">
+                        <div class="lst_info">
+                            <a href="#" class="lst_poster" style="background-image: url(../img/teamList2.png);">
+                                <span class="blind">공연 이미지</span>
+                            </a>
+                            <div class="bx_lst_view swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
+                                <div class="lst_wrap swiper-wrapper">
+                                    <div class="lst_inner swiper-slide swiper-slide-active" style="width: 384px;">
+                                        <div class="item_info">
+                                            <a href="#" class="lnk_info">
+                                                <em class="label">타이틀</em>
+                                                <span class="tit">[Online] 2023 KIMHYUNJOONG SPECIAL LIVE SHOW &lt;
+                                                    HENECIA, Let's
+                                                    party! &gt;
+                                                </span>
+                                                <span class="ico ico_mark">
+                                                    <span class="blind"><i class="fi fi-rr-comment"></i></span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="item_info">
+                                            <a href="#" class="lnk_info">
+                                                <em class="label">공연시간</em>
+                                                <span class="tit">2023.11.11(토) 7:05PM</span>
+                                                <span class="ico ico_date">
+                                                    <span class="blind"><i class="fi fi-rr-calendar"></i></span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="lst_inner swiper-slide swiper-slide-next" style="width: 384px;">
+                                        <div class="item_info">
+                                                <div class="lst_cast_wrap type_only">
+                                                    <ul class="lst_cast swiper-wrapper" style="display: block;">
+                                                        <li class="item_cast swiper-slide">
+                                                            <span class="img_cast" style="background-image: url(&quot;//image.toast.com/aaaaab/ticketlink/TKL_4/다음수정김현중픽스.jpg&quot;);"></span>
+                                                            <em class="name_cast">김현중</em>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="item_info">
+                                            <!---->
+                                            <!---->
+                                            <!---->
+                                            <!---->
+                                            <!---->
+                                            <!---->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="lst_info">
+                            <a href="#" class="lst_poster" style="background-image: url(../img/teamList1.png);">
+                                <span class="blind">공연 이미지</span>
+                            </a>
+                            <div class="bx_lst_view swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
+                                <div class="lst_wrap swiper-wrapper">
+                                    <div class="lst_inner swiper-slide swiper-slide-active" style="width: 384px;">
+                                        <div class="item_info">
+                                            <a href="#" class="lnk_info">
+                                                <em class="label">타이틀</em>
+                                                <span class="tit">[Online] 2023 KIMHYUNJOONG SPECIAL LIVE SHOW &lt;
+                                                    HENECIA, Let's
+                                                    party! &gt;
+                                                </span>
+                                                <span class="ico ico_mark">
+                                                    <span class="blind"><i class="fi fi-rr-comment"></i></span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="item_info">
+                                            <a href="#" class="lnk_info">
+                                                <em class="label">공연시간</em>
+                                                <span class="tit">2023.11.11(토) 7:05PM</span>
+                                                <span class="ico ico_date">
+                                                    <span class="blind"><i class="fi fi-rr-calendar"></i></span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="lst_inner swiper-slide swiper-slide-next" style="width: 384px;">
+                                        <div class="item_info">
+                                                <div class="lst_cast_wrap type_only">
+                                                    <ul class="lst_cast swiper-wrapper" style="display: block;">
+                                                        <li class="item_cast swiper-slide">
+                                                            <span class="img_cast" style="background-image: url(&quot;//image.toast.com/aaaaab/ticketlink/TKL_4/다음수정김현중픽스.jpg&quot;);"></span>
+                                                            <em class="name_cast">김현중</em>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="item_info">
+                                            <!---->
+                                            <!---->
+                                            <!---->
+                                            <!---->
+                                            <!---->
+                                            <!---->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
     <script>
         // 페이지 관련 변수
@@ -245,7 +396,7 @@
             })
         }
 
-        
+
         // [컴포넌트] 게시글 목록 - 페이징
         function getComponentList() {
             const url = 'http://localhost:8080/team/component/list'
