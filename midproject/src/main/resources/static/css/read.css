@@ -60,6 +60,82 @@ table {
     /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); */
 }
 
+/* 하트 css */
+.titleBox {
+    display: flex;
+    justify-content: space-between;
+}
+
+.titleBox h1 {
+    font-size: 45px;
+}
+
+/* .heart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+} */
+
+/* 실질적 하트 모양 */
+.heartInner {
+    position: relative;
+    width: 50px;
+    margin-top: 8px;
+    /* height: 90px; */
+    /* transform: rotate(-45deg); */
+    animation: beat 1s infinite;
+}
+
+.heartInner::before,
+.heartInner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 18px;
+    height: 30px;
+    border-radius: 42% 42% 0 0;
+    background: red;
+}
+
+.heartInner::before {
+    left: 17px;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+
+.heartInner::after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+}
+
+.heartInner .heartText {
+    position: absolute;
+    right: 20px;
+    top: 2px;
+    font-size: 14px;
+    z-index: 100;
+    text-align: center;
+    width: 24px;
+    /* background-color: blue; */
+}
+
+.heartInner .heartText p {
+    color: white;
+}
+
+@keyframes beat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.95);
+    }
+}
+
 
 th,
 td {
@@ -103,7 +179,7 @@ th {
 /* 하단 컨테이너 */
 .bottomContainer {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin: 15px;
 }
 
@@ -114,6 +190,17 @@ th {
     border-radius: 7px;
     background-color: black;
     color: white;
+    margin-right: 10px;
+}
+
+.bottomContainerForRental button,
+.bottomContainerForRental th {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.bottomContainerForRental div {
+    display: inline-block;
 }
 
 /* 티켓 구매 버튼 */
@@ -257,7 +344,15 @@ th {
     color: black;
 }
 
-#go-btn {
+#red-btn {
     background-color: red;
     margin-right: auto;
 }
+
+#blue-btn {
+    background-color: blue;
+    /* margin-right: auto; */
+}
+
+
+

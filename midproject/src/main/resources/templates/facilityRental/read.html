@@ -19,7 +19,25 @@
                         <table>
                             <tr>
                                 <td colspan="2">
-                                    <h2 th:text="${facilityRental.title}"></h2>
+                                    <div class="titleBox">
+                                        <div>
+                                            <h1 th:text="${facilityRental.title}"></h1>
+                                            <div>
+                                                <p style="display: inline-block;">업로드 시각 : </p>
+                                                <p style="display: inline-block;" th:text="${#dates.format(facilityRental.updDate,'yyyy년 MM월 dd일 HH시 mm분')}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="heart">
+                                            <div style="margin-top: 10px;">
+                                                <p  style="display: inline-block;">조회수 : </p>
+                                                <p th:text="${facilityRental.views}"  style="display: inline-block;"></p>
+                                            </div>
+                                            <!-- <div class="heartInner">
+                                                <div class="heartText">
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </div>
                                     <hr>
                                 </td>
                             </tr>
@@ -35,18 +53,18 @@
                                     <span th:text="${facilityRental.writer}"></span>
                                 </td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>조회수</td>
                                 <td>
                                     <span th:text="${facilityRental.views}"></span>
                                 </td>
-                            </tr>
-                            <tr>
+                            </tr> -->
+                            <!-- <tr>
                                 <td>작성일자</td>
                                 <td>
                                     <span th:text="${#dates.format(facilityRental.updDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
                                 </td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <td>대관일자</td>
                                 <td>
@@ -56,7 +74,7 @@
                             <tr>
                                 <td>대관가격</td>
                                 <td>
-                                    <span th:text="${facilityRental.price}"></span>
+                                    <span th:text="${facilityRental.price}+원"></span>
                                 </td>
                             </tr>
                             <tr>
@@ -80,28 +98,33 @@
 
 
         <div class="bottomContainer">
-            <th:block sec:authorize="isAuthenticated()">
-                <th:block th:if="${facilityRental.buyUsername==null && facilityRental.username != #authentication.principal.users.username}">
-                    <form action="/facilityRental/reservation" method="POST" id="reservation">
-                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                        <input type="hidden" name="frNo" id="frNo" th:value="${facilityRental.frNo}">
-                        <input type="hidden" name="username" id="username" th:value="${#authentication.principal.users.username}">
-                        <input type="hidden" name="phone" id="phone" th:value="${#authentication.principal.users.phone}">
-                        <button type="button" onclick="actionRental()">대관하기</button>
-                    </form>
-                </th:block>
-            </th:block>
-
-            
-            <div>
+            <div class="bottomContainerForRental">
                 <button type="button" onclick="moveList()">목록</button>
                 <th:block sec:authorize="isAuthenticated()">
                     <th:block th:if="${facilityRental.username eq #authentication.principal.users.username}">
-                        <button type="button" onclick="actionUpdate()">수정</button>
-                        <form action="/facilityRental/delete" method="POST" id="delForm">
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                            <input type="hidden" name="frNo" th:value="${facilityRental.frNo}">
-                            <button type="button" onclick="actionDelete()" id="go-btn">삭제</button>
+                        <div>
+                            <button type="button" id="blue-btn" onclick="actionUpdate()">수정</button>
+                        </div>
+                        <div>
+                            <form action="/facilityRental/delete" method="POST" id="delForm">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                <input type="hidden" name="frNo" th:value="${facilityRental.frNo}">
+                                <button type="button" id="red-btn" onclick="actionDelete()">삭제</button>
+                            </form>
+                        </div>
+                    </th:block>
+                </th:block>
+            </div>
+            <div>
+                <th:block sec:authorize="isAuthenticated()">
+                    <th:block th:if="${facilityRental.buyUsername==null && facilityRental.username != #authentication.principal.users.username}">
+                        <form action="/facilityRental/reservation" method="POST" id="reservation">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            <input type="hidden" name="frNo" id="frNo" th:value="${facilityRental.frNo}">
+                            <input type="hidden" name="username" id="username" th:value="${#authentication.principal.users.username}">
+                            <input type="hidden" name="phone" id="phone" th:value="${#authentication.principal.users.phone}">
+
+                            <button type="button" id="red-btn" onclick="actionRental()">대관하기</button>
                         </form>
                     </th:block>
                 </th:block>

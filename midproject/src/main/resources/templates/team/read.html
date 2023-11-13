@@ -23,17 +23,36 @@
                     <table>
                         <tr>
                             <td colspan="2">
-                                <h2 th:text="${team.title}"></h2>
+                                <div class="titleBox">
+                                    <div>
+                                        <h1 th:text="${team.title}"></h1>
+                                        <div>
+                                            <p style="display: inline-block;">업로드 시각 : </p>
+                                            <p style="display: inline-block;" th:text="${#dates.format(team.updDate,'yyyy년 MM월 dd일 HH시 mm분')}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="heart">
+                                        <div class="heartInner">
+                                            <div class="heartText">
+                                                <p th:text="${team.views}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <hr>
                             </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td>조회수</td>
-                            <td th:text="${team.views}"></td>
-                        </tr>
-                        <tr>
+                            <td ></td>
+                        </tr> -->
+                        <!-- <tr>
                             <td>갱신일자</td>
-                            <td th:text="${#dates.format(team.updDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td ></td>
+                        </tr> -->
+                        <tr>
+                            <td>작성자</td>
+                            <td th:text="${team.writer}"></td>
                         </tr>
                         <tr>
                             <td>모집 팀 수</td>
@@ -48,11 +67,11 @@
                             <td th:text="${team.liveStTime}+' ~ '+${team.liveEndTime}"></td>
                         </tr>
                         <tr>
-                            <td>지역</td>
+                            <td>공연지역</td>
                             <td th:text="${team.location}"></td>
                         </tr>
                         <tr>
-                            <td>장소</td>
+                            <td>공연장소</td>
                             <td th:text="${team.address}"></td>
                         </tr>
                         <tr>
@@ -67,11 +86,13 @@
         <div class="bottomContainer">
             <div>
                 <button type="button" onclick="moveList()">목록</button>
+            </div>
+            <div>
                 <th:block sec:authorize="isAuthenticated()">
                     <input type="hidden" name="username" th:value="${#authentication.principal.users.username}" id="username">
                     <input type="hidden" name="profileNo" th:value="${#authentication.principal.users.profileNo}" id="profileNo">
                     <th:block th:if="${team.confirmed == 0 && team.username != #authentication.principal.username}">
-                        <button type="button" th:onclick=" 'moveApplication('+${team.teamNo}+')' " id="go-btn">신청</button>
+                        <button type="button" th:onclick=" 'moveApplication('+${team.teamNo}+')' " id="red-btn">신청</button>
                     </th:block>
                     <th:block th:if="${team.username == #authentication.principal.username}">
 
@@ -173,7 +194,7 @@
                         
                         let msg = `
                         <div class="commentContainer">
-                            <span>댓글이 없습니다.</span>
+                            <span>현재 댓글이 없습니다.</span>
                         </div>
                         `
                         $('#comment-list').html(msg)

@@ -1,101 +1,266 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/user/layout/main_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/UI/user/layout/main_layout}">
+
 <head>
     <title>마이페이지</title>
     <link rel="stylesheet" href="/css/mypage.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 </head>
+
 <body layout:fragment="content" id="mypage-body">
-    
+
     <div id="mypage-container">
-    <div id="mypage-id">
-    <h2>ID</h2>
-    <h1 th:text="${#authentication.principal.users.username}"></h1>
+
+
+        <!--  -->
+        <div class="body_box">
+            <!-- 프로필 사진 쏴주기 -->
+            <th:block sec:authorize="isAuthenticated()">
+                <th:block th:if="${#authentication.principal.users.profileNo != 0}">
+                    <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진" id="profile"
+                        style="width:150px; height:150px; border-radius: 100%; box-shadow: 0px 0px 15px gray; object-fit: cover;">
+                </th:block>
+                <th:block th:if="${#authentication.principal.users.profileNo == 0}">
+                    <img src="/img/defaultProfile.png" alt="프로필사진" id="profile"
+                        style="width:150px; height:150px; border-radius: 100%; box-shadow: 0px 0px 15px gray; object-fit: cover;">
+                </th:block>
+            </th:block>
+
+
+            <h1 th:text="${#authentication.principal.users.username}"></h1>
+            <p th:text="${#authentication.principal.users.name}"></p>
+            <!-- <p>마이페이지</p> -->
+
+            <!-- <hr width="600px"> -->
+
+            <section class="auth_main_box">
+
+                <div class="wrap- wrap---1">
+                    <div onclick="moveUser('/myPage/myInfo')">
+                        <div class="container_ container--1 containerImg1">
+                            <i class="fi fi-rr-settings"></i>
+                            <span>내 정보 보기</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 유저일 때 -->
+                <th:block sec:authorize="hasRole('ROLE_USER')">
+                    <div class="wrap- wrap---2">
+                        <div onclick="moveUser('/myPage/ticket_purchase_list')">
+                            <div class="container_ container--2 containerImg2">
+                                <i class="fi fi-rr-users-alt"></i>
+                                <span>티켓 구매 내역</span>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+
+
+                <!-- 클럽일 때 -->
+                <th:block sec:authorize="hasRole('ROLE_CLUB')">
+                    <div class="wrap- wrap---2">
+                        <div onclick="moveFr('/user/receivedList')">
+                            <div class="container_ container--2 containerImg2">
+                                <i class="fi fi-rr-users"></i>
+                                <span>받은 대관 신청 내역 </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrap- wrap---3">
+                        <div onclick="moveUser('/myPage/ticket_sales_list')">
+                            <div class="container_ container--2 containerImg3">
+                                <i class="fi fi-rr-list-check"></i>
+                                <span>티켓 판매 현황</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrap- wrap---3">
+                        <div onclick="moveUser('/myPage/ticket_purchase_list')">
+                            <div class="container_ container--3 containerImg4">
+                                <i class="fi fi-rr-users-alt"></i>
+                                <span>티켓 구매 내역</span>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+
+
+                <!-- 권한이 밴드일 때 -->
+                <th:block sec:authorize="hasRole('ROLE_BAND')">
+                    <div class="wrap- wrap---2">
+                        <div onclick="moveUser('/myPage/ticket_purchase_list')">
+                            <div class="container_ container--2 containerImg2">
+                                <div>
+                                    <i class="fi fi-rr-users-alt"></i>
+                                </div>
+                                <div>
+                                    <span>티켓 구매 내역</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrap- wrap---3">
+                        <div onclick="moveUser('/myPage/ticket_sales_list')">
+                            <div class="container_ container--3 containerImg3">
+                                <i class="fi fi-rr-list-check"></i>
+                                <span>티켓 판매 내역</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wrap- wrap---4">
+                        <div onclick="moveTeam('/user/listByLeader')">
+                            <div class="container_ container--4 containerImg4">
+                                <i class="fi fi-rr-user-add"></i>
+                                <span>팀 모집 현황</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrap- wrap---5">
+                        <div onclick="moveTeam('/user/listByMember')">
+                            <div class="container_ container--5 containerImg5">
+                                <i class="fi fi-rr-check"></i>
+                                <span>팀 참가 신청 목록</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrap- wrap---6">
+                        <div onclick="moveTeam('/user/listByConfirmedLive')">
+                            <div class="container_ container--6 containerImg6">
+                                <i class="fi fi-rr-handshake"></i>
+                                <span>성사된 공연 목록</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrap- wrap---7">
+                        <div onclick="moveFr('/user/reqList')">
+                            <div class="container_ container--7 containerImg7">
+                                <i class="fi fi-rr-users"></i>
+                                <span>예약 신청한 대관 내역</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </th:block>
+                
+                
+            </section>
+            <br>
+            <br>
+            <br>
+            
+        </div>
     </div>
-    <section class="mypage-btn-container" stlye="margin-top : 0;">
-    
-        <!-- 프로필 사진 쏴주기 -->
-        <th:block sec:authorize="isAuthenticated()">
-            <th:block  th:if="${#authentication.principal.users.profileNo != 0}">
-                <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진" id="profile" style="width:150px; height:150px; border-radius: 100%; box-shadow: 0px 0px 15px gray;">
-            </th:block>
-            <th:block th:if="${#authentication.principal.users.profileNo == 0}">
-                <img src="/img/defaultProfile.png" alt="프로필사진" id="profile" style="width:150px; height:150px; border-radius: 100%; box-shadow: 0px 0px 15px gray;">
-            </th:block>
-        </th:block>
-
-        <div class="mypage-btn" onclick="moveUser('/myPage/myInfo')" style="width: 450px;">
-            <span>내 정보</span>
-        </div>
-
-        <th:block sec:authorize="hasRole('ROLE_USER')">
-
-        <div class="mypage-btn" onclick="moveUser('/myPage/ticket_purchase_list')">
-            <span>티켓 구매 내역</span>
-        </div>
-        
-    </th:block>
-    
-
-
-    <th:block sec:authorize="hasRole('ROLE_CLUB')">
-        <div class="mypage-btn" onclick="moveFr('/user/receivedList')">
-            <span>받은 대관 신청 내역 </span>
-        </div>
-        <div class="mypage-btn" onclick="moveUser('/myPage/ticket_sales_list')">
-            <span>티켓 판매 현황</span>
-        </div>
-        <div class="mypage-btn" onclick="moveUser('/myPage/ticket_purchase_list')">
-            <span>티켓 구매 내역</span>
-        </div>
-    </th:block>
-    
-
-
-    <th:block sec:authorize="hasRole('ROLE_BAND')">
-
-            <div class="mypage-btn" onclick="moveUser('/myPage/ticket_purchase_list')">
-                <span>티켓 구매 내역</span>
-            </div>
-            <div class="mypage-btn" onclick="moveUser('/myPage/ticket_sales_list')">
-                <span>티켓 판매 내역</span>
-            </div>
-
-            <div class="mypage-btn" onclick="moveTeam('/user/listByLeader')">
-                <span>팀 모집 현황</span>
-            </div>
-
-            <div class="mypage-btn" onclick="moveTeam('/user/listByMember')">
-                <span>팀 참가 신청 목록</span>
-            </div>
-
-            <div class="mypage-btn" onclick="moveTeam('/user/listByConfirmedLive')">
-                <span>성사된 공연 목록</span>
-            </div>
-
-            <div class="mypage-btn" onclick="moveFr('/user/reqList')">
-                <span>예약 신청한 대관 내역</span>
-            </div>
-    
-        </th:block>
-        </div>
-    </section>
-</div>
+    <!--  -->
     <script>
 
-        let moveUser = function(url){
-            location.href = `${url}`
+        let moveUser = function (url) {
+            window.location.href = url;
         }
 
-        let moveTeam = function(url){
-            location.href = `/team${url}`
+        let moveTeam = function (url) {
+            window.location.href = "/team" + url;
         }
 
-        let moveFr = function(url){
-            location.href = `/facilityRental${url}`
+        let moveFr = function (url) {
+            window.location.href = "/facilityRental" + url;
         }
+
+
+        function parallaxTiltEffect({ element, tiltEffect }) {
+
+            this.element = $(element);
+            this.container = this.element.find(".container_");
+            this.size = [300, 360];
+            [this.w, this.h] = this.size;
+
+            this.tiltEffect = tiltEffect;
+            this.mouseOnComponent = false;
+
+            this.defaultStates = () => {
+                this.container.removeClass("container--active");
+                this.container.css('--rY', 0);
+                this.container.css('--rX', 0);
+                this.container.css('--bY', '80%');
+                this.container.css('--bX', '50%');
+            }
+
+            this.setProperty = (p, v) => {
+                return this.container.css(p, v);
+            }
+
+            this.element.on('mousemove', (event) => {
+                const { offsetX, offsetY } = event;
+
+                let X;
+                let Y;
+
+                if (this.tiltEffect === "reverse") {
+                    X = ((offsetX - (this.w / 2)) / 3) / 3;
+                    Y = (-(offsetY - (this.h / 2)) / 3) / 3;
+                }
+
+                else if (this.tiltEffect === "normal") {
+                    X = (-(offsetX - (this.w / 2)) / 3) / 3;
+                    Y = ((offsetY - (this.h / 2)) / 3) / 3;
+                }
+
+                this.setProperty('--rY', X.toFixed(2));
+                this.setProperty('--rX', Y.toFixed(2));
+
+                this.setProperty('--bY', (80 - (X / 4).toFixed(2)) + '%');
+                this.setProperty('--bX', (50 - (Y / 4).toFixed(2)) + '%');
+            });
+
+            this.element.on('mouseenter', () => {
+                this.mouseOnComponent = true;
+                this.container.addClass("container--active");
+            });
+
+            this.element.on('mouseleave', () => {
+                this.mouseOnComponent = false;
+                this.defaultStates();
+            });
+        }
+
+        let wrap1 = new parallaxTiltEffect({
+            element: $('.wrap---1'),
+            tiltEffect: 'reverse'
+        });
+
+        let wrap2 = new parallaxTiltEffect({
+            element: $('.wrap---2'),
+            tiltEffect: 'reverse'
+        });
+
+        let wrap3 = new parallaxTiltEffect({
+            element: $('.wrap---3'),
+            tiltEffect: 'reverse'
+        });
+
+        let wrap4 = new parallaxTiltEffect({
+            element: $('.wrap---4'),
+            tiltEffect: 'reverse'
+        });
+
+        let wrap5 = new parallaxTiltEffect({
+            element: $('.wrap---5'),
+            tiltEffect: 'reverse'
+        });
+
+        let wrap6 = new parallaxTiltEffect({
+            element: $('.wrap---6'),
+            tiltEffect: 'reverse'
+        });
+
+        let wrap7 = new parallaxTiltEffect({
+            element: $('.wrap---7'),
+            tiltEffect: 'reverse'
+        });
+
 
     </script>
 </body>

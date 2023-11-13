@@ -2,24 +2,27 @@
 <!-- ~UI/user/fragment/header -->
 <th:block th:fragment="header">
     <style>
-        *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        ul{list-style-type: none;}
 
-        a{
-        color: black;
-        text-decoration: none;
+        ul {
+            list-style-type: none;
+        }
+
+        a {
+            color: black;
+            text-decoration: none;
         }
 
         section {
-        min-height: 400px;
+            min-height: 400px;
         }
 
         section:first-of-type {
-        margin-top: 86px;
+            margin-top: 86px;
         }
 
         /* 폰트 적용 */
@@ -27,85 +30,99 @@
         @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
         /* 로고 폰트 */
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Dancing+Script:wght@400;700&family=Gowun+Batang:wght@700&family=Parisienne&family=Questrial&family=Song+Myung&display=swap');
-        
+
         .header {
             font-family: 'Noto Sans KR', sans-serif;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
         }
+
         /* ✅[수정] 서브 메뉴 여백조정 👩‍💻aloha  @오후 4:40 2023-11-06  */
-        ol, ul {
+        ol,
+        ul {
             padding-left: 0 !important;
             margin-bottom: 0 !important;
         }
+
         html {
-            overflow-x:hidden;
-            line-height:1.15;
+            overflow-x: hidden;
+            line-height: 1.15;
         }
 
         /* 라이브러리 */
         .con {
-            max-width:1300px;
-            margin:0 auto;
+            max-width: 1300px;
+            margin: 0 auto;
         }
+
         .header-row::after {
-            content:"";
-            display:block;
-            clear:both;
+            content: "";
+            display: block;
+            clear: both;
         }
+
         .cells {
-            float:left;
-            box-sizing:border-box;
+            float: left;
+            box-sizing: border-box;
         }
+
         .cells-right {
-            float:right;
+            float: right;
         }
+
         .line-height-0 {
-            line-height:0;
+            line-height: 0;
         }
-        .line-height-0 > * {
-            line-height:normal;
+
+        .line-height-0>* {
+            line-height: normal;
         }
+
         .visible-on {
-            display:block;
+            display: block;
         }
+
         .visible-off {
-            display:none;
+            display: none;
         }
-        .img-box {
-            overflow:hidden;
+
+        .img_box {
+            overflow: hidden;
         }
-        .img-box > img {
-            width:100%;
-            display:block;
+
+        .img_box img {
+            width: 100%;
+            display: block;
         }
+
         .relative {
-            position:relative;
+            position: relative;
         }
+
         .block {
-            display:block;
+            display: block;
         }
-        /* 라이브러리 끝 */
 
         /* 커스텀 */
         .header {
-            position:sticky;
+            position: sticky;
             /* position:fixed; */
-            top:0;
-            left:0;
-            width:100%;
-            height:86px;
-            background-color:#fff;
-            z-index:100;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 86px;
+            background-color: #fff;
+            z-index: 100;
         }
 
-        .header > .header-inner {
-            max-width:1220px;
-            width:1220px;
-            margin:0 auto;
-            position:relative;
+        .header>.header-inner {
+            max-width: 1220px;
+            width: 1220px;
+            margin: 0 auto;
+            position: relative;
         }
 
         /* 상단 로고 */
-        .header > .header-inner > .logo {
+        .header>.header-inner>.logo {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -115,7 +132,7 @@
         }
 
         /* 로고 폰트 */
-        .header > .header-inner > .logo > h1.logo-title {
+        .header>.header-inner>.logo>h1.logo-title {
             font-family: 'Anton', sans-serif;
             font-family: 'Dancing Script', cursive;
             font-family: 'Gowun Batang', serif;
@@ -125,179 +142,180 @@
         }
 
         /* 검색 박스 */
-        .header > .header-inner > .search-box {
-            position:absolute;
-            top:50%;
-            right:30px;
+        .header>.header-inner>.search-box {
+            position: absolute;
+            top: 50%;
+            right: 30px;
             /* ✅[수정] translatey ➡ translateY 👩‍💻aloha  @오후 4:45 2023-11-06 */
-            transform:translateY(-50%);
+            transform: translateY(-50%);
         }
 
-        .header > .header-inner > .search-box > a > span {
-            font-size:15px;
-            font-weight:bold;
-            position:relative;
-            top:-2px;
+        .header>.header-inner>.search-box>a>span {
+            font-size: 15px;
+            font-weight: bold;
+            position: relative;
+            top: -2px;
         }
-        .header > .header-inner > .search-box > a > img {
-            width:15px;
+
+        .header>.header-inner>.search-box>a>img {
+            width: 15px;
             /* padding-left:5px; */
-            position:relative;
-            top:-1px;
+            position: relative;
+            top: -1px;
         }
 
         /* 상단 메뉴바 */
 
-        .header > .header-inner > .top-menu-bar > ul {
-            display:inline-block;
+        .header>.header-inner>.top-menu-bar>ul {
+            display: inline-block;
         }
 
-        .header > .header-inner > .top-menu-bar > ul:nth-child(2) {
-            margin-right:105px;
+        .header>.header-inner>.top-menu-bar>ul:nth-child(2) {
+            margin-right: 105px;
         }
 
-        .header > .header-inner > .top-menu-bar > ul > li > a {
-            display:block;
-            margin:0 30px;
-            font-size:15px;
-            font-weight:bold;
-            position:relative;
-            line-height:86px;
+        .header>.header-inner>.top-menu-bar>ul>li>a {
+            display: block;
+            margin: 0 30px;
+            font-size: 15px;
+            font-weight: bold;
+            position: relative;
+            line-height: 86px;
         }
 
-        .header > .header-inner > .top-menu-bar > ul > li > a > * {
-            line-height:normal;
+        .header>.header-inner>.top-menu-bar>ul>li>a>* {
+            line-height: normal;
         }
 
-        .header > .header-inner > .top-menu-bar > ul > li > a::after {
-            content:"";
-            display:block;
-            background-color:#000;
-            position:absolute;
-            bottom:0;
-            left:50%;
-            width:0%;
-            height:3px;
-            transform:translatex(-50%);
-            transition:width .3s ease-in-out;
+        .header>.header-inner>.top-menu-bar>ul>li>a::after {
+            content: "";
+            display: block;
+            background-color: #000;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0%;
+            height: 3px;
+            transform: translatex(-50%);
+            transition: width .3s ease-in-out;
         }
 
-        .header > .header-inner > .top-menu-bar > ul > li > a.active::after {
-            width:100%;
+        .header>.header-inner>.top-menu-bar>ul>li>a.active::after {
+            width: 100%;
         }
 
         /* 2차 메뉴 배경 */
-        .header > .header-inner > .top-menu-bar > .sub-menu-bg {
-            position:fixed;
-            top:86px;
-            left:0;
-            width:100%;
-            height:0;
-            background-color:#fff;
+        .header>.header-inner>.top-menu-bar>.sub-menu-bg {
+            position: fixed;
+            top: 86px;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: #fff;
             /* border-top:1px solid #ccc; */
-            z-index:-5;
-            transition:height .3s;
+            z-index: -5;
+            transition: height .3s;
+            /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
         }
 
         /* 2차 메뉴 */
-        .header > .header-inner > .top-menu-bar ul > li {
-            position:relative;
+        .header>.header-inner>.top-menu-bar ul>li {
+            position: relative;
         }
 
-        .header > .header-inner > .top-menu-bar > ul > li > ul {
-            position:absolute;
-            top:100%;
-            left:0;
-            min-width:1000px;
-            visibility:hidden;
-            transform:translatex(-10px);
-            opacity:0;
-            padding-top:20px;
-        }
-        .header > .header-inner > .top-menu-bar > ul > li.active ul {
-            visibility:visible;
-            opacity:1;
-            transform:translatex(0);
-            transition:all .5s;
+        .header>.header-inner>.top-menu-bar>ul>li>ul {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 1000px;
+            visibility: hidden;
+            transform: translatex(-10px);
+            opacity: 0;
+            padding-top: 20px;
         }
 
-        .header > .header-inner > .top-menu-bar > ul > li > ul > li {
-            margin-left:30px;
-        }
-        .header > .header-inner > .top-menu-bar > ul > li > ul > li > a {
-            font-weight:bold;
-        }
-
-        .header > .header-inner > .top-menu-bar > ul ul > li > a {
-            display:inline-block;
-            font-size:15px;
-            padding:7px 0;
-            position:relative;
+        .header>.header-inner>.top-menu-bar>ul>li.active ul {
+            visibility: visible;
+            opacity: 1;
+            transform: translatex(0);
+            transition: all .5s;
         }
 
-        .header > .header-inner > .top-menu-bar > ul ul > li > a::after {
-            content:"";
-            display:block;
-            background-color:#000;
-            position:absolute;
-            bottom:0;
-            left:50%;
-            width:0%;
-            height:1px;
-            transform:translatex(-50%);
-            transition:width .3s ease-in-out;
+        .header>.header-inner>.top-menu-bar>ul>li>ul>li {
+            margin-left: 30px;
         }
 
-        .header > .header-inner > .top-menu-bar > ul ul > li > a:hover::after {
-            width:100%;
+        .header>.header-inner>.top-menu-bar>ul>li>ul>li>a {
+            font-weight: bold;
+        }
+
+        .header>.header-inner>.top-menu-bar>ul ul>li>a {
+            display: inline-block;
+            font-size: 15px;
+            padding: 7px 0;
+            position: relative;
+        }
+
+        .header>.header-inner>.top-menu-bar>ul ul>li>a::after {
+            content: "";
+            display: block;
+            background-color: #000;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0%;
+            height: 1px;
+            transform: translatex(-50%);
+            transition: width .3s ease-in-out;
+        }
+
+        .header>.header-inner>.top-menu-bar>ul ul>li>a:hover::after {
+            width: 100%;
         }
 
         /* 서브메뉴 실질적 width, height */
-        .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width {
-            width:100%;
-            height:300px;
-            position:fixed;
-            top:86px;
-            left:0;
-            z-index:-3;
-            display:none;
+        .header>.header-inner>.top-menu-bar>ul>li>.sub-menu-width {
+            width: 100%;
+            height: 300px;
+            position: fixed;
+            top: 86px;
+            left: 0;
+            z-index: -3;
+            display: none;
         }
 
-        .header > .header-inner > .top-menu-bar > ul > li.active > .sub-menu-width {
-            display:block;
+        .header>.header-inner>.top-menu-bar>ul>li.active>.sub-menu-width {
+            display: block;
         }
 
-        .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width-1 {
-            height:164px;
+        .header>.header-inner>.top-menu-bar>ul>li>.sub-menu-width-1 {
+            height: 164px;
         }
 
-        .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width-2 {
-            height:238px;
+        .header>.header-inner>.top-menu-bar>ul>li>.sub-menu-width-2 {
+            height: 238px;
         }
 
-        .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width-3 {
-            height:164px;
+        .header>.header-inner>.top-menu-bar>ul>li>.sub-menu-width-3 {
+            height: 164px;
         }
 
-        .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width-4 {
-            height:90px;
+        .header>.header-inner>.top-menu-bar>ul>li>.sub-menu-width-4 {
+            height: 90px;
         }
 
-        .header > .header-inner > .top-menu-bar > ul > li > .sub-menu-width-5 {
-            height:127px;
+        .header>.header-inner>.top-menu-bar>ul>li>.sub-menu-width-5 {
+            height: 127px;
         }
 
         /* 3차 메뉴 */
-        .header > .header-inner > .top-menu-bar > ul ul ul {
-            
+        .header>.header-inner>.top-menu-bar>ul ul ul {}
+
+        .header>.header-inner>.top-menu-bar>ul ul ul>li {
+            margin-right: 80px;
         }
-        
-        .header > .header-inner > .top-menu-bar > ul ul ul > li {
-            margin-right:80px;
-        }
-        
     </style>
-    
+
     <!-- 헤더 -->
     <header class="header">
         <form action="/logout" method="POST" id="logoutForm">
@@ -308,7 +326,7 @@
         </th:block>
 
         <div class="header-inner">
-            <div class="logo img-box">
+            <div class="logo img_box">
                 <a href="/">
                     <img src="/img/logo_header.png" style="width: 280px; height: 100px; object-fit: cover; margin-bottom: 5px;">
                 </a>     
@@ -321,7 +339,7 @@
                         <ul>
                             <th:block sec:authorize="isAuthenticated()">
                                 <th:block sec:authorize="hasRole('ROLE_CLUB')">
-                                    <li><a href="/facilityRental/list">전체보기</a></li>
+                                    <li><a href="/facilityRental/list">클럽 대관 목록</a></li>
                                     <li class="cell">
                                         <ul>
                                             <li><a href="/facilityRental/insert">대관 게시글 작성하기</a></li>
@@ -330,7 +348,7 @@
                                     </li>
                                 </th:block>
                                 <th:block sec:authorize="hasRole('ROLE_BAND')">
-                                    <li><a href="/facilityRental/list">전체보기</a></li>
+                                    <li><a href="/facilityRental/list">대관 신청 목록</a></li>
                                     <li class="cell">
                                         <ul>
                                             <li><a href="/facilityRental/user/reqList">대관 신청 내역</a></li>
@@ -346,7 +364,7 @@
                         <ul class="header-row">
                             <th:block sec:authorize="isAuthenticated()">
                                 <th:block sec:authorize="hasAnyRole('ROLE_CLUB', 'ROLE_BAND')">
-                                    <li><a href="/liveBoard/list">전체보기</a></li>
+                                    <li><a href="/liveBoard/list">공연 목록</a></li>
                                     <li class="cell">
                                         <ul>
                                             <li><a href="/liveBoard/insert">공연 등록하기</a></li>
@@ -364,7 +382,7 @@
                         <ul>
                             <th:block sec:authorize="isAuthenticated()">
                                 <th:block sec:authorize="hasRole('ROLE_BAND')">
-                                    <li><a href="/team">전체보기</a></li>
+                                    <li><a href="/team">공연팀 모집 목록</a></li>
                                     <li class="cell">
                                         <ul>
                                             <li><a href="/team/insert">모집글 작성하기</a></li>
@@ -397,6 +415,10 @@
                                 <li><a href="/login">로그인</a></li>
                                 <li><a href="/join">회원가입</a></li>
                             </ul>
+                            <div class="sub-menu-width sub-menu-width-5"></div>
+                        </li>
+                        <li class="cells">
+                            <a href="/join">회원가입</a>
                             <div class="sub-menu-width sub-menu-width-5"></div>
                         </li>
                     </th:block>
@@ -515,10 +537,3 @@
         }
     </script>
 </th:block>
-
-
-
-
-
-
-

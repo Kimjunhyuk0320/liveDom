@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/UI/user/layout/main_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/UI/user/layout/main_layout}">
+
 <head>
     <title>클럽 대관</title>
     <link rel="stylesheet" href="/css/cardList.css">
@@ -12,28 +11,37 @@
     <!-- 이미지 슬라이드 -->
     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-          <div class="carousel-item active" data-bs-interval="8000">
-              <img src="/img/clubr5.jpeg" class="d-block w-100 img-slide" alt="...">
+            <div class="carousel-item active" data-bs-interval="8000">
+                <img src="/img/그림2.png" class="d-block w-100 img-slide" alt="...">
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img src="/img/clubr2.jpeg" class="d-block w-100 img-slide" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="/img/clubr3.jpeg" class="d-block w-100 img-slide" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="/img/clubr1.jpeg" class="d-block w-100 img-slide" alt="...">
+            </div>
         </div>
-        <div class="carousel-item" data-bs-interval="2000">
-            <img src="/img/clubr2.jpeg" class="d-block w-100 img-slide" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="/img/clubr3.jpeg" class="d-block w-100 img-slide" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="/img/clubr1.jpeg" class="d-block w-100 img-slide" alt="...">
-        </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
         </button>
     </div>
+
+    <div id="topContent">
+        <h1>클럽 대관 목록</h1>
+        <p>클럽 대관 목록입니다.</p>
+        <hr>
+    </div>
+
     <div id="teamListContainer">
         <!-- 검색/필터 -->
         <!-- <div class="listTopText">
@@ -52,7 +60,8 @@
                     </select>
                     <input type="text" name="keyword" id="keyword" class="input-search">
                     <a href="javascript:;" class="btn" id="btn-search">
-                        <img src="https://www.dacorkorea.com/images/icon-search.png" alt="search" style="width: 23px; padding-top: 5px;">
+                        <img src="https://www.dacorkorea.com/images/icon-search.png" alt="search"
+                            style="width: 23px; padding-top: 5px;">
                     </a>
                 </div>
             </div>
@@ -86,7 +95,7 @@
         </div>
 
 
-    
+
         <div id="paginationContainer">
             <!-- 페이지네이션 -->
             <div class="pagination_count">
@@ -94,7 +103,7 @@
                     <img src="/img/right_S.png" width="15px" style="transform: rotate(180deg);">
                 </a>
                 <a href="javascript:;" class="page-arrow" id="prev">&lsaquo;</a>
-            
+
                 <!-- 페이지 번호 목록 -->
                 <div class="page-list">
                     <a href="javascript:;" class="page-no">1</a>
@@ -108,7 +117,7 @@
                     <a href="javascript:;" class="page-no">9</a>
                     <a href="javascript:;" class="page-no">10</a>
                 </div>
-            
+
                 <a href="javascript:;" class="page-arrow" id="next">&rsaquo;</a>
                 <a href="javascript:;" class="page-arrow" id="last">
                     <img src="/img/right_S.png" width="15px">
@@ -117,48 +126,66 @@
         </div>
     </div>
 
-    <script>
+    <div class="a">
+        <div class="staticContainer">
+            <div class="staticTextSection">
+                <h1>여기서 공연해 보세요!</h1>
+                <h2>클럽 라이브앤라우드</h2>
+                <hr>
+                <p>
+                    홍대입구 인디밴드 전문공연장 클럽 라이브앤라우드에서
+                    과기대 밴드동아리 OB 및 YB 멤버들이 함께 만든
+                    밴드 DOT [ DAWN OF TIM ]
+                </p>
+                <!-- <p>이런 식으로 추가하면 될 듯</p> -->
+            </div>
+            <div class="staticVideoSection">
+                <!-- YouTube Video Embed Code -->
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/DJufE7ladKw" frameborder="0"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
 
-       
-        
+    <script>
         // 페이지 관련 변수
-        let page = 1            // 현재 페이지 번호
-        let rows = 10           // 페이지당 게시글 수
-        let pageCount = 10      // 노출 페이지 개수
-        let totalCount = 0      // 전체 게시글 수
+        let page = 1 // 현재 페이지 번호
+        let rows = 10 // 페이지당 게시글 수
+        let pageCount = 10 // 노출 페이지 개수
+        let totalCount = 0 // 전체 게시글 수
         // 검색 관련 변수
-        let searchType = 0      // 검색 조건
-        let keyword = ''        // 검색어
+        let searchType = 0 // 검색 조건
+        let keyword = '' // 검색어
         // 순서 변수
-        let order = 0           // 기본값 : 최근 순
+        let order = 0 // 기본값 : 최근 순
 
         // 게시글 목록 요청
         getPageList()
         initPage()
         initRows()
 
-        
+
         // 페이지 번호
         function initPage() {
             searchType = $('#search-type').val()
             keyword = $('#keyword').val()
             // 페이지 번호 정보
             let data = {
-                'pageNo'         : page,
-                'rows'           : rows,
-                'pageCount'      : pageCount,
-                'totalCount'     : totalCount,
-                'searchType'     : searchType,
-                'keyword'        : keyword,
+                'pageNo': page,
+                'rows': rows,
+                'pageCount': pageCount,
+                'totalCount': totalCount,
+                'searchType': searchType,
+                'keyword': keyword,
             }
 
             const url = 'http://localhost:8080/facilityRental/pageInfoFr'
 
             $.ajax({
-                url     :   url,
-                type    :   'GET',
-                data    :   data,
-                success :   function(response) {
+                url: url,
+                type: 'GET',
+                data: data,
+                success: function (response) {
                     let pageInfo = response
                     console.log(response);
 
@@ -174,11 +201,11 @@
                     $('#totalCount').text(totalCount)
 
                     let pagination = ''
-                    for (let i = start; i <= end ; i++) {
+                    for (let i = start; i <= end; i++) {
                         let a = `<a href='javascript:;' class='page-no' data='${i}'>${i}</a>`
                         pagination += a
-                    }                  
-                    
+                    }
+
                     // 페이지 출력
                     $('.page-list').html(pagination)
                     // 화살표 페이지 번호
@@ -189,76 +216,80 @@
 
                     $('.page-no').removeClass('on')
                     // 현재 페이지 지정
-                    $('.page-no[data=' + page +']').addClass('on')
+                    $('.page-no[data=' + page + ']').addClass('on')
 
                     // 화살표 버튼 유효성 처리
                     $('.page-arrow').show()
-                    if( page == 1 ) {
+                    if (page == 1) {
                         $('#prev').hide()
                     }
-                    
-                    if( page == last ) {
+
+                    if (page == last) {
                         $('#next').hide()
                     }
 
 
                     // 페이지 번호 클릭 이벤트
-                    $('.page-no, .page-arrow').on('click', function() {
+                    $('.page-no, .page-arrow').on('click', function () {
 
                         // 이벤트 제거 - 이벤트 정의가 쌓이는 것을 방지
                         $('.page-no, .page-arrow').off()
-                        
+
                         // 페이지 번호
                         let clickedPage = $(this).attr('data')
                         page = clickedPage
-                        initPage()          // 페이지 번호 갱신
-                        getPageList()       // 페이지 목록 갱신
+                        initPage() // 페이지 번호 갱신
+                        getPageList() // 페이지 목록 갱신
                     })
 
 
 
                 },
-                error           : function(request, status, error){
-                    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
-                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error)
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error);
                 }
             })
 
-        }        
+        }
 
         // 게시글 목록 - 페이징
         function getPageList() {
             const url = 'http://localhost:8080/facilityRental/pageFrList'
 
             let data = {
-                'pageNo'      : page,
-                'rows'        : rows,
-                'searchType'  : searchType,
-                'keyword'     : keyword,
-                'order'       : order,
+                'pageNo': page,
+                'rows': rows,
+                'searchType': searchType,
+                'keyword': keyword,
+                'order': order,
             }
 
             $.ajax({
-                url     :   url,
-                type    :   'GET',
-                data    :   data,
-                success : function(response) {
+                url: url,
+                type: 'GET',
+                data: data,
+                success: function (response) {
                     let teamList = response
-                    
+
                     displayList(teamList)
                 },
-                error           : function(request, status, error){
-                    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
-                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error)
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error);
                 }
             })
-        } 
+        }
 
         // 게시글 목록 출력
         function displayList(teamList) {
             console.log(teamList)
             // 게시글 목록 존재여부
-            if( teamList.length == 0 ) {
+            if (teamList.length == 0) {
                 let msg = '조회된 데이터가 없습니다.'
                 console.log(msg);
 
@@ -270,20 +301,20 @@
                 return
             }
 
-             // 게시글 목록 출력
-             let teamData = ''
-             for(let i = 0 ; i < teamList.length ; i++ ){
- 
-                 let tr = `
+            // 게시글 목록 출력
+            let teamData = ''
+            for (let i = 0; i < teamList.length; i++) {
+
+                let tr = `
                  <div class="card col-3">
                     <a href="/facilityRental/read?frNo=${teamList[i].frNo}">
                         `
-                        if(teamList[i].thumbnail!=null){
-                            tr+=`
+                if (teamList[i].thumbnail != null) {
+                    tr += `
                                 <img src="/file/img/${teamList[i].thumbnail.fileNo}" id="card-img">
                             `
-                        }
-                        tr+=`
+                }
+                tr += `
                         <div class="card-body">
                             <a href="/facilityRental/read?frNo=${teamList[i].frNo}">
                             <h5 class="card-title">${teamList[i].title}</h5>
@@ -293,29 +324,29 @@
                             <p class="card-text">${teamList[i].price}</p>
                             <p class="card-text card-text-date">${teamList[i].liveDate}</p>
                             `
-                            if(teamList[i].confirmed==1){
-                                tr+=`
+                if (teamList[i].confirmed == 1) {
+                    tr += `
                                 <p class="card-text" style="background-color: red;"></p>                       
                                 `
-                            }
-                            tr+=`
+                }
+                tr += `
                         </div>
                     </div>
             `
-                 teamData += tr
-             }
-             $('#team-data').html(teamData)
-         }
+                teamData += tr
+            }
+            $('#team-data').html(teamData)
+        }
 
 
         // 검색 클릭 이벤트
-        $('#btn-search').on('click', function() {
+        $('#btn-search').on('click', function () {
             initPage()
             search()
         })
 
         // 페이지당 게시글 수 - 변경 이벤트
-        $('#rows').on('change', function() {
+        $('#rows').on('change', function () {
             rows = $(this).val()
             page = 1
             initPage()
@@ -329,11 +360,11 @@
 
 
         // 검색 - 키 입력 이벤트
-        $('#keyword').on('keyup', function(event) {
-            console.log( event.keyCode );
+        $('#keyword').on('keyup', function (event) {
+            console.log(event.keyCode);
 
             // 엔터
-            if( event.keyCode == 13 ) {
+            if (event.keyCode == 13) {
                 initPage()
                 search()
             }
@@ -348,21 +379,21 @@
             keyword = $('#keyword').val()
 
             let data = {
-                'searchType'  : searchType,
-                'keyword'     : keyword,
-                'rows'        : rows,
-                'pageNo'        : page,
-                'pageCount'   : pageCount,
-                'order'   :order,
+                'searchType': searchType,
+                'keyword': keyword,
+                'rows': rows,
+                'pageNo': page,
+                'pageCount': pageCount,
+                'order': order,
             }
 
             const url = 'http://localhost:8080/facilityRental/pageFrList'
 
             $.ajax({
-                url     :   url,
-                type    :   'GET',
-                data    :   data,
-                success :   function(response) {
+                url: url,
+                type: 'GET',
+                data: data,
+                success: function (response) {
                     let teamList = response
 
                     displayList(teamList)
@@ -371,35 +402,37 @@
                     initPage()
 
                 },
-                error   : function(request, status, error){
-                    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error);
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+                        "error:" + error);
                 }
             })
         }
 
 
         // 순서 필터 - 변경 이벤트
-        $('#order').on('change', function() {
+        $('#order').on('change', function () {
 
             order = $(this).val()
 
             let data = {
-                searchType  : searchType,
-                keyword     : keyword,
-                rows        : rows,
-                pageNo        : page,
-                pageCount   : pageCount,
-                order       : order,
+                searchType: searchType,
+                keyword: keyword,
+                rows: rows,
+                pageNo: page,
+                pageCount: pageCount,
+                order: order,
             }
 
             const url = 'http://localhost:8080/facilityRental/pageFrList'
 
             $.ajax({
-                url     :   url,
-                type    :   'GET',
-                data    :   data,
-                success :   function(response) {
+                url: url,
+                type: 'GET',
+                data: data,
+                success: function (response) {
                     let teamList = response
 
                     displayList(teamList)
@@ -408,15 +441,15 @@
                     initPage()
 
                 },
-                error   : function(request, status, error){
-                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                error: function (request, status, error) {
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText +
+                        "\n" + "error:" + error);
                 }
             })
 
 
         })
-        
-
     </script>
 </body>
+
 </html>

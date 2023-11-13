@@ -6,26 +6,50 @@
 }
 
 .joinBody {
-    background-color: rgb(242, 242, 242);
+    /* background-color: rgb(242, 242, 242); */
+    background-image: url("../img/clubr5.jpeg");
+    background-size: cover; /* 이미지가 꽉 차도록 설정 */
+    background-position: center; /* 이미지를 가운데 정렬 */
     font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     font-size: 1.5rem;
 }
-.joinContainer {
+
+#join-container {
+    width: 1000px;
+    margin: 80px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 30px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+    /* background-repeat: no-repeat; */
+  }
+
+.join-Box {
     /* margin-left: 250px; */
     /* position: absolute; */
-    background-color: white;
-    width: 650px;
+    background-color: rgba(242, 242, 242);
+    width: 960px;
     padding: 30px 75px;
     border-radius: 20px;
     /* box-shadow: 3px 3px 10px gray; */
     /* order: 0; */
 }
 
+.auth_main_box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 10px !important;
+    min-height: 0px !important;
+    /* margin-bottom: 20px; */
+}
 .plus_flex {
     display: flex;
     justify-content: space-between;
@@ -33,7 +57,7 @@
 
 /* 중복검사 버튼 사이즈 */
 .dul_btn_size {
-    font-size: 12px;
+    font-size: 11px;
     width: 150px;
     margin-left: 10px;
 }
@@ -68,6 +92,7 @@
     padding: 15px 0 0;
     margin-top: 10px;
     width: 100%;
+    /* height: 50px; */
 }
 
 .form__field {
@@ -76,7 +101,7 @@
     border: 0;
     border-bottom: 2px solid #9b9b9b;
     outline: 0;
-    font-size: 1.3rem;
+    font-size: 1rem;
     padding: 7px 0;
     background: transparent;
     transition: border-color 0.2s;
@@ -87,7 +112,7 @@
 }
 
 .form__field:placeholder-shown~.form__label {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     cursor: text;
     top: 20px;
 }
@@ -97,7 +122,7 @@
     top: 0;
     display: block;
     transition: 0.2s;
-    font-size: 1rem;
+    font-size: 13px;
     color: #9b9b9b;
 }
 
@@ -107,7 +132,7 @@
     display: block;
     transition: 0.2s;
     font-size: 1rem;
-    color: #11998e;
+    color: #166caa;
     font-weight: 700;
     padding-bottom: 6px;
     font-weight: 700;
@@ -125,9 +150,65 @@
 
 
 #group {
+    background-color: rgba(242, 242, 242);
     padding: 0px 10px;
-    height: 48px;
+    height: 40px;
     width: 150px;
     border-radius: 5px;
-    font-size: 12px;
+    font-size: 11px;
+    text-align: center;
+}
+
+.before-img-box {
+    background-image: url("../img/defaultProfile.jpeg");
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-position: center center;     /* 이미지를 가로세로 모두 가운데로 정렬하고 싶을 떄 사용 */
+    margin: auto;
+    box-shadow: 0px 0px 15px gray;
+}
+
+.img-box{
+    display: flex;
+}
+
+.img-box > img{
+    box-sizing: 0px 0px 15px gray;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-position: center center;     /* 이미지를 가로세로 모두 가운데로 정렬하고 싶을 떄 사용 */
+    margin: auto;
+}
+
+/* 이미지 파일 선택 부분 css */
+.add_thumbnail_box {
+
+}
+
+.add_thumbnail {
+    display: flex;
+    justify-content: center;
+    margin: 40px auto;
+    width: 400px;
+}
+
+.select_btn {
+    background-color: white;
+    /* box-sizing: 0px 0px 15px gray; */
+}
+
+/* 삭제 버튼 css */
+.btn-thumb-remove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    /* background-color: red; */
+    /* color: white; */
+    font-size: 16px;
+    /* border-radius: 40px; */
 }

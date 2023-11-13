@@ -6,6 +6,7 @@
     <title>공연 게시글 읽기</title>
     <link rel="stylesheet" href="/css/read.css">
 </head>
+
 <body layout:fragment="content">
     <div class="totalContainer">
         <form action="/liveBoard/delete" method="POST" id="form">
@@ -104,7 +105,6 @@
             <div>
                 <button type="button" onclick="moveList()">목록</button>
                 <th:block sec:authorize="isAuthenticated()">
-                    
                     <button type="button" onclick="moveUpdate()" th:if="${#authentication.principal.users.username == liveBoard.username}">수정</button>
                 </th:block>
             </div>
@@ -120,7 +120,6 @@
                         <input type="hidden" id="email"  th:value="${#authentication.principal.users.email}" >
                         <input type="hidden" id="phone"  name="phone" th:value="${#authentication.principal.users.phone}" >
                         <input type="hidden" id="count"   name="count" value="0">
-                        
                         
                         <button type="button" id="btn-purchase">예매하기</button>
                     </form>
