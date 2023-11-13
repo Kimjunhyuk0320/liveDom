@@ -79,6 +79,7 @@
                                     <span th:if="${liveBoard.soldOut == 1}">매진</span>
                                 </td>
                             </tr>
+                            <th:block sec:authorize="isAuthenticated()">
                             <tr>
                                 <td>매수</td>
                                 <td>
@@ -94,7 +95,8 @@
                                     </div>
                                 </td>
                             </tr>
-
+                        </th:block>
+                            
                         </table>
                     </div>
                 </div>
