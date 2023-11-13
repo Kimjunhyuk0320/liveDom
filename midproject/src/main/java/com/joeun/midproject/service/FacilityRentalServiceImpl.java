@@ -129,9 +129,11 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
     public int update(FacilityRental facilityRental) throws Exception {
         int result = facilityRentalMapper.update(facilityRental);
         List<MultipartFile> fileList = facilityRental.getFile();
+
         String parentTable = "facility_rental";
         int parentNo = facilityRental.getFrNo();
-        if(result>0&&fileList!=null&&!fileList.isEmpty())
+
+        if(fileList!=null&&!fileList.isEmpty())
         for(MultipartFile file : fileList) {
             if(file.isEmpty()) continue;
 
@@ -172,9 +174,10 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
 
             //기존 썸네일 이미지 파일을 삭제해줘야합니다.
             //여기
-
+            log.info(uploadFile.toString());
             //file테이블에 새로운 썸네일 등록
-            fileMapper.update(uploadedFile);
+            int updateResult = fileMapper.update(uploadedFile);
+            System.out.println(updateResult);
         }
         return result;
     }

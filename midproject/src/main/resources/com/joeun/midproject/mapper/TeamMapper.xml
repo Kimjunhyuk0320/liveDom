@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
   <select id="list" resultType="Team">
-      SELECT t.*,count(a.team_no) AS recStatus FROM team_recruitments AS t LEFT JOIN team_applications AS a ON (t.team_no = a.team_no AND a.deposit_status = 1) GROUP BY t.team_no;
+      SELECT t.*,count(a.team_no) AS recStatus FROM team_recruitments AS t LEFT JOIN team_applications AS a ON (t.team_no = a.team_no AND a.deposit_status = 1) GROUP BY t.team_no ORDER BY t.upd_date DESC
   </select>
 
 
@@ -99,6 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    JOIN `confirmed_live` AS c
    ON (t.team_no = c.team_no)
    WHERE t.username = #{username}
+   ORDER BY c.upd_date DESC
 
   </select>
 

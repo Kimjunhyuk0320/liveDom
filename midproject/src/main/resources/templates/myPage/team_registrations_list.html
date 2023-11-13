@@ -21,7 +21,7 @@
       <table style="margin-bottom: 100px;">
         <thead>
           <tr>
-            <th width="80">번호</th>
+            <th width="120">모집글 번호</th>
             <th width="280">제목</th>
             <th width="120">연락처</th>
             <th width="100">신청일자</th>
@@ -36,9 +36,14 @@
         <tbody>
           <th:block th:if="${resTeamAppList != null}">
           <th:block th:each="resTeam : ${resTeamAppList}">
+            <script>
+              let readApp = function(appNo){
+                location.href = `/team/user/readApp?appNo=${appNo}`
+              }
+            </script>
             <tr th:onclick="'readApp('+${resTeam.appNo}+')'">
 
-              <td th:text="${resTeam.appNo}"></td>
+              <td th:text="${resTeam.teamNo}"></td>
               <td th:text="${resTeam.title}"></td>
               <td th:text="${resTeam.phone}"></td>
               <td th:text="${#dates.format(resTeam.updDate,'yyyy-MM-dd HH:mm:ss')}"></td>
@@ -96,12 +101,6 @@
       </div>
   </div>
   </body>
-      <script>
-
-        let readApp = function(appNo){
-          location.href = `/team/user/readApp?appNo=${appNo}`
-        }
-
-      </script>
+      
 </body>
 </html>

@@ -62,6 +62,7 @@
             <table>
                 <thead>
                     <tr>
+                        <th width="80">번호</th>
                         <th width="100">마감</th>
                         <th width="200">제목</th>
                         <th width="100">작성자</th>
@@ -452,6 +453,7 @@
 
                 let tr = `
                 <tr onclick="readEvent(${teamList[i].teamNo})">
+                    <td> ${teamList[i].teamNo}</td>
                     <td> ${teamList[i].confirmed !=0 ?'마감':'모집중'}</td>
                     <td>${teamList[i].title}</td>
                     <td>${teamList[i].writer}</td>

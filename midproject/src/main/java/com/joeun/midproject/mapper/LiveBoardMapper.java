@@ -15,6 +15,9 @@ public interface LiveBoardMapper {
     
     // 게시글 수정
     public int update(LiveBoard liveBoard) throws Exception;
+
+    // 게시글 삭제
+    public int delete(LiveBoard liveBoard) throws Exception;
     
     // 게시글 조회
     public LiveBoard select(int boardNo) throws Exception;

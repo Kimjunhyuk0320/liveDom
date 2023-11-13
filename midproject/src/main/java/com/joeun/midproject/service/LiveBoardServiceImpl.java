@@ -155,13 +155,11 @@ public class LiveBoardServiceImpl implements LiveBoardService{
             Files uploadedFile = new Files();
             uploadedFile.setParentTable(parentTable);
             uploadedFile.setParentNo(parentNo);
-            Files beforeFile = fileMapper.selectThumbnail(uploadedFile);
             uploadedFile.setFileName(fileName);
             uploadedFile.setPath(filePath);
             uploadedFile.setOriginName(originName);
             uploadedFile.setFileSize(fileSize);
             uploadedFile.setFileCode(0);
-            uploadedFile.setFileNo(beforeFile.getFileNo());
             fileMapper.update(uploadedFile);
         }
 
@@ -277,6 +275,14 @@ public class LiveBoardServiceImpl implements LiveBoardService{
         }
         return liveBoardsPageList;
 
+    }
+
+    @Override
+    public int delete(LiveBoard liveBoard) throws Exception {
+
+        int result = liveBoardMapper.delete(liveBoard);
+
+        return result;
     }
 
 

@@ -100,12 +100,17 @@
                 </div>
             </div>
         </form>
-
+        
+        <form action="/liveBoard/delete" method="POST" id="delete">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input type="hidden" name="boardNo" th:value="${liveBoard.boardNo}">
+        </form>
         <div class="bottomContainer">
             <div>
                 <button type="button" onclick="moveList()">목록</button>
                 <th:block sec:authorize="isAuthenticated()">
                     <button type="button" onclick="moveUpdate()" th:if="${#authentication.principal.users.username == liveBoard.username}">수정</button>
+                    <button type="button" onclick="deleteBoard()" th:if="${#authentication.principal.users.username == liveBoard.username && liveBoard.maxTickets == liveBoard.ticketLeft}">삭제</button>
                 </th:block>
             </div>
             <div>
@@ -835,6 +840,13 @@ function deleteCommentData(commentNo) {
                 document.querySelector("#countNum").innerText=count;
                 $("#count").val(count)
             }
+        }
+
+
+        //게시글 삭제. 2단 체크. 버튼 발생 1차, sql문 조건 2차
+        function deleteBoard(){
+            let form = $(`#delete`)
+            form.submit()
         }
 
         $(document).ready(function() {

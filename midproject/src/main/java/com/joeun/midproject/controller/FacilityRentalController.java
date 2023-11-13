@@ -171,7 +171,8 @@ public class FacilityRentalController {
      */
     @PostMapping(value="/update")
     public String updatePro(FacilityRental facilityRental) throws Exception {
-        // 데이터 처리
+      // 데이터 처리
+      log.info(facilityRental.toString());
         int result = facilityRentalService.update(facilityRental);
         int frNo = facilityRental.getFrNo();
 

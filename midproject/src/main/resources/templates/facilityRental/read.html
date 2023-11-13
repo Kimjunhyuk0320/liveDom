@@ -92,6 +92,13 @@
                                     <span th:text="${facilityRental.address}"></span>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>예약여부</td>
+                                <td>
+                                    <th:block th:if="facilityRental.confirmed==0"><span>예약완료</span></th:block>
+                                    <th:block th:if="facilityRental.confirmed==1"><span>신청가능</span></th:block>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>

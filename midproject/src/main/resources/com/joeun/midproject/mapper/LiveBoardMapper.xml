@@ -68,6 +68,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            upd_date = now()
         WHERE board_no = #{boardNo}
     </update>
+
+    <delete id="delete">
+    
+    DELETE FROM `live_board`
+    WHERE board_no = #{boardNo}
+    AND 0 = (SELECT COUNT(*) FROM `ticket_purchases` WHERE board_no = #{boardNo} AND refund = 0)
+
+    </delete>
+
+
+
     <!-- 게시글 매진으로 변경 -->
     <update id="soldOut">
         UPDATE live_board

@@ -53,14 +53,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 파일 수정 -->
     <update id="update">
         UPDATE file
-           SET parent_no = #{parentNo}
-              ,file_name = #{fileName}
+           SET file_name = #{fileName}
               ,origin_name = #{originName}
               ,path = #{path}
               ,file_size = #{fileSize}
               ,file_code = #{fileCode}
               ,upd_date = now()
-        WHERE file_no = #{fileNo}
+        WHERE parent_no = #{parentNo}
         AND parent_table = #{parentTable}
     </update>
 

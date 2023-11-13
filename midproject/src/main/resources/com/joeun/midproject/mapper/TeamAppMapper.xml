@@ -9,13 +9,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <select id="listByLeader" resultType="TeamApp">
 
-    SELECT a.* FROM `team_applications` AS a JOIN `team_recruitments` AS t ON(a.team_no = t.team_no) WHERE t.username = #{username}
+    SELECT a.* FROM `team_applications` AS a JOIN `team_recruitments` AS t ON(a.team_no = t.team_no) WHERE t.username = #{username} ORDER BY upd_date DESC
 
   </select>
 
   <select id="listByMember" resultType="TeamApp">
     
-    SELECT a.*,t.title AS teamTitle FROM `team_applications` AS a JOIN `team_recruitments` AS t ON (a.team_no = t.team_no) WHERE a.username = #{username}
+    SELECT a.*,t.title AS teamTitle FROM `team_applications` AS a JOIN `team_recruitments` AS t ON (a.team_no = t.team_no) WHERE a.username = #{username} ORDER BY upd_date DESC
 
   </select>
 
@@ -76,7 +76,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SELECT *
     FROM `team_applications`
     WHERE team_no = #{teamNo}
-    AND deposit_status = 1;
+    AND deposit_status = 1
+    ORDER BY upd_date DESC
   </select>
 
   <insert id="insertLive">

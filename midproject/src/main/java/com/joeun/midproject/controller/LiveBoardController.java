@@ -27,6 +27,8 @@ import com.joeun.midproject.mapper.FileMapper;
 import com.joeun.midproject.mapper.TeamMapper;
 import com.joeun.midproject.service.CommentService;
 import com.joeun.midproject.service.LiveBoardService;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Slf4j
@@ -176,7 +178,33 @@ public class LiveBoardController {
         
         // 뷰 페이지 지정
         return "redirect:/liveBoard/list";
+      }
+      
+      @PostMapping(value="/delete")
+      public String deletePro(LiveBoard liveBoard,Model model) throws Exception{
+     
+        int result = liveBoardService.delete(liveBoard);
+        if(result>0){
+          return "redirect:/liveBoard/list";
+          
+        }else{
+           // 데이터 요청
+           int boardNo = liveBoard.getBoardNo();
+        LiveBoard tempLiveBoard = liveBoardService.select(boardNo);     // 게시글 정보
+        int totalTicketCount = liveBoard.getMaxTickets();
+        List<Ticket> ticketList = liveBoardService.listByBoardNo(boardNo);
+        int soldTicketCount = ticketList.size();
+        int nowTicketCount = totalTicketCount - soldTicketCount;
+        liveBoard.setTicketLeft(nowTicketCount);
+ 
+        // 모델 등록
+        model.addAttribute("liveBoard", tempLiveBoard);
+          return "redirect:/liveBoard/read";
+        }
+
+        
     }
+    
 
      /**
      * 티켓 수량 비동기 조회
