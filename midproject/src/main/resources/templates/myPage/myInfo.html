@@ -197,18 +197,19 @@
             box-sizing: border-box;
             background: transparent;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 15px;
             line-height: 0;
             text-transform: upper;
             font-weight: 500;
-            color: var(--pink);
-            border: 2px solid var(--pink);
+            color: rgba(0, 0, 245, 0.5);
+            border: 2px solid rgba(0, 0, 245, 0.5);;
             border-radius: 2rem;
             transition: background 200ms, color 200ms;
         }
 
         .button__:hover {
-            background: var(--pink);
+            background: rgba(0, 0, 245, 0.5);
+            border: 2px solid white;
             color: white;
         }
 
@@ -269,10 +270,10 @@
                  <!-- 프로필 사진 쏴주기 -->
                 <th:block sec:authorize="isAuthenticated()">
                     <th:block  th:if="${#authentication.principal.users.profileNo != 0}">
-                        <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진" id="profile Img" style="width:150px; height:150px; border-radius: 100%; box-shadow: 0px 0px 15px gray;">
+                        <img th:src="|/file/img/${#authentication.principal.users.profileNo}|" alt="프로필사진" id="profile Img" style="width:100px; height:100px; border-radius: 100%; box-shadow: 0px 0px 15px gray;">
                     </th:block>
                     <th:block th:if="${#authentication.principal.users.profileNo == 0}">
-                        <img src="/img/defaultProfile.png" alt="프로필사진" id="profile Img" style="width:150px; height:150px; border-radius: 100%; box-shadow: 0px 0px 15px gray;">
+                        <img src="/img/defaultProfile.png" alt="프로필사진" id="profile Img" style="width:100px; height:100px; border-radius: 100%; box-shadow: 0px 0px 15px gray;">
                     </th:block>
                 </th:block>
             </div>
