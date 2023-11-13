@@ -160,7 +160,7 @@
 }
 
 .before-img-box {
-    background-image: url("../img/defaultProfile.jpeg");
+    background-image: url("../img/defaultProfile.png");
     width: 150px;
     height: 150px;
     object-fit: cover;
