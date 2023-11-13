@@ -113,9 +113,23 @@
                     <div class="col-sm-6 col-md-3 item">
                         <h3>About</h3>
                         <ul>
-                            <li><a href="#">마이페이지</a></li>
-                            <li><a href="#">로그인</a></li>
-                            <li><a href="#">회원가입</a></li>
+                            <th:block sec:authorize="isAuthenticated()">
+                            <li><a href="/myPage">마이페이지</a></li>
+                            <form action="/logout" method="POST" id="logoutForm">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                            </form>
+                            <script>
+                                function logout(){
+                                    let form = $(`#logoutForm`)
+                                    form.submit()
+                                }
+                            </script>
+                            <li><a href="#" onclick="logout()">로그아웃</a></li>
+                        </th:block>
+                        <th:block sec:authorize="isAnonymous()">
+                            <li><a href="/login">로그인</a></li>
+                            <li><a href="/join">회원가입</a></li>
+                        </th:block>
                         </ul>
                     </div>
                     <div class="col-md-6 item text">
@@ -147,3 +161,4 @@
     </div>
 
 </th:block>
+
