@@ -32,11 +32,14 @@
                                         </div>
                                     </div>
                                     <div class="heart">
-                                        <div class="heartInner">
-                                            <div class="heartText">
-                                                <p th:text="${team.views}"></p>
-                                            </div>
+                                        <div style="margin-top: 10px;">
+                                            <p  style="display: inline-block;">조회수 : </p>
+                                            <p th:text="${team.views}" style="display: inline-block;"></p>
                                         </div>
+                                        <!-- <div class="heartInner">
+                                            <div class="heartText">
+                                            </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <hr>

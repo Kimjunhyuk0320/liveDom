@@ -32,7 +32,12 @@
                                         </div>
                                         <div class="add_thumbnail_box">
                                             <div class="add_thumbnail">
-                                                <input type="file" id="thumbnail" class="select_btn" name="file" accept="image/*">
+                                                <!-- 파일 업로드 버튼 -->
+                                                <label for="thumbnail" class="btn-file file_upload_btn">프로필 사진 추가하기</label>
+                                                <!-- 실질적 input태그 히든으로 숨김 -->
+                                                <input type="file" id="thumbnail" class="select_btn" name="file" accept="image/*" style="display: none;">
+                                                <!-- 파일 업로드가 될 때 파일 명이 나오는 부분 -->
+                                                <input type="text" name="fileName" id="file-name" readonly>
                                                 <a href="javascript:;" class="btn btn-sm btn-thumb-remove hide">
                                                     <i class="fi fi-br-cross"></i>
                                                 </a>
@@ -411,6 +416,7 @@
         $(document).ready(function(e){
             $('.img-box').hide()            // 기본 이미지 숨김
             $('.btn-thumb-remove').hide()   // 삭제 버튼 숨김
+            $('#file-name').hide()          // 파일명이 나오는 인풋 태그를 숨김
         })
 
         // 드랍존에 이미지를 올렸을 때
@@ -447,8 +453,9 @@
                     let img = `<img src="${source}" >`
                     $('.btn-thumb-remove').show()               // 삭제 버튼 보여주기
                     $('.dropzone .img-box').show().html(img)    // 이미지 보여주기
-                    $('.before-img-box').hide()       // 기본 이미지 숨김
+                    $('.before-img-box').hide()                 // 기본 이미지 숨김
                     $('.drop-img .upload-box').hide()           // 업로드 영역 숨김
+                    $('.file_upload_btn').hide()                // 파일 업로드 버튼을 숨김
                     // 파일 데이터를 변수에 저장
                     let fileData = event.target.result;
 
@@ -472,6 +479,9 @@
             $('.dropzone .img-box').empty().hide()    // 썸네일 숨김
             $('.before-img-box').show()     // 기본 이미지 보여주기
             $('.btn-thumb-remove').hide()   // 삭제 버튼 숨김
+            $('.file_upload_btn').show()           // 파일 업로드 버튼을 보여줌
+            $('.before-img-box').show()       // 기본 이미지 숨김
+            $('#file-name').hide()                // 파일 업로드 버튼을 숨김
         })
 
         // 파일 변경 이벤트
@@ -481,16 +491,20 @@
             for (let i = 0; i < fileList.length; i++) {
                 const file = fileList[i];
 
-                let reader = new FileReader() 
+                $('#file-name').val(file.name)          // 파일명 지정
+
+                let reader = new FileReader()
 
                 // 파일 로드 시
                 reader.onload = function(event) {
                     let source =  event.target.result   // 파일 데이터
-                    let img = `<img src="${source}" >`
+                    let img = `<img src="${source}">`
                     $('.btn-thumb-remove').show()
                     $('.img-box').show().html(img)
-                    // $('.drop-img .upload-box').hide()
-                    $('.before-img-box').hide()       // 기본 이미지 숨김
+                    $('.file_upload_btn').hide()           // 파일 업로드 버튼을 숨김
+                    $('.before-img-box').hide()            // 기본 이미지 숨김
+                    $('#file-name').show()                // 파일 업로드 버튼을 숨김
+                    
                 }
                 
                 reader.readAsDataURL(file)
