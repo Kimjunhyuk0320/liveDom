@@ -114,11 +114,10 @@
         <div class="container card_list">
 
             <!-- <div class="row" id="team-data"> -->
-            <div class="d-grid " id="team-data" style="display: grid; grid-template-columns: repeat(4, auto); column-gap: 12px;">
+                <div class="row" id="team-data">
                 <!--페이지네이션 리스트-->
 
             </div>
-
         </div>
 
 
@@ -331,8 +330,8 @@
                  
                  // <div class="card col-3 card-list">
                 let tr = `
-                    <div class="card card-list" width='306px'>
-                    <a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">
+                    <div class="card col-3">
+                        <a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">
                         `
                         if(teamList[i].thumbnail!=null){
                             tr+=`

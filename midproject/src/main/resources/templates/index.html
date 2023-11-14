@@ -1,92 +1,163 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{/UI/user/layout/main_layout}">
+    layout:decorate="~{/UI/user/layout/index}">
 
 <head>
     <title>LiveDom</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-straight/css/uicons-regular-straight.css'>
+
 </head>
 
 <body layout:fragment="content">
-
-    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="img/90.jpeg" class="d-block w-100" alt="..." style="height: 600px; object-fit: cover;">
-
-            </div>
-            <div class="carousel-item">
-                <img src="img/90 (1).jpeg" class="d-block w-100" alt="..." style="height: 600px; object-fit: cover;">
-            </div>
-            <!-- <div class="carousel-item">
-                <img src="..." class="d-block w-100" alt="...">
-            </div> -->
+    
+    <section class="showcase">
+        <div class="headerCon">
+            <a href="/">
+                <img src="/img/loginWhite.png" style="margin-top: 10px; height: 50px; object-fit: cover;">
+            </a>   
+            <div class="toggle"></div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+        <!-- 동영상 -->
+        <div class="bg-video">
+            <video class="bg-video__content" autoplay muted loop>
+                <source src="/img/indexMainVideo.webm" type="video/webm" />
+                <source src="img/video.mp4" type="video/mp4" />
+            </video>
+        </div>
+        <div class="overlay"></div>
+        <div class="text_">
+            <h2>Making live shows</h2>
+            <h3>more accessible than ever before</h3>
+            <p>
+                LiveDom에 오신 것을 환영합니다. LiveDom은 클럽 대관, 공연 예약, 공연 팀 모집의 세 가지 주요 서비스를 제공하는 공간입니다. 
+                좋아하는 아티스트의 공연을 예약하고, 나만의 공연을 계획하며, 같은 꿈을 꾸는 아티스트들과 팀을 이루는 음악적 여정을 LiveDom에서 시작해보세요. <br>
+                LiveDom에서는 여러분이 공연의 주인공이 됩니다. 여러분의 라이브를 만나보세요!
+            </p>
+            <a href="/liveBoard">메인화면</a>
+        </div>
+        <ul class="social_">
+            <a href="https://www.facebook.com/" target="_blank">
+                <i class="icon ion-social-facebook"></i>
+            </a>
+            <a href="https://www.twitter.com/" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+            <a href="https://www.snapchat.com/" target="_blank">
+                <i class="icon ion-social-snapchat"></i>
+            </a>
+            <a href="https://www.instagram.com/" target="_blank">
+                <i class="icon ion-social-instagram"></i>
+            </a>
+        </ul>
+    </section>
+    <section class="section2">
+        <div class="click_for_scroll">
+            <i class="fi fi-rr-angle-down"></i>
+        </div>
+    </section>
+    <div class="menu_">
+        <ul>
+            <li><a href="#"><i class="fi fi-rr-calendar-clock"></i>   클럼대관</a></li>
+            <br>
+            <li><a href="#"><i class="fi fi-rs-music-alt"></i>   공연보기</a></li>
+            <br>
+            <li><a href="#"><i class="fi fi-rs-chart-tree"></i>   공연팀 모집</a></li>
+            <br>
+            <li><a href="#"><i class="fi fi-rr-sign-in-alt"></i>   로그인</a></li>
+            <br>
+            <li><a href="#"><i class="fi fi-rr-user-add"></i>   회원가입</a></li>
+        </ul>
     </div>
 
-    <section>
-        <div>
-            <img src="#" alt="">
-            <h1>Live Dom</h1>
-            <div>
-                <h2>우리는 좋은 소리를 만들고</h2>
-                <h2>좋은 소리는 우리는 만듭니다.</h2>
+    
+    <section class="section3" style="height: 100vh;">
+        <div class="box_scoll">
+            <!--  -->
+            <h1 style="text-align: center; color: white;">LiveDom에서!</h1>
+
+            <div class="scroller" data-speed="fast">
+            <ul class="tag-list scroller__inner">
+                <li>club</li>
+                <li>club</li>
+                <li>club</li>
+                <li>club</li>
+                <li>club</li>
+                <li>club</li>
+                <li>club</li>
+                <li>club</li>
+                <li>club</li>
+            </ul>
+            </div>
+
+            <div class="scroller" data-direction="right" data-speed="slow">
+                <div class="scroller__inner">
+                    <img src="/img/clubr1.jpeg" alt="" />
+                    <img src="/img/clubr2.jpeg" alt="" />
+                    <img src="/img/clubr3.jpeg" alt="" />
+                    <img src="/img/clubr4.jpeg" alt="" />
+                    <img src="/img/clubr1.jpeg" alt="" />
+                    <img src="/img/clubr2.jpeg" alt="" />
+                    <img src="/img/clubr3.jpeg" alt="" />
+                    <img src="/img/clubr4.jpeg" alt="" />
+                </div>
             </div>
         </div>
     </section>
 
-    <section style="background-color: black; color: white;">
-        <!-- 대충 스타일 줌 -->
-        <h1>들리시나요?</h1>
-        <div>
-            <h2>좋은 소리가 전하는 새로운 경험, 아래 버튼을 눌러 직접 들어보세요</h2>
-        </div>
-        <img src="" alt="">
-    </section>
 
-    <section>
-        <h1>좋은 소리와의 첫 만남</h1>
-        <h2>좋은 소리가 전하는 새로운 경험, 아래 버튼을 눌러 직접 들어보세요.</h2>
-        <h2>들어보지 않으면 경험할 수 없습니다.</h2>
-        <div>
-            <div>
-                <h3>클럽대관서비스</h3>
-                <img src="#" alt="">
-            </div>
-        </div>
-        <div>
-            <div>
-                <h3>공연팀 모집</h3>
-                <img src="#" alt="">
-            </div>
-        </div>
-        <div>
-            <div>
-                <h3>티켓팅</h3>
-                <img src="#" alt="">
-            </div>
-        </div>
-    </section>
 
-    <div>
-        <h1>이 부분에 상세한 내용이 들어올 예정입니다.</h1>
-    </div>
+    <script>
+        // $(document).ready(function () {
+        //     setTimeout(function () {
+        //         $(".video_detail_text").addClass("show");
+        //     }, 500);
+        // });
+
+        $(".click_for_scroll").click(function () {
+            $('html, body').animate({
+                scrollTop: $(".section3").offset().top
+            }, 0);
+        });
+
+        $(document).ready(function () {
+            $(".toggle").click(function () {
+                $(".toggle").toggleClass("active");
+                $(".showcase").toggleClass("active");
+            });
+        });
+
+
+        const scrollers = $(".scroller");
+
+
+
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        addAnimation();
+        }
+
+        function addAnimation() {
+        scrollers.each(function () {
+            $(this).attr("data-animated", true);
+
+            const scrollerInner = $(this).find(".scroller__inner");
+            const scrollerContent = Array.from(scrollerInner.children());
+
+            scrollerContent.forEach((item) => {
+            const duplicatedItem = $(item).clone(true);
+            duplicatedItem.attr("aria-hidden", true);
+            scrollerInner.append(duplicatedItem);
+            });
+        });
+        }
+
+
+    </script>
 
 </body>
 
 </html>
+
