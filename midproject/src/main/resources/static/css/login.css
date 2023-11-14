@@ -81,7 +81,7 @@
 .int-area input:valid+label {
     top: -2px;
     font-size: 13px;
-    color: #166caa;
+    color: #0c283b;
 }
 
 .btn-area {
@@ -93,7 +93,7 @@
     height: 50px;
     /* margin: 0px 10px; */
     color: #fff;
-    background: #166caa;
+    background: #082c46;
     border: none;
     border-radius: 20px;
     font-size: 20px;
@@ -108,7 +108,7 @@
 .caption a {
     margin: 0 20px;
     font-size: 15px;
-    color: blue;
+    color: #082c46;
     text-decoration: none;
 }
 
