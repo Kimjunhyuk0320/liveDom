@@ -15,7 +15,7 @@
 
     #btn-search {
       position: absolute;
-      right: 410px;
+      right: calc(50% - 300px);
       bottom: 34px;
       font-size: 15px;
     }
@@ -70,7 +70,7 @@
 
     .close-btn{
       /* position: absolute;
-      top: 27px;
+      bottom: 20px;
       right: 80px; */
       display: inline-block;
       font-size: 35px;
@@ -81,6 +81,7 @@
       opacity: 0;
       transition: opacity 0.5s ease;
       margin-left: 10px;
+      
     }
 
     .close-btn.active{
@@ -130,8 +131,8 @@
     <div class="wrapper">
       <div class="container_____">
         <div>
-          <div id="btn-search"><i class="fi fi-rs-search"></i></div>
           <input type="text" name="keyword" id="keyword" class="input" placeholder="검색어를 입력해주세요.">
+          <div id="btn-search"><i class="fi fi-rs-search"></i></div>
         </div>
         <div class="close-btn">&times;</div>
       </div>

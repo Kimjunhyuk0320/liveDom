@@ -428,7 +428,7 @@
                             <div class="sub-menu-width sub-menu-width-5"></div>
                         </li>
                     </th:block>
-                    <li class="cells menu-2">
+                    <li class="cells menu-6">
                         <a href="/moveTotalSearch">통합 겸색</a>
                         <!-- <ul class="header-row">
                             <th:block sec:authorize="isAuthenticated()">
@@ -546,6 +546,12 @@
             $('.sub-menu-bg').css('height','110px');
         });
         $('.header > .header-inner > .top-menu-bar > ul > .menu-5').mouseleave(function(){
+            $('.sub-menu-bg').css('height','');
+        });
+        $('.header > .header-inner > .top-menu-bar > ul > .menu-6').mouseenter(function(){
+            $('.sub-menu-bg').css('height','');
+        });
+        $('.header > .header-inner > .top-menu-bar > ul > .menu-6').mouseleave(function(){
             $('.sub-menu-bg').css('height','');
         });
 
