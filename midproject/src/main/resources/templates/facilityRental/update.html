@@ -189,8 +189,8 @@
             
           
             
-            let titleCheck = /^.{5,30}$/
-            msg = '제목은 5 ~ 30 글자 사이로 작성해주십시오.'
+            let titleCheck = /^.{3,40}$/
+            msg = '제목은 3 ~ 40 글자 사이로 작성해주십시오.'
             if( !check(titleCheck, title, msg) ) return false
             
             
@@ -198,7 +198,7 @@
             msg = '주소는 5 ~ 20 글자 사이로 작성해주십시오.'
             if( !check(addressCheck, address, msg) ) return false
 
-            let account2Check = /^[0-9]{3}-[0-9]{2}-[0-9]{5}$/
+            let account2Check = /^.{10,20}$/
             msg = '계좌번호는 알맞은 형태로 작성해주십시오..'
             if( !check(account2Check, account2, msg) ) return false
 
