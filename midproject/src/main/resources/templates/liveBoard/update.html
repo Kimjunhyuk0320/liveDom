@@ -147,6 +147,16 @@
 
     <script>
 
+         function check(regExp, element, msg) {
+            if( regExp.test(element.value)) {			
+                return true
+            }
+            alert(msg)
+            element.select()
+            element.focus()
+            return false
+        }
+
         let form = document.getElementById('form')
 
         // 목록으로 이동
@@ -156,6 +166,22 @@
 
         // 수정하기
         function actionUpdate() {
+            let price = form.price
+            let maxTickets = form.maxTickets
+            let msg = ''
+            
+          
+            
+            let priceCheck = /^\d{1,}$/
+            msg = '티켓의 가격은 1글자 이상의 숫자로 입력해주세요'
+            if( !check(priceCheck, price, msg) ) return false
+            
+            
+            let maxTicketsCheck = /^\d{1,}$/
+            msg = '발행할 티켓 수는 1글자 이상의 숫자로 입력해주세요'
+            if( !check(maxTicketsCheck, maxTickets, msg) ) return false
+
+
            form.submit()
         }
 
