@@ -175,7 +175,12 @@
     </div>
     <script>
 
-        
+        let form = $(`#form`)
+        let title = $(`#title`)
+        let address = $(`#address`)
+        let account2 = $(`#account2`)
+        let price = $(`#price`)
+        let msg = ''
         
         var toolbar = [
         // 글꼴 설정
@@ -250,12 +255,8 @@
         }
                                     // 수정하기
                                     function actionUpdate() {
-                                    let form = $(`#form`)
-                                    let title = $(`#title`)
-                                    let address = $(`#address`)
-                                    let account2 = $(`#account2`)
-                                    let price = $(`#price`)
-                                    let msg = ''
+                                    
+                                    
                                     
                                 
                                     
@@ -277,7 +278,7 @@
                                     if( !check(priceCheck, priceCheck, msg) ) return false
 
 
-                                form.submit()
+                                form.submit
                                 }
 
                                 function check(regExp, element, msg) {

@@ -118,18 +118,21 @@
             <div>
                 <!-- 티켓 구매 버튼 -->
                 <th:block sec:authorize="isAuthenticated()">
-                    <form action="/liveBoard/purchase" method="POST" id="purchase">
-                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="_csrf" />
-                        <input type="hidden" id="boardNo" name="boardNo" th:value="${liveBoard.boardNo}">
-                        <input type="hidden" id="title" th:value="${liveBoard.title}">
-                        <input type="hidden" id="price" th:value="${liveBoard.price}">
-                        <input type="hidden" id="name" name="name" th:value="${#authentication.principal.users.name}" >
-                        <input type="hidden" id="email"  th:value="${#authentication.principal.users.email}" >
-                        <input type="hidden" id="phone"  name="phone" th:value="${#authentication.principal.users.phone}" >
-                        <input type="hidden" id="count"   name="count" value="0">
-                        
-                        <button type="button" id="btn-purchase">예매하기</button>
-                    </form>
+                    <div th:if= "${#authentication.principal.users.username != liveBoard.username}">
+
+                        <form action="/liveBoard/purchase" method="POST" id="purchase">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" id="_csrf" />
+                            <input type="hidden" id="boardNo" name="boardNo" th:value="${liveBoard.boardNo}">
+                            <input type="hidden" id="title" th:value="${liveBoard.title}">
+                            <input type="hidden" id="price" th:value="${liveBoard.price}">
+                            <input type="hidden" id="name" name="name" th:value="${#authentication.principal.users.name}" >
+                            <input type="hidden" id="email"  th:value="${#authentication.principal.users.email}" >
+                            <input type="hidden" id="phone"  name="phone" th:value="${#authentication.principal.users.phone}" >
+                            <input type="hidden" id="count"   name="count" value="0">
+                            
+                            <button type="button" id="btn-purchase">예매하기</button>
+                        </form>
+                    </div>
                 </th:block>
             </div>
         </div>
