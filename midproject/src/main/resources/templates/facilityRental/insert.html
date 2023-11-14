@@ -132,7 +132,7 @@
                     <tr>
                         <td>장소</td>
                         <td>
-                            <input type="text" name="address">
+                            <input type="text" name="address" id="address">
                         </td>
                     </tr>
                     <tr>
@@ -207,9 +207,9 @@
             msg = '계좌번호는 알맞은 형태로 작성해주십시오.'
             if( !check(account2Check, account2, msg) ) return false
 
-            let priceCheck = /^d{1,8}$/
+            let priceCheck = /^\d{1,8}$/
             msg = '가격은 8자릿수 안의 정수로 입력해주십시오'
-            if( !check(priceCheckCheck, priceCheck, msg) ) return false
+            if( !check(priceCheck, price, msg) ) return false
 
 
            form.submit()

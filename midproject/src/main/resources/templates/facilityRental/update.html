@@ -53,13 +53,13 @@
                     <tr>
                         <td>제목</td>
                         <td>
-                            <input type="text" name="title" th:value="${facilityRental.title}">
+                            <input type="text" name="title" th:value="${facilityRental.title}" id="title">
                         </td>
                     </tr>
                     <tr>
                         <td>가격</td>
                         <td>
-                            <input type="text" name="price" th:value="${facilityRental.price}">
+                            <input type="text" name="price" th:value="${facilityRental.price}" id="price">
                         </td>
                     </tr>
                     <tr>
@@ -92,7 +92,7 @@
                                 <option value="신협중앙회" th:selected="${facilityRental.account1=='신협중앙회'}">신협중앙회</option>
                                 <option value="우체국" th:selected="${facilityRental.account1=='우체국'}">우체국</option>
                             </select>
-                            <input type="text" name="account2" th:value="${facilityRental.account2}">
+                            <input type="text" name="account2" th:value="${facilityRental.account2}" id="account2">
                         </td>
                     </tr>
                     <tr>
@@ -122,7 +122,7 @@
                     <tr>
                         <td>장소</td>
                         <td>
-                            <input type="text" name="address" th:value="${facilityRental.address}">
+                            <input type="text" name="address" th:value="${facilityRental.address}" id="address">
                         </td>
                     </tr>
                     <!-- 이미지 추가에 대한 것 -->
@@ -202,9 +202,9 @@
             msg = '계좌번호는 알맞은 형태로 작성해주십시오..'
             if( !check(account2Check, account2, msg) ) return false
 
-            let priceCheck = /^d{1,8}$/
+            let priceCheck = /^\d{1,8}$/
             msg = '가격은 8자릿수 안의 정수로 입력해주십시오'
-            if( !check(priceCheckCheck, priceCheck, msg) ) return false
+            if( !check(priceCheck, price, msg) ) return false
 
 
            form.submit()
