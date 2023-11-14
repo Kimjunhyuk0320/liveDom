@@ -6,6 +6,33 @@
 <head>
     <title>공연 팀 모집 게시글 작성</title>
     <link rel="stylesheet" href="/css/insert.css">
+    <style>
+        .bottomSubmit {
+            text-align: center;
+        }
+
+        .centered-buttons {
+            display: inline-block;
+        }
+
+        .centered-buttons button {
+            margin: 0 10px;
+            background-color: rgb(41, 43, 50);
+            width: 200px;
+            height: 50px;
+            color: white;
+            transition: background-color 0.3s, opacity 0.3s;
+        }
+
+        .centered-buttons button:hover {
+            margin: 0 10px;
+            scale: 103%;
+            background-color: rgb(58, 59, 63);
+            width: 200px;
+            height: 50px;
+            color: white;
+        }
+    </style>
 </head>
 <body layout:fragment="content">
 
@@ -134,9 +161,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
-                            <div class="submitDiv" id="submitId">
-
+                        <td colspan="2" class="bottomSubmit">
+                            <div class="centered-buttons">
                                 <button type="button" onclick="actionUpdate()">등록</button>
                             </div>
                         </td>
