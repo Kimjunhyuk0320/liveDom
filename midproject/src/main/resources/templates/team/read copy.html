@@ -478,27 +478,30 @@
 
             })
 
-            // 삭제 이벤트
-            $('.btn-comment-delete').on('click', function () {
-                let commentNo = $(this).attr('data')
-    
-                Swal.fire({
-                    title: '정말로 삭제하시겠습니까?',
-                    text: "삭제하면 되돌릴 수 없습니다!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: '예',
-                    cancelButtonText: '아니오',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        deleteCommentData(commentNo)
-                    }
-                })
-            })
+
         }
 
+        $('.btn-comment-delete').on('click', function () {
+            let commentNo = $(this).attr('data')
+
+            alert('삭제')
+
+
+            Swal.fire({
+                title: '정말로 삭제하시겠습니까?',
+                text: "삭제하면 되돌릴 수 없습니다!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '예',
+                cancelButtonText: '아니오',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteCommentData(commentNo)
+                }
+            })
+        })
 
         function deleteCommentData(commentNo) {
 

@@ -429,14 +429,14 @@ $('.btn-comment-update').on('click', function() {
     let editBox 
     = `<div class="top">
             <div class="item">
-                <input type="text" id="input-update-writer" value="${writer}" />
+                <h2 class="comment-writer">${writer}</h2>
             </div>
             <div class="item">
                 
             </div>
         </div>
         <div class="bottom">
-            <textarea id="input-update-content" cols="40" rows="5">${content}</textarea>
+            <textarea id="input-update-content" cols="40" rows="1">${content}</textarea>
             <div class="etc-box">
                 <a href="javascript:;" class="btn btn-sm" id="btn-comment-update" data="${commentNo}">수정</a>
                 <a href="javascript:;" class="btn btn-sm" id="btn-comment-cancel">취소</a>
@@ -458,10 +458,10 @@ $('.btn-comment-update').on('click', function() {
     $('#btn-comment-update').on('click', function() {
 
         let url = 'http://localhost:8080/facilityRental/commentUpdate'
-
+        let writer = $(`#comment-writer`).val()
         let data = {
             commentNo   : commentNo,
-            writer      : $('#input-update-writer').val(),
+            writer: writer,
             content     : $('#input-update-content').val(),
         }
 
@@ -504,10 +504,10 @@ if (event.keyCode == 13) {
 
 
     let url = 'http://localhost:8080/team/commentUpdate'
-
+    let writer = $(`#comment-writer`).val()
     let data = {
         commentNo: commentNo,
-        writer: $('#input-update-writer').val(),
+        writer: writer,
         content: $('#input-update-content').val(),
     }
 

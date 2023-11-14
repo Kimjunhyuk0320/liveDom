@@ -283,6 +283,17 @@ th {
     outline: none;
 }
 
+#input-update-content {
+    margin-left: 10px;
+    overflow: hidden;
+    width: 1090px;
+    border: none;
+    background-color: rgb(248, 249, 250);
+    border-bottom: 1px solid black;
+    resize: none;
+    outline: none;
+}
+
 .btn-box-can {
     display: inline;
     float: right;
