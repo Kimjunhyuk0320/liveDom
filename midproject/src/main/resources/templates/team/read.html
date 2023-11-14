@@ -25,14 +25,14 @@
                             <td colspan="2">
                                 <div class="titleBox">
                                     <div>
-                                        <h1 th:text="${team.title}"></h1>
+                                        <h1  th:text="${team.title}" style="width: 1000px;"></h1>
                                         <div>
                                             <p style="display: inline-block;">업로드 시각 : </p>
                                             <p style="display: inline-block;" th:text="${#dates.format(team.updDate,'yyyy년 MM월 dd일 HH시 mm분')}"></p>
                                         </div>
                                     </div>
                                     <div class="heart">
-                                        <div style="margin-top: 10px;">
+                                        <div style="margin-top: 10px; width: 100px;">
                                             <p  style="display: inline-block;">조회수 : </p>
                                             <p th:text="${team.views}" style="display: inline-block;"></p>
                                         </div>
@@ -54,7 +54,7 @@
                             <td ></td>
                         </tr> -->
                         <tr>
-                            <td>작성자</td>
+                            <td style="width: 30%;">작성자</td>
                             <td th:text="${team.writer}"></td>
                         </tr>
                         <tr>
