@@ -4,70 +4,76 @@
 
 <head>
   <title>팀 참가신청서 조회</title>
-  <link rel="stylesheet" href="/css/teamlist.css">
+  <link rel="stylesheet" href="/css/read.css">
 </head>
 
 <body layout:fragment="content">
-  <!-- <div id="topContent"> -->
-  <h1>참가신청서</h1>
-  <!-- </div> -->
 
-  <h2 th:text="${teamApp.title}"></h2>
+  <div class="totalContainer" style="margin-top: 100px;">
 
-  <div id="teamListContainer">
-    <div class="tableContainer">
-      <table style="margin-bottom: 100px;">
-        <tr>
-          <td>밴드명</td>
-          <td th:text="${teamApp.bandName}"></td>
-        </tr>
-        <tr>
-          <td>연락처</td>
-          <td th:text="${teamApp.phone}"></td>
-        </tr>
-        <tr>
-          <td>아이디</td>
-          <td th:text="${teamApp.username}"></td>
-        </tr>
-        <tr>
-          <td>승인상태</td>
-          <th:block th:if="${teamApp.approvalStatus==0}">
-            <td>미확인</td>
-          </th:block>
-          <th:block th:if="${teamApp.approvalStatus==1}">
-            <td>승인</td>
-          </th:block>
-          <th:block th:if="${teamApp.approvalStatus==2}">
-            <td>거절</td>
-          </th:block>
-        </tr>
-        <tr>
-          <td>입금여부</td>
-          <th:block th:if="${teamApp.depositStatus==0}">
-            <td>미입금</td>
-          </th:block>
-          <th:block th:if="${teamApp.depositStatus==1}">
-            <td>입금확정</td>
-          </th:block>
-        </tr>
-        <tr>
-          <td>신청일자</td>
-          <td th:text="${#dates.format(teamApp.updDate,'yyyy-MM-dd HH:mm:ss')}"></td>
-                </tr>
-            </table>
-          </div>
-        </div>
-    <div>
-
-      <a href="/team/user/listByLeader">신청리스트로 돌아가기</a>
-
-    </div>
-
-    <div style="background-color: darkgrey; width: 500px; height: 800px;">
-        <p th:text="${teamApp.content}">
-
-        </p>
+    <div class="contentContainer">
+      <div class="tableContainer">
+        <table style="margin-bottom: 100px;">
+          <tr>
+            <td colspan="2">
+              <div class="titleBox">
+                <div>
+                  <h1  th:text="${teamApp.title}" style="width: 1000px;"></h1>
+                  <div>
+                      <p style="display: inline-block;">신청 날짜 : </p>
+                      <p style="display: inline-block;" th:text="${#dates.format(teamApp.updDate,'yyyy-MM-dd HH:mm:ss')}"></p>
+                  </div>
+                </div>
+              </div>
+              <hr>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 30%;">밴드명</td>
+            <td th:text="${teamApp.bandName}"></td>
+          </tr>
+          <tr>
+            <td>연락처</td>
+            <td th:text="${teamApp.phone}"></td>
+          </tr>
+          <tr>
+            <td>아이디</td>
+            <td th:text="${teamApp.username}"></td>
+          </tr>
+          <tr>
+            <td>승인상태</td>
+            <th:block th:if="${teamApp.approvalStatus==0}">
+              <td>미확인</td>
+            </th:block>
+            <th:block th:if="${teamApp.approvalStatus==1}">
+              <td>승인</td>
+            </th:block>
+            <th:block th:if="${teamApp.approvalStatus==2}">
+              <td>거절</td>
+            </th:block>
+          </tr>
+          <tr>
+            <td>입금여부</td>
+            <th:block th:if="${teamApp.depositStatus==0}">
+              <td>미입금</td>
+            </th:block>
+            <th:block th:if="${teamApp.depositStatus==1}">
+              <td>입금확정</td>
+            </th:block>
+          </tr>
+        </table>
+      </div>
+      <div class="textContainer">
+        <p th:utext="${teamApp.content}"></p>
+      </div>
     </div>
     
+    
+    <div class="bottomContainer">
+      <div>
+        <a href="/team/user/listByLeader"><button type="button" style="width: 300px;">신청리스트로 돌아가기</button></a>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
