@@ -175,11 +175,11 @@
     </div>
     <script>
 
-        let form = $(`#form`)
-        let title = $(`#title`)
-        let address = $(`#address`)
-        let account2 = $(`#account2`)
-        let price = $(`#price`)
+        let form = $('#form')
+        let title = $('#title')
+        let address = $('#address')
+        let account2 = $('#account2')
+        let price = $('#price')
         let msg = ''
         
         var toolbar = [
@@ -225,6 +225,7 @@
     $('#content').summernote(setting)
     let _csrf_name = $('#_csrf').attr('name')
     let _csrf_value = $('#_csrf').val()  
+
       // 에디터 파일 업로드
       function uploadImage(file, element) {
             const fileUrl = 'http://localhost:8080/file'
@@ -253,15 +254,12 @@
                 
             })
         }
+
                                     // 수정하기
                                     function actionUpdate() {
                                     
-                                    
-                                    
-                                
-                                    
                                     let titleCheck = /^.{3,40}$/
-                                    msg = '제목은 3 ~ 30 글자 사이로 작성해주십시오.'
+                                    msg = '제목은 3 ~ 40 글자 사이로 작성해주십시오.'
                                     if(!check(titleCheck,title,msg)) return false
                                     
                                     
@@ -275,10 +273,11 @@
 
                                     let priceCheck = /^\d{1,8}$/
                                     msg = '가격은 8자릿수 안의 정수로 입력해주십시오'
-                                    if( !check(priceCheck, priceCheck, msg) ) return false
+                                    if( !check(priceCheck, price, msg) ) return false
 
 
-                                form.submit
+                                $('#form').submit()
+
                                 }
 
                                 function check(regExp, element, msg) {
