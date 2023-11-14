@@ -1,10 +1,74 @@
-<div class="container card_list" style="border: 2px solid gray;">
+<style>
+    /* 공통 css 외에 들어가는 css */
+    #topContent h1 {
+        display: inline-block;
+    }
+
+
+    #liveContainer card-list{
+        
+    }
+
+</style>
+
+<div id="topContent">
+    <div>
+        <a href="/facilityRental/list"><h1>클럽 대관 목록</h1></a>
+        <p>클럽 대관 목록 검색 결과입니다.</p>
+        <hr>
+    </div>
+</div>
+
+<div class="container card_list" >
+    <div class="row" id="frContainer">
+        <th:block th:each="fr : ${frList}">
+
+        <div class="card col-3 card-list">
+            <th:block th:if="${fr.thumbnail != null}">
+            <a th:href="|/facilityRental/read?frNo=${fr.frNo}|">
+
+
+                        <img th:src="|/file/img/${fr.thumbnail.fileNo}|" id="card-img">
+                        
+                    </a>
+                </th:block>
+                <div class="card-body">
+                    <h5 class="card-title"><a th:href="|/facilityRental/read?frNo=${fr.frNo}|" th:text="${fr.title}"></a></h5>
+                    <p class="card-text" th:text="${fr.writer}"></p>
+                    <p class="card-text" th:text="${fr.location}"></p>
+                    <p class="card-text" th:text="${fr.price}"></p>
+                    <p class="card-text card-text-date" th:text="${fr.liveDate}"></p>
+                    <th:block th:if="${fr.confirmed==1}">
+                        <p class="card-text" style="background-color: red;"></p>                       
+                    </th:block>
+                </div>
+            </div>
+        </th:block>
+        <th:block th:if="${frList.isEmpty()}">
+            <div class="card-body">
+                <h5 class="card-title">조회된 데이터가 없습니다.</h5>
+             </div>
+        </th:block>
+    </div>
+    <!-- <a href="/facilityRental/list" class="btn btn-primary">전체보기</a> -->
+</div>
+
+
+<div id="topContent">
+    <div>
+        <a href="/liveBoard/list"><h1>공연 게시글 목록</h1></a>
+        <p>공연 게시글 목록 검색 결과입니다.</p>
+        <hr>
+    </div>
+</div>
+
+<div class="container card_list">
 
     <div class="row" id="liveContainer">
 
         <th:block th:each="live : ${liveList}">
 
-        <div class="card card-list" width='306px'>
+        <div class="card col-3 card-list">
             <th:block th:if="${live.thumbnail != null}">
                     <a th:href="|/liveBoard/read?boardNo=${live.boardNo}|">
                         <img th:src="|/file/img/${live.thumbnail.fileNo}|" id="card-img">
@@ -39,51 +103,19 @@
         
     </div>
     
-    <a href="/liveBoard/list" class="btn btn-primary">전체보기</a>
+    <!-- <a href="/liveBoard/list" class="btn btn-primary">전체보기</a> -->
 </div>
 
-<br>
-<br>
 
-<div class="container card_list" style="border: 2px solid gray;">
-    <div class="row" id="frContainer">
-        <th:block th:each="fr : ${frList}">
-
-        <div class="card col-3 card-list">
-            <th:block th:if="${fr.thumbnail != null}">
-            <a th:href="|/facilityRental/read?frNo=${fr.frNo}|">
-
-
-                        <img th:src="|/file/img/${fr.thumbnail.fileNo}|" id="card-img">
-                        
-                    </a>
-                </th:block>
-                <div class="card-body">
-                    <h5 class="card-title"><a th:href="|/facilityRental/read?frNo=${fr.frNo}|" th:text="${fr.title}"></a></h5>
-                    <p class="card-text" th:text="${fr.writer}"></p>
-                    <p class="card-text" th:text="${fr.location}"></p>
-                    <p class="card-text" th:text="${fr.price}"></p>
-                    <p class="card-text card-text-date" th:text="${fr.liveDate}"></p>
-                    <th:block th:if="${fr.confirmed==1}">
-                        <p class="card-text" style="background-color: red;"></p>                       
-                    </th:block>
-                </div>
-            </div>
-        </th:block>
-        <th:block th:if="${frList.isEmpty()}">
-            <div class="card-body">
-                <h5 class="card-title">조회된 데이터가 없습니다.</h5>
-             </div>
-        </th:block>
+<div id="topContent">
+    <div>
+        <a href="/team"><h1>공연팀 모집</h1></a>
+        <p>공연팀 모집 검색 결과입니다.</p>
+        <hr>
     </div>
-    <a href="/facilityRental/list" class="btn btn-primary">전체보기</a>
 </div>
 
-
-<br>
-<br>
-
-<div class="teamContainer" style="border: 2px solid gray;">
+<div class="teamContainer" style="margin-bottom: 300px;">
   <table>
       <thead>
           <tr>
@@ -123,7 +155,7 @@
     
     
     
-    <a href="/team" class="btn btn-primary">전체보기</a>
+    <!-- <a href="/team" class="btn btn-primary">전체보기</a> -->
 </div>
 <script>
 

@@ -347,12 +347,12 @@ th {
 }
 
 #red-btn {
-    background-color: red;
+    background-color: rgba(255, 0, 0, 0.551);
     margin-right: auto;
 }
 
 #blue-btn {
-    background-color: blue;
+    background-color: rgba(0, 0, 255, 0.525);
     /* margin-right: auto; */
 }
 

@@ -158,3 +158,10 @@ tbody {
     width: 450px;
     color: white;
 }
+
+.img-box > img{
+    width: 306px;
+    height: 390px;
+    object-fit: cover;
+    border-radius: 15px;
+}

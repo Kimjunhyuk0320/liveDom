@@ -235,6 +235,13 @@
 
         let fileList = null
 
+        // 화면이 가장 처음 열릴 때 바뀌게 될 이미지 박스를 숨김
+            $(document).ready(function(e){
+            $('.img-box').hide()            // 기본 이미지 숨김
+            $('.btn-thumb-remove').hide()   // 삭제 버튼 숨김
+            // $('#file-name').hide()          // 파일명이 나오는 인풋 태그를 숨김
+        })
+
         // 드랍존에 이미지를 올렸을 때
         $('.dropzone').on('dragover', function(e) {
             e.preventDefault() // 이벤트의 기본 액션 방지
