@@ -225,9 +225,9 @@ public class FacilityRentalController {
         // 데이터 처리
         int result = facilityRentalService.reservation(bookingRequests);
         // 게시글 쓰기 실패 ➡ 게시글 쓰기 화면
-        if(result == 0) return "facilityRental/list";
+        if(result == 0) return "redirect:/facilityRental/list";
         // 뷰 페이지 지정
-        return "redirect:/facilityRental/list";
+        return "redirect:/facilityRental/user/reqList";
     }
 
     @GetMapping(value = "/complete")
