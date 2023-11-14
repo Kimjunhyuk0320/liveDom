@@ -9,7 +9,7 @@
         href='https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-straight/css/uicons-regular-straight.css'>
-
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 </head>
 
 <body layout:fragment="content">
@@ -59,6 +59,9 @@
                 <i class="fi fi-rr-angle-down"></i>
             </div>
             <div class="menu_">
+                <form action="/logout" method="POST" id="logoutForm">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                </form>
                 <ul>
                     <li><a href="/facilityRental/list"><i class="fi fi-rr-calendar-clock"></i>   클럽대관</a></li>
                     <br>
@@ -66,12 +69,16 @@
                     <br>
                     <li><a href="/team"><i class="fi fi-rs-chart-tree"></i>   공연팀 모집</a></li>
                     <br>
-                    <li><a href="/login"><i class="fi fi-rr-sign-in-alt"></i>   로그인</a></li>
-                    <br>
-                    <li><a href="/join"><i class="fi fi-rr-user-add"></i>   회원가입</a></li>
-
-                    <br>
-                    <li><a href="/myPage"><i class="fi fi-rr-sign-in-alt"></i>   마이페이지</a></li>
+                    <th:block sec:authorize="isAnonymous()">
+                        <li><a href="/join"><i class="fi fi-rr-user-add"></i>   회원가입</a></li>
+                        <br>
+                        <li><a href="/login"><i class="fi fi-rr-sign-in-alt"></i>   로그인</a></li>
+                    </th:block>
+                    <th:block sec:authorize="isAuthenticated()">
+                        <li><a href="/myPage"><i class="fi fi-rr-sign-in-alt"></i>   마이페이지</a></li>
+                        <br>
+                        <li><a a href="#" onclick="logOut()"><i class="fi fi-rr-sign-out-alt"></i>   로그아웃</a></li>
+                    </th:block>
                 </ul>
             </div>
             <section class="section1" style="height: 100vh; background-color: black;">
@@ -273,7 +280,11 @@
             });
         });
         }
-        
+
+        function logOut(){
+            let form = $('#logoutForm')
+            form.submit()
+        }
 
 
     </script>
