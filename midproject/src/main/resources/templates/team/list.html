@@ -291,7 +291,7 @@
                 'keyword': keyword,
             }
 
-            const url = 'http://localhost:8080/team/pageInfo'
+            const url = '/team/pageInfo'
 
             $.ajax({
                 url: url,
@@ -369,7 +369,7 @@
 
         // 게시글 목록 - 페이징
         function getPageList() {
-            const url = 'http://localhost:8080/team/pageList'
+            const url = '/team/pageList'
 
             let data = {
                 'pageNo': page,
@@ -400,7 +400,7 @@
 
         // [컴포넌트] 게시글 목록 - 페이징
         function getComponentList() {
-            const url = 'http://localhost:8080/team/component/list'
+            const url = '/team/component/list'
 
             // let data = {
             //     'pageNo': page,
@@ -519,7 +519,7 @@
                 'order': order,
             }
 
-            const url = 'http://localhost:8080/team/pageList'
+            const url = '/team/pageList'
 
             $.ajax({
                 url: url,
@@ -558,7 +558,7 @@
                 order: order,
             }
 
-            const url = 'http://localhost:8080/team/pageList'
+            const url = '/team/pageList'
 
             $.ajax({
                 url: url,

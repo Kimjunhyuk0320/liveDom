@@ -180,7 +180,7 @@
 
         function getCommentList() {
 
-            const url = 'http://localhost:8080/team/commentList'
+            const url = '/team/commentList'
 
             let data = {
                 'parentNo': boardNo
@@ -297,7 +297,7 @@
 
         function insertComment(writer, content) {
 
-            const url = 'http://localhost:8080/team/commentInsert'
+            const url = '/team/commentInsert'
 
             let data = {
                 'parentNo': boardNo,
@@ -391,7 +391,7 @@
 
                 $('#btn-comment-update').on('click', function () {
 
-                    let url = 'http://localhost:8080/team/commentUpdate'
+                    let url = '/team/commentUpdate'
 
                     let writer = $(`#comment-writer`).val()
 
@@ -435,7 +435,7 @@
 
 
 
-                            let url = 'http://localhost:8080/team/commentUpdate'
+                            let url = '/team/commentUpdate'
                             let writer = $(`#comment-writer`).val()
                             let data = {
                                 commentNo: commentNo,
@@ -503,7 +503,7 @@
         function deleteCommentData(commentNo) {
 
 
-            let url = 'http://localhost:8080/team/commentDelete'
+            let url = '/team/commentDelete'
             let data = {
                 commentNo: commentNo,
             }

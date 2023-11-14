@@ -50,7 +50,7 @@
 
         // 게시글 목록
         function getList() {
-            const url = 'http://localhost:8080/listByPhone'
+            const url = '/listByPhone'
             let phone = $('#phone').val()
             let data = {
                 'phone' : phone
@@ -83,7 +83,7 @@
                     for(let i = 0 ; i < ticketList.length ; i++ ){
                         const reservationNo = ticketList[i].reservationNo
                         const boardNo = ticketList[i].boardNo
-                        const title = `<a href='http://localhost:8080/liveBoard/read?boardNo=${boardNo}'>${ticketList[i].title}</a>`
+                        const title = `<a href='/liveBoard/read?boardNo=${boardNo}'>${ticketList[i].title}</a>`
 
                         const liveDate = ticketList[i].liveDate
                        

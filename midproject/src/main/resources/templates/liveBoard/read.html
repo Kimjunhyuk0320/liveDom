@@ -207,7 +207,7 @@ getCommentList()
 // 댓글 목록 조회
 function getCommentList() {
 
-const url = 'http://localhost:8080/liveBoard/commentList'
+const url = '/liveBoard/commentList'
 
 let data = {
     'parentNo' : boardNo
@@ -324,7 +324,7 @@ $('#comment-content').on('keyup', function (event) {
 // 댓글 등록
 function insertComment( writer, content ) {
 
-const url = 'http://localhost:8080/liveBoard/commentInsert'
+const url = '/liveBoard/commentInsert'
 
 let data = {
     'parentNo'   : boardNo,
@@ -431,7 +431,7 @@ $('.btn-comment-update').on('click', function() {
     // 댓글 [수정] 수정 버튼 클릭
     $('#btn-comment-update').on('click', function() {
 
-        let url = 'http://localhost:8080/liveBoard/commentUpdate'
+        let url = '/liveBoard/commentUpdate'
         let writer = $(`#comment-writer`).val()
         let data = {
             commentNo   : commentNo,
@@ -477,7 +477,7 @@ if (event.keyCode == 13) {
 
 
 
-    let url = 'http://localhost:8080/team/commentUpdate'
+    let url = '/team/commentUpdate'
     let writer = $(`#comment-writer`).val()
     let data = {
         commentNo: commentNo,
@@ -547,7 +547,7 @@ $('.btn-comment-delete').on('click', function() {
 function deleteCommentData(commentNo) {
 
     
-    let url = 'http://localhost:8080/liveBoard/commentDelete'
+    let url = '/liveBoard/commentDelete'
     let data = {
         commentNo   : commentNo,
     }
@@ -617,7 +617,7 @@ function deleteCommentData(commentNo) {
             formData.append('count', count)
             
 
-            let url = 'http://localhost:8080/liveBoard/ticketNum'
+            let url = '/liveBoard/ticketNum'
             $.ajax({
                 url             :   url,
                 type            :   'POST',
@@ -687,7 +687,7 @@ function deleteCommentData(commentNo) {
                                     formData.append('count', count)
                                     
 
-                                    let url = 'http://localhost:8080/liveBoard/purchase'
+                                    let url = '/liveBoard/purchase'
                                     $.ajax({
                                         url             :   url,
                                         type            :   'POST',
@@ -791,7 +791,7 @@ function deleteCommentData(commentNo) {
             formData.append('count', count)
             
 
-            let url = 'http://localhost:8080/liveBoard/ticketNum'
+            let url = '/liveBoard/ticketNum'
             $.ajax({
                 url             :   url,
                 type            :   'POST',
