@@ -11,11 +11,8 @@
 
     <div class="totalContainer">
 
-        <th:block th:if="${team.confirmed == 1}">
+        
 
-            <h2>(모집종료)</h2>
-
-        </th:block>
         <div class="topContentContainer">
 
             <div class="contentContainer">
@@ -79,7 +76,12 @@
                         </tr>
                         <tr>
                             <td>팀 모집 현황</td>
+                            <th:block th:if="${team.confirmed == 0}">
                             <td th:text="${team.recStatus} +'/'+${team.capacity}"></td>
+                            </th:block>
+                            <th:block th:if="${team.confirmed == 1}">
+                                <td><b>(모집종료)</b></td>
+                            </th:block>
                         </tr>
                     </table>
                 </div>

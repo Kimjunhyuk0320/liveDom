@@ -46,9 +46,16 @@
                 </div>
                 <div class="location">
                     <i class="fas fa-map-marker-alt"></i>
-                    <p style="display: inline-block;">회원님은</p>
-                    <p th:text="${#authentication.principal.users.auth}"  style="display: inline-block;"></p>
-                    <p style="display: inline-block;">이십니다.</p>
+                    <th:block th:if="${#authentication.principal.users.auth == 'ROLE_BAND'}">
+                    <p style="display: inline-block;">회원님은 『밴드』 회원이십니다.</p>
+                    </th:block>
+                    <th:block th:if="${#authentication.principal.users.auth == 'ROLE_CLUB'}">
+                    <p style="display: inline-block;">회원님은 『클럽』 회원이십니다.</p>
+                    </th:block>
+                    <th:block th:if="${#authentication.principal.users.auth == 'ROLE_USER'}">
+                    <p style="display: inline-block;">회원님은 『일반』 회원이십니다.</p>
+                    </th:block>
+
                 </div>
 
                 <div class="row__">
