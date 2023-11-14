@@ -13,59 +13,84 @@
 </head>
 
 <body layout:fragment="content">
-    
-    <section class="showcase">
-        <div class="headerCon">
-            <a href="/">
-                <img src="/img/loginWhite.png" style="margin-top: 10px; height: 50px; object-fit: cover;">
-            </a>   
-            <div class="toggle"></div>
-        </div>
-        <!-- 동영상 -->
-        <div class="bg-video">
-            <video class="bg-video__content" autoplay muted loop>
-                <source src="/img/indexMainVideo.webm" type="video/webm" />
-                <source src="img/video.mp4" type="video/mp4" />
-            </video>
-        </div>
-        <div class="overlay"></div>
-        <div class="text_">
-            <h2>Making live shows</h2>
-            <h3>more accessible than ever before</h3>
-            <p>
-                LiveDom에 오신 것을 환영합니다. LiveDom은 클럽 대관, 공연 예약, 공연 팀 모집의 세 가지 주요 서비스를 제공하는 공간입니다. 
-                좋아하는 아티스트의 공연을 예약하고, 나만의 공연을 계획하며, 같은 꿈을 꾸는 아티스트들과 팀을 이루는 음악적 여정을 LiveDom에서 시작해보세요. <br>
-                LiveDom에서는 여러분이 공연의 주인공이 됩니다. 여러분의 라이브를 만나보세요!
-            </p>
-            <a href="/liveBoard">메인화면</a>
-        </div>
-        <ul class="social_">
-            <a href="https://www.facebook.com/" target="_blank">
-                <i class="icon ion-social-facebook"></i>
-            </a>
-            <a href="https://www.twitter.com/" target="_blank">
-                <i class="icon ion-social-twitter"></i>
-            </a>
-            <a href="https://www.snapchat.com/" target="_blank">
-                <i class="icon ion-social-snapchat"></i>
-            </a>
-            <a href="https://www.instagram.com/" target="_blank">
-                <i class="icon ion-social-instagram"></i>
-            </a>
-        </ul>
-    </section>
+    <div class="total_box">
+        <div class="total_box_inner">
+            <section class="showcase">
+                <div class="headerCon">
+                    <a href="/liveBoard">
+                        <img src="/img/loginWhite.png" style="margin-top: 10px; height: 50px; object-fit: cover;">
+                    </a>   
+                    <div class="toggle"></div>
+                </div>
+                <!-- 동영상 -->
+                <div class="bg-video">
+                    <video class="bg-video__content" autoplay muted loop>
+                        <source src="/img/indexMainVideo.webm" type="video/webm" />
+                        <source src="img/video.mp4" type="video/mp4" />
+                    </video>
+                </div>
+                <div class="overlay"></div>
+                <div class="text_">
+                    <h2>Making live shows</h2>
+                    <h3>more accessible than ever before</h3>
+                    <p>
+                        LiveDom에 오신 것을 환영합니다. LiveDom은 클럽 대관, 공연 예약, 공연 팀 모집의 세 가지 주요 서비스를 제공하는 공간입니다. 
+                        좋아하는 아티스트의 공연을 예약하고, 나만의 공연을 계획하며, 같은 꿈을 꾸는 아티스트들과 팀을 이루는 음악적 여정을 LiveDom에서 시작해보세요. <br>
+                        LiveDom에서는 여러분이 공연의 주인공이 됩니다. 여러분의 라이브를 만나보세요!
+                    </p>
+                    <a href="/liveBoard">메인화면</a>
+                </div>
+                <ul class="social_">
+                    <a href="https://www.facebook.com/" target="_blank">
+                        <i class="icon ion-social-facebook"></i>
+                    </a>
+                    <a href="https://www.twitter.com/" target="_blank">
+                        <i class="icon ion-social-twitter"></i>
+                    </a>
+                    <a href="https://www.snapchat.com/" target="_blank">
+                        <i class="icon ion-social-snapchat"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank">
+                        <i class="icon ion-social-instagram"></i>
+                    </a>
+                </ul>
+            </section>
+            <div class="click_for_scroll">
+                <i class="fi fi-rr-angle-down"></i>
+            </div>
+            <div class="menu_">
+                <ul>
+                    <li><a href="/facilityRental/list"><i class="fi fi-rr-calendar-clock"></i>   클럽대관</a></li>
+                    <br>
+                    <li><a href="/liveBoard"><i class="fi fi-rs-music-alt"></i>   공연보기</a></li>
+                    <br>
+                    <li><a href="/team"><i class="fi fi-rs-chart-tree"></i>   공연팀 모집</a></li>
+                    <br>
+                    <li><a href="/login"><i class="fi fi-rr-sign-in-alt"></i>   로그인</a></li>
+                    <br>
+                    <li><a href="/join"><i class="fi fi-rr-user-add"></i>   회원가입</a></li>
 
-    <section class="section1" style="height: 100vh; background-color: black;">
-        <!-- 메인 동영상을 깔고있는 배경이므로 아무것도 넣지 말 것 -->
-    </section>
+                    <br>
+                    <li><a href="/myPage"><i class="fi fi-rr-sign-in-alt"></i>   마이페이지</a></li>
+                </ul>
+            </div>
+            <section class="section1" style="height: 100vh; background-color: black;">
+                <!-- 메인 동영상을 깔고있는 배경이므로 아무것도 넣지 말 것 -->
+            </section>
+        </div>
+    </div>
+
+
     <section class="section2" style="height: 100vh; background-color: black;">
         <div class="section2_box">
             <div class="box_inner_R">
+                <!-- 1번 텍스트 -->
                 <div class="box_inner_R_top">
                     <h1>Live Dom</h1>
                     <h1>더 나은 음악, 더 나은 경험.</h1>
                     <h1>음악의 모든 순간을 함께하는 곳.</h1>
                 </div>
+                <!-- 2번칸 이미지 -->
                 <div class="box_inner_R_bottom">
                     <div class="img_box">
                         <img src="/img/mainimg1.jpeg" alt="">
@@ -76,42 +101,101 @@
             </div>
             <div class="box_inner_L">
                 <div class="box_inner_L_both">
-                    <div class="staticVideoSection">
-                        <!-- YouTube Video Embed Code -->
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/wmMrFpemJNY" frameborder="0" allowfullscreen></iframe>
+                    <div class="widthImg" style="height: 40vh; padding: 5rem 2rem;">
+                        <img src="/img/mainimg7.png" alt="">
+                        <img src="/img/mainimg8.png" alt="">
+                    </div>
+                    <div class="box_inner_R_bottom">
+                        <!--  -->
+                        <div class="box_inner_R_top">
+                            <h1 style="font-size: 5.5rem;">클럽 대관</h1>
+                            <h1>무대가 필요한 순간</h1>
+                            <h1>Live Dom이 함께합니다.</h1>
+                            <h1 style="text-decoration: underline;">자세히 보기</h1>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <section class="section3" style="height: 100vh; background-color: rgb(108, 86, 182);">
-    </section>
-    <section class="section4" style="height: 100vh; background-color: brown;">
-    </section>
-
-    <section class="section5">
-        <div class="click_for_scroll">
-            <i class="fi fi-rr-angle-down"></i>
+    <section class="section4" style="height: 100vh; background-color: black;">
+        <div class="section2_box">
+            <div class="box_inner_R">
+                <!-- 2번칸 텍스트 -->
+                <div class="box_inner_R_top">
+                    <h1 style="font-size: 5.5rem;">공연</h1>
+                    <h1>음악을 듣고, 함께 만들고,</h1>
+                    <h1>당신의 음악, Live Dom이 함께합니다.</h1>
+                    <h1 style="text-decoration: underline;">자세히 보기</h1>
+                </div>
+                <div class="box_inner_R_bottom">
+                    <div class="img_box">
+                        <img src="/img/mainimg12.png" alt="">
+                        <img src="/img/mainimg13.png" alt="">
+                        <img src="/img/mainimg14.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="box_inner_L">
+                <div class="box_inner_L_both">
+                    <div class="staticVideoSection">
+                        <!-- YouTube Video Embed Code -->
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/TZrYtpmclzA" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="box_inner_R_bottom">
+                        <div class="box_inner_R_top">
+                            <h1 style="font-size: 5.5rem;">공연 팀 모집</h1>
+                            <h1>음악을 만들어가는 여정</h1>
+                            <h1 style="text-decoration: underline;">자세히 보기</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
-    <div class="menu_">
-        <ul>
-            <li><a href="#"><i class="fi fi-rr-calendar-clock"></i>   클럼대관</a></li>
-            <br>
-            <li><a href="#"><i class="fi fi-rs-music-alt"></i>   공연보기</a></li>
-            <br>
-            <li><a href="#"><i class="fi fi-rs-chart-tree"></i>   공연팀 모집</a></li>
-            <br>
-            <li><a href="#"><i class="fi fi-rr-sign-in-alt"></i>   로그인</a></li>
-            <br>
-            <li><a href="#"><i class="fi fi-rr-user-add"></i>   회원가입</a></li>
-        </ul>
-    </div>
+    <section class="section4" style="height: 50vh; background-color: black;">
+        <div class="section2_box">
+            <div class="box_inner_R">
+                <div class="box_inner_R_top" style="height: 50vh;">
+                    <div class="widthImg">
+                        <img src="/img/mainimg10.png" alt="">
+                        <img src="/img/mainimg11.png" alt="">
+                    </div>
+                </div>
+                <!-- <div class="box_inner_R_bottom">
+                    <div class="img_box">
+                        <img src="/img/mainimg4.png" alt="">
+                        <img src="/img/mainimg5.png" alt="">
+                        <img src="/img/mainimg6.png" alt="">
+                    </div>
+                </div> -->
+            </div>
+            <div class="box_inner_L">
+                <div class="box_inner_L_both" style="height: 50vh;">
+                    <div class="staticVideoSection"  style="height: 50vh;">
+                        <!-- YouTube Video Embed Code -->
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/OZJ6nRCkAjo" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <!-- <div class="box_inner_R_bottom">
+                        <div class="box_inner_R_top">
+                            <h1>클럽 대ㄴㄴㄴㄴ</h1>
+                            <h1>무대가 필요한 순간</h1>
+                            <h1>Live Dom이 함께합니다.</h1>
+                            <h1 style="text-decoration: underline;">자세히 보기</h1>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- <section class="section5">
+    </section>
 
     
     <section class="section3" style="height: 100vh;">
         <div class="box_scoll">
-            <!--  -->
             <h1 style="text-align: center; color: white;">LiveDom에서!</h1>
 
             <div class="scroller" data-speed="fast">
@@ -141,7 +225,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
 
 
@@ -189,6 +273,7 @@
             });
         });
         }
+        
 
 
     </script>
