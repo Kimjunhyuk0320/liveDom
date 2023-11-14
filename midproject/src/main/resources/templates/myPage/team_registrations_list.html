@@ -35,6 +35,13 @@
         <tbody>
           <th:block th:if="${resTeamAppList != null}">
           <th:block th:each="resTeam : ${resTeamAppList}">
+      <script>
+
+        let readApp = function(appNo){
+          location.href = `/team/user/readApp?appNo=${appNo}`
+        }
+
+      </script>
             <tr th:onclick="'readApp('+${resTeam.appNo}+')'">
 
               <td th:text="${resTeam.appNo}"></td>
@@ -95,12 +102,5 @@
       </div>
   </div>
   </body>
-      <script>
-
-        let readApp = function(appNo){
-          location.href = `/team/user/readApp?appNo=${appNo}`
-        }
-
-      </script>
 </body>
 </html>

@@ -1,65 +1,234 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{/UI/user/layout/main_layout}">
+  layout:decorate="~{/UI/user/layout/main_layout}">
 
 <head>
-    <title>통합 검색 조회</title>
+  <title>통합 검색 조회</title>
+  <link rel="stylesheet" href="/css/cardList.css">
+  <link rel="stylesheet" href="/css/teamList.css">
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-straight/css/uicons-regular-straight.css'>
+  <style>
+    #keyword {
+      width: 700px;
+      height: 50px;
+    }
+
+    #btn-search {
+      position: absolute;
+      right: 410px;
+      bottom: 34px;
+      font-size: 15px;
+    }
+
+    .searchContainer{
+      /* background: #c49cde; */
+      font-family: Roboto;
+    }
+
+    .wrapper{
+      /* position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%); */
+    }
+
+    .container_____{
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+      position: relative;
+      padding: 20px;
+    }
+
+    .input{
+      width: 300px;
+      /* border: 3px solid #fff; */
+      /* border: 2px solid black; */
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+      background: white;
+      padding: 15px 30px;
+      border-radius: 50px;
+      outline: none;
+      font-size: 18px;
+      /* color: #fff; */
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    
+    .input:hover {
+      box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+
+    }
+
+    ::-webkit-input-placeholder {
+      color: rgba(0, 0, 0, 0.3);
+      font-family: Roboto;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+
+    .close-btn{
+      /* position: absolute;
+      top: 27px;
+      right: 80px; */
+      display: inline-block;
+      font-size: 35px;
+      cursor: pointer;
+      /* color: #fff; */
+      /* background-color: yellowgreen; */
+      color: black;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      margin-left: 10px;
+    }
+
+    .close-btn.active{
+      opacity: 1;
+      animation: animate 0.5s linear;
+    }
+
+    @keyframes animate{
+      0%{
+        transform: scale(1);
+      }
+      25%{
+        transform: scale(1.2);
+      }
+      50%{
+        transform: scale(1.5);
+      }
+      75%{
+        transform: scale(1.2);
+      }
+      100%{
+        transform: scale(1);
+      }
+    }
+    
+    .reco_keword_box {
+      display: flex;
+      text-align: center; /* 가운데 정렬 */
+      justify-content: center;
+    }
+
+    .reco_keword_box p {
+        display: inline;
+        margin: 0 10px;
+    }
+
+    .reco_keword_box span {
+        margin: 0 5px; /* 각 span 요소 사이의 여백 추가 */
+    }
+  </style>
 </head>
 
 <body layout:fragment="content">
 
-  <input type="text" name="keyword" id="keyword">
-  <button id="btn-search">검색</button>
+  <!-- new 검색창 -->
+  <div class="searchContainer">
+    <div class="wrapper">
+      <div class="container_____">
+        <div>
+          <div id="btn-search"><i class="fi fi-rs-search"></i></div>
+          <input type="text" name="keyword" id="keyword" class="input" placeholder="검색어를 입력해주세요.">
+        </div>
+        <div class="close-btn">&times;</div>
+      </div>
+      <div class="reco_keword_box">
+        <p><span>#드림아트센터</span></p>
+        <p><span>#공연</span></p>
+        <p><span>#강남역</span></p>
+        <p><span>#삼총사</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 검색창 -->
+  <!-- <input type="text" name="keyword" id="keyword">
+  <button id="btn-search">검색</button> -->
+  <!--  -->
+
 
   <div class="container" id="container">
 
-    
+
 
   </div>
 
 
   <script>
 
-search()
-
-$(`#btn-search`).on(`click`,function(){
-  search()
-})
-
-$(`#keyword`).on(`keyup`, function(event){
-
-  if(event.keyCode==13){
     search()
-  }
 
-})
+    $(`#btn-search`).on(`click`, function () {
+      search()
+    })
 
-function search(){
+    $(`#keyword`).on(`keyup`, function (event) {
 
-let url = 'http://localhost:8080/totalSearch'
+      if (event.keyCode == 13) {
+        search()
+      }
 
-let keyword = $(`#keyword`).val()
+    })
 
-let data = {
-  'keyword' : keyword
-}
+    function search() {
 
-$.ajax({
-    url: url,
-    type: 'GET',
-    data: data,
-    success: function (response) {
-        let totalList = response
-        $(`#container`).html(totalList)
-    },
-    error: function (request, status, error) {
-        console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+      let url = 'http://localhost:8080/totalSearch'
+
+      let keyword = $(`#keyword`).val()
+
+      let data = {
+        'keyword': keyword
+      }
+
+      $.ajax({
+        url: url,
+        type: 'GET',
+        data: data,
+        success: function (response) {
+          let totalList = response
+          $(`#container`).html(totalList)
+        },
+        error: function (request, status, error) {
+          console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
             "error:" + error)
-        alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
+          alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" +
             "error:" + error);
+        }
+      })
     }
-})
-}
+
+
+
+
+
+    $(".input").focus(function() {
+      $(".close-btn").addClass("active");
+    });
+
+    // $(".input").focusout(function() {
+    //   $(".close-btn").removeClass("active");
+    // });
+
+    $(".close-btn").click(function() {
+      $(".close-btn").removeClass("active");
+      $(".input").val("");
+    });
+
+    $(".reco_keword_box span").click(function() {
+      var text = $(this).text();
+      var keyword = text.replace('#', '');
+      $("#keyword").val(keyword);
+    });
+
+    $(".input").on('input', function() {
+      var inputText = $(this).val();
+      $(".close-btn").toggleClass('active', inputText.length > 0);
+    });
+
+
   </script>
 </body>
 
