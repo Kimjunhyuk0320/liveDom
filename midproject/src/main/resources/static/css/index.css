@@ -129,12 +129,20 @@ body {
     cursor: pointer;
 }
 
+.total_box {
+    height: 300vh;
+}
+
+.total_box_inner {
+    position: sticky;
+    top: 0;
+}
+
 .showcase {
     position: absolute;
     right: 0;
     height: 100vh;
     width: 100%;
-    /* min-height: 100vh; */
     padding: 100px;
     display: flex;
     justify-content: space-between;
@@ -493,11 +501,15 @@ html {
 }
 .box_inner_R_top h1:nth-child(2) {
     margin-left: 5rem;
-    font-weight: 100;
+    font-weight: 300;
 } 
 .box_inner_R_top h1:nth-child(3) {
     margin-left: 5rem;
-    font-weight: 100;
+    font-weight: 300;
+} 
+.box_inner_R_top h1:nth-child(4) {
+    margin-left: 5rem;
+    font-weight: 500;
 } 
 
 .box_inner_R_bottom {
@@ -506,6 +518,7 @@ html {
     align-items: center;
 }
 
+/* 세로로 긴 이미지 */
 .box_inner_R_bottom .img_box {
     display: flex;
     column-gap: 20%;
@@ -524,4 +537,20 @@ html {
 
 .staticVideoSection iframe {
     border-radius: 20px;
+    margin: 2rem 0 2rem 2rem;
 }
+
+/* 가로로 긴 이미지 */
+.widthImg {
+    display: flex;
+    justify-content: space-around;
+}
+
+.widthImg img {
+    width: 17rem;
+    height: 10rem;
+    border-radius: 10px;
+    object-fit: cover;
+    
+}
+
