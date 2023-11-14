@@ -72,10 +72,10 @@
                     <a href="/facilityRental/insert"><button id="filter-btn">작성하기</button></a>
                 </th:block>
                 <select name="rows" id="rows" class="input-search">
-                    <option value="5">5개씩 보기</option>
-                    <option value="10">10개씩 보기</option>
-                    <option value="30">30개씩 보기</option>
-                    <option value="50">50개씩 보기</option>
+                    <option value="4">4개씩 보기</option>
+                    <option value="8">8개씩 보기</option>
+                    <option value="32">32개씩 보기</option>
+                    <option value="64">64개씩 보기</option>
                 </select>
                 <select name="order" id="order" class="input-search">
                     <option value="0">최근 순</option>
@@ -150,7 +150,7 @@
     <script>
         // 페이지 관련 변수
         let page = 1 // 현재 페이지 번호
-        let rows = 10 // 페이지당 게시글 수
+        let rows = 8 // 페이지당 게시글 수
         let pageCount = 10 // 노출 페이지 개수
         let totalCount = 0 // 전체 게시글 수
         // 검색 관련 변수
