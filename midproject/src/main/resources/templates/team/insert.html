@@ -27,7 +27,7 @@
                     <tr>
                         <td>제목</td>
                         <td>
-                            <input type="text" name="title">
+                            <input type="text" name="title" id="title">
                         </td>
                     </tr>
                     <tr>
@@ -89,7 +89,7 @@
                     <tr>
                         <td>장소</td>
                         <td>
-                            <input type="text" name="address">
+                            <input type="text" name="address" id-="address">
                         </td>
                     </tr>
                     <tr>
@@ -116,14 +116,14 @@
                                 <option value="신협중앙회">신협중앙회</option>
                                 <option value="우체국">우체국</option>
                             </select>
-                            <input type="text" name="account2">
+                            <input type="text" name="account2" id="account2">
                         </td>
                     </tr>
 
                     <tr>
                         <td>가격</td>
                         <td>
-                            <input type="text" name="price">
+                            <input type="text" name="price" id="price">
                         </td>
                     </tr>
                     <!-- 글 작성 에디터 -->
@@ -137,53 +137,7 @@
                         <td colspan="2">
                             <div class="submitDiv" id="submitId">
 
-                                <script>
-
-        let form = document.getElementById('form')
-        
-        function check(regExp, element, msg) {
-            if( regExp.test(element.value)) {			
-                return true
-            }
-            alert(msg)
-            element.select()
-            element.focus()
-            return false
-        }
-
-
-        // 수정하기
-        function actionUpdate() {
-            let title = form.title
-            let address = form.address
-            let account2 = form.account2
-            let price = form.price
-            let msg = ''
-            
-          
-            
-            let titleCheck = /^.{5,30}$/
-            msg = '제목은 5 ~ 30 글자 사이로 작성해주십시오.'
-            if( !check(titleCheck, title, msg) ) return
-            
-            
-            let addressCheck = /^.{5,20}$/
-            msg = '주소는 5 ~ 20 글자 사이로 작성해주십시오.'
-            if( !check(addressCheck, address, msg) ) return
-
-            let account2Check = /^[0-9]{3}-[0-9]{2}-[0-9]{5}$/
-            msg = '계좌번호는 알맞은 형태로 작성해주십시오..'
-            if( !check(account2Check, account2, msg) ) return
-
-            let priceCheck = /^\d{1,8}$/
-            msg = '가격은 8자릿수 안의 정수로 입력해주십시오'
-            if( !check(priceCheckCheck, priceCheck, msg) ) return
-
-
-           form.submit()
-        }
-                                </script>
-                                <button onclick="actionUpdate()">등록</button>
+                                <button type="button" onclick="actionUpdate()">등록</button>
                             </div>
                         </td>
                     </tr>
@@ -196,9 +150,6 @@
     <script>
 
         
-
-        
-
         
         var toolbar = [
         // 글꼴 설정
@@ -271,6 +222,48 @@
                 
             })
         }
+                                    // 수정하기
+                                    function actionUpdate() {
+                                    let form = $(`#form`)
+                                    let title = $(`#title`)
+                                    let address = $(`#address`)
+                                    let account2 = $(`#account2`)
+                                    let price = $(`#price`)
+                                    let msg = ''
+                                    
+                                
+                                    
+                                    let titleCheck = /^.{3,30}$/
+                                    msg = '제목은 3 ~ 30 글자 사이로 작성해주십시오.'
+                                    if(!check(titleCheck,title,msg)) return false
+                                    
+                                    
+                                    let addressCheck = /^.{5,20}$/
+                                    msg = '주소는 5 ~ 20 글자 사이로 작성해주십시오.'
+                                    if( !check(addressCheck, address, msg) ) return false
+
+                                    let account2Check = /^.{10,20}$/
+                                    msg = '계좌번호는 알맞은 형태로 작성해주십시오.'
+                                    if( !check(account2Check, account2, msg) ) return false
+
+                                    let priceCheck = /^\d{1,8}$/
+                                    msg = '가격은 8자릿수 안의 정수로 입력해주십시오'
+                                    if( !check(priceCheck, priceCheck, msg) ) return false
+
+
+                                form.submit()
+                                }
+
+                                function check(regExp, element, msg) {
+                                    if( regExp.test(element.val())) {			
+                                        return true
+                                    }
+                                    alert(msg)
+                                    element.select()
+                                    element.focus()
+                                    return false
+                                }
+         
     </script>
 </body>
 </html>
