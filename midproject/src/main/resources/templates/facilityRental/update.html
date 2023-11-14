@@ -70,8 +70,29 @@
                     </tr>
                     <tr>
                         <td>계좌번호</td>
-                        <td>
-                            <input type="text" name="account" th:value="${facilityRental.account}">
+                        <td class="account-inputs">
+                            <select name="account1" id="account1">
+                                <option value="신한은행" th:selected="${facilityRental.account1=='신한은행'}">신한은행</option>
+                                <option value="우리은행" th:selected="${facilityRental.account1=='우리은행'}">우리은행</option>
+                                <option value="하나은행" th:selected="${facilityRental.account1=='하나은행'}">하나은행</option>
+                                <option value="SC은행" th:selected="${facilityRental.account1=='SC은행'}">SC은행</option>
+                                <option value="도이치은행" th:selected="${facilityRental.account1=='도이치은행'}">도이치은행</option>
+                                <option value="뱅크오브아메리카" th:selected="${facilityRental.account1=='뱅크오브아메리카'}">뱅크오브아메리카</option>
+                                <option value="수협은행" th:selected="${facilityRental.account1=='수협은행'}">수협은행</option>
+                                <option value="제주은행" th:selected="${facilityRental.account1=='제주은행'}">제주은행</option>
+                                <option value="카카오뱅크" th:selected="${facilityRental.account1=='카카오뱅크'}">카카오뱅크</option>
+                                <option value="케이뱅크" th:selected="${facilityRental.account1=='케이뱅크'}">케이뱅크</option>
+                                <option value="한국씨티은행" th:selected="${facilityRental.account1=='한국씨티은행'}">한국씨티은행</option>
+                                <option value="BNP파리바은행" th:selected="${facilityRental.account1=='BNP파리바은행'}">BNP파리바은행</option>
+                                <option value="HSBC은행" th:selected="${facilityRental.account1=='HSBC은행'}">HSBC은행</option>
+                                <option value="JP모건체이스은행" th:selected="${facilityRental.account1=='JP모건체이스은행'}">JP모건체이스은행</option>
+                                <option value="산림조합중앙회" th:selected="${facilityRental.account1=='산림조합중앙회'}">산림조합중앙회</option>
+                                <option value="새마을금고은행" th:selected="${facilityRental.account1=='새마을금고은행'}">새마을금고은행</option>
+                                <option value="저축은행" th:selected="${facilityRental.account1=='저축은행'}">저축은행</option>
+                                <option value="신협중앙회" th:selected="${facilityRental.account1=='신협중앙회'}">신협중앙회</option>
+                                <option value="우체국" th:selected="${facilityRental.account1=='우체국'}">우체국</option>
+                            </select>
+                            <input type="text" name="account2" th:value="${facilityRental.account2}">
                         </td>
                     </tr>
                     <tr>
@@ -79,22 +100,22 @@
                         <td>
                             <select name="location">
                                 <option value="경기" th:selected="${facilityRental.location == '경기'}">경기</option>
-                                <option value="서울">서울</option>
-                                <option value="부산">부산</option>
-                                <option value="경남">경남</option>
-                                <option value="인천">인천</option>
-                                <option value="경북">경북</option>
-                                <option value="대구">대구</option>
-                                <option value="충남">충남</option>
-                                <option value="전남">전남</option>
-                                <option value="전북">전북</option>
-                                <option value="충북">충북</option>
-                                <option value="강원">강원</option>
-                                <option value="대전">대전</option>
-                                <option value="광주">광주</option>
-                                <option value="울산">울산</option>
-                                <option value="제주">제주</option>
-                                <option value="세종">세종</option>
+                                <option value="서울" th:selected="${facilityRental.location == '서울'}">서울</option>
+                                <option value="부산" th:selected="${facilityRental.location == '부산'}">부산</option>
+                                <option value="경남" th:selected="${facilityRental.location == '경남'}">경남</option>
+                                <option value="인천" th:selected="${facilityRental.location == '인천'}">인천</option>
+                                <option value="경북" th:selected="${facilityRental.location == '경북'}">경북</option>
+                                <option value="대구" th:selected="${facilityRental.location == '대구'}">대구</option>
+                                <option value="충남" th:selected="${facilityRental.location == '충남'}">충남</option>
+                                <option value="전남" th:selected="${facilityRental.location == '전남'}">전남</option>
+                                <option value="전북" th:selected="${facilityRental.location == '전북'}">전북</option>
+                                <option value="충북" th:selected="${facilityRental.location == '충북'}">충북</option>
+                                <option value="강원" th:selected="${facilityRental.location == '강원'}">강원</option>
+                                <option value="대전" th:selected="${facilityRental.location == '대전'}">대전</option>
+                                <option value="광주" th:selected="${facilityRental.location == '광주'}">광주</option>
+                                <option value="울산" th:selected="${facilityRental.location == '울산'}">울산</option>
+                                <option value="제주" th:selected="${facilityRental.location == '제주'}">제주</option>
+                                <option value="세종" th:selected="${facilityRental.location == '세종'}">세종</option>
                             </select>
                         </td>
                     </tr>

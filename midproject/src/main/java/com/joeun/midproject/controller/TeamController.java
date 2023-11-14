@@ -176,8 +176,12 @@ public class TeamController {
   @Secured("ROLE_BAND")
   @GetMapping(value="/update")
   public String update(Model model, Team team) {
+    
+    Team readTeam = teamMapper.read(team);
+    readTeam.setAccount1(readTeam.getAccount().split("/")[0]);
+    readTeam.setAccount2(readTeam.getAccount().split("/")[1]);
 
-      model.addAttribute("team", teamMapper.read(team));
+    model.addAttribute("team", readTeam);
 
       return "team/update";
 
@@ -185,6 +189,8 @@ public class TeamController {
 
   @PostMapping(value="/update")
   public String updatePro(Team team) {
+
+      team.setAccount(team.getAccount1()+"/"+team.getAccount2());
 
       int result = teamService.update(team);
 

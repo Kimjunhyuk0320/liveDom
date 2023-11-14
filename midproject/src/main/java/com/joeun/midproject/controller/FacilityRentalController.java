@@ -128,6 +128,7 @@ public class FacilityRentalController {
     @PostMapping(value="/insert")
     public String insertPro(@ModelAttribute FacilityRental facilityRental) throws Exception {
         // @ModelAttribute : 모델에 자동으로 등록해주는 어노테이션
+        facilityRental.setAccount(facilityRental.getAccount1()+"/"+facilityRental.getAccount2());
         // 데이터 처리
         int result = facilityRentalService.insert(facilityRental);
 
@@ -153,6 +154,8 @@ public class FacilityRentalController {
     public String update(Model model, int frNo) throws Exception {
         // 데이터 요청
         FacilityRental facilityRental = facilityRentalService.select(frNo);
+        facilityRental.setAccount1(facilityRental.getAccount().split("/")[0]);
+        facilityRental.setAccount2(facilityRental.getAccount().split("/")[1]);
         // 모델 등록
         model.addAttribute("facilityRental", facilityRental);
         // 뷰 페이지 지정
@@ -173,6 +176,7 @@ public class FacilityRentalController {
     public String updatePro(FacilityRental facilityRental) throws Exception {
       // 데이터 처리
       log.info(facilityRental.toString());
+      facilityRental.setAccount(facilityRental.getAccount1()+"/"+facilityRental.getAccount2());
         int result = facilityRentalService.update(facilityRental);
         int frNo = facilityRental.getFrNo();
 

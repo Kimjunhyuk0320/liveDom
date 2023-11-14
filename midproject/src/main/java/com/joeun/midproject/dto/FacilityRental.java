@@ -21,6 +21,8 @@ public class FacilityRental {
     private Date updDate;
     private String phone;
     private String account;
+    private String account1;
+    private String account2;
     private int views;
     private String buyUsername;
     private int confirmed;
