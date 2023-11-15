@@ -339,6 +339,12 @@
                                 <img src="/file/img/${teamList[i].thumbnail.fileNo}" id="card-img">
                             </a>
                             `
+                        }else{
+                            tr+=`
+                            <a href="/liveBoard/read?boardNo=${teamList[i].boardNo}">
+                                <img src="/img/defaultImage.png" id="card-img">
+                            </a>
+                            `
                         }
                         tr+=`
                         </a>
