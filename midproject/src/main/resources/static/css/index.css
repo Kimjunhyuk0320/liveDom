@@ -1,7 +1,14 @@
-body {
-    overflow-x: hidden;
-}
 
+
+body{
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    }
+    
+   ::-webkit-scrollbar {
+     display: none;
+   }
+   
 /* 동영상 관련 css */
 /* .bg-video {
         height: 100vh;
@@ -130,7 +137,7 @@ body {
 }
 
 .total_box {
-    height: 300vh;
+    height: 150vh;
 }
 
 .total_box_inner {
