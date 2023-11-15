@@ -205,7 +205,7 @@
                  'keyword'        : keyword,
              }
  
-             const url = 'http://localhost:8080/liveBoard/pageInfoLiveBoard'
+             const url = '/liveBoard/pageInfoLiveBoard'
  
              $.ajax({
                  url     :   url,
@@ -281,7 +281,7 @@
  
          // 게시글 목록 - 페이징
          function getPageList() {
-             const url = 'http://localhost:8080/liveBoard/liveBoardPageList'
+             const url = '/liveBoard/liveBoardPageList'
  
              let data = {
                  'pageNo'      : page,
@@ -415,7 +415,7 @@
                  'order'   :order,
              }
  
-             const url = 'http://localhost:8080/liveBoard/liveBoardPageList'
+             const url = '/liveBoard/liveBoardPageList'
  
              $.ajax({
                  url     :   url,
@@ -452,7 +452,7 @@
                  order       : order,
              }
  
-             const url = 'http://localhost:8080/liveBoard/liveBoardPageList'
+             const url = '/liveBoard/liveBoardPageList'
  
              $.ajax({
                  url     :   url,

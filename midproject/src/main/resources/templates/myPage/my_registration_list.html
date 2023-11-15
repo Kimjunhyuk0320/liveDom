@@ -5,6 +5,27 @@
 <head>
     <title>내가 신청한 참가 내역</title>
     <link rel="stylesheet" href="/css/teamList.css">
+    <style>
+        .btn-cancel{
+            background-color: #ddd;
+            font-size: 12px;
+            transition: all 0.2s ease;
+            border: 1px solid #aaaaaa88 !important;
+            
+        }
+        .btn-cancel:hover{
+            background-color: #292B32;
+            color: white;
+            
+        }
+        .read-app-list-row{
+          transition: all 0.2s ease;
+        }
+        .read-app-list-row:hover{
+          background-color: #aaa;
+          cursor: pointer;
+        }
+    </style>
 </head>
 
 <body layout:fragment="content">
@@ -32,11 +53,11 @@
                 </thead>
                 <tbody>
 
-                    <th:block th:if="${reqTeamAppList != null}" th:each="reqTeam : ${reqTeamAppList}">
+                    <th:block th:if="${reqTeamAppList != null}" th:each="reqTeam : ${reqTeamAppList}" >
 
-                    <tr>
+                    <tr th:onclick="'readTeam('+${reqTeam.teamNo}+')'" class="read-app-list-row">
                         <td th:text="${reqTeam.appNo}"></td>
-                        <td th:text="${reqTeam.teamTitle}" th:onclick="'readTeam('+${reqTeam.teamNo}+')'"></td>
+                        <td th:text="${reqTeam.teamTitle}"></td>
                         <td th:text="${reqTeam.username}"></td>
                         <th:block th:if="${reqTeam.approvalStatus==0}">
                             <td>미확인</td>
@@ -62,7 +83,7 @@
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                 <input type="hidden" name="appNo" th:value="${reqTeam.appNo}">
 
-                                <input type="submit" value="참가취소">
+                                <input type="submit" value="참가취소" class="btn-cancel">
                                 
 
                             </form>

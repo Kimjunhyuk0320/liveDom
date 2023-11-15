@@ -11,11 +11,8 @@
 
     <div class="totalContainer">
 
-        <th:block th:if="${team.confirmed == 1}">
+        
 
-            <h2>(모집종료)</h2>
-
-        </th:block>
         <div class="topContentContainer">
 
             <div class="contentContainer">
@@ -79,7 +76,12 @@
                         </tr>
                         <tr>
                             <td>팀 모집 현황</td>
+                            <th:block th:if="${team.confirmed == 0}">
                             <td th:text="${team.recStatus} +'/'+${team.capacity}"></td>
+                            </th:block>
+                            <th:block th:if="${team.confirmed == 1}">
+                                <td><b>(모집종료)</b></td>
+                            </th:block>
                         </tr>
                     </table>
                 </div>
@@ -99,7 +101,7 @@
                     </th:block>
                     <th:block th:if="${team.username == #authentication.principal.username}">
 
-                        <a th:href="|/team/update?teamNo=${team.teamNo}|"><button style="background-color: blue;">수정</button></a>
+                        <a th:href="|/team/update?teamNo=${team.teamNo}|"><button style="background-color: rgba(0, 0, 255, 0.525);">수정</button></a>
 
                     
                         <form action="/team/delete" method="POST" style="display: inline-block;">
@@ -180,7 +182,7 @@
 
         function getCommentList() {
 
-            const url = 'http://localhost:8080/team/commentList'
+            const url = '/team/commentList'
 
             let data = {
                 'parentNo': boardNo
@@ -297,7 +299,7 @@
 
         function insertComment(writer, content) {
 
-            const url = 'http://localhost:8080/team/commentInsert'
+            const url = '/team/commentInsert'
 
             let data = {
                 'parentNo': boardNo,
@@ -391,7 +393,7 @@
 
                 $('#btn-comment-update').on('click', function () {
 
-                    let url = 'http://localhost:8080/team/commentUpdate'
+                    let url = '/team/commentUpdate'
 
                     let writer = $(`#comment-writer`).val()
 
@@ -435,7 +437,7 @@
 
 
 
-                            let url = 'http://localhost:8080/team/commentUpdate'
+                            let url = '/team/commentUpdate'
                             let writer = $(`#comment-writer`).val()
                             let data = {
                                 commentNo: commentNo,
@@ -503,7 +505,7 @@
         function deleteCommentData(commentNo) {
 
 
-            let url = 'http://localhost:8080/team/commentDelete'
+            let url = '/team/commentDelete'
             let data = {
                 commentNo: commentNo,
             }

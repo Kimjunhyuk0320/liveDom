@@ -5,6 +5,15 @@
 <head>
     <title>성사된 공연 목록</title>
     <link rel="stylesheet" href="/css/teamList.css">
+    <style>
+        .read-app-list-row{
+          transition: all 0.2s ease;
+        }
+        .read-app-list-row:hover{
+          background-color: #aaa;
+          cursor: pointer;
+        }
+    </style>
 </head>
 
 <body layout:fragment="content">
@@ -135,7 +144,7 @@
                 'keyword': keyword,
             }
 
-            const url = 'http://localhost:8080/team/pageInfoConfirmedLive'
+            const url = '/team/pageInfoConfirmedLive'
 
             $.ajax({
                 url: url,
@@ -213,7 +222,7 @@
 
         // 게시글 목록 - 페이징
         function getPageList() {
-            const url = 'http://localhost:8080/team/confirmedLiveList'
+            const url = '/team/confirmedLiveList'
 
             let data = {
                 'pageNo': page,
@@ -263,11 +272,9 @@
             for (let i = 0; i < teamList.length; i++) {
 
                 let tr = `
-            <tr>
+            <tr onclick="readEvent(${teamList[i].teamNo})" class="read-app-list-row">
                 <td align="center">${teamList[i].teamNo}</td>
-                <td>
-                    <a href="/team/read?teamNo=${teamList[i].teamNo}">${teamList[i].title}</a>
-                </td>
+                <td>${teamList[i].title}</td>
                 <td align="center">${teamList[i].writer}</td>
                 </td>
                 <td align="center">${teamList[i].username}</td>
@@ -336,7 +343,7 @@
                 'username': username
             }
 
-            const url = 'http://localhost:8080/team/confirmedLiveList'
+            const url = '/team/confirmedLiveList'
 
             $.ajax({
                 url: url,
@@ -376,7 +383,7 @@
                 'username': username
             }
 
-            const url = 'http://localhost:8080/team/confirmedLiveList'
+            const url = '/team/confirmedLiveList'
 
             $.ajax({
                 url: url,
