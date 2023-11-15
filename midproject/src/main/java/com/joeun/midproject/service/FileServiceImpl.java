@@ -2,10 +2,13 @@ package com.joeun.midproject.service;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,7 +118,7 @@ public class FileServiceImpl implements FileService{
     }
 
     @Override
-    public int thumbnail(int fileNo, HttpServletResponse response) throws Exception {
+    public int thumbnail(int fileNo, HttpServletResponse response, HttpServletRequest request) throws Exception {
         // result
         // 0 : 파일 다운로드 처리 실패
         // 1 : 파일 다운로드 성공
@@ -125,6 +128,9 @@ public class FileServiceImpl implements FileService{
             // response.setStatus(response.SC_BAD_REQUEST);
             return 0;
         }
+
+        String path = Paths.get(System.getProperty("user.dir"), "midproject/src/main/resources/upload").toString().replace("\\", "/");
+        log.info(path);
 
         String filePath = file.getPath();       // 파일 경로
         String fileName = file.getFileName();       // 파일 이름
@@ -196,14 +202,14 @@ public class FileServiceImpl implements FileService{
 
             // UID_강아지.png
             String fileName = UUID.randomUUID().toString() + "_" + originName;
-
+            String path = Paths.get(System.getProperty("user.dir"), "midproject/src/main/resources/upload").toString().replace("\\", "/");
             // c:/upload/UID_강아지.png
-            String filePath = uploadPath + "/" + fileName;
+            String filePath = path + "/" + fileName;
 
             // 파일업로드
             // - 서버 측, 파일 시스템에 파일 복사
             // - DB 에 파일 정보 등록
-            File uploadFile = new File(uploadPath, fileName);
+            File uploadFile = new File(path, fileName);
             FileCopyUtils.copy(fileData, uploadFile);       // 파일 업로드
             // FileOutputStream fos = new FileOutputStream(uploadFile);
             // fos.write(fileData);

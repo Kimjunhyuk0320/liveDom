@@ -2,6 +2,7 @@ package com.joeun.midproject.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +49,9 @@ public class FileController {
     }
 
     @GetMapping(value="/img/{fileNo}")
-    public void thumbnail(@PathVariable("fileNo") int fileNo, 
+    public void thumbnail(@PathVariable("fileNo") int fileNo, HttpServletRequest request, 
                                 HttpServletResponse response ) throws Exception{
-        int result = fileService.thumbnail(fileNo, response);
+        int result = fileService.thumbnail(fileNo, response,request);
         if( result == 0 ){
             response.setStatus(response.SC_BAD_REQUEST);
         }                                

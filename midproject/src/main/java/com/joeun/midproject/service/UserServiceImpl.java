@@ -1,6 +1,7 @@
 package com.joeun.midproject.service;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
@@ -104,14 +105,14 @@ public class UserServiceImpl implements UserService{
 
             // UID_강아지.png
             String fileName = UUID.randomUUID().toString() + "_" + originName;
-
+            String path = Paths.get(System.getProperty("user.dir"), "midproject/src/main/resources/upload").toString().replace("\\", "/");
             // c:/upload/UID_강아지.png
-            String filePath = uploadPath + "/" + fileName;
+            String filePath = path + "/" + fileName;
 
             // 파일업로드
             // - 서버 측, 파일 시스템에 파일 복사
             // - DB 에 파일 정보 등록
-            File uploadFile = new File(uploadPath, fileName);
+            File uploadFile = new File(path, fileName);
             FileCopyUtils.copy(fileData, uploadFile);       // 파일 업로드
 
             // FileOutputStream fos = new FileOutputStream(uploadFile);
@@ -182,14 +183,14 @@ public class UserServiceImpl implements UserService{
 
             // UID_강아지.png
             String fileName = UUID.randomUUID().toString() + "_" + originName;
-
+            String path = Paths.get(System.getProperty("user.dir"), "midproject/src/main/resources/upload").toString().replace("\\", "/");
             // c:/upload/UID_강아지.png
-            String filePath = uploadPath + "/" + fileName;
+            String filePath = path + "/" + fileName;
 
             // 파일업로드
             // - 서버 측, 파일 시스템에 파일 복사
             // - DB 에 파일 정보 등록
-            File uploadFile = new File(uploadPath, fileName);
+            File uploadFile = new File(path, fileName);
             FileCopyUtils.copy(fileData, uploadFile);       // 파일 업로드
 
             // FileOutputStream fos = new FileOutputStream(uploadFile);

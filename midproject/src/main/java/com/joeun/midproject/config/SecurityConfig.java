@@ -71,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests((authorize) -> authorize
                                 .antMatchers("/**").permitAll()
-                                .antMatchers("/css/**", "/js/**", "/img/**").permitAll()    // /static/~ 정적자원 인가처리
+                                .antMatchers("/css/**", "/js/**", "**/img/**").permitAll()    // /static/~ 정적자원 인가처리
                               )
         ;
 

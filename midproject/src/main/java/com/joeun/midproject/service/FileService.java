@@ -2,6 +2,7 @@ package com.joeun.midproject.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +22,7 @@ public interface FileService {
     // 파일 삭제
     public int delete(int frNo) throws Exception;
     // 썸네일 불러오기
-    public int thumbnail(int fileNo, HttpServletResponse response) throws Exception;
+    public int thumbnail(int fileNo, HttpServletResponse response, HttpServletRequest request) throws Exception;
    
     // 파일 목록 - 부모 기준
     public List<Files> listByParent(Files file) throws Exception;
