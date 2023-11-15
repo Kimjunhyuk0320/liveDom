@@ -10,152 +10,154 @@
     }
 
 </style>
+<div style="min-height: 100vh;">
 
-<div id="topContent">
-    <div>
-        <a href="/facilityRental/list"><h1>클럽 대관 목록</h1></a>
-        <p>클럽 대관 목록 검색 결과입니다.</p>
-        <hr>
+    <div id="topContent">
+        <div>
+            <a href="/facilityRental/list"><h1>클럽 대관 목록</h1></a>
+            <p>클럽 대관 목록 검색 결과입니다.</p>
+            <hr>
+        </div>
     </div>
-</div>
 
-<div class="container card_list" >
-    <div class="row" id="frContainer">
-        <th:block th:each="fr : ${frList}">
+    <div class="container card_list" >
+        <div class="row" id="frContainer">
+            <th:block th:each="fr : ${frList}">
 
-        <div class="card col-3 card-list">
-            <th:block th:if="${fr.thumbnail != null}">
-            <a th:href="|/facilityRental/read?frNo=${fr.frNo}|">
+            <div class="card col-3 card-list">
+                <th:block th:if="${fr.thumbnail != null}">
+                <a th:href="|/facilityRental/read?frNo=${fr.frNo}|">
 
 
-                        <img th:src="|/file/img/${fr.thumbnail.fileNo}|" id="card-img">
-                        
-                    </a>
-                </th:block>
-                <div class="card-body">
-                    <h5 class="card-title"><a th:href="|/facilityRental/read?frNo=${fr.frNo}|" th:text="${fr.title}"></a></h5>
-                    <p class="card-text" th:text="${fr.writer}"></p>
-                    <p class="card-text" th:text="${fr.location}"></p>
-                    <p class="card-text" th:text="${fr.price}"></p>
-                    <p class="card-text card-text-date" th:text="${fr.liveDate}"></p>
-                    <th:block th:if="${fr.confirmed==1}">
-                        <p class="card-text" style="background-color: red;"></p>                       
+                            <img th:src="|/file/img/${fr.thumbnail.fileNo}|" id="card-img">
+                            
+                        </a>
                     </th:block>
+                    <div class="card-body">
+                        <h5 class="card-title"><a th:href="|/facilityRental/read?frNo=${fr.frNo}|" th:text="${fr.title}"></a></h5>
+                        <p class="card-text" th:text="${fr.writer}"></p>
+                        <p class="card-text" th:text="${fr.location}"></p>
+                        <p class="card-text" th:text="${fr.price}"></p>
+                        <p class="card-text card-text-date" th:text="${fr.liveDate}"></p>
+                        <th:block th:if="${fr.confirmed==1}">
+                            <p class="card-text" style="background-color: red;"></p>                       
+                        </th:block>
+                    </div>
                 </div>
-            </div>
-        </th:block>
-        <th:block th:if="${frList.isEmpty()}">
-            <div class="card-body">
-                <h5 class="card-title" style="text-align: center; padding : 15px; font-size: 15px;"><a href="#" style="text-align: center;">조회된 데이터가 없습니다.</a></h5>
-             </div>
-        </th:block>
-    </div>
-    <!-- <a href="/facilityRental/list" class="btn btn-primary">전체보기</a> -->
-</div>
-
-
-<div id="topContent">
-    <div>
-        <a href="/liveBoard/list"><h1>공연 게시글 목록</h1></a>
-        <p>공연 게시글 목록 검색 결과입니다.</p>
-        <hr>
-    </div>
-</div>
-
-<div class="container card_list">
-
-    <div class="row" id="liveContainer">
-
-        <th:block th:each="live : ${liveList}">
-
-        <div class="card col-3 card-list">
-            <th:block th:if="${live.thumbnail != null}">
-                    <a th:href="|/liveBoard/read?boardNo=${live.boardNo}|">
-                        <img th:src="|/file/img/${live.thumbnail.fileNo}|" id="card-img">
-                    </a>
-                </th:block>
+            </th:block>
+            <th:block th:if="${frList.isEmpty()}">
                 <div class="card-body">
-                    <h5 class="card-title"><a th:href="|/liveBoard/read?boardNo=${live.boardNo}|" th:text="${live.title}"></a></h5>
-                    <p class="card-text" th:text="${live.crew}"></p>
-                        <th:block th:if="${live.soldOut==0}">
-                        <p class="card-text">판매 중</p>
-                        </th:block>
-                        <th:block th:if="${live.soldOut==1}">
-                        <p class="card-text" style="background-color: red; color: yellow; display: inline; border-radius: 3px; padding: 3px 5px;">매진</p>
-                        </th:block>
-                    
-                    <p class="card-text" th:text="${live.address}"></p>
-                    <p class="card-text card-text-date" th:text="${live.liveDate}"></p>
+                    <h5 class="card-title" style="text-align: center; padding : 15px; font-size: 15px;"><a href="#" style="text-align: center;">조회된 데이터가 없습니다.</a></h5>
                 </div>
-            </div>
+            </th:block>
+        </div>
+        <!-- <a href="/facilityRental/list" class="btn btn-primary">전체보기</a> -->
+    </div>
 
+
+    <div id="topContent">
+        <div>
+            <a href="/liveBoard/list"><h1>공연 게시글 목록</h1></a>
+            <p>공연 게시글 목록 검색 결과입니다.</p>
+            <hr>
+        </div>
+    </div>
+
+    <div class="container card_list">
+
+        <div class="row" id="liveContainer">
+
+            <th:block th:each="live : ${liveList}">
+
+            <div class="card col-3 card-list">
+                <th:block th:if="${live.thumbnail != null}">
+                        <a th:href="|/liveBoard/read?boardNo=${live.boardNo}|">
+                            <img th:src="|/file/img/${live.thumbnail.fileNo}|" id="card-img">
+                        </a>
+                    </th:block>
+                    <div class="card-body">
+                        <h5 class="card-title"><a th:href="|/liveBoard/read?boardNo=${live.boardNo}|" th:text="${live.title}"></a></h5>
+                        <p class="card-text" th:text="${live.crew}"></p>
+                            <th:block th:if="${live.soldOut==0}">
+                            <p class="card-text">판매 중</p>
+                            </th:block>
+                            <th:block th:if="${live.soldOut==1}">
+                            <p class="card-text" style="background-color: red; color: yellow; display: inline; border-radius: 3px; padding: 3px 5px;">매진</p>
+                            </th:block>
+                        
+                        <p class="card-text" th:text="${live.address}"></p>
+                        <p class="card-text card-text-date" th:text="${live.liveDate}"></p>
+                    </div>
+                </div>
+
+                
+            </th:block>
             
-        </th:block>
+            
+            
+            
+            <th:block th:if="${liveList.isEmpty()}">
+                <div class="card-body">
+                    <h5 class="card-title" style="text-align: center; padding : 15px; font-size: 15px;"><a href="#" style="text-align: center;">조회된 데이터가 없습니다.</a></h5>
+                </div>
+            </th:block>
+            
+        </div>
         
-        
-        
-        
-        <th:block th:if="${liveList.isEmpty()}">
-            <div class="card-body">
-                <h5 class="card-title" style="text-align: center; padding : 15px; font-size: 15px;"><a href="#" style="text-align: center;">조회된 데이터가 없습니다.</a></h5>
-            </div>
-        </th:block>
-        
+        <!-- <a href="/liveBoard/list" class="btn btn-primary">전체보기</a> -->
     </div>
-    
-    <!-- <a href="/liveBoard/list" class="btn btn-primary">전체보기</a> -->
-</div>
 
 
-<div id="topContent">
-    <div>
-        <a href="/team"><h1>공연팀 모집</h1></a>
-        <p>공연팀 모집 검색 결과입니다.</p>
-        <hr>
+    <div id="topContent">
+        <div>
+            <a href="/team"><h1>공연팀 모집</h1></a>
+            <p>공연팀 모집 검색 결과입니다.</p>
+            <hr>
+        </div>
     </div>
-</div>
 
-<div class="teamContainer" style="margin-bottom: 300px;">
-  <table>
-      <thead>
-          <tr>
-              <th width="100">마감</th>
-              <th width="200">제목</th>
-              <th width="100">작성자</th>
-              <th width="95">팀 모집 현황</th>
-              <th width="70">지역</th>
-              <th width="80">가격</th>
-              <th width="100">공연일자</th>
-              <th width="100">갱신일자</th>
-              <th width="65">조회수</th>
-          </tr>
-      </thead>
-
-      <tbody id="teamContainer">
-          <th:block th:each="team : ${teamList}">
-            <tr th:onclick="'teamRead('+${team.teamNo}+')'">
-                <td th:text="${team.confirmed !=0 ?'마감':'모집중'}"></td>
-                <td th:text="${team.title}"></td>
-                <td th:text="${team.writer}"></td>
-                <td th:text="${team.recStatus+' / '+team.capacity}"></td>
-                <td th:text="${team.location}"></td>
-                <td th:text="${team.price}"></td>
-                <td th:text="${team.liveDate}"></td>
-                <td th:text="${#dates.format(team.updDate,'yyyy-MM-dd HH-mm-ss')}"></td>
-                <td th:text="${team.views}"></td>
-            </tr>
-          </th:block>
-          <th:block th:if="${teamList.isEmpty()}">
+    <div class="teamContainer" style="margin-bottom: 300px;">
+    <table>
+        <thead>
             <tr>
-                <td colspan="9">조회된 데이터가 없습니다.</td>
+                <th width="100">마감</th>
+                <th width="200">제목</th>
+                <th width="100">작성자</th>
+                <th width="95">팀 모집 현황</th>
+                <th width="70">지역</th>
+                <th width="80">가격</th>
+                <th width="100">공연일자</th>
+                <th width="100">갱신일자</th>
+                <th width="65">조회수</th>
             </tr>
-          </th:block>
-      </tbody>
-    </table>
-    
-    
-    
-    <!-- <a href="/team" class="btn btn-primary">전체보기</a> -->
+        </thead>
+
+        <tbody id="teamContainer">
+            <th:block th:each="team : ${teamList}">
+                <tr th:onclick="'teamRead('+${team.teamNo}+')'">
+                    <td th:text="${team.confirmed !=0 ?'마감':'모집중'}"></td>
+                    <td th:text="${team.title}"></td>
+                    <td th:text="${team.writer}"></td>
+                    <td th:text="${team.recStatus+' / '+team.capacity}"></td>
+                    <td th:text="${team.location}"></td>
+                    <td th:text="${team.price}"></td>
+                    <td th:text="${team.liveDate}"></td>
+                    <td th:text="${#dates.format(team.updDate,'yyyy-MM-dd HH-mm-ss')}"></td>
+                    <td th:text="${team.views}"></td>
+                </tr>
+            </th:block>
+            <th:block th:if="${teamList.isEmpty()}">
+                <tr>
+                    <td colspan="9">조회된 데이터가 없습니다.</td>
+                </tr>
+            </th:block>
+        </tbody>
+        </table>
+        
+        
+        
+        <!-- <a href="/team" class="btn btn-primary">전체보기</a> -->
+    </div>
 </div>
 <script>
 
