@@ -5,6 +5,28 @@
 <head>
     <title>대관 요청 내역</title>
     <link rel="stylesheet" href="/css/teamList.css">
+    <style>
+
+        .btn-cancel{
+            background-color: #ddd;
+            font-size: 12px;
+            transition: all 0.2s ease;
+            border: 1px solid #aaaaaa88 !important;
+            
+        }
+        .btn-cancel:hover{
+            background-color: #292B32;
+            color: white;
+            
+        }
+        .read-app-list-row{
+          transition: all 0.2s ease;
+        }
+        .read-app-list-row:hover{
+          background-color: #aaa;
+        }
+
+    </style>
 </head>
 
 <body layout:fragment="content">
@@ -35,7 +57,7 @@
 
                 <th:block th:if="${rrList}!=null" th:each="rr : ${rrList}">
 
-                    <tr>
+                    <tr class="read-app-list-row">
                         <td th:text="${rr.brNo}"></td>
                         <td th:text="${rr.frTitle}"></td>
                         <td th:text="${rr.name}"></td>
@@ -62,7 +84,7 @@
                                 <form action="/facilityRental/reqConfirm" method="POST">
                                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                     <input type="hidden" name="brNo" th:value="${rr.brNo}">
-                                    <input type="submit" value="입금확정">
+                                    <input type="submit" value="입금확정" class="btn-cancel">
                                 </form>
                             </th:block>
                         </td>
@@ -72,7 +94,7 @@
                                 <form action="/facilityRental/reqAccept" method="POST">
                                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                     <input type="hidden" name="brNo" th:value="${rr.brNo}">
-                                    <input type="submit" value="승인">
+                                    <input type="submit" value="승인" class="btn-cancel">
                                 </form>
                             </th:block>
                         </td>
@@ -83,7 +105,7 @@
                                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                     <input type="hidden" name="brNo" th:value="${rr.brNo}">
 
-                                    <input type="submit" value="거절">
+                                    <input type="submit" value="거절" class="btn-cancel">
                                 </form>
                             </th:block>
                         </td>

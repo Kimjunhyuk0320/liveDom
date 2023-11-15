@@ -140,7 +140,15 @@ th {
     background-color: rgba(255, 255, 255, 0.2);
     color: black;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    border-style: none;
+    border: 1px solid #aaaaaa88;
+    background-color: #fff;
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+#filter-btn:hover{
+
+    background-color: #292B32;
+                    color: white;
 }
 
 
@@ -767,4 +775,20 @@ th {
 /* 블라인드 부분 숨기기 */
 .blind {
     display: none;
+}
+.input-search{
+    border: 1px solid #aaaaaa88 !important;
+    background-color: #fff !important;
+    font-size: 15px;
+}
+
+.team-list-row{
+
+    transition: all 0.2s ease;
+
+}
+.team-list-row:hover{
+
+    background-color: #aaa;
+    cursor: pointer;
 }

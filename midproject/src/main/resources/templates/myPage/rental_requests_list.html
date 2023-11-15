@@ -6,6 +6,27 @@
 <head>
     <title>신청한 대관 내역</title>
     <link rel="stylesheet" href="/css/teamList.css">
+    <style>
+
+        .btn-cancel{
+            background-color: #ddd;
+            font-size: 12px;
+            transition: all 0.2s ease;
+            border: 1px solid #aaaaaa88 !important;
+            
+        }
+        .btn-cancel:hover{
+            background-color: #292B32;
+            color: white;
+            
+        }
+        .read-app-list-row{
+          transition: all 0.2s ease;
+        }
+        .read-app-list-row:hover{
+          background-color: #aaa;
+        }
+    </style>
 </head>
 <body layout:fragment="content">
 
@@ -23,9 +44,9 @@
                         <th width="80">번호</th>
                         <th width="250">대관글 제목</th>
                         <th width="120">대관 연락처</th>
-                        <th width="130">대관인 성명</th>
+                        <th width="100">대관인 성명</th>
                         <th width="100">주소</th>
-                        <th width="150">계좌번호</th>
+                        <th width="200">계좌번호</th>
                         <th width="100">입금여부</th>
                         <th width="90">승인여부</th>
                         <th width="90">신청취소</th>
@@ -33,7 +54,7 @@
                 </thead>
                 <tbody>
                     <th:block th:if="${rreqList != null}" th:each=" rreq : ${rreqList}">
-                        <tr>
+                        <tr class="read-app-list-row">
                             <td th:text="${rreq.brNo}"></td>
                             <td th:text="${rreq.frTitle}"></td>
                             <td th:text="${rreq.frPhone}"></td>
@@ -62,7 +83,7 @@
                                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                         <input type="hidden" name="brNo" th:value="${rreq.brNo}">
                                         
-                                        <input type="submit" value="신청취소">
+                                        <input type="submit" value="신청취소" class="btn-cancel">
                                     </form>
                                 </th:block>
                             </td>
