@@ -101,7 +101,7 @@
                     </th:block>
                     <th:block th:if="${team.username == #authentication.principal.username}">
 
-                        <a th:href="|/team/update?teamNo=${team.teamNo}|"><button style="background-color: blue;">수정</button></a>
+                        <a th:href="|/team/update?teamNo=${team.teamNo}|"><button style="background-color: rgba(0, 0, 255, 0.525);">수정</button></a>
 
                     
                         <form action="/team/delete" method="POST" style="display: inline-block;">
