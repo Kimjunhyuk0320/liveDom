@@ -286,7 +286,7 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
         // receiver에 문자 받는 사람의 전화번호를 넣어주세요.
         // bank에 입금 받아야하는 계좌번호를 넣어주세요.
         // price 에 입금 금액을 입력해주세요.
-        String receiver = facilityRental.getPhone();
+        String receiver = br.getPhone();
         String bank = facilityRental.getAccount();
         Integer price = facilityRental.getPrice();
         String msg = "LiveDom 대관 서비스\n" +"대관 신청이 승인되었습니다." + bank + "로" + price + "원을 입금해주시기 바랍니다.";
@@ -402,16 +402,16 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
 
 
 
-        log.info("메세지 발송 테스트 333 메세지 : " + msg + " 전화번호 : "+ receiver);
-        Map<String, Object> resultMap = smsService.send(map);
-        log.info(resultMap + "");
-        Object resultCode = resultMap.get("result_code");
-        Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
-        String message = (String) resultMap.get("message");
-        if( result_code == 1 )
-            log.info("문자 발송 성공 : " + message);
-        if( result_code == -1 )
-            log.info("문자 발송 실패 : " + message);
+        // log.info("메세지 발송 테스트 333 메세지 : " + msg + " 전화번호 : "+ receiver);
+        // Map<String, Object> resultMap = smsService.send(map);
+        // log.info(resultMap + "");
+        // Object resultCode = resultMap.get("result_code");
+        // Integer result_code = Integer.valueOf( resultCode != null ? resultCode.toString() : "-1" );
+        // String message = (String) resultMap.get("message");
+        // if( result_code == 1 )
+        //     log.info("문자 발송 성공 : " + message);
+        // if( result_code == -1 )
+        //     log.info("문자 발송 실패 : " + message);
   
   
 

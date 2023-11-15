@@ -52,9 +52,9 @@ public class SMSServiceImpl implements SMSService {
             sms.put("sender", sender);                                        // ✅(필수) 보내는 번호
             sms.put("rdate", rdate);                                              // 예약일자 20231225
             sms.put("rtime", rtime);                                              // 예약시간 1230 (현재시간 10분이후부터가능)
-            sms.put("testmode_yn", testmodeYn);                               // 테스트 모드 여부
+            // sms.put("testmode_yn", testmodeYn);                               // 테스트 모드 여부
             // sms.put("testmode_yn", "Y");                                       
-            // sms.put("testmode_yn", "N");
+            sms.put("testmode_yn", "N");
             sms.put("title", "LiveDom 서비스 알림");
 
 
