@@ -177,6 +177,9 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
             log.info(uploadFile.toString());
             //file테이블에 새로운 썸네일 등록
             int updateResult = fileMapper.update(uploadedFile);
+            if(updateResult==0){
+                fileMapper.insert(uploadedFile);
+            }
             System.out.println(updateResult);
         }
         return result;
