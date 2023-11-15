@@ -160,7 +160,10 @@ public class LiveBoardServiceImpl implements LiveBoardService{
             uploadedFile.setOriginName(originName);
             uploadedFile.setFileSize(fileSize);
             uploadedFile.setFileCode(0);
-            fileMapper.update(uploadedFile);
+            int fuResult = fileMapper.update(uploadedFile);
+            if(fuResult==0){
+                fileMapper.insert(uploadedFile);
+            }
         }
 
 
