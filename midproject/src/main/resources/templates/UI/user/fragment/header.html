@@ -327,7 +327,7 @@
 
         <div class="header-inner">
             <div class="logo img_box">
-                <a href="/">
+                <a href="/liveBoard">
                     <img src="/img/logo_header.png" style="width: 280px; height: 100px; object-fit: cover; margin-bottom: 5px;">
                 </a>     
             </div>
@@ -400,12 +400,12 @@
                 <ul class="header-row cells-right">
                     <th:block sec:authorize="isAuthenticated()">
                     <li class="cells menu-4">
-                            <a href="/myPage">마이페이지</a>
-                            <ul>
-                                <li><a href="/myPage">내 정보 보기</a></li>
-                                <li><a href="/update">내 정보 수정하기</a></li>
-                            </ul>
-                            <div class="sub-menu-width sub-menu-width-4"></div>
+                        <a href="/myPage">마이페이지</a>
+                        <ul>
+                            <li><a href="/myPage">내 정보 보기</a></li>
+                            <li><a href="/update">내 정보 수정하기</a></li>
+                        </ul>
+                        <div class="sub-menu-width sub-menu-width-4"></div>
                     </li>
                     </th:block>
                         <th:block sec:authorize="isAnonymous()">
