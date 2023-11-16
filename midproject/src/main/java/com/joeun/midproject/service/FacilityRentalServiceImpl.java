@@ -1,6 +1,7 @@
 package com.joeun.midproject.service;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -95,14 +96,20 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
 
             // UID_강아지.png
             String fileName = UUID.randomUUID().toString() + "_" + originName;
-
+            log.info(fileName);
+            String path = Paths.get(System.getProperty("user.dir"), "midproject/src/main/resources/upload").toString();
+            log.info(path);
+            path = path.replace("\\", "/");
+            log.info(path);
             // c:/upload/UID_강아지.png
-            String filePath = uploadPath + "/" + fileName;
-
+            String filePath = path + "/" + fileName;
+            log.info(filePath);
+            
             // 파일업로드
             // - 서버 측, 파일 시스템에 파일 복사
             // - DB 에 파일 정보 등록
-            File uploadFile = new File(uploadPath, fileName);
+            File uploadFile = new File(path, fileName);
+            log.info(uploadFile.toString());
             FileCopyUtils.copy(fileData, uploadFile);       // 파일 업로드
 
             // FileOutputStream fos = new FileOutputStream(uploadFile);
@@ -117,7 +124,7 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
             uploadedFile.setOriginName(originName);
             uploadedFile.setFileSize(fileSize);
             uploadedFile.setFileCode(0);
-
+            log.info(uploadedFile.toString());
             fileMapper.insert(uploadedFile);
         }
         return result;
@@ -149,14 +156,14 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
 
             // UID_강아지.png
             String fileName = UUID.randomUUID().toString() + "_" + originName;
-
+            String path = Paths.get(System.getProperty("user.dir"), "midproject/src/main/resources/upload").toString().replace("\\", "/");
             // c:/upload/UID_강아지.png
-            String filePath = uploadPath + "/" + fileName;
+            String filePath = path + "/" + fileName;
 
             // 파일업로드
             // - 서버 측, 파일 시스템에 파일 복사
             // - DB 에 파일 정보 등록
-            File uploadFile = new File(uploadPath, fileName);
+            File uploadFile = new File(path, fileName);
             FileCopyUtils.copy(fileData, uploadFile);       // 파일 업로드
 
             // FileOutputStream fos = new FileOutputStream(uploadFile);
@@ -177,6 +184,9 @@ public class FacilityRentalServiceImpl implements FacilityRentalService {
             log.info(uploadFile.toString());
             //file테이블에 새로운 썸네일 등록
             int updateResult = fileMapper.update(uploadedFile);
+            if(updateResult==0){
+                fileMapper.insert(uploadedFile);
+            }
             System.out.println(updateResult);
         }
         return result;
