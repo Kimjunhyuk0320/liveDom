@@ -25,6 +25,7 @@
 <ul>
   <li>인원 : 4명</li>
   <li>주요업무 : </li>
+  
 ![파트분담](https://github.com/Kimjunhyuk0320/liveDom/assets/141020545/8bda007a-8928-4d51-ade3-1266292e31de)
 </ul>
 
