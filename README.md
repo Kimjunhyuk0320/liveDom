@@ -43,12 +43,10 @@
       <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"/>
       <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black"/>
       <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
-      <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=white"/>
-
-<img src="https://img.shields.io/badge/jquery-0769AD?style=for-the-badge&logo=jquery&logoColor=white">
+      <img src="https://img.shields.io/badge/jquery-0769AD?style=for-the-badge&logo=jquery&logoColor=white">
 
 <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-<img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
+
 
 
 
@@ -60,9 +58,10 @@
     <ul>
       <li>
         <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
-        <img src="https://img.shields.io/badge/Thymeleaf-005F0F?style=for-the-badge&logo=Thymeleaf&logoColor=white">
+        <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
         <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">
-        
+        <img src="https://img.shields.io/badge/Thymeleaf-005F0F?style=for-the-badge&logo=Thymeleaf&logoColor=white">
+        <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
       </li>
     </ul>
   </li>
@@ -77,6 +76,7 @@
     <ul>
       <li>
         <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
+        <img src="https://camo.githubusercontent.com/a42414a504798907ccd17dfc5fd436295ffee77b977fba640ab3d1aca143530e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446576746f6f6c732d3644423333463f7374796c653d666c6174266c6f676f3d737072696e67626f6f74266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/Devtools-6DB33F?style=flat&amp;logo=springboot&amp;logoColor=white" style="max-width: 100%;">
         <img src="https://img.shields.io/badge/Made%20for-VSCode-1f425f.svg">
       </li>
     </ul>
