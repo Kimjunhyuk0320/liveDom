@@ -3,7 +3,7 @@
 # 프로젝트 : Live Dom
 <hr>
 
-[구동화면메인](https://github.com/Kimjunhyuk0320/liveDom/assets/141020545/5ab8a09b-c860-4658-9c20-2a9decd11bfb)
+![구동화면메인](https://github.com/Kimjunhyuk0320/liveDom/assets/141020545/5ab8a09b-c860-4658-9c20-2a9decd11bfb)
 
 ## 주제
 <hr>
