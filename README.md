@@ -105,7 +105,7 @@
 ## ERD
 <hr>
 
-![ERD](https://github.com/Kimjunhyuk0320/liveDom/assets/141020545/af8d9754-dc9d-443b-9180-eeb7917d376d)
+![ERD2](https://github.com/Kimjunhyuk0320/liveDom/assets/141020545/20b81d56-69cb-46cf-a732-3c296c2235be)
 
 ## 주요기능
 
